@@ -8,8 +8,8 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Pizza Restaurant in Newyork</title>
-        <meta name="description" content="Best Pizza shop in town" />
+        <title>Tesla Lighting</title>
+        <meta name="description" content="Tesla Lighting" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,9 +24,9 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      <Featured />
+      {/* <Featured />
 
-      <PizzaList />
+      <PizzaList /> */}
     </div>
   );
 }
