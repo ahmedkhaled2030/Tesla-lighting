@@ -53,7 +53,7 @@ const OnSaleList = () => {
       return (
         <div className={` innerWidth   ${styles.container}`}>
           <h1 className={` primaryText ${styles.title}`}>On sale items</h1>
-         
+          <h1 className="borderText">VIEW ALL</h1>
           <div className={` yPaddings ${styles.wrapper}`}>
           <Slider {...sliderSettings} className={styles.slider} >
             <OnSaleCard img="/img/sale1.png" title="Steel Frame with Clear Glass Shade Pendant" price="3,767.00" sale="129.00" />

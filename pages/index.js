@@ -6,6 +6,8 @@ import styles from '../styles/Home.module.scss'
 import NewArrivalList from "@/components/NewArrivalList";
 import OnSaleList from "@/components/OnSaleList";
 import ReviewList from "@/components/ReviewList";
+import Help from "@/components/Help";
+import Times from "@/components/Times";
 
 export default function Home() {
   return (
@@ -33,6 +35,8 @@ export default function Home() {
       <NewArrivalList />
       <OnSaleList />
       <ReviewList />
+      <Help />
+      <Times />
     </div>
   );
 }

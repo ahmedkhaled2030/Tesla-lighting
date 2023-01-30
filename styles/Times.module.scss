@@ -1,0 +1,52 @@
+@import "./contants.scss";
+@import "./globals.scss";
+
+
+.container{
+
+    margin: 0 !important;
+    background-image: url("/img/times.jpg");
+    background-size: cover;
+    height: 60vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    position: relative;
+    margin: 3rem 0;
+
+    .times{
+        position: absolute;
+        background-color: white;
+        padding: 40px 280px 40px 30px;
+        top: 80px;
+        left: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        text-align: left;
+        font-size: 18px;
+        p{
+            margin: 10px 0px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 300;
+            font-size:16px ;
+        }
+        .dates{
+            line-height: 2rem;
+        }
+       
+        button{
+            background-color: #111111;
+            color:#ffffff;
+            border: none;
+            padding:10px;
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            letter-spacing:3.6px;
+            font-size: 12px;
+        }
+    }
+
+}

@@ -51,7 +51,9 @@ const NewArrivalList = () => {
   };
   return (
     <div className={` innerWidth yPaddings  ${styles.container}`}>
+      
       <h1 className={` primaryText ${styles.title}`}>new arrival</h1>
+      <h1 className="borderText">VIEW ALL</h1>
      
       <div className={` yPaddings ${styles.wrapper}`}>
       <Slider {...sliderSettings} className={styles.slider} >

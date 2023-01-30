@@ -1,5 +1,7 @@
 @import "./contants.scss";
 
+
+
 .bg-primary {
   background-color: white;
 }
@@ -147,4 +149,18 @@
   position: relative;
   top: -100px;
   visibility: hidden;
+}
+
+.borderText{
+  border: 1px solid #e8e8e1;
+  padding: 10px 20px;
+  color: black;
+  font-size: 12px;
+  font-weight: 300;
+  width: 80px;
+  margin: 20px auto;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  letter-spacing:3.6px;
+  cursor: pointer;
 }
