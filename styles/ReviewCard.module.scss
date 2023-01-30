@@ -1,0 +1,23 @@
+@import "./contants.scss";
+@import "./globals.scss";
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .rating{
+        margin: 1rem 0rem 0.3rem 0rem;
+        color: #383838;
+        font-size: 1.8rem;
+    }
+    .title{
+        font-size: 1rem;
+        font-weight: 500;
+    }
+    .user{
+        color: #c8c8c8;
+    }
+}

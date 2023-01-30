@@ -1,0 +1,150 @@
+@import "./contants.scss";
+
+.bg-primary {
+  background-color: white;
+}
+
+.innerWidth {
+  @media (min-width: $xxl) {
+    max-width: 1500px;
+    margin: auto;
+  }
+
+  width: 100% ;
+}
+
+.paddings {
+  @media (min-width: $sm) {
+    padding: 4rem;
+  }
+
+  @media (min-width: $xl), (min-width: $md) {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  // padding-left: 50rem;
+  // padding-right: 50rem;
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.xPaddings {
+  @media (min-width: $sm) {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+  padding-right: 2.5rem !important;
+  padding-left: 2.5rem !important;
+}
+
+.yPaddings {
+  @media (min-width: $sm) {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  @media (min-width: $xl) {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+
+.topPaddings {
+  @media (min-width: $sm) {
+    padding-top: 4rem;
+  }
+
+  @media (min-width: $xl) {
+    padding-top: 2rem;
+  }
+
+  padding-top: 3rem !important;
+}
+
+.bottomPaddings {
+  @media (min-width: $sm) {
+    padding-bottom: 4rem;
+  }
+
+  @media (min-width: $xl) {
+    padding-bottom: 2rem;
+  }
+
+  padding-bottom: 3rem !important;
+}
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexStart {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.flexEnd {
+  display: flex;
+  justify-items: flex-end;
+}
+
+.primaryText {
+  @media (max-width: $sm) {
+    font-size: 1.5rem;
+  }
+  padding: 0;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-align: center;
+  color: #000000;
+  font-family: "Tenor Sans", sans-serif;
+}
+
+.secondaryText {
+  @media (max-width: $sm) {
+    font-size: 1.1rem;
+    line-height: 40px;
+  }
+  line-height: 50px;
+  font-size: 0.75rem;
+  letter-spacing: 2.56px;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+}
+
+.thirdText {
+  @media (max-width: $sm) {
+    font-size: 0.4rem;
+    line-height: 25px;
+  }
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 3.2px;
+  font-weight: 400;
+  font-style: normal;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.anchor {
+  display: block;
+  position: relative;
+  top: -100px;
+  visibility: hidden;
+}

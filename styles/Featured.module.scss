@@ -1,33 +1,31 @@
-@import './contants.scss';
+@import "./contants.scss";
 
-
-.container{
-
-    height: calc(100vh - 100px);
-  background-color: #d1411e;
+.container {
+  height: calc(100vh - 100px);
   overflow: hidden;
   position: relative;
+width: 300vw;
 
-    .wrapper{
-        width: 300vw;
-        height: 100%;
-        display: flex;
-        transition: all 1.5s ease-in-out ;
-        .imgContainer {
-            width: 100vw;
-            height: 100%;
-            position: relative;
-          }
+  .wrapper {
+    width: 300vw;
+    height: 100%;
+    display: flex;
+    transition: all 1.5s ease-in-out;
+    .imgContainer {
+      width: 100vw;
+      height: 100%;
+      position: relative;
     }
+  }
 
-    .arrowContainer{
-        position: absolute;
-  width: 10%;
-  height: 20%;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  cursor: pointer;
-  z-index: 2;
-    }
+  .arrowContainer {
+    position: absolute;
+    width: 5%;
+    height: 5%;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    cursor: pointer;
+    z-index: 2;
+  }
 }

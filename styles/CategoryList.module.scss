@@ -1,0 +1,10 @@
+@import "./contants.scss";
+@import "./globals.scss";
+
+.container {
+  .wrapper {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}

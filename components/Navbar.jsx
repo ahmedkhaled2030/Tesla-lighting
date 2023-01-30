@@ -8,8 +8,8 @@ import {
 } from "@mui/icons-material";
 
 const Navbar = () => {
-  return (
-    <div className={styles.container}>
+  return ( 
+    <div className={`paddings ${styles.container}`}>
       <div className={styles.item}>
         <Search className={styles.icon} />
       </div>

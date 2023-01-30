@@ -1,13 +1,16 @@
 import Featured from "@/components/Featured";
-import PizzaList from "@/components/PizzaList";
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import CategoryList from "@/components/CategoryList";
+import styles from '../styles/Home.module.scss'
+import NewArrivalList from "@/components/NewArrivalList";
+import OnSaleList from "@/components/OnSaleList";
+import ReviewList from "@/components/ReviewList";
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <Head>
+    <div >
+      <Head> 
         <title>Tesla Lighting</title>
         <meta name="description" content="Tesla Lighting" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,9 +27,12 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      {/* <Featured />
+   {/* <Featured /> */}
 
-      <PizzaList /> */}
+      <CategoryList />
+      <NewArrivalList />
+      <OnSaleList />
+      <ReviewList />
     </div>
   );
 }

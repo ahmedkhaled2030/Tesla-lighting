@@ -7,17 +7,18 @@ const Featured = () => {
     
     const handleArrow = (direction) => {
         if (direction === 'l') {
-              setIndex(index !== 0 ? index-1 : 2)
+              setIndex(index !== 0 ? index-1 : 3)
         }
         
         if (direction === 'r') {
-            setIndex(index !== 2 ? index+1 : 0)
+            setIndex(index !== 3 ? index+1 : 0)
         }
     }
   const images = [
-    "/img/featured.png",
-    "/img/featured2.png",
-    "/img/featured3.png",
+    "/img/slider1.jpg",
+    "/img/slider2.jpg",
+    "/img/slider3.jpg",
+    "/img/slider4.jpg",
   ];
 
   return (
