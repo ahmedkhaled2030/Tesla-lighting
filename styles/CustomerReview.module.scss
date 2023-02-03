@@ -1,0 +1,43 @@
+@import "./contants.scss";
+@import "./globals.scss";
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    .rating {
+      color: #383838;
+      font-size: 1.8rem;
+    }
+    .reviewPart {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .subHeading {
+        line-height: 20.16px;
+        letter-spacing: 4.32px;
+        margin: 0px 0px 8px;
+        padding: 0px;
+      }
+      .reviewInput {
+        width: 500px;
+        padding: 10px 40px;
+        border: 2px solid $line;
+      }
+      .reviewInput::placeholder {
+     text-align: left;
+     color: #c8c8c8;
+      }
+    }
+  }
+}

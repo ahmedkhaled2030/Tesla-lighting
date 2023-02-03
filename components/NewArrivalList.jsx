@@ -50,7 +50,7 @@ const NewArrivalList = () => {
     ],
   };
   return (
-    <div className={` innerWidth yPaddings  ${styles.container}`}>
+    <div className={` innerWidth ${styles.container}`}>
       
       <h1 className={` primaryText ${styles.title}`}>new arrival</h1>
       <h1 className="borderText">VIEW ALL</h1>

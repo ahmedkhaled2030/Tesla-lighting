@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./../styles/ReviewCard.module.scss";
 const ReviewCard = ({title,desc,user,img,itemName}) => {
   return (
-    <div className={`yPaddings ${styles.container}`}>
+    <div className={styles.container}>
       <Rating name="read-only" value="5" readOnly className={styles.rating} />
       <h3 className={`secondaryText ${styles.title}`}>{title}</h3>
       <span className={`secondaryText ${styles.desc}`}>{desc}</span>

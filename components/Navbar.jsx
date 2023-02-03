@@ -9,7 +9,7 @@ import {
 
 const Navbar = () => {
   return ( 
-    <div className={`paddings ${styles.container}`}>
+    <div className={styles.container}>
       <div className={styles.item}>
         <Search className={styles.icon} />
       </div>
@@ -18,7 +18,7 @@ const Navbar = () => {
           <li className={`secondaryText ${styles.listItem}`}>HOME</li>
           <li className={`secondaryText ${styles.listItem}`}>CATEGORIES</li>
           <li className={`secondaryText ${styles.listItem}`}>ABOUT</li>
-          <Image src="/img/logo.png" alt="" width="200" height="100" />
+          <Image src="/img/logo.png" alt="" width="200" height="100" objectFit="contain" /> 
           <li className={`secondaryText ${styles.listItem}`}>CONTACT</li>
           <li className={`secondaryText ${styles.listItem}`}>PORTFOLIO</li>
           <li className={`secondaryText ${styles.listItem}`}>FLYER</li>

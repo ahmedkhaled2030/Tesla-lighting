@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./../styles/Help.module.scss";
 const Help = () => {
   return (
-    <div className={` innerWidth yPaddings ${styles.container}`}>
+    <div className={` innerWidth  ${styles.container}`}>
       <div className={styles.item}>
         <Image
           src="/img/help.png"

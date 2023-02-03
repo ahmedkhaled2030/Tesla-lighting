@@ -2,16 +2,22 @@
 
 .container {
     height: 100px;
-    background-color:white;
+    background-color:white;  
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 999;
-
+    overflow-y: hidden; 
+    overflow-x: hidden;
+    .item{
+        flex: 1;
+        justify-content: flex-start;
+    }
     >:nth-child(2){
         .listWrapper{
+            flex: 6;
             display: flex;
             list-style: none;
             align-items: center;
@@ -21,8 +27,9 @@
     }
     >:nth-child(3){
         display: flex;
+        flex: 1;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-end; 
         gap: 2rem;
 
         >:nth-child(2){
@@ -61,12 +68,7 @@
         }
     }
 
-.item{
-    .icon{
-        font-size: 25px;
 
-    }
-}
 
 
 }

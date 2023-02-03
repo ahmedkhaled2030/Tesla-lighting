@@ -50,18 +50,20 @@ const ReviewList = () => {
     ],
   };
   return (
-    <div className={`innerWidth xPaddings ${styles.container}`}>
+    <div className={styles.container}>
       <div>
       <h1 className={` primaryText ${styles.title}`}>
         let customers speak for us
       </h1>
-      <Rating name="read-only" value="5" readOnly className={styles.rating} />
+        <Rating name="read-only" value="5" readOnly className={styles.rating} />
+
+
       <p className={`secondaryText ${styles.number}`}>from 110 reviews</p>
       </div>
       
      
 
-      <div className={`flexCenter ${styles.wrapper}`}>
+      <div className={styles.wrapper}> 
         <Slider {...sliderSettings} className={styles.slider}>
           <ReviewCard
             title="New island lights"

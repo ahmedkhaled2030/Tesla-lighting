@@ -8,6 +8,7 @@ import OnSaleList from "@/components/OnSaleList";
 import ReviewList from "@/components/ReviewList";
 import Help from "@/components/Help";
 import Times from "@/components/Times";
+import CustomerReview from "@/components/CustomerReview";
 
 export default function Home() {
   return (
@@ -37,6 +38,7 @@ export default function Home() {
       <ReviewList />
       <Help />
       <Times />
+      <CustomerReview />
     </div>
   );
 }
