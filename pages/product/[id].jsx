@@ -1,18 +1,107 @@
 import styles from "../../styles/Product.module.scss";
 import Image from "next/image";
 import { useState } from "react";
-import { FavoriteBorderOutlined } from "@mui/icons-material";
+
+import {
+  Search,
+  PersonOutlineOutlined,
+  FavoriteBorderOutlined,
+  Check,
+} from "@mui/icons-material";
 import CustomerReview from "@/components/CustomerReview";
 import Head from "next/head";
 import { Rating } from "@mui/material";
+import FiveProductsList from "@/components/FiveProductsList";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+
 const Product = () => {
   const images = [
     "/img/product1.png",
     "/img/product2.png",
     "/img/product3.png",
   ];
+
+  const SimilarProducts = [
+    {
+      img: "/img/arrival1.png",
+      title: "Aged Brass Frame with Etched Glass Shade Linear Pendant",
+      price: "3,767.00",
+    },
+    {
+      img: "/img/arrival2.jpg",
+      title:
+        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
+      price: "3,767.00",
+    },
+    {
+      img: "/img/arrival3.png",
+      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
+      price: "3,767.00",
+    },
+    {
+      img: "/img/arrival4.png",
+      title: "Gold Leaf Leafy Bohemian Shade Wall Sconce",
+      price: "3,767.00",
+    },
+    {
+      img: "/img/arrival5.png",
+      title:
+        "Handcrafted Wallflower Frame with Opal Matte Glass Globe Pendant / Chandelier",
+      price: "3,767.00",
+    },
+  ];
+  const RecentViewedProducts = [
+    {
+      img: "/img/1.jpg",
+      title: "Aged Brass Frame with Etched Glass Shade Linear Pendant",
+      price: "3,767.00",
+    },
+    {
+      img: "/img/2.jpg",
+      title:
+        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
+      price: "3,767.00",
+    },
+    {
+      img: "/img/3.jpg",
+      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
+      price: "3,767.00",
+    },
+    {
+      img: "/img/4.jpg",
+      title: "Gold Leaf Leafy Bohemian Shade Wall Sconce",
+      price: "3,767.00",
+    },
+    {
+      img: "/img/5.jpg",
+      title:
+        "Handcrafted Wallflower Frame with Opal Matte Glass Globe Pendant / Chandelier",
+      price: "3,767.00",
+    },
+  ];
+  const Reviews = [
+    {
+      name: "Laura Carter",
+      Verified: true,
+      rating: 5,
+      reviewTitle: "Vey Nice",
+      reviewComment:
+        "Hi, I purchased it for my new build… not completed yet… however cannot wait to hang it!…",
+    },
+    {
+      name: "Ivy Ng",
+      Verified: false,
+      rating: 3,
+      reviewTitle: "Love it",
+      reviewComment: "It match my place, quality is good, worth it",
+    },
+  ];
   const [selectedImg, setSelectedImg] = useState(images[1]);
   const [show, setShow] = useState(false);
+  console.log(selectedImg);
 
   const toggleShow = () => {
     setShow(!show);
@@ -40,7 +129,7 @@ const Product = () => {
   Manufacturer Warranty: Three years warranty against manufacturers defect.`;
 
   return (
-    <div className={styles.container}>
+    <div className={`paddings ${styles.container}`}>
       <Head>
         <title>Tesla Lighting</title>
         <meta name="description" content="Tesla Lighting" />
@@ -61,31 +150,30 @@ const Product = () => {
 
       <div className={styles.top}>
         <div className={styles.left}>
-          <div className={styles.subImages}>
-            <Image
-              src="/img/product1.png"
-              alt=""
-              width="100"
-              height="100"
-              objectFit="contain"
-              className={styles.subImg}
-            />
-            <Image
-              src="/img/product2.png"
-              alt=""
-              width="100%"
-              height="150px"
-              objectFit="contain"
-              className={styles.subImg}
-            />
+          <div className={styles.subImagesContainer}>
+            {images.map((image, i) => (
+              <div
+                className={styles.image}
+                onClick={() => setSelectedImg(image)}
+              >
+                <Image
+                  src={image}
+                  alt=""
+                  width="100%"
+                  height="150px"
+                  objectFit="contain"
+                  className={styles.subImg}
+                />
+              </div>
+            ))}
           </div>
 
           <div className={styles.mainImgContainer}>
             <Image
-              src="/img/product3.png"
+              src={selectedImg}
               alt=""
-              width="100%"
-              height="800px"
+              width="300px"
+              height="500px"
               objectFit="contain"
               className={styles.mainImg}
             />
@@ -113,28 +201,33 @@ const Product = () => {
           <span className={styles.desc}>{desc}</span>
         </div>
       </div>
+
       <div className={styles.bottom}>
         <h1 className={`primaryText ${styles.title}`}>Customer Review</h1>
-        <div className={styles.top}>
-          <div className={styles.leftTop}>
+        <div className={styles.reviewTop}>
+
+          {Reviews.length >= 1 ? "" : (
+            <div className={styles.reviewTopLeft}>
             <Rating
               name="disabled"
               value="0"
               disabled
               className={styles.rating}
             />
-            <div className={styles.line}></div>
-            <span className={styles.reviewText}>
+              <span className={styles.reviewText}>
               Be the first to write a review
             </span>
-          </div>
-          <div className={styles.rightTop}>
+            </div>
+) }
+          
+         
+          <div className={styles.reviewTopRight}>
             <button onClick={toggleShow} className={styles.switchButton}>
               {buttonText}
             </button>
           </div>
         </div>
-        <div className={styles.hr}></div>
+
         {show && (
           <div className={styles.review}>
             <CustomerReview />
@@ -149,7 +242,59 @@ const Product = () => {
             </div>
           </div>
         )}
+
+        <div className={styles.reviews}>
+          {Reviews.map((review, i) => (
+            <div className={styles.review}>
+              <Rating
+                name="readOnly"
+                value={review.rating}
+                readOnly
+                className={styles.rating}
+              />
+              <div className={styles.personData}>
+                <div className={styles.personImg}>
+                  <PersonOutlineOutlined />
+                  {review.Verified ? (
+                    <div className={styles.check}>
+                      <Check className={styles.icon} />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className={styles.personName}>{review.name}</div>
+                {review.Verified ? (
+                  <div className={styles.verified}>Verified</div>
+                ) : (
+                  ""
+                )}
+              </div>
+              <span className={styles.reviewTitle}>{review.reviewTitle}</span>
+              <span className={styles.reviewComment}>{review.reviewComment}</span>
+
+            </div>
+            
+          ))}
+        </div>
       </div>
+
+
+      <div className={styles.hr}></div>
+      <div className={styles.similarProducts}>
+        <FiveProductsList
+          title="You may also like"
+          products={SimilarProducts}
+        />
+      </div>
+      <div className={styles.hr}></div>
+      <div className={styles.recentlyViewed}>
+        <FiveProductsList
+          title="Recently Viewed"
+          products={RecentViewedProducts}
+        />
+      </div>
+      <div className={styles.hr}></div>
     </div>
   );
 };
