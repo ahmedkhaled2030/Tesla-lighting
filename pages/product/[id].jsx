@@ -11,7 +11,7 @@ import {
 import CustomerReview from "@/components/CustomerReview";
 import Head from "next/head";
 import { Rating } from "@mui/material";
-import FiveProductsList from "@/components/FiveProductsList";
+import ProductsList from "@/components/ProductsList";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -98,6 +98,14 @@ const Product = () => {
       reviewTitle: "Love it",
       reviewComment: "It match my place, quality is good, worth it",
     },
+    {
+      name: "Eladio Carter",
+      Verified: true,
+      rating: 4,
+      reviewTitle: "EXcellent",
+      reviewComment:
+        "quality is good not completed yet… however cannot wait to hang it!…",
+    },
   ];
   const [selectedImg, setSelectedImg] = useState(images[1]);
   const [show, setShow] = useState(false);
@@ -172,7 +180,7 @@ const Product = () => {
             <Image
               src={selectedImg}
               alt=""
-              width="300px"
+              width="500px"
               height="500px"
               objectFit="contain"
               className={styles.mainImg}
@@ -203,24 +211,24 @@ const Product = () => {
       </div>
 
       <div className={styles.bottom}>
-        <h1 className={`primaryText ${styles.title}`}>Customer Review</h1>
+        <h1 className={`primaryText ${styles.title}`}>Customer Reviews</h1>
         <div className={styles.reviewTop}>
-
-          {Reviews.length >= 1 ? "" : (
+          {Reviews.length >= 1 ? (
+            ""
+          ) : (
             <div className={styles.reviewTopLeft}>
-            <Rating
-              name="disabled"
-              value="0"
-              disabled
-              className={styles.rating}
-            />
+              <Rating
+                name="disabled"
+                value="0"
+                disabled
+                className={styles.rating}
+              />
               <span className={styles.reviewText}>
-              Be the first to write a review
-            </span>
+                Be the first to write a review
+              </span>
             </div>
-) }
-          
-         
+          )}
+
           <div className={styles.reviewTopRight}>
             <button onClick={toggleShow} className={styles.switchButton}>
               {buttonText}
@@ -230,15 +238,18 @@ const Product = () => {
 
         {show && (
           <div className={styles.review}>
+            <div className={styles.reviewComponent}>
             <CustomerReview />
+            </div>
+
             <div className={styles.reviewButtons}>
+              <button className={styles.switchButton}>Submit Review</button>
               <button
                 onClick={() => setShow(false)}
                 className={styles.switchButton}
               >
                 Cancel review
               </button>
-              <button className={styles.switchButton}>Submit Review</button>
             </div>
           </div>
         )}
@@ -271,28 +282,21 @@ const Product = () => {
                 )}
               </div>
               <span className={styles.reviewTitle}>{review.reviewTitle}</span>
-              <span className={styles.reviewComment}>{review.reviewComment}</span>
-
+              <span className={styles.reviewComment}>
+                {review.reviewComment}
+              </span>
             </div>
-            
           ))}
         </div>
       </div>
 
-
       <div className={styles.hr}></div>
       <div className={styles.similarProducts}>
-        <FiveProductsList
-          title="You may also like"
-          products={SimilarProducts}
-        />
+        <ProductsList title="You may also like" products={SimilarProducts} />
       </div>
       <div className={styles.hr}></div>
       <div className={styles.recentlyViewed}>
-        <FiveProductsList
-          title="Recently Viewed"
-          products={RecentViewedProducts}
-        />
+        <ProductsList title="Recently Viewed" products={RecentViewedProducts} />
       </div>
       <div className={styles.hr}></div>
     </div>

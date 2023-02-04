@@ -8,15 +8,31 @@
   flex-direction: column;
   gap: 10px;
 
+  .title {
+    @media (max-width: $sm), (max-width: $md) {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+  .subHeading {
+    @media (max-width: $sm), (max-width: $md) {
+      font-size: 14px;
+    }
+  }
   .form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 20px;
+    @media (max-width: $sm), (max-width: $md) {
+      width: 100%;
+    }
+
     .rating {
       color: #383838;
-      font-size: 1.8rem;
+      font-size: 1.5rem;
+      height: 40px;
     }
     .reviewPart {
       display: flex;
@@ -28,16 +44,22 @@
         letter-spacing: 4.32px;
         margin: 0px 0px 8px;
         padding: 0px;
+        @media (max-width: $sm), (max-width: $md) {
+          font-size: 12px;
+        }
       }
       .reviewInput {
         width: 500px;
         padding: 10px 40px;
         border: 2px solid $line;
+        @media (max-width: $sm) {
+          width: 220px;
+        }
       }
       .reviewInput::placeholder {
-     text-align: left;
-     color: #c8c8c8;
-     font-family: "Poppins", sans-serif;
+        text-align: left;
+        color: #c8c8c8;
+        font-family: "Poppins", sans-serif;
       }
     }
   }

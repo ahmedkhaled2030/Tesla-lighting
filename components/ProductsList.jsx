@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { useState } from "react";
-import styles from "./../styles/FiveProductsList.module.scss";
-import FiveProductsCard from "./FiveProductsCard";
+import styles from "./../styles/ProductsList.module.scss";
+import ProductsCard from "./ProductsCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const FiveProductsList = ({ title, products }) => {
+const ProductsList = ({ title, products }) => {
   console.log(title);
   const sliderSettings = {
     // dots: true,
@@ -54,7 +54,7 @@ const FiveProductsList = ({ title, products }) => {
       <div className={styles.wrapper}>
         <Slider {...sliderSettings} className={styles.slider}>
           {products?.map((product, id) => (
-            <FiveProductsCard
+            <ProductsCard
               img={product.img}
               title={product.title}
               price={product.price}
@@ -66,4 +66,4 @@ const FiveProductsList = ({ title, products }) => {
   );
 };
 
-export default FiveProductsList;
+export default ProductsList;

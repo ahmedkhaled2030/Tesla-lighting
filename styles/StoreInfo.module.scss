@@ -1,0 +1,31 @@
+@import "./contants.scss";
+@import "./globals.scss";
+
+.container {
+  margin: 3rem 0;
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+
+.section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    .title {
+
+  
+        margin: 10px 0;
+      }
+      .desc {
+        width: 70%;
+        text-align: center;
+        line-height: 25px;
+        font-size: 12px;
+      }
+}
+
+  }
+}

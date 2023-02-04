@@ -1,5 +1,5 @@
 @import "./contants.scss";
-// @import "./globals.scss";
+@import "./globals.scss";
 
 .container {
   display: flex;
@@ -13,7 +13,10 @@
     display: flex;
     font-family: "Poppins", sans-serif;
     flex-wrap: wrap;
-    // gap: 50px;
+    @media (max-width: $sm), (max-width: $md) {
+      flex-wrap: wrap;
+      flex-direction: column;
+    }
     .left {
       flex: 1;
       display: flex;
@@ -24,15 +27,17 @@
         display: flex;
         flex-direction: column;
 
-        .subImg {
-          // width: 100%;
-          // height: 150px;
-          // object-fit: cover;
-          cursor: pointer;
+        .image {
+          .subImg {
+            // width: 100%;
+            // height: 150px;
+            // object-fit: cover;
+            cursor: pointer;
+          }
         }
       }
       .mainImgContainer {
-        flex: 3;
+        flex: 6;
         // width: 80%;
         // height: 100%;
         display: flex;
@@ -41,14 +46,18 @@
     }
 
     .right {
-      // padding: 20px;
       flex: 1;
       display: flex;
       align-items: flex-start;
       justify-content: flex-start;
       flex-direction: column;
       gap: 20px;
-
+      @media (max-width: $sm) {
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
       .number {
         font-size: 16px;
       }
@@ -81,6 +90,9 @@
         background-color: white;
         border: 1px solid black;
         padding: 6px 10px;
+        @media (max-width: $sm) {
+          width: 40%;
+        }
       }
       .buttonCart {
         width: 80%;
@@ -92,6 +104,11 @@
         text-align: center;
         font-size: 14px;
         letter-spacing: 4.2px;
+        @media (max-width: $sm) {
+          width: 90%;
+          font-weight: 600;
+          font-size: 13px;
+        }
       }
       .descHeading {
         font-size: 22px;
@@ -103,6 +120,9 @@
         line-height: 25.2px;
         letter-spacing: 0.45px;
         font-weight: 400;
+        @media (max-width: $sm) {
+          width: 90%;
+        }
       }
     }
   }
@@ -131,6 +151,10 @@
         justify-content: flex-start;
 
         padding-right: 20px;
+        @media (max-width: $sm), (max-width: $md) {
+          align-items: center;
+          gap: 10px;
+        }
         .rating {
           font-weight: 500;
         }
@@ -167,13 +191,17 @@
       align-items: center;
       gap: 10px;
       flex-direction: column;
+
+
       .reviewButtons {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 10px;
         margin: 2rem 0;
-
+        @media (max-width: $sm), (max-width: $md) {
+          flex-direction: column;
+        }
         .switchButton {
           padding: 10px 50px;
           font-weight: 700;
@@ -182,8 +210,11 @@
           letter-spacing: 0.45px;
           color: white;
           border: none;
+          @media (max-width: $sm), (max-width: $md) {
+            width: 100%;
+          }
         }
-        :nth-child(1) {
+        >:nth-child(2) {
           background-color: transparent;
           color: RGB(56, 56, 56);
           border: 2px solid RGB(56, 56, 56);
@@ -197,11 +228,14 @@
       justify-content: flex-start;
       flex-direction: column;
       gap: 20px;
-
+      @media (max-width: $sm){
+       margin: 10px;
+      }
       .review {
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
+        
         .rating {
           color: $rating;
         }
@@ -217,6 +251,11 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            @media (max-width: $sm), (max-width: $md) {
+           
+              width: 35px;
+              height: 35px;
+            }
             .check {
               position: absolute;
               width: 13px;
@@ -228,10 +267,19 @@
               background-color: #000;
               bottom: 0px;
               right: 0;
+
               .icon {
                 font-size: 12px;
                 font-weight: 500;
               }
+            }
+          }
+          .personName{
+            @media (max-width: $sm), (max-width: $md) {
+           
+              font-size: 14px;
+              font-weight: 400;
+              color: #c4c4c4
             }
           }
           .verified {
@@ -239,14 +287,25 @@
             padding: 1px 5px;
             color: white;
             font-size: 12px;
+            @media (max-width: $sm), (max-width: $md) {
+              padding: 1px 4px;
+              font-size: 10px;
+            }
           }
         }
 
         .reviewTitle {
           font-weight: 600;
+          @media (max-width: $sm), (max-width: $md) {
+            font-weight: 500;
+          }
         }
         .reviewComment {
           margin-bottom: 20px;
+          @media (max-width: $sm), (max-width: $md) {
+            width: 90%;
+            font-size: 14px;
+          }
         }
       }
     }

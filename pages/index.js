@@ -3,13 +3,14 @@ import Head from "next/head";
 import Image from "next/image";
 import CategoryList from "@/components/CategoryList";
 import styles from "../styles/Home.module.scss";
-import NewArrivalList from "@/components/FiveProductsList";
+import NewArrivalList from "@/components/ProductsList";
 import OnSaleList from "@/components/OnSaleList";
 import ReviewList from "@/components/ReviewList";
 import Help from "@/components/Help";
 import Times from "@/components/Times";
 import CustomerReview from "@/components/CustomerReview";
-import FiveProductsList from "@/components/FiveProductsList";
+import ProductsList from "@/components/ProductsList";
+import StoreInfo from "@/components/StoreInfo";
 
 export default function Home() {
   const products = [
@@ -68,10 +69,11 @@ export default function Home() {
       {/* <Featured /> */}
 
       <CategoryList />
-      <FiveProductsList title="New ARRIVAL" products={products} />
+      <ProductsList title="New ARRIVAL" products={products} />
       <OnSaleList />
       <ReviewList />
       <Help />
+      <StoreInfo />
       <Times />
     </div>
   );

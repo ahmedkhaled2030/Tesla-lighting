@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { useState } from "react";
-import styles from "./../styles/FiveProductsCard.module.scss";
+import styles from "./../styles/ProductsCard.module.scss";
 import { FavoriteBorderOutlined } from "@mui/icons-material";
 
-const FiveProductsCard = ({ img, title , price }) => {
+const ProductsCard = ({ img, title , price }) => {
   return (
     <div className={styles.container}>
       <Image src={img} alt={title} width="275" height="275" objectFit="contain" />
@@ -18,4 +18,4 @@ const FiveProductsCard = ({ img, title , price }) => {
   );
 };
 
-export default FiveProductsCard;
+export default ProductsCard;

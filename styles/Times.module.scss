@@ -4,21 +4,48 @@
 
 .container{
 
-    margin: 0 !important;
+ 
     background-image: url("/img/times.jpg");
     background-size: cover;
-    height: 60vh;
+    height: 500px;
     width: 100%;
-    margin: 0;
-    padding: 0;
     background-repeat: no-repeat;
     position: relative;
-    margin: 3rem 0;
+    margin: 4rem 0;
+    // animation: zoom-fade 0.5s cubic-bezier(.26,.54,.32,1) 0s forwards;
+    background-position: top 10% right 10%;
+    background-size: cover;
+    overflow: hidden;
+
+    // @keyframes zoom-fade {
+    //     10% {
+    //       opacity: 0;
+    //       transform: scale(1.2);
+    //     }
+        
+    //     40% {
+    //         opacity: 0;
+    //         transform: scale(1.1);
+    //       }
+          
+    //       800% {
+    //         opacity: 0;
+    //         transform: scale(1.05);
+    //       }
+          
+
+        
+    //     100% {
+    //         opacity: 1;
+    //       transform: scale(1);
+    //     }
+    //   }
 
     .times{
         position: absolute;
         background-color: white;
-        padding: 40px 280px 40px 30px;
+        padding: 40px;
+        width: 30%;
         top: 80px;
         left: 80px;
         display: flex;
