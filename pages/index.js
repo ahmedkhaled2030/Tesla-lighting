@@ -47,6 +47,49 @@ export default function Home() {
       price: "3,767.00",
     },
   ];
+  const categories = [
+    {
+      img: "/img/1.jpg",
+      title: "TRACK LIGHT",
+    },
+    {
+      img: "/img/2.jpg",
+      title: "MISC",
+    },
+    {
+      img: "/img/3.jpg",
+      title: "Chandelier",
+    },
+    {
+      img: "/img/4.jpg",
+      title: "LIGHTBULB",
+    },
+    {
+      img: "/img/5.jpg",
+      title: "CEILING FAN",
+    },
+    {
+      img: "/img/6.jpg",
+      title: "TRACK LIGHT",
+    },
+    {
+      img: "/img/7.jpg",
+      title: "LAMPS",
+    },
+    {
+      img: "/img/8.jpg",
+      title: "CONTEMPORARY VANITY LIGHT",
+    },
+    {
+      img: "/img/9.jpg",
+      title: "SCONE",
+    },
+    {
+      img: "/img/10.jpg",
+      title: "FLUSH MOUNT",
+    },
+
+  ];
   return (
     <div>
       <Head>
@@ -68,7 +111,7 @@ export default function Home() {
       </Head>
       {/* <Featured /> */}
 
-      <CategoryList />
+      <CategoryList categories={categories} title="shop by category" />
       <ProductsList title="New ARRIVAL" products={products}  />
       <OnSaleList />
       <ReviewList />

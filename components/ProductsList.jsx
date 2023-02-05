@@ -6,8 +6,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const ProductsList = ({ title, products }) => {
-  console.log(title);
+const ProductsList = ({ title, products, type }) => {
+  // console.log(products);
   const sliderSettings = {
     // dots: true,
     infinite: true,
@@ -49,19 +49,32 @@ const ProductsList = ({ title, products }) => {
   return (
     <div className={styles.container}>
       <h1 className={` primaryText ${styles.title}`}>{title}</h1>
-      <h1 className="borderText">VIEW ALL</h1>
+      {type !== "collections" && <h1 className="borderText">VIEW ALL</h1>}
 
       <div className={styles.wrapper}>
-        <Slider {...sliderSettings} className={styles.slider}>
-          {products?.map((product, id) => (
-            <ProductsCard
-              img={product.img}
-              title={product.title}
-              price={product.price}
-              
-            />
-          ))}
-        </Slider>
+        {type == "collections" ? (
+          <div className={styles.wrapper}>
+            {products?.map((product, id) => (
+              <ProductsCard
+                img={product.img}
+                title={product.title}
+                price={product.price}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className={styles.wrapper}>
+            <Slider {...sliderSettings} className={styles.slider}>
+              {products?.map((product, id) => (
+                <ProductsCard
+                  img={product.img}
+                  title={product.title}
+                  price={product.price}
+                />
+              ))}
+            </Slider>
+          </div>
+        )}
       </div>
     </div>
   );
