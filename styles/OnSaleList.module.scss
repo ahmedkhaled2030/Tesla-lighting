@@ -3,16 +3,14 @@
 
 .container {
 
-
-    
-    .wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-     gap: 10px;
-
-     }
- 
-
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    .slick-slide>div {
+      transform: scale(.5);
+      transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+    }
+  }
 }

@@ -4,21 +4,58 @@ import styles from "./../styles/CategoryList.module.scss";
 import CategoryCard from "./CategoryCard";
 
 const CategoryList = () => {
-  return (
-    <div className={` innerWidth    ${styles.container}`}>
-      <h1 className={`primaryText ${styles.title}`}>Shop by category</h1>
+  const categories = [
+    {
+      img: "/img/1.jpg",
+      title: "TRACK LIGHT",
+    },
+    {
+      img: "/img/2.jpg",
+      title: "MISC",
+    },
+    {
+      img: "/img/3.jpg",
+      title: "Chandelier",
+    },
+    {
+      img: "/img/4.jpg",
+      title: "LIGHTBULB",
+    },
+    {
+      img: "/img/5.jpg",
+      title: "CEILING FAN",
+    },
+    {
+      img: "/img/6.jpg",
+      title: "TRACK LIGHT",
+    },
+    {
+      img: "/img/7.jpg",
+      title: "LAMPS",
+    },
+    {
+      img: "/img/8.jpg",
+      title: "CONTEMPORARY VANITY LIGHT",
+    },
+    {
+      img: "/img/9.jpg",
+      title: "SCONE",
+    },
+    {
+      img: "/img/10.jpg",
+      title: "FLUSH MOUNT",
+    },
 
-      <div className={`flexCenter yPaddings   ${styles.wrapper}`}>
-        <CategoryCard img="/img/1.jpg" title="Chandelier" />
-        <CategoryCard img="/img/2.jpg" title="PENDANT" />
-        <CategoryCard img="/img/3.jpg" title="FLUSH MOUNT" />
-        <CategoryCard img="/img/4.jpg" title="SCONE" />
-        <CategoryCard img="/img/5.jpg" title="CONTEMPORARY VANITY LIGHT" />
-        <CategoryCard img="/img/6.jpg" title="LAMPS" />
-        <CategoryCard img="/img/7.jpg" title="TRACK LIGHT" />
-        <CategoryCard img="/img/8.jpg" title="CEILING FAN" />
-        <CategoryCard img="/img/9.jpg" title="LIGHTBULB" />
-        <CategoryCard img="/img/10.jpg" title="MISC" />
+  ];
+  return (
+    <div className={` innerWidth  yPaddings  ${styles.container}`}>
+      <h1 className={`primaryText paddings ${styles.title}`}>Shop by category</h1>
+      <div className={styles.wrapper} >
+      {categories?.map((category, i) => (
+    
+          <CategoryCard img={category.img} title={category.title} key={i} />
+     
+      ))}
       </div>
     </div>
   );

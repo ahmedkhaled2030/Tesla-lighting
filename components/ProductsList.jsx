@@ -13,7 +13,7 @@ const ProductsList = ({ title, products }) => {
     infinite: true,
     speed: 100,
     slidesToShow: 5,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     initialSlide: 1,
     touchMove: true,
 
@@ -58,6 +58,7 @@ const ProductsList = ({ title, products }) => {
               img={product.img}
               title={product.title}
               price={product.price}
+              
             />
           ))}
         </Slider>

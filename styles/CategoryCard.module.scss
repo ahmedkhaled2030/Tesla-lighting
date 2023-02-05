@@ -1,11 +1,21 @@
 @import "./contants.scss";
 @import "./globals.scss";
 .container {
-  width: 290px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
+  @media (max-width: $sm) {
+    width: 180px;
+  }
+
+  .title{
+    @media (max-width: $sm) {
+      font-size: 10px;
+      text-align: center;
+    }
+  }
+
 }

@@ -69,7 +69,7 @@ export default function Home() {
       {/* <Featured /> */}
 
       <CategoryList />
-      <ProductsList title="New ARRIVAL" products={products} />
+      <ProductsList title="New ARRIVAL" products={products}  />
       <OnSaleList />
       <ReviewList />
       <Help />

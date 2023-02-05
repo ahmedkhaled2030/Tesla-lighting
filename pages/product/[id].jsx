@@ -191,7 +191,7 @@ const Product = () => {
           <h1 className={`primaryText ${styles.title}`}>
             Steel Curved Shade Pendant
           </h1>
-          <span className={styles.number}>0317220880</span>
+          <span className={styles.number}>317220880</span>
           <div className={styles.prices}>
             <span className={styles.price}>$3,265.00</span>
             <span className={styles.price}>$2,972.00</span>

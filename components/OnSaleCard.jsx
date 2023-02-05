@@ -15,12 +15,16 @@ const OnSaleCard = ({ title, img, price, sale }) => {
     
           <div className={styles.iconWrapper}>
             <FavoriteBorderOutlined />
-          </div>
+        </div>
+        
+        
         <div className={styles.priceWrapper}>
         <span className={styles.total}>$2.575.00</span>
           <span className={styles.price}>from ${price}</span>
         <span className={styles.sale}>Save ${sale}</span>
         </div>
+
+        
         <span className={styles.black}>Sale</span>
   
     

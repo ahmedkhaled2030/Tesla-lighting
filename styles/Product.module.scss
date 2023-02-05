@@ -42,6 +42,9 @@
         // height: 100%;
         display: flex;
         align-items: center;
+        @media (max-width: $sm), (max-width: $md) {
+          flex: 3;
+        }
       }
     }
 
@@ -58,8 +61,19 @@
         align-items: center;
         justify-content: center;
       }
+      .title {
+        @media (max-width: $sm) {
+          font-size: 20px;
+        }
+      }
       .number {
         font-size: 16px;
+        color: #000;
+        text-decoration: none;
+        @media (max-width: $sm) {
+          color: #000;
+          text-decoration: none !important;
+        }
       }
       .prices {
         display: flex;
@@ -90,8 +104,11 @@
         background-color: white;
         border: 1px solid black;
         padding: 6px 10px;
+        color: #000;
+        cursor: pointer;
         @media (max-width: $sm) {
-          width: 40%;
+          width: 50%;
+          font-size: 14px;
         }
       }
       .buttonCart {
@@ -104,6 +121,8 @@
         text-align: center;
         font-size: 14px;
         letter-spacing: 4.2px;
+        color: #000;
+        cursor: pointer;
         @media (max-width: $sm) {
           width: 90%;
           font-weight: 600;
@@ -181,6 +200,9 @@
           letter-spacing: 0.45px;
           color: white;
           border: none;
+          @media (max-width: $sm), (max-width: $md) {
+            font-size: 14px;
+          }
         }
       }
     }
@@ -191,7 +213,6 @@
       align-items: center;
       gap: 10px;
       flex-direction: column;
-
 
       .reviewButtons {
         display: flex;
@@ -214,7 +235,7 @@
             width: 100%;
           }
         }
-        >:nth-child(2) {
+        > :nth-child(2) {
           background-color: transparent;
           color: RGB(56, 56, 56);
           border: 2px solid RGB(56, 56, 56);
@@ -228,14 +249,14 @@
       justify-content: flex-start;
       flex-direction: column;
       gap: 20px;
-      @media (max-width: $sm){
-       margin: 10px;
+      @media (max-width: $sm) {
+        margin: 10px;
       }
       .review {
         display: flex;
         align-items: flex-start;
         justify-content: flex-start;
-        
+
         .rating {
           color: $rating;
         }
@@ -252,7 +273,6 @@
             justify-content: center;
             position: relative;
             @media (max-width: $sm), (max-width: $md) {
-           
               width: 35px;
               height: 35px;
             }
@@ -274,12 +294,11 @@
               }
             }
           }
-          .personName{
+          .personName {
             @media (max-width: $sm), (max-width: $md) {
-           
               font-size: 14px;
               font-weight: 400;
-              color: #c4c4c4
+              color: #c4c4c4;
             }
           }
           .verified {
@@ -313,10 +332,17 @@
 
   .hr {
     width: 100%;
-    margin: 1.5rem auto;
+    margin: 10px auto;
     height: 1px;
-    border-width: 0;
+
     color: $line;
     background-color: $line;
+  }
+
+  .similarProducts,
+  .recentlyViewed {
+    @media (max-width: $sm), (max-width: $md) {
+      width: 100%;
+    }
   }
 }

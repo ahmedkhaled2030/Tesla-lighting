@@ -10,7 +10,7 @@ const ReviewCard = ({title,desc,user,img,itemName}) => {
       <span className={`secondaryText ${styles.desc}`}>{desc}</span>
       <span className={`secondaryText ${styles.user}`}>{user}</span>
       <Image src={img} alt={title} width="70" height="70" objectFit="contain" />
-      <p>{itemName.substring(0, 42)}...</p>
+      <p className={`secondaryText ${styles.paragraph}`}>{itemName.substring(0, 42)}...</p>
     </div>
   )
 }

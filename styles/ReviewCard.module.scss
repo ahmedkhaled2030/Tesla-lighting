@@ -7,17 +7,38 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin: 0px 10px;
 
     .rating{
         margin: 1rem 0rem 0.3rem 0rem;
         color: #383838;
         font-size: 1.8rem;
+        @media (max-width: $sm) {
+            font-size: 1.3rem;
+          }
     }
     .title{
         font-size: 1rem;
         font-weight: 500;
+        @media (max-width: $sm) {
+            font-size: 0.8rem;
+            font-weight: bold;
+          }
+    }
+    .desc{
+        @media (max-width: $sm) {
+            font-size: 0.8rem;
+          }
     }
     .user{
-        color: #c8c8c8;
+        color: gray;
+        @media (max-width: $sm) {
+            font-size: 0.6rem;
+          }
+    }
+    .paragraph{
+        @media (max-width: $sm) {
+            font-size: 0.7rem;
+          }
     }
 }
