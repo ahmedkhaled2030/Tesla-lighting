@@ -17,7 +17,6 @@ const Collections = () => {
     "/img/product2.png",
     "/img/product3.png",
   ];
-
   const products = [
     {
       img: "/img/arrival1.png",
@@ -215,6 +214,7 @@ const Collections = () => {
       price: "3,767.00",
     },
   ];
+  
   return (
     <div className={styles.container}>
       <Head>

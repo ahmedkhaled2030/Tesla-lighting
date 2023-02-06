@@ -1,0 +1,99 @@
+@import "./contants.scss";
+@import "./globals.scss";
+
+
+.container { 
+    height: 100%;
+    background: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 22%;
+    z-index: 200;
+    box-shadow: 1px 0px 7px rgba(0,0,0,0.5); 
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+    padding:20px;
+    font-family: "Poppins", sans-serif;
+    @media (max-width: $sm) {
+        width: 85%;
+       
+      }
+      @media (min-width: $md) {
+        width: 40%;
+       
+      }
+      @media (min-width: $lg) {
+        width: 27%;
+       
+      }
+
+ }
+ .container.open {
+    // transform: translateX(0);
+    .top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      
+     
+    }
+    .hr {
+        width: 100%;
+        margin: 10px auto;
+        height: 1px;
+        color: $line;
+        background-color: $line;
+      }
+
+      .bottom{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+       
+        margin: 40px 0px;
+        .imgContainer{
+            display: flex;
+            justify-content: flex-start;
+        }
+    .detailsContainer{
+        display: flex;
+        flex-direction: column;
+
+    .price{
+        display:flex ;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        .number{
+
+            border: 1px solid $line;
+            height: 35px;
+            width: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size:18px ;
+            cursor: pointer;
+       
+            .control{
+                height: 100%; 
+                width: 35%;
+                transition: 0.3s ease;
+                font-size:25px ;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+                &:hover{
+                    background-color: black;
+                    color: white;
+                }
+            }
+        }
+    }
+    
+    }
+       
+      }
+ }

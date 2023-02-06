@@ -65,11 +65,12 @@ const ProductsList = ({ title, products, type }) => {
         ) : (
           <div className={styles.wrapper}>
             <Slider {...sliderSettings} className={styles.slider}>
-              {products?.map((product, id) => (
+              {products?.map((product, i) => (
                 <ProductsCard
                   img={product.img}
                   title={product.title}
                   price={product.price}
+                  key={i}
                 />
               ))}
             </Slider>

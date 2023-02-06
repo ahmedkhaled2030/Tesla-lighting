@@ -11,6 +11,8 @@ import Times from "@/components/Times";
 import CustomerReview from "@/components/CustomerReview";
 import ProductsList from "@/components/ProductsList";
 import StoreInfo from "@/components/StoreInfo";
+import { useState } from "react";
+import Cart from "@/components/Cart";
 
 export default function Home() {
   const products = [
@@ -88,10 +90,11 @@ export default function Home() {
       img: "/img/10.jpg",
       title: "FLUSH MOUNT",
     },
-
   ];
+
+  const [cartOpen, setCartOpen] = useState(false);
   return (
-    <div>
+    <div className={styles.container}>
       <Head>
         <title>Tesla Lighting</title>
         <meta name="description" content="Tesla Lighting" />
@@ -110,9 +113,10 @@ export default function Home() {
         />
       </Head>
       {/* <Featured /> */}
-
+      <Cart cartOpen={cartOpen} />
+      <button onClick={() => setCartOpen(true)}>cart</button>
       <CategoryList categories={categories} title="shop by category" />
-      <ProductsList title="New ARRIVAL" products={products}  />
+      <ProductsList title="New ARRIVAL" products={products} />
       <OnSaleList />
       <ReviewList />
       <Help />

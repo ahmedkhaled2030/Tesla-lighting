@@ -6,10 +6,14 @@ import {
   WorkOutlineOutlined,
   FavoriteBorderOutlined,
 } from "@mui/icons-material";
+import Cart from "./Cart";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [status, setStatus] = useState(false);
   return ( 
-    <div className={styles.container}>
+    <div className={`xPaddings ${styles.container}`}>
+      <div className={styles.wrapper}>
       <div className={styles.item}>
         <Search className={styles.icon} />
       </div>
@@ -28,15 +32,19 @@ const Navbar = () => {
         <div className={styles.iconWrapper}>
           <PersonOutlineOutlined className={styles.icon} />
         </div>
-        <div className={styles.iconWrapper}>
-          <WorkOutlineOutlined className={styles.icon} />
+          <div className={styles.iconWrapper} onClick={() => setStatus(true)} >
+            <WorkOutlineOutlined className={styles.icon} />
+   
           <span>0</span>
-        </div>
+          </div>
+         
         <div className={styles.iconWrapper}>
           <FavoriteBorderOutlined className={styles.icon} />
           <span>0</span>
         </div>
       </div>
+      </div>
+
     </div>
   );
 };
