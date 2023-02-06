@@ -114,7 +114,7 @@ export default function Home() {
       </Head>
       {/* <Featured /> */}
       <Cart cartOpen={cartOpen} />
-      <button onClick={() => setCartOpen(true)}>cart</button>
+      {/* <button onClick={() => setCartOpen(true)}>cart</button> */}
       <CategoryList categories={categories} title="shop by category" />
       <ProductsList title="New ARRIVAL" products={products} />
       <OnSaleList />
