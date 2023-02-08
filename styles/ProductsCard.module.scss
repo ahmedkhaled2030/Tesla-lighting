@@ -11,16 +11,18 @@
   cursor: pointer;
   overflow-x: hidden;
   margin-bottom: 30px;
-
+  margin-top: 20px;
+  
   @media (max-width: $sm) {
     margin: 0;
-    overflow: hidden;
+    // overflow: hidden;
     display: flex;
     align-items: center !important;
     justify-content: flex-start;
     width: 180px;
     height: 400px;
     overflow-x: hidden;
+    margin-top: 20px;
   }
 
   .title {
@@ -43,5 +45,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+.closeIcon{
+  position: absolute;
+  background-color: transparent;
+  top: 2px;
+  right: 30px;
+  
+}
+  .wishlist{
+    width: 60%;
+    font-size: 10px;
+    margin: 20px 20px;
+    @media (max-width: $sm) {
+      width: 90%;
+    }
   }
 }

@@ -141,6 +141,7 @@
   font-family: "Poppins", sans-serif;
   padding: 0;
   margin: 0;
+
 }
 
 .anchor {
@@ -162,4 +163,21 @@
   font-family: "Poppins", sans-serif;
   letter-spacing:3.6px;
   cursor: pointer;
+}
+
+.button{
+  padding: 10px 0px;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: #111111;
+  letter-spacing: 5px;
+  color: white;
+  width: 70%;
+  border: none;
+  text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  @media (max-width: $sm) {
+    width: 70%;
+  }
 }

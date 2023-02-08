@@ -161,16 +161,17 @@ const Product = () => {
           <div className={styles.subImagesContainer}>
             {images.map((image, i) => (
               <div
-                className={styles.image}
+                className={` ${selectedImg === image ? `${styles.selected}` : ""}  ${styles.image}`}
                 onClick={() => setSelectedImg(image)}
               >
                 <Image
                   src={image}
                   alt=""
-                  width="100%"
-                  height="150px"
+                  width="100"
+                  height="100px"
                   objectFit="contain"
                   className={styles.subImg}
+                  
                 />
               </div>
             ))}
@@ -180,8 +181,8 @@ const Product = () => {
             <Image
               src={selectedImg}
               alt=""
-              width="500px"
-              height="500px"
+              width="450px"
+              height="450px"
               objectFit="contain"
               className={styles.mainImg}
             />
@@ -204,6 +205,17 @@ const Product = () => {
             <FavoriteBorderOutlined />
             Add to Wishlist
           </button>
+          <div className={styles.colors}>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div className={styles.sizes}>
+            <span>13.7 inch</span>
+            <span>15.9 inch</span>
+        
+          </div>
           <button className={styles.buttonCart}>ADD TO CART</button>
           <h3 className={`primaryText ${styles.descHeading}`}>DESCRIPTION</h3>
           <span className={styles.desc}>{desc}</span>

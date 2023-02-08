@@ -31,7 +31,7 @@
 
     .rating {
       color: #383838;
-      font-size: 1.5rem;
+      font-size: 2rem;
       height: 40px;
     }
     .reviewPart {
@@ -44,6 +44,7 @@
         letter-spacing: 4.32px;
         margin: 0px 0px 8px;
         padding: 0px;
+        font-weight: 400;
         @media (max-width: $sm), (max-width: $md) {
           font-size: 12px;
         }

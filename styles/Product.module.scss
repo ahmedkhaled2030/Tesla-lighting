@@ -8,11 +8,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  box-sizing: content-box;
+  // overflow-x: hidden;
+  padding: 10px;
   .top {
     display: flex;
     font-family: "Poppins", sans-serif;
     flex-wrap: wrap;
+
     @media (max-width: $sm), (max-width: $md) {
       flex-wrap: wrap;
       flex-direction: column;
@@ -21,13 +24,23 @@
       flex: 1;
       display: flex;
       gap: 20px;
-
+      justify-content: center;
+      align-items: flex-start;
+      @media (max-width: $sm), (max-width: $md) {
+      justify-content: center;
+      }
       .subImagesContainer {
-        flex: 1;
+        // flex: 1;
         display: flex;
         flex-direction: column;
+        @media (max-width: $sm), (max-width: $md) {
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
 
         .image {
+          margin-bottom: 20px;
           .subImg {
             // width: 100%;
             // height: 150px;
@@ -36,14 +49,14 @@
           }
         }
       }
+
       .mainImgContainer {
-        flex: 6;
-        // width: 80%;
-        // height: 100%;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
+        justify-content: center;
         @media (max-width: $sm), (max-width: $md) {
-          flex: 3;
+          // flex: 3;
+          display: none;
         }
       }
     }
@@ -55,7 +68,8 @@
       justify-content: flex-start;
       flex-direction: column;
       gap: 20px;
-      @media (max-width: $sm) {
+      @media (max-width: $sm), (max-width: $md) {
+
         flex-wrap: wrap;
         flex-direction: column;
         align-items: center;
@@ -93,8 +107,8 @@
       }
 
       .buttonWish {
-        width: 30%;
-        font-size: 16px;
+        width: 150px;
+        font-size: 14px;
         font-weight: 400;
         display: flex;
         align-items: center;
@@ -116,17 +130,42 @@
         border: none;
         background-color: white;
         border: 1px solid black;
-        padding: 13px 20px;
-        font-weight: 600;
+        padding: 15px 20px;
+        font-weight: 500;
         text-align: center;
         font-size: 14px;
         letter-spacing: 4.2px;
         color: #000;
         cursor: pointer;
         @media (max-width: $sm) {
-          width: 90%;
+          width: 70%;
           font-weight: 600;
           font-size: 13px;
+        }
+      }
+
+      .colors {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        span {
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          background-color: greenyellow;
+          cursor: pointer;
+        }
+      }
+      .sizes {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        span {
+          padding: 10px 20px;
+          border: 1px solid #555;
+          cursor: pointer;
         }
       }
       .descHeading {
@@ -166,7 +205,7 @@
       .reviewTopLeft {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
         justify-content: flex-start;
 
         padding-right: 20px;
@@ -175,7 +214,7 @@
           gap: 10px;
         }
         .rating {
-          font-weight: 500;
+          font-weight: 900;
         }
         .line {
           border-left: 1px solid $line;
@@ -194,8 +233,8 @@
       .reviewTopRight {
         .switchButton {
           padding: 10px 50px;
-          font-weight: 700;
-          font-size: 16px;
+          font-weight: 600;
+          font-size: 14px;
           background-color: #111111;
           letter-spacing: 0.45px;
           color: white;
@@ -203,6 +242,7 @@
           cursor: pointer;
           @media (max-width: $sm), (max-width: $md) {
             font-size: 14px;
+       
           }
         }
       }
@@ -231,9 +271,9 @@
           background-color: RGB(56, 56, 56);
           letter-spacing: 0.45px;
           color: white;
-          border: none;
+          border: 2px solid RGB(56, 56, 56);
           @media (max-width: $sm), (max-width: $md) {
-            width: 100%;
+            width: 70%;
           }
         }
         > :nth-child(2) {
@@ -265,6 +305,7 @@
           display: flex;
           align-items: center;
           gap: 7px;
+          font-size: 14px;
           .personImg {
             width: 40px;
             height: 40px;
@@ -306,7 +347,7 @@
             background-color: #383838;
             padding: 1px 5px;
             color: white;
-            font-size: 12px;
+            font-size: 10px;
             @media (max-width: $sm), (max-width: $md) {
               padding: 1px 4px;
               font-size: 10px;
@@ -316,12 +357,14 @@
 
         .reviewTitle {
           font-weight: 600;
+          font-size: 14px;
           @media (max-width: $sm), (max-width: $md) {
             font-weight: 500;
           }
         }
         .reviewComment {
           margin-bottom: 20px;
+          font-size: 14px;
           @media (max-width: $sm), (max-width: $md) {
             width: 90%;
             font-size: 14px;
@@ -345,5 +388,13 @@
     @media (max-width: $sm), (max-width: $md) {
       width: 100%;
     }
+  }
+}
+
+.selected {
+  border: 2px solid #000;
+  z-index: 999;
+  @media (max-width: $sm), (max-width: $md) {
+border: none;
   }
 }

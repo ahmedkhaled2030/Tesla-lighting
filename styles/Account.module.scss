@@ -1,0 +1,31 @@
+@import "./contants.scss";
+@import "./globals.scss";
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+
+  .title{
+    margin: 10px 0;
+  
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    .title{
+        margin: 10px 0;
+        text-align: left;
+      }
+    @media (max-width: $sm) {
+        flex-direction: column;
+       justify-content: flex-start;
+       align-items: flex-start;
+
+      }
+  }
+}

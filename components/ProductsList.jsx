@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const ProductsList = ({ title, products, type }) => {
-  // console.log(products);
+  console.log(type);
   const sliderSettings = {
     // dots: true,
     infinite: true,
@@ -49,22 +49,24 @@ const ProductsList = ({ title, products, type }) => {
   return (
     <div className={styles.container}>
       <h1 className={` primaryText ${styles.title}`}>{title}</h1>
-      {type !== "collections" && <h1 className="borderText">VIEW ALL</h1>}
+      {type !== "collections" || "wishlist" && <h1 className="borderText">VIEW ALL</h1>}
 
-      <div className={styles.wrapper}>
-        {type == "collections" ? (
+ 
+        {type === ("collections" || "wishlist" )? (
           <div className={styles.wrapper}>
             {products?.map((product, id) => (
               <ProductsCard
                 img={product.img}
                 title={product.title}
                 price={product.price}
+                type={type}
               />
             ))}
+          <span>sda</span>
           </div>
         ) : (
-          <div className={styles.wrapper}>
-            <Slider {...sliderSettings} className={styles.slider}>
+          <div className={styles.slider}>
+            <Slider {...sliderSettings} >
               {products?.map((product, i) => (
                 <ProductsCard
                   img={product.img}
@@ -76,9 +78,23 @@ const ProductsList = ({ title, products, type }) => {
             </Slider>
           </div>
         )}
-      </div>
+   
     </div>
   );
 };
 
 export default ProductsList;
+
+
+{/* <div className={styles.wrapper}>
+<Slider {...sliderSettings} className={styles.slider}>
+  {products?.map((product, i) => (
+    <ProductsCard
+      img={product.img}
+      title={product.title}
+      price={product.price}
+      key={i}
+    />
+  ))}
+</Slider>
+</div> */}
