@@ -50,7 +50,7 @@ const ReviewList = () => {
     ],
   };
   return (
-    <div className={styles.container}>
+    <div className={`innerWidth ${styles.container}`}>
       <div>
       <h1 className={` primaryText ${styles.title}`}>
         let customers speak for us

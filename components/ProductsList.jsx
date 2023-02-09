@@ -2,91 +2,85 @@ import Image from "next/image";
 import { useState } from "react";
 import styles from "./../styles/ProductsList.module.scss";
 import ProductsCard from "./ProductsCard";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/scrollbar";
 
+// import required modules
+import { Scrollbar } from "swiper";
 const ProductsList = ({ title, products, type }) => {
   console.log(type);
-  const sliderSettings = {
-    // dots: true,
-    infinite: true,
-    speed: 100,
-    slidesToShow: 5,
-    slidesToScroll: 3,
-    initialSlide: 1,
-    touchMove: true,
 
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 1000,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          // dots: true,
-        },
-      },
-    ],
-  };
   return (
-    <div className={styles.container}>
+    <div className={`innerWidth ${styles.container}`}>
       <h1 className={` primaryText ${styles.title}`}>{title}</h1>
-      {type !== "collections" || "wishlist" && <h1 className="borderText">VIEW ALL</h1>}
+      {type !== ("collections" || "wishlist") && (
+        <h1 className="borderText">VIEW ALL</h1>
+      )}
 
- 
-        {type === ("collections" || "wishlist" )? (
-          <div className={styles.wrapper}>
-            {products?.map((product, id) => (
-              <ProductsCard
-                img={product.img}
-                title={product.title}
-                price={product.price}
-                type={type}
-              />
-            ))}
-          <span>sda</span>
-          </div>
-        ) : (
-          <div className={styles.slider}>
-            <Slider {...sliderSettings} >
-              {products?.map((product, i) => (
+      {type === ("collections" || "wishlist") ? (
+        <div className={styles.wrapper}>
+          {products?.map((product, id) => (
+            <ProductsCard
+              img={product.img}
+              title={product.title}
+              price={product.price}
+              type={type}
+            />
+          ))}
+        </div>
+      ) : (
+        <>
+          <Swiper
+            scrollbar={{
+              hide: false,
+              }}
+              freeMode={true}
+              breakpoints={{
+                300: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 5,
+                spaceBetween: 50,
+              },
+            }}
+            modules={[Scrollbar]}
+            className="mySwiper"
+          >
+            {products?.map((product, i) => (
+              <SwiperSlide className={styles.swiperSlide}>
                 <ProductsCard
                   img={product.img}
                   title={product.title}
                   price={product.price}
                   key={i}
                 />
-              ))}
-            </Slider>
-          </div>
-        )}
-   
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </>
+      )}
     </div>
   );
 };
 
 export default ProductsList;
 
-
-{/* <div className={styles.wrapper}>
+{
+  /* <div className={styles.wrapper}>
 <Slider {...sliderSettings} className={styles.slider}>
   {products?.map((product, i) => (
     <ProductsCard
@@ -97,4 +91,5 @@ export default ProductsList;
     />
   ))}
 </Slider>
-</div> */}
+</div> */
+}

@@ -2,6 +2,10 @@
 @import "./globals.scss";
 
 .container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
   .wrapper {
     display: flex;
     align-items: center;
@@ -10,8 +14,16 @@
     overflow: hidden;
     width: 100%;
   }
-  .slider{
-    overflow: hidden;
+  .swiper {
     width: 100%;
+    height: 50vh;
+  }
+
+  .swiperSlide {
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

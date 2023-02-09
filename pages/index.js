@@ -13,6 +13,7 @@ import ProductsList from "@/components/ProductsList";
 import StoreInfo from "@/components/StoreInfo";
 import { useState } from "react";
 import Cart from "@/components/Cart";
+import PromoSlider from "@/components/PromoSlider";
 
 export default function Home() {
   const products = [
@@ -112,9 +113,11 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      {/* <Featured /> */}
-      <Cart cartOpen={cartOpen} />
+  
+      {/* <Cart cartOpen={cartOpen} /> */}
       {/* <button onClick={() => setCartOpen(true)}>cart</button> */}
+      <PromoSlider />
+      <Featured />
       <CategoryList categories={categories} title="shop by category" />
       <ProductsList title="New ARRIVAL" products={products} />
       <OnSaleList />

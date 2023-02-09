@@ -137,7 +137,7 @@ const Product = () => {
   Manufacturer Warranty: Three years warranty against manufacturers defect.`;
 
   return (
-    <div className={`paddings ${styles.container}`}>
+    <div className={`paddings innerWidth ${styles.container}`}>
       <Head>
         <title>product</title>
         <meta name="description" content="Tesla Lighting" />
@@ -303,13 +303,13 @@ const Product = () => {
       </div>
 
       <div className={styles.hr}></div>
-      <div className={styles.similarProducts}>
+     
         <ProductsList title="You may also like" products={SimilarProducts} />
-      </div>
+     
       <div className={styles.hr}></div>
-      <div className={styles.recentlyViewed}>
+  
         <ProductsList title="Recently Viewed" products={RecentViewedProducts} />
-      </div>
+ 
       <div className={styles.hr}></div>
     </div>
   );

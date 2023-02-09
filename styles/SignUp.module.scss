@@ -74,9 +74,9 @@
             text-transform: uppercase;
             font-family: "Poppins", sans-serif;
             cursor: pointer;
-            @media (max-width: $sm) {
+            @media (max-width: $sm),(max-width: $md) {
            
-              width: 80%;
+              width: 100px;
             }
           }
       }

@@ -1,19 +1,14 @@
 import Image from "next/image";
 import { useState } from "react";
 import styles from "./../styles/Featured.module.scss";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, EffectFade } from "swiper";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/effect-fade";
 
 const Featured = () => {
-    const [index, setIndex] = useState(0);
-    
-    const handleArrow = (direction) => {
-        if (direction === 'l') {
-              setIndex(index !== 0 ? index-1 : 3)
-        }
-        
-        if (direction === 'r') {
-            setIndex(index !== 3 ? index+1 : 0)
-        }
-    }
   const images = [
     "/img/slider1.jpg",
     "/img/slider2.jpg",
@@ -22,29 +17,65 @@ const Featured = () => {
   ];
 
   return (
-    <div className={styles.container}>
-      <div
-        className={styles.arrowContainer}
-        style={{ left: 0 }}
-        onClick={() => handleArrow("l")}
+    <>
+      <Swiper
+        className={styles.swiper}
+        breakpoints={{
+          640: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 1,
+          },
+          1024: {
+            slidesPerView: 1,
+          },
+        }}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        modules={[Autoplay, Navigation, EffectFade]}
+        loop={true}
+        effect={"fade"}
       >
-        <Image src="/img/arrowl.png" alt="" layout="fill" objectFit="contain" />
-      </div>
-      <div className={styles.wrapper} style={{transform:`translateX(${-100*index}vw)`}}>
-        {images.map((img, i) => (
-          <div className={styles.imgContainer} key={i}>
-            <Image src={img} alt="" layout="fill" objectFit="contain" />
-          </div>
-        ))}
-      </div>
-      <div
-        className={styles.arrowContainer}
-        style={{ right: 0 }}
-        onClick={() => handleArrow("r")}
-      >
-        <Image src="/img/arrowr.png" alt="" layout="fill" objectFit="contain" />
-      </div>
-    </div>
+        <SwiperSlide className={styles.swiperSlide}>
+          <Image
+            src="/img/slider1.jpg"
+            alt=""
+            layout="fill"
+            className={styles.img}
+          />
+          <span className={`primaryText ${styles.text}`}>brand new</span>
+          <h1 className={`primaryText ${styles.title}`}>MAGNETIC TRACK SYSTEM</h1>
+          <div className={`borderText ${styles.button}`}>MORE INFO</div>
+        </SwiperSlide>
+        <SwiperSlide className={styles.swiperSlide}>
+          <Image
+            src="/img/slider2.jpg"
+            alt=""
+            layout="fill"
+            className={styles.img}
+          />
+        </SwiperSlide>
+        <SwiperSlide className={styles.swiperSlide}>
+          <Image
+            src="/img/slider3.png"
+            alt=""
+            layout="fill"
+            className={styles.img}
+          />
+        </SwiperSlide>
+        <SwiperSlide className={styles.swiperSlide}>
+          <Image
+            src="/img/slider4.jpg"
+            alt=""
+            layout="fill"
+            className={styles.img}
+          />
+        </SwiperSlide>
+      </Swiper>
+    </>
   );
 };
 

@@ -9,12 +9,12 @@
     justify-content: center;
     gap: 30px;
     .paragraph{
-        width: 60%;
+        width: 80%;
         font-family: "Poppins", sans-serif;
-        margin-top: 40px;
+        margin-top: 20px;
         @media (max-width: $sm) {
-            width: 90%;
-            font-size: 14px;
+            width: 80%;
+            font-size: 12px;
             margin-top: 20px;
           }
     }

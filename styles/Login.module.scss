@@ -104,8 +104,8 @@
             text-transform: uppercase;
             font-family: "Poppins", sans-serif;
             cursor: pointer;
-            @media (max-width: $sm) {
-              width: 70%;
+            @media (max-width: $sm),  (max-width: $md){
+              width: 100px;
             }
           }
           .text{

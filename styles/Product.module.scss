@@ -19,6 +19,7 @@
     @media (max-width: $sm), (max-width: $md) {
       flex-wrap: wrap;
       flex-direction: column;
+      padding: 0px 20px;
     }
     .left {
       flex: 1;

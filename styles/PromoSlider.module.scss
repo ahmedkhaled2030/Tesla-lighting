@@ -1,0 +1,21 @@
+
+@import "./contants.scss";
+@import "./globals.scss";
+
+.swiper {
+    width: 100%;
+    height: 40px;
+    background: black;
+    font-family: "Poppins", sans-serif;
+  }
+
+  .swiperSlide {
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    background: black;
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

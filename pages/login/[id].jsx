@@ -43,7 +43,7 @@ const Login = () => {
 
           <input type="password" className={styles.signInput} />
         </div>
-        <button className={styles.switchButton}>SIGN IN</button>
+        <button className={styles.switchButton}>Login</button>
         <span className={styles.text}>Create account</span>
       </form>
     </div>

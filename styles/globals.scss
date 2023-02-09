@@ -163,7 +163,8 @@
   font-family: "Poppins", sans-serif;
   letter-spacing:3.6px;
   cursor: pointer;
-}
+  z-index: 999;
+} 
 
 .button{
   padding: 10px 0px;
