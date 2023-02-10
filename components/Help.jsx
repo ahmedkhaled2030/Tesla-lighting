@@ -5,12 +5,12 @@ const Help = () => {
     <div className={` innerWidth  ${styles.container}`}>
       <div className={styles.item}>
         <Image
-          src="/img/help.png"
+          src="/img/help1.png"
           alt=""
           width="120"
           height="120"
-                  objectFit="contain"
-                  className={styles.img}
+          objectFit="contain"
+          className={styles.img}
         />
         <div className={`borderText ${styles.text}`}>
           Need help with the install?
@@ -18,7 +18,7 @@ const Help = () => {
       </div>
       <div className={styles.item}>
         <Image
-          src="/img/help.png"
+          src="/img/help2.png"
           alt=""
           width="120"
           height="120"
@@ -30,7 +30,7 @@ const Help = () => {
       </div>
       <div className={styles.item}>
         <Image
-          src="/img/help.png"
+          src="/img/help3.png"
           alt=""
           width="120"
           height="120"

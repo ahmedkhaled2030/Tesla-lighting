@@ -2,30 +2,40 @@
 @import "./globals.scss";
 
 .container {
-  margin: 3rem 0;
-  .wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  
+  @media (max-width: $sm),(max-width: $md)  {
+    flex-direction: column;
 
-.section{
+  }
+
+  .section {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    .title {
-
+    flex: 1;
+    @media (max-width: $sm)   {
+  width: 90%;
   
-        margin: 10px 0;
-      }
-      .desc {
-        width: 70%;
-        text-align: center;
-        line-height: 25px;
-        font-size: 12px;
-      }
-}
-
+    }
+    .title {
+      margin: 10px 0;
+      @media (max-width: $sm) {
+        font-size: 22px;
+        
+          }
+    }
+    .desc {
+      width: 90%;
+      text-align: center;
+      line-height: 25px;
+      font-size: 12px;
+    }
   }
 }

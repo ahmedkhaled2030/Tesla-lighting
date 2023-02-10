@@ -2,15 +2,28 @@
 @import "./globals.scss";
 
 .container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 
-  .wrapper {
+  // .wrapper {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  //   flex-wrap: wrap;
+  //   overflow: hidden;
+  //   width: 100%;
+  // }
+  .swiper {
+    width: 100%;
+    height: 50vh;
+  }
+
+  .swiperSlide {
+    text-align: center;
+    font-size: 18px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    .slick-slide>div {
-      transform: scale(.5);
-      transition: transform .3s cubic-bezier(.4, 0, .2, 1);
-    }
+    align-items: center;
   }
 }

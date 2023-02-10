@@ -79,17 +79,4 @@ const ProductsList = ({ title, products, type }) => {
 
 export default ProductsList;
 
-{
-  /* <div className={styles.wrapper}>
-<Slider {...sliderSettings} className={styles.slider}>
-  {products?.map((product, i) => (
-    <ProductsCard
-      img={product.img}
-      title={product.title}
-      price={product.price}
-      key={i}
-    />
-  ))}
-</Slider>
-</div> */
-}
+

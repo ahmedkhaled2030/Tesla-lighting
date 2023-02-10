@@ -14,6 +14,7 @@ import StoreInfo from "@/components/StoreInfo";
 import { useState } from "react";
 import Cart from "@/components/Cart";
 import PromoSlider from "@/components/PromoSlider";
+import CompanySlider from "@/components/CompanySlider";
 
 export default function Home() {
   const products = [
@@ -123,6 +124,7 @@ export default function Home() {
       <OnSaleList />
       <ReviewList />
       <Help />
+      <CompanySlider />
       <StoreInfo />
       <Times />
     </div>

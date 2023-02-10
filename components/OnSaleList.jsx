@@ -2,51 +2,17 @@ import Image from "next/image";
 import { useState } from "react";
 import styles from "./../styles/OnSaleList.module.scss";
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode } from "swiper";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/scrollbar";
+
+// import required modules
+import { Scrollbar } from "swiper";
 import OnSaleCard from "./OnSaleCard";
 
 const OnSaleList = () => {
-  const sliderSettings = {
-
-    infinite: true,
-    speed: 50,
-    slidesToShow: 5,
-    slidesToScroll: 2,
-    initialSlide: 1,
-    touchMove: true,
-    cssEase: 'linear',
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 1000,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 1,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          // dots: true,
-        },
-      },
-    ],
-  };
-
   const list = [
     {
       img: "/img/sale1.png",
@@ -83,21 +49,58 @@ const OnSaleList = () => {
     <div className={` innerWidth ${styles.container}`}>
       <h1 className={` primaryText ${styles.title}`}>On sale items</h1>
       <h1 className="borderText">VIEW ALL</h1>
-      <div className={` yPaddings ${styles.wrapper}`}>
-        <Slider {...sliderSettings} className={styles.slider}>
+ 
+        <Swiper
+          scrollbar={{
+            hide: false,
+          }}
+          freeMode={true}
+          breakpoints={{
+            300: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 4,
+              spaceBetween: 10,
+            },
+            1024: {
+              slidesPerView: 5,
+              spaceBetween: 10,
+            },
+          }}
+          modules={[Scrollbar]}
+          className="mySwiper"
+        >
           {list?.map((item, i) => (
-            <OnSaleCard
+            <SwiperSlide className={styles.swiperSlide}>
+              <OnSaleCard
+                img={item.img}
+                title={item.title}
+                price={item.price}
+                sale={item.sale}
+                key={i}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+  );
+};
+
+export default OnSaleList;
+
+{
+  /* <OnSaleCard
               img={item.img}
               title={item.title}
               price={item.price}
               sale={item.sale}
               key={i}
-            />
-          ))}
-        </Slider>
-      </div>
-    </div>
-  );
-};
-
-export default OnSaleList;
+            /> */
+}

@@ -4,18 +4,16 @@
 .container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content:center;
   flex-wrap: wrap;
   margin-top: 3rem;
+  gap: 20px;
  
-  @media (max-width: $sm) {
+  @media (max-width: $sm), (max-width: $md) {
     justify-content: center;
     align-items: center;
   }
-  @media (max-width: $md) {
-    justify-content: center;
-    align-items: center;
-  }
+
   .item {
     display: flex;
     flex-direction: column;
