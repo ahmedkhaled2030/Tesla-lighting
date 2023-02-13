@@ -12,7 +12,7 @@ import "swiper/css/scrollbar";
 // import required modules
 import { Scrollbar } from "swiper";
 const ProductsList = ({ title, products, type }) => {
-  console.log(type);
+  // console.log(type);
 
   return (
     <div className={`innerWidth ${styles.container}`}>
@@ -25,7 +25,7 @@ const ProductsList = ({ title, products, type }) => {
         <div className={styles.wrapper}>
           {products?.map((product, id) => (
             <ProductsCard
-              img={product.img}
+              // img={product.img}
               title={product.title}
               price={product.price}
               type={type}

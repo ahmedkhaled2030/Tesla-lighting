@@ -15,6 +15,8 @@ import { useState } from "react";
 import Cart from "@/components/Cart";
 import PromoSlider from "@/components/PromoSlider";
 import CompanySlider from "@/components/CompanySlider";
+import Wishlist from "@/components/WishList";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
   const products = [
@@ -95,6 +97,7 @@ export default function Home() {
   ];
 
   const [cartOpen, setCartOpen] = useState(false);
+  const [closeWishList, setCloseWishList] = useState(true);
   return (
     <div className={styles.container}>
       <Head>
@@ -117,6 +120,8 @@ export default function Home() {
   
       {/* <Cart cartOpen={cartOpen} /> */}
       {/* <button onClick={() => setCartOpen(true)}>cart</button> */}
+      {/* <Navbar setCloseWishList={setCloseWishList} /> */}
+      {!closeWishList && <Wishlist setCloseWishList={setCloseWishList} />}
       <PromoSlider />
       <Featured />
       <CategoryList categories={categories} title="shop by category" />

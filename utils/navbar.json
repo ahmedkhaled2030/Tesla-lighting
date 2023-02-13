@@ -1,0 +1,91 @@
+{
+    "menus": [
+        {
+            "id": 1,
+            "text": "Home",
+            "link": "/",
+            "dropdown": []
+        },
+        {
+            "id": 2,
+            "text": "CATEGORIES",
+            "link": "/catalog",
+            "dropdown": [],
+            "megaMenus": [
+                {
+                    "id": 2.1,
+                    "megaMenuTitle": "CHANDELIER",
+                    "link": "/shop-CHANDELIER",
+                    "megaMenuItems": [
+                        {
+                            "id": 2.11,
+                            "text": "Crystal Chandelier",
+                            "link": "/Crystal Chandelier"
+                        },
+                        {
+                            "id": 2.12,
+                            "text": "Modern Chandelier",
+                            "link": "/Modern Chandelier"
+                        },
+                        {
+                            "id": 2.13,
+                            "text": "Traditional Chandelier",
+                            "link": "/Traditional Chandelier"
+                        }
+                    ]
+                },
+                {
+                    "id": 2.2,
+                    "megaMenuTitle": "Pendant",
+                    "link": "/product-Pendant",
+                    "megaMenuItems": [
+                        {
+                            "id": 2.21,
+                            "text": "Crystal Pendant",
+                            "link": "/Crystal Pendant"
+                        },
+                        {
+                            "id": 2.22,
+                            "text": "Modern Pendant",
+                            "link": "/Modern Pendant"
+                        },
+                        {
+                            "id": 2.23,
+                            "text": "Traditional Pendant",
+                            "link": "/Traditional Pendant"
+                        },
+                        {
+                            "id": 2.24,
+                            "text": "Outdoor Pendant",
+                            "link": "/Outdoor Pendant"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "text": "ABOUT",
+            "link": "/about",
+            "dropdown": []
+        },
+        {
+            "id": 4,
+            "text": "CONTACT",
+            "link": "/contact",
+            "dropdown": []
+        },
+        {
+            "id": 5,
+            "text": "PORTFOLIO",
+            "link": "/portfolio",
+            "dropdown": []
+        },
+        {
+            "id": 6,
+            "text": "FLYER",
+            "link": "/flyer",
+            "dropdown": []
+        }
+    ]
+}

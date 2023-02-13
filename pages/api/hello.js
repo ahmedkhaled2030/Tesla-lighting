@@ -1,5 +1,14 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+// pages/api/example.js
 
-export default function handler(req, res) {
-  res.status(200).json({ name: 'John Doe' })
-}
+// import nc from "next-connect";
+// import cors from "cors";
+
+// const handler = nc()
+//   // use connect based middleware
+//   .use(cors())
+//   .post(async (req, res) => {
+//     const response = await fetch("https://tesla-lightning.herokuapp.com", config);
+//     res.json(response);
+//   });
+
+// export default handler;

@@ -5,8 +5,8 @@ import Cart from "./Cart";
 const Layout = ({children}) => {
   return (
       <>
-      {/* <Navbar /> */}
-      <Cart  />
+      <Navbar />
+      {/* <Cart  /> */}
           {children}
           <Footer /> 
     </>

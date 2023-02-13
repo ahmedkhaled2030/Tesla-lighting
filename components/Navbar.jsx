@@ -8,8 +8,12 @@ import {
 } from "@mui/icons-material";
 import Cart from "./Cart";
 import { useState } from "react";
+import primaryMenus from "../utils/navbar.json";
+import CategoriesNavbar from "./CategoriesNavbar";
 
-const Navbar = () => {
+const Navbar = ({ setCloseWishList }) => {
+  const { menus } = primaryMenus;
+  // console.log(menus , "menus");
   const [status, setStatus] = useState(false);
   return ( 
     <div className={`xPaddings ${styles.container}`}>
@@ -20,9 +24,9 @@ const Navbar = () => {
       <div className={styles.item}>
         <ul className={styles.listWrapper}>
           <li className={`secondaryText ${styles.listItem}`}>HOME</li>
-          <li className={`secondaryText ${styles.listItem}`}>CATEGORIES</li>
+          {/* <li className={`secondaryText ${styles.listItem}`}><CategoriesNavbar menus={menus} /></li> */}
           <li className={`secondaryText ${styles.listItem}`}>ABOUT</li>
-          <Image src="/img/logo.png" alt="" width="200" height="100" objectFit="contain" /> 
+          <Image src="/img/navbarLogo.png" alt="" width="200" height="100" objectFit="contain" /> 
           <li className={`secondaryText ${styles.listItem}`}>CONTACT</li>
           <li className={`secondaryText ${styles.listItem}`}>PORTFOLIO</li>
           <li className={`secondaryText ${styles.listItem}`}>FLYER</li>
@@ -38,8 +42,8 @@ const Navbar = () => {
           <span>0</span>
           </div>
          
-        <div className={styles.iconWrapper}>
-          <FavoriteBorderOutlined className={styles.icon} />
+        <div className={styles.iconWrapper} onClick={() => setCloseWishList(false)}>
+          <FavoriteBorderOutlined className={styles.icon}  />
           <span>0</span>
         </div>
       </div>
