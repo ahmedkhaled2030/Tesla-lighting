@@ -2,11 +2,11 @@ import Navbar from "./Navbar";
  import Footer from "./Footer";
 import Cart from "./Cart";
 
-const Layout = ({children}) => {
+const Layout = ({children ,cartOpen , setCartOpen ,setCloseWishList}) => {
+  console.log(setCloseWishList)
   return (
       <>
-      <Navbar />
-      {/* <Cart  /> */}
+      <Navbar cartOpen ={cartOpen}  setCartOpen={setCartOpen}  setCloseWishList ={setCloseWishList} />
           {children}
           <Footer /> 
     </>

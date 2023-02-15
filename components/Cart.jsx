@@ -3,8 +3,17 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from "./../styles/Cart.module.scss";
 import { Remove, Add } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { reset } from "../redux/cartSlice";
+const Cart = ({ cartOpen , setCartOpen}) => {
+  console.log(cartOpen)
+  const cart = useSelector((state) => state.cart);
+  const currency = "USD";
 
-const Cart = ({ cartOpen }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const products = [
     {
       id: 1,
@@ -30,10 +39,10 @@ const Cart = ({ cartOpen }) => {
   ];
 
   return (
-    <div className={`${styles.container} ${styles.open}`}>
+    <div className={`${styles.container}  ${cartOpen ? styles.open : " "} }`}>
       <div className={styles.top}>
         <h1 className={`primaryText ${styles.title}`}>Cart</h1>
-        <Close />
+        <Close onClick={() => setCartOpen(false)} />
       </div>
       <div className={styles.hr}></div>
 

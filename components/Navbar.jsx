@@ -10,11 +10,15 @@ import Cart from "./Cart";
 import { useState } from "react";
 import primaryMenus from "../utils/navbar.json";
 import CategoriesNavbar from "./CategoriesNavbar";
+import { useSelector } from "react-redux";
 
-const Navbar = ({ setCloseWishList }) => {
+
+const Navbar = ({ setCloseWishList, cartOpen, setCartOpen  }) => {
+  console.log(setCloseWishList)
   const { menus } = primaryMenus;
   // console.log(menus , "menus");
   const [status, setStatus] = useState(false);
+  const quantity = useSelector((state) => state.cart.quantity);
   return ( 
     <div className={`xPaddings ${styles.container}`}>
       <div className={styles.wrapper}>
@@ -36,13 +40,14 @@ const Navbar = ({ setCloseWishList }) => {
         <div className={styles.iconWrapper}>
           <PersonOutlineOutlined className={styles.icon} />
         </div>
-          <div className={styles.iconWrapper} onClick={() => setStatus(true)} >
+          <div className={styles.iconWrapper} onClick={() => setCartOpen(true)} >
             <WorkOutlineOutlined className={styles.icon} />
    
-          <span>0</span>
+          <span>{quantity}</span>
           </div>
          
-        <div className={styles.iconWrapper} onClick={() => setCloseWishList(false)}>
+          <div className={styles.iconWrapper} onClick={() => setCloseWishList(false)}>
+            
           <FavoriteBorderOutlined className={styles.icon}  />
           <span>0</span>
         </div>

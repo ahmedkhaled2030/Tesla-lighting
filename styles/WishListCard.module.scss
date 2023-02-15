@@ -1,0 +1,64 @@
+@import "./contants.scss";
+@import "./globals.scss";
+
+.container {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  cursor: pointer;
+  overflow-x: hidden;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  
+  @media (max-width: $sm) {
+    margin: 0;
+    // overflow: hidden;
+    display: flex;
+    align-items: center !important;
+    justify-content: flex-start;
+    width: 180px;
+    height: 400px;
+    overflow-x: hidden;
+    margin-top: 20px;
+  }
+
+  .title {
+    // margin-top: 20px ;
+    text-align: center;
+    font-size: 12px;
+    margin: 10px 10px 0px 10px;
+    width: 90%;
+    // height: 100px;
+  }
+  .iconWrapper {
+    position: absolute;
+    box-shadow: 1px 1px 12px #0000001a;
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    top: 2px;
+    left: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+.closeIcon{
+  position: absolute;
+  background-color: transparent;
+  top: 2px;
+  right: 30px;
+  
+}
+  .wishlist{
+    width: 60%;
+    font-size: 10px;
+    margin: 20px 20px;
+    @media (max-width: $sm) {
+      width: 90%;
+    }
+  }
+}

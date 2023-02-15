@@ -12,35 +12,39 @@ import "swiper/css/scrollbar";
 // import required modules
 import { Scrollbar } from "swiper";
 const ProductsList = ({ title, products, type }) => {
-  // console.log(type);
+
 
   return (
     <div className={`innerWidth ${styles.container}`}>
       <h1 className={` primaryText ${styles.title}`}>{title}</h1>
-      {type !== ("collections" || "wishlist") && (
+      {type !== ("collections" ) && (
         <h1 className="borderText">VIEW ALL</h1>
       )}
 
-      {type === ("collections" || "wishlist") ? (
+   
+      {type == "collections"  ? (
         <div className={styles.wrapper}>
-          {products?.map((product, id) => (
+          {products?.map((product) => (
             <ProductsCard
-              // img={product.img}
-              title={product.title}
-              price={product.price}
+              img={product?.img} 
+              title={product?.title}
+              price={product?.price}
               type={type}
+              key={product?.id}
+              id={product?.id}
             />
           ))}
         </div>
+   
       ) : (
         <>
           <Swiper
             scrollbar={{
               hide: false,
-              }}
-              freeMode={true}
-              breakpoints={{
-                300: {
+            }}
+            freeMode={true}
+            breakpoints={{
+              300: {
                 slidesPerView: 2,
                 spaceBetween: 20,
               },
@@ -63,9 +67,9 @@ const ProductsList = ({ title, products, type }) => {
             {products?.map((product, i) => (
               <SwiperSlide className={styles.swiperSlide}>
                 <ProductsCard
-                  img={product.img}
-                  title={product.title}
-                  price={product.price}
+                  img={product?.img}
+                  title={product?.title}
+                  price={product?.price}
                   key={i}
                 />
               </SwiperSlide>
@@ -78,5 +82,3 @@ const ProductsList = ({ title, products, type }) => {
 };
 
 export default ProductsList;
-
-

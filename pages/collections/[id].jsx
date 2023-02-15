@@ -13,8 +13,46 @@ import ProductsList from "@/components/ProductsList";
 import { FilterAltOutlined } from "@mui/icons-material";
 import axios from "axios";
 import { useRouter } from "next/router";
+const headers = {
+
+  'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0'
+}
 
 const Collections = (props) => {
+  const productsDummy = [
+    {
+      id: "63eb621c09eedf45e735accb",
+      img: "/img/arrival1.png",
+      title: "Aged Brass Frame with Etched Glass Shade Linear Pendant",
+      price: "3,767.00",
+    },
+    {
+      id: 2323234,
+      img: "/img/arrival2.jpg",
+      title:
+        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
+      price: "3,767.00",
+    },
+    {
+      id: 234234253,
+      img: "/img/arrival3.png",
+      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
+      price: "3,767.00",
+    },
+    {
+      id: 54345345,
+      img: "/img/arrival4.png",
+      title: "Gold Leaf Leafy Bohemian Shade Wall Sconce",
+      price: "3,767.00",
+    },
+    {
+      id: 234234324,
+      img: "/img/arrival5.png",
+      title:
+        "Handcrafted Wallflower Frame with Opal Matte Glass Globe Pendant / Chandelier",
+      price: "3,767.00",
+    },
+  ];
   // console.log(props)
   const { asPath } = useRouter();
   // console.log(asPath);
@@ -22,32 +60,37 @@ const Collections = (props) => {
 
   const [sortBy, setSortBy] = useState(props.initialSortBy);
   const [sortOrder, setSortOrder] = useState(props.initialSortOrder);
+
   useEffect(() => {
-console.log(sortBy , sortOrder)
+    console.log(sortBy, sortOrder);
     const url = {
       pathname: asPath,
-      query: {sortBy: sortBy, sortOrder: sortOrder },
+      query: { sortBy: sortBy, sortOrder: sortOrder },
     };
     // router.replace(url, undefined, { shallow: true });
-   router.push(`${asPath.split('?')[0]}?sortBy=${sortBy}&sortOrder=${sortOrder}`)
-  }, [sortBy , sortOrder])
-  
+    if (sortBy == "" && sortOrder == "") {
+     return
+    } else {
+      router.push(`${asPath.split("?")[0]}?sortBy=${sortBy}&sortOrder=${sortOrder}`);
+   } 
+  }, [sortBy, sortOrder]);
+
   const handleFilters = (e) => {
-    if (e.target.value == 'Price, low to high') {
-      setSortBy('price');
-      setSortOrder('asc')
+    if (e.target.value == "Price, low to high") {
+      setSortBy("price");
+      setSortOrder("asc");
     }
-    if (e.target.value == 'Price, high to low') {
-      setSortBy('price');
-      setSortOrder('desc')
+    if (e.target.value == "Price, high to low") {
+      setSortBy("price");
+      setSortOrder("desc");
     }
-    if (e.target.value == 'Alphabetically, A-Z') {
-      setSortBy('title');
-      setSortOrder('asc')
+    if (e.target.value == "Alphabetically, A-Z") {
+      setSortBy("title");
+      setSortOrder("asc");
     }
-    if (e.target.value == 'Alphabetically, Z-A') {
-      setSortBy('title');
-      setSortOrder('desc')
+    if (e.target.value == "Alphabetically, Z-A") {
+      setSortBy("title");
+      setSortOrder("desc");
     }
   };
 
@@ -80,7 +123,8 @@ console.log(sortBy , sortOrder)
             <span className={styles.filterText}>Filter</span>
           </button>
           <div className={` secondaryText ${styles.number}`}>
-            {props.products.count} products
+            {/* {props.products.count} products */}
+            4554 products
           </div>
           <div className={styles.sorting}>
             <select name="sort" onChange={handleFilters}>
@@ -96,21 +140,22 @@ console.log(sortBy , sortOrder)
             </select>
           </div>
         </div>
-        <ProductsList products={props.products.products} type="collections" />
+        {/* <ProductsList products={props.products.products} type="collections" /> */}
+        <ProductsList products={productsDummy} type="collections" />
       </div>
     </div>
   );
 };
 
-export const getServerSideProps = async ({ params ,query }) => {
-  console.log(query ,"query")
+export const getServerSideProps = async ({ params, query }) => {
+  console.log(query, "query");
   const res = await axios.post(
     `https://tesla-lightning.herokuapp.com/product/search`,
     {
       // "minPrice": 15,
       // "maxPrice": 20,
       sortBy: query?.sortBy,
-      sortOrder : query?.sortOrder,
+      sortOrder: query?.sortOrder,
       headers: {
         Authorization:
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
@@ -120,8 +165,8 @@ export const getServerSideProps = async ({ params ,query }) => {
   return {
     props: {
       products: res.data.data,
-      initialSortBy: "title",
-      initialSortOrder: "asc",
+      initialSortBy: "",
+      initialSortOrder: "",
     },
   };
 };

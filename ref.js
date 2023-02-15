@@ -1,7 +1,7 @@
 // //post Reqest
 // export const getServerSideProps = async ({ params }) => {
 //     const res = await axios.post(
-//       `https://tesla-lightning.herokuapp.com/product/search`, 
+//       `https://tesla-lightning.herokuapp.com/product/search`,
 //       {
         
 //           text: "new chandeller",
@@ -23,7 +23,7 @@
 // //get Reqest
 // export const getServerSideProps = async ({ params }) => {
 //     const res = await axios.get(
-//       `https://tesla-lightning.herokuapp.com/dashboard/product`, 
+//       `https://tesla-lightning.herokuapp.com/dashboard/product`,
 //       {
         
        
@@ -41,3 +41,9 @@
 //     };
 //   };
   
+
+//https://tesla-lightning.herokuapp.com
+//   {
+//     "email": "mohaned-magdy@hotmail.com",
+//     "password": "mohandd#kMs3"
+// }

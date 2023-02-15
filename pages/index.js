@@ -96,8 +96,7 @@ export default function Home() {
     },
   ];
 
-  const [cartOpen, setCartOpen] = useState(false);
-  const [closeWishList, setCloseWishList] = useState(true);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -118,10 +117,7 @@ export default function Home() {
         />
       </Head>
   
-      {/* <Cart cartOpen={cartOpen} /> */}
-      {/* <button onClick={() => setCartOpen(true)}>cart</button> */}
-      {/* <Navbar setCloseWishList={setCloseWishList} /> */}
-      {!closeWishList && <Wishlist setCloseWishList={setCloseWishList} />}
+      
       <PromoSlider />
       <Featured />
       <CategoryList categories={categories} title="shop by category" />
