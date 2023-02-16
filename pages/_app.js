@@ -9,7 +9,7 @@ import Wishlist from "@/components/WishList";
 export default function App({ Component, pageProps }) {
   const [cartOpen, setCartOpen] = useState(false);
   const [closeWishList, setCloseWishList] = useState(true);
-  console.log( closeWishList , 'closeWishList')
+  // console.log( closeWishList , 'closeWishList')
      
   {
     /* <button onClick={() => setCartOpen(!cartOpen)}>cart</button> */
@@ -25,7 +25,7 @@ export default function App({ Component, pageProps }) {
       <Layout cartOpen={cartOpen} setCartOpen={setCartOpen} setCloseWishList={setCloseWishList} >
         {!closeWishList && <Wishlist setCloseWishList={setCloseWishList} />}
         <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
-        <Component {...pageProps} />
+        <Component {...pageProps} cartOpen={cartOpen} setCartOpen={setCartOpen}  />
       </Layout>
     </Provider>
   );

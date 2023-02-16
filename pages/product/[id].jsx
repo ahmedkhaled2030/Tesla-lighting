@@ -7,6 +7,7 @@ import {
   PersonOutlineOutlined,
   FavoriteBorderOutlined,
   Check,
+  Favorite,
 } from "@mui/icons-material";
 import CustomerReview from "@/components/CustomerReview";
 import Head from "next/head";
@@ -17,15 +18,25 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "../../redux/cartSlice";
 // Import Swiper styles
 import "swiper/css";
+import styled from "styled-components";
 
-const Product = ({ productDetails }) => {
+const FilterColor = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: ${(props) => props.color};
+  margin: 0px 5px;
+  cursor: pointer;
+  border: 3px solid #e6e6e6;
+  border-width: 4px;
+`;
+
+const Product = ({ productDetails, setCartOpen }) => {
+  console.log(productDetails);
+
   // console.log(productDetails ,"productDetails")
   // console.log(isFavourite,'isFavourite')
   //dummyData
-  const headers = {
-    Authorization:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
-  };
 
   const images = [
     "/img/product1.png",
@@ -118,49 +129,49 @@ const Product = ({ productDetails }) => {
         "quality is good not completed yet… however cannot wait to hang it!…",
     },
   ];
-  // const desc = `SKU: 1233W70-36
-  // Finish: Matte White
-  // Width: 70
-  // Height: 36
-  // Extension: 2
-  // Collection: Abigail
-  // Bulb 1 max wattage: 28
-  // Bulb 1 Type: LED
-  // Bulb 1 base: LED
-  // Lumens: 1456
-  // CRI: 80
-  // Shipping Method: LTL
-  // Color Temperature: 3000k to 6000k
-  // Voltage: 120
-  // Manufacturer Warranty: Three years warranty against manufacturers defect.`;
+  const desc = `SKU: 1233W70-36
+  Finish: Matte White
+  Width: 70
+  Height: 36
+  Extension: 2
+  Collection: Abigail
+  Bulb 1 max wattage: 28
+  Bulb 1 Type: LED
+  Bulb 1 base: LED
+  Lumens: 1456
+  CRI: 80
+  Shipping Method: LTL
+  Color Temperature: 3000k to 6000k
+  Voltage: 120
+  Manufacturer Warranty: Three years warranty against manufacturers defect.`;
   //dummyData
   // const [price, setPrice] = useState(productDetails.prices[0]);
   const [price, setPrice] = useState(prices[0].value);
-  const [size, setSize] = useState(0);
+  const [itemSize, setSize] = useState(0);
+  const [color, setColor] = useState("");
   const [selectedImg, setSelectedImg] = useState(images[1]);
   const [show, setShow] = useState(false);
   const [quantity, setQuantity] = useState(1);
-
+  const [isFavourited, setIsFavourited] = useState(false);
+  console.log(productDetails);
   const dispatch = useDispatch();
 
   const changePrice = (number) => {
     setPrice(price + number);
   };
 
-  // const handleSize = (sizeIndex) => {
-  //   const difference = productDetails?.price[sizeIndex] - productDetails?.price[size];
-  //   setSize(sizeIndex);
-  //   changePrice(difference);
-  // };
   const handleSize = (sizeIndex) => {
-    const difference = prices[sizeIndex].value - prices[size].value;
+    const difference = prices[sizeIndex].value - prices[itemSize].value;
     setSize(sizeIndex);
     changePrice(difference);
   };
   const handleCart = () => {
     console.log("cart");
-    // dispatch(addProduct({ ...productDetails,  price, quantity }));
-    dispatch(addProduct({ ...productDetails, price }));
+    setCartOpen(true);
+
+    dispatch(
+      addProduct({ ...productDetails, price, itemSize, color, quantity })
+    );
   };
 
   const handleFavourite = async () => {
@@ -168,18 +179,24 @@ const Product = ({ productDetails }) => {
 
     try {
       const res = await axios.post(
-        `https://tesla-lightning.herokuapp.com/product/search`,
+        `https://tesla-lightning.herokuapp.com/product/favorite/${productDetails._id}`,
         {},
         {
           headers: {
-            'Authorization':
+            Authorization:
               "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
           },
         }
       );
 
-      const data = await res;
-      console.log(data, "data");
+      const data = await res.data.message;
+      console.log(data)
+      if (data == 'Product added to favorites successfully') {
+        setIsFavourited(true)
+      } if(data == 'Favorite removed successfully') {
+        setIsFavourited(false)
+      }
+
     } catch (err) {
       console.log(err);
     }
@@ -260,16 +277,28 @@ const Product = ({ productDetails }) => {
           <span className={styles.shipping}>
             Shipping calculated at checkout.
           </span>
-          <button className={styles.buttonWish} onClick={handleFavourite}>
-            <FavoriteBorderOutlined />
-            Add to Wishlist
-          </button>
-          <div className={styles.colors}>
-            {productDetails?.color}
+          {isFavourited  ? (
+            <button className={styles.buttonWish} onClick={handleFavourite}>
+              <Favorite  />
+              Added to Wishlist
+              </button>
+          ) : (
+         
+              <button className={styles.buttonWish} onClick={handleFavourite}>
+              <FavoriteBorderOutlined  />
+              Add to Wishlist
+            </button>
+          )}
 
-            <span></span>
-            <span></span>
-            <span></span>
+          <div className={styles.colors}>
+            {productDetails?.colors.map((c) => (
+              <FilterColor
+                color={c}
+                key={c}
+                onClick={() => setColor(c)}
+                className={` ${color == c ? `${styles.colorSelected}` : ""}  `}
+              />
+            ))}
           </div>
           <div className={styles.sizes}>
             {productDetails?.size.map((size, i) => (
@@ -383,7 +412,6 @@ export const getServerSideProps = async ({ params }) => {
     // `https://tesla-lightning.herokuapp.com/product/${params.id}`
     `https://tesla-lightning.herokuapp.com/product/63eb621c09eedf45e735accb`
   );
-
 
   return {
     props: {

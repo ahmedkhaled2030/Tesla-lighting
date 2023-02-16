@@ -3,11 +3,11 @@ import Navbar from "./Navbar";
 import Cart from "./Cart";
 
 const Layout = ({children ,cartOpen , setCartOpen ,setCloseWishList}) => {
-  console.log(setCloseWishList)
+  // console.log(setCloseWishList)
   return (
       <>
       <Navbar cartOpen ={cartOpen}  setCartOpen={setCartOpen}  setCloseWishList ={setCloseWishList} />
-          {children}
+          {children }
           <Footer /> 
     </>
   )
