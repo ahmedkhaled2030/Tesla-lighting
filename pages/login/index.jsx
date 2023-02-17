@@ -7,22 +7,28 @@ import { useState } from "react";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
 import { authLogin } from "../../redux/authSlice";
+import FormInput from "@/components/FormInput";
+import Link from "next/link";
 const Login = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
+  const [values, setValues] = useState({
+
+    email: "",
+
+    password: "",
+ 
+  });
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(
         "https://tesla-lightning.herokuapp.com/user/login",
-        {
-          email,
-          password,
-        }
-      );
+       values
+      ); 
       const authData = await res.data.data;
       localStorage.setItem("token", authData.refreshToken);
       console.log(authData, "authData");
@@ -32,6 +38,42 @@ const Login = () => {
       setError(true);
     }
   };
+
+
+  const inputs = [
+
+    {
+      id: 1,
+      name: "email",
+      type: "email",
+      placeholder: "Email",
+      errorMessage: "It should be a valid email address!",
+      label: "EMAIL",
+      required: true,
+    },
+   
+    {
+      id: 2,
+      name: "password",
+      type: "password",
+      placeholder: "Password",
+      errorMessage:
+        "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
+      label: "PASSWORD",
+      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+      required: true,
+    },
+
+  ];
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
   return (
     <div className={` flexCenter paddings ${styles.container}`}>
       <Head>
@@ -53,7 +95,7 @@ const Login = () => {
       </Head>
       <h1 className={` primaryText ${styles.title}`}>Login</h1>
       <form className={styles.form}>
-        <div className={styles.signPart}>
+        {/* <div className={styles.signPart}>
           <span className={`secondaryText ${styles.subHeading}`}>EMAIL</span>
 
           <input
@@ -78,12 +120,22 @@ const Login = () => {
             className={styles.signInput}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
+        </div> */}
+
+        {inputs.map((input) => (
+          <FormInput
+            key={input.id}
+            {...input}
+            value={values[input.name]}
+            onChange={onChange}
+          />
+        ))}
         <button className={styles.switchButton} onClick={handleLogin}>
           Login
         </button>
-        {error && <span className={styles.error}>Wrong Credentials!</span>}
-        <span className={styles.text}>Create account</span>
+        <Link href={`/signup`} passHref className="link">
+          <span className={styles.text}>Create account ?</span>
+          </Link>
       </form>
     </div>
   );

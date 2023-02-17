@@ -11,7 +11,8 @@
     width: 100%;
     background-repeat: no-repeat;
     position: relative;
-    margin: 4rem 0;
+    margin: 20px 0;
+
     // animation: zoom-fade 0.5s cubic-bezier(.26,.54,.32,1) 0s forwards;
     background-position: top 10% right 10%;
     background-size: cover;
@@ -44,8 +45,8 @@
             top:5%;
             left: 5%;
           }
-          @media (min-width: $md) {
-            width: 25%;
+          @media (max-width: $md) {
+            width: 70%;
             padding: 30px;
             top:5%;
             left: 5%;

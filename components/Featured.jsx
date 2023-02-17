@@ -10,7 +10,8 @@ import "swiper/css/effect-fade";
 
 const Featured = () => {
   const images = [
-    "/img/slider1.jpg",
+    "/img/slider1.png",
+    "/img/slider11.png",
     "/img/slider2.jpg",
     "/img/slider3.jpg",
     "/img/slider4.jpg",
@@ -41,18 +42,18 @@ const Featured = () => {
       >
         <SwiperSlide className={styles.swiperSlide}>
           <Image
-            src="/img/slider1.jpg"
+            src="/img/slider1.png"
             alt=""
             layout="fill"
             className={styles.img}
           />
-          <span className={`primaryText ${styles.text}`}>brand new</span>
+          {/* <span className={`primaryText ${styles.text}`}>brand new</span>
           <h1 className={`primaryText ${styles.title}`}>MAGNETIC TRACK SYSTEM</h1>
-          <div className={`borderText ${styles.button}`}>MORE INFO</div>
+          <div className={`borderText ${styles.button}`}>MORE INFO</div> */}
         </SwiperSlide>
         <SwiperSlide className={styles.swiperSlide}>
           <Image
-            src="/img/slider2.jpg"
+            src="/img/slider11.png"
             alt=""
             layout="fill"
             className={styles.img}

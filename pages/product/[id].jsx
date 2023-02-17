@@ -246,8 +246,8 @@ const Product = ({ productDetails, setCartOpen }) => {
         pagination={{
           clickable: true
         }}
-        // navigation={true}
-          modules={[FreeMode, Pagination, Navigation]}
+        
+          modules={[ Pagination]}
           breakpoints={{
               300: { 
                 slidesPerView: 1.5,
@@ -357,7 +357,7 @@ const Product = ({ productDetails, setCartOpen }) => {
               {productDetails?.colors.map((c) => (
                 <div
                   className={` ${
-                    color == c ? `${styles.colorSelected}` : ""
+                    color == c ? ` ${styles.color} ${styles.colorSelected}` : `${styles.color}`
                   }  `}
                 >
                   <FilterColor color={c} key={c} onClick={() => setColor(c)} />

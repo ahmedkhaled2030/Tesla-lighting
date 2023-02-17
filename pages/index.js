@@ -118,7 +118,7 @@ export default function Home() {
       </Head>
   
       
-      <PromoSlider />
+
       <Featured />
       <CategoryList categories={categories} title="shop by category" />
       <ProductsList title="New ARRIVAL" products={products} />

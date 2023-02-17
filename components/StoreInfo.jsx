@@ -16,7 +16,7 @@ const StoreInfo = () => {
     },
   ];
   return (
-    <div className={` innerWidth  yPaddings  ${styles.container}`}>
+    <div className={` innerWidth  yPaddings   ${styles.container}`}>
 
 
         <div className={styles.section}>

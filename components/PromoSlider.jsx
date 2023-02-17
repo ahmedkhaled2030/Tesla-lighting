@@ -8,11 +8,11 @@ import "swiper/css/scrollbar";
 import { Scrollbar, Autoplay, Navigation } from "swiper";
 const PromoSlider = () => {
   return (
-    <>
+    <div className={styles.container}>
       <Swiper
         autoplay={{
           delay: 2500,
-          disableOnInteraction: false,
+          disableOnInteraction: true,
         }}
         breakpoints={{
           640: {
@@ -41,7 +41,7 @@ const PromoSlider = () => {
           UP TO 30% OFF STORE WIDE | PRICE ARE LOW, DON'T BE SLOW! LIMITED TIME
         </SwiperSlide>
       </Swiper>
-    </>
+    </div>
   );
 };
 
