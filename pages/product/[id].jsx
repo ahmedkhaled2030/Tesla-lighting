@@ -13,22 +13,32 @@ import CustomerReview from "@/components/CustomerReview";
 import Head from "next/head";
 import { Rating } from "@mui/material";
 import ProductsList from "@/components/ProductsList";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../redux/cartSlice";
 // Import Swiper styles
-import "swiper/css";
-import styled from "styled-components";
 
-const FilterColor = styled.div`
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+import styled from "styled-components";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// import required modules
+
+// import required modules
+import { FreeMode, Pagination, Navigation } from "swiper";
+
+const FilterColor = styled.div` 
   background-color: ${(props) => props.color};
-  margin: 0px 5px;
-  cursor: pointer;
-  border: 3px solid #e6e6e6;
-  border-width: 4px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #ebebeb;
+  display: block;
 `;
 
 const Product = ({ productDetails, setCartOpen }) => {
@@ -163,6 +173,7 @@ const Product = ({ productDetails, setCartOpen }) => {
   const handleSize = (sizeIndex) => {
     const difference = prices[sizeIndex].value - prices[itemSize].value;
     setSize(sizeIndex);
+
     changePrice(difference);
   };
   const handleCart = () => {
@@ -190,13 +201,13 @@ const Product = ({ productDetails, setCartOpen }) => {
       );
 
       const data = await res.data.message;
-      console.log(data)
-      if (data == 'Product added to favorites successfully') {
-        setIsFavourited(true)
-      } if(data == 'Favorite removed successfully') {
-        setIsFavourited(false)
+      console.log(data);
+      if (data == "Product added to favorites successfully") {
+        setIsFavourited(true);
       }
-
+      if (data == "Favorite removed successfully") {
+        setIsFavourited(false);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -227,8 +238,57 @@ const Product = ({ productDetails, setCartOpen }) => {
           rel="stylesheet"
         />
       </Head>
+      <>
+      <Swiper
+        slidesPerView={3}
+        spaceBetween={30}
+        freeMode={true}
+        pagination={{
+          clickable: true
+        }}
+        // navigation={true}
+          modules={[FreeMode, Pagination, Navigation]}
+          breakpoints={{
+              300: { 
+                slidesPerView: 1.5,
+              spaceBetween: -30,
+              centeredSlides: true
+              },
+              640: {
+                slidesPerView: 1.5,
+                spaceBetween: -30,
+                centeredSlides: true
+              },
+              768: {
+                slidesPerView: 1.5,
+                spaceBetween: -30,
+                centeredSlides: true
+              },
+              1024: {
+                slidesPerView: 5,
+                spaceBetween: 50,
+              },
+            }}
+        className={styles.swiper}
+      >
+            {images?.map((img, i) => (
+              <SwiperSlide className={styles.swiperSlide}>
+                <Image
+                   src={img}
+                  alt=""
+                  width="300px"
+                  height="300px"
+                  objectFit="contain"
+                  key={i}
+                />
+              </SwiperSlide>
+            ))}
+       
 
+      </Swiper>
+    </>
       <div className={styles.top}>
+
         <div className={styles.left}>
           <div className={styles.subImagesContainer}>
             {images.map((image, i) => (
@@ -260,8 +320,10 @@ const Product = ({ productDetails, setCartOpen }) => {
               objectFit="contain"
               className={styles.mainImg}
             />
-          </div>
-        </div>
+          </div>  
+        
+        
+       </div> 
         <div className={styles.right}>
           <h1 className={`primaryText ${styles.title}`}>
             {productDetails?.title}
@@ -274,42 +336,56 @@ const Product = ({ productDetails, setCartOpen }) => {
             <span className={styles.price}>$2,972.00</span>
             <span className={styles.price}>Save $293.00</span> */}
           </div>
-          <span className={styles.shipping}>
-            Shipping calculated at checkout.
-          </span>
-          {isFavourited  ? (
+          <p className={styles.shipping}>
+            <span>Shipping</span> calculated at checkout.
+          </p>
+          {isFavourited ? (
             <button className={styles.buttonWish} onClick={handleFavourite}>
-              <Favorite  />
+              <Favorite />
               Added to Wishlist
-              </button>
+            </button>
           ) : (
-         
-              <button className={styles.buttonWish} onClick={handleFavourite}>
-              <FavoriteBorderOutlined  />
+            <button className={styles.buttonWish} onClick={handleFavourite}>
+              <FavoriteBorderOutlined />
               Add to Wishlist
             </button>
           )}
 
           <div className={styles.colors}>
-            {productDetails?.colors.map((c) => (
-              <FilterColor
-                color={c}
-                key={c}
-                onClick={() => setColor(c)}
-                className={` ${color == c ? `${styles.colorSelected}` : ""}  `}
-              />
-            ))}
+            <span>COLOR</span>
+            <div className={styles.colorWrapper}>
+              {productDetails?.colors.map((c) => (
+                <div
+                  className={` ${
+                    color == c ? `${styles.colorSelected}` : ""
+                  }  `}
+                >
+                  <FilterColor color={c} key={c} onClick={() => setColor(c)} />
+                  
+                </div>
+              ))}
+            </div>
           </div>
           <div className={styles.sizes}>
-            {productDetails?.size.map((size, i) => (
-              <span onClick={() => handleSize(i)}>{size.value} inch</span>
-            ))}
+            <span>SIZE</span>
+            <div className={styles.sizeWrapper}>
+              {productDetails?.size.map((size, i) => (
+                <span
+                  onClick={() => handleSize(i)}
+                  className={` ${
+                    itemSize == i ? `${styles.sizeSelected}` : ""
+                  }  `}
+                >
+                  {size.value}"
+                </span>
+              ))}
+            </div>
           </div>
           <button className={styles.buttonCart} onClick={handleCart}>
             ADD TO CART
           </button>
           <h3 className={`primaryText ${styles.descHeading}`}>DESCRIPTION</h3>
-          <span className={styles.desc}>{productDetails?.description}</span>
+          <span className={styles.desc}>{desc}</span>
         </div>
       </div>
 
