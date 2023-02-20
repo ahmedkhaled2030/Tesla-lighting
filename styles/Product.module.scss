@@ -464,7 +464,7 @@
 
 .selected {
   border: 2px solid black;
-  z-index: 555;
+  z-index: 333;
   @media (max-width: $sm), (max-width: $md) {
     border: none;
   }

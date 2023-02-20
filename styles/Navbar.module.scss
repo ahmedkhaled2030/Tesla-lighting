@@ -1,5 +1,5 @@
 @import "./contants.scss";
-
+@import "./globals.scss";
 .container {
   height: 100px;
 
@@ -9,6 +9,9 @@
     justify-content: space-between;
     font-size: 18px;
     height: 100%;
+    @media (max-width: $sm), (max-width: $md) {
+      display: none;
+    }
     .item {
       flex: 1;
       display: flex;
@@ -20,12 +23,12 @@
       //     width:100vw;
       //     display: flex;
       //     list-style: none;
-      //     color: white; 
+      //     color: white;
       //     align-items: center;
       //     justify-content: center;
       //     gap: 70px;
       //     z-index: 999;
-      //     background-color: black; 
+      //     background-color: black;
       //     .secondDropdown {
       //       list-style: none;
       //     }
@@ -39,6 +42,7 @@
     }
     > :nth-child(2) {
       flex: 4;
+
       .listWrapper {
         display: flex;
         list-style: none;
@@ -89,6 +93,93 @@
           top: -5px;
           right: -15px;
           border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  .mobileWrapper {
+    display: none;
+    @media (max-width: $sm), (max-width: $md) {
+      display: block;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 20px 40px;
+      position: relative;
+          .listWrapper {
+        position: absolute;
+        position: fixed;
+        z-index: 999;
+        gap: 2rem;
+        font-weight: 500;
+        flex-direction: column;
+        left: -1000px;
+        top: 3rem;
+        height:100vh;
+        width: 5%;
+        min-width: 12rem;
+        background: white;
+overflow: hidden;
+        display: flex;
+        border-radius: 10px;
+        transition: all 200ms ease;
+        align-items: center;
+        padding: 3rem;
+        justify-content: flex-start;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+
+        .listItem{
+          color: black;
+          width: 100%;
+
+        }
+      }
+      .open{
+        left:0
+      }
+
+      .left {
+      }
+      .right {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+        > :nth-child(2) {
+          position: relative;
+
+          span {
+            position: absolute;
+            background-color: #ff4f33;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            color: white;
+            bottom: -4px;
+            right: -10px;
+            border-radius: 50%;
+          }
+        }
+        > :nth-child(3) {
+          position: relative;
+          span {
+            position: absolute;
+            background-color: #ff4f33;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            color: white;
+            top: -5px;
+            right: -15px;
+            border-radius: 50%;
+          }
         }
       }
     }

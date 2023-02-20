@@ -9,8 +9,8 @@ const Layout = ({children ,cartOpen , setCartOpen ,setCloseWishList,searchOpen,s
 
   return (
     <>
-            <PromoSlider />
-      {/* <Navbar cartOpen ={cartOpen}  setCartOpen={setCartOpen}  setCloseWishList ={setCloseWishList} searchOpen={searchOpen}  setSearchOpen={setSearchOpen} /> */}
+            {/* <PromoSlider /> */}
+      <Navbar cartOpen ={cartOpen}  setCartOpen={setCartOpen}  setCloseWishList ={setCloseWishList} searchOpen={searchOpen}  setSearchOpen={setSearchOpen} />
           {children }
           <Footer /> 
     </>

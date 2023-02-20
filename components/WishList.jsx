@@ -28,19 +28,7 @@ const Wishlist = ({ setCloseWishList }) => {
       title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
       price: "3,767.00",
     },
-    {
-      id: 4,
-      img: "/img/arrival4.png",
-      title: "Gold Leaf Leafy Bohemian Shade Wall Sconce",
-      price: "3,767.00",
-    },
-    {
-      id: 5,
-      img: "/img/arrival5.png",
-      title:
-        "Handcrafted Wallflower Frame with Opal Matte Glass Globe Pendant / Chandelier",
-      price: "3,767.00",
-    },
+   
   ];
 
   return (
