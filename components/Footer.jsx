@@ -27,7 +27,7 @@ const Footer = () => {
               placeholder="Enter your email"
               className={styles.input}
             />
-            <button className={styles.send}>Say Hello!</button>
+            <button className={styles.send}>Send</button>
           </div>
         </div>
       </div>

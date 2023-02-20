@@ -1,91 +1,87 @@
 {
     "menus": [
         {
-            "id": 1,
-            "text": "Home",
-            "link": "/",
-            "dropdown": []
-        },
-        {
             "id": 2,
-            "text": "CATEGORIES",
-            "link": "/catalog",
-            "dropdown": [],
+            "megaMenuTitle": "Lights",
+            "link": "/Lights",
+            "haveIcon": "true",
             "megaMenus": [
                 {
                     "id": 2.1,
-                    "megaMenuTitle": "CHANDELIER",
-                    "link": "/shop-CHANDELIER",
-                    "megaMenuItems": [
+                    "megaMenuTitle": "CEILINGS",
+                    "link": "/CEILINGS",
+                    "haveIcon": "true",
+                    "megaMenus": [
                         {
                             "id": 2.11,
-                            "text": "Crystal Chandelier",
-                            "link": "/Crystal Chandelier"
+                            "megaMenuTitle": "Chandeliers",
+                            "link": "/Chandeliers"
                         },
                         {
                             "id": 2.12,
-                            "text": "Modern Chandelier",
-                            "link": "/Modern Chandelier"
+                            "megaMenuTitle": "Pendants",
+                            "link": "/Pendants"
                         },
                         {
                             "id": 2.13,
-                            "text": "Traditional Chandelier",
-                            "link": "/Traditional Chandelier"
+                            "megaMenuTitle": "Flush Mounts",
+                            "link": "/Flush Mounts"
+                        },
+                        {
+                            "id": 2.14,
+                            "megaMenuTitle": "All",
+                            "link": "/All"
                         }
                     ]
                 },
                 {
                     "id": 2.2,
-                    "megaMenuTitle": "Pendant",
-                    "link": "/product-Pendant",
-                    "megaMenuItems": [
+                    "megaMenuTitle": "WALL",
+                    "link": "/WALL",
+                    "haveIcon": "true",
+                    "megaMenus": [
                         {
                             "id": 2.21,
-                            "text": "Crystal Pendant",
-                            "link": "/Crystal Pendant"
+                            "megaMenuTitle": "Bathroom",
+                            "link": "/Bathroom"
                         },
                         {
                             "id": 2.22,
-                            "text": "Modern Pendant",
-                            "link": "/Modern Pendant"
+                            "megaMenuTitle": "Sconces",
+                            "link": "/Sconces"
                         },
                         {
                             "id": 2.23,
-                            "text": "Traditional Pendant",
-                            "link": "/Traditional Pendant"
-                        },
-                        {
-                            "id": 2.24,
-                            "text": "Outdoor Pendant",
-                            "link": "/Outdoor Pendant"
+                            "megaMenuTitle": "All",
+                            "link": "/All"
                         }
+
                     ]
                 }
             ]
         },
         {
-            "id": 3,
-            "text": "ABOUT",
-            "link": "/about",
-            "dropdown": []
-        },
-        {
-            "id": 4,
-            "text": "CONTACT",
-            "link": "/contact",
-            "dropdown": []
-        },
-        {
-            "id": 5,
-            "text": "PORTFOLIO",
-            "link": "/portfolio",
-            "dropdown": []
-        },
-        {
-            "id": 6,
-            "text": "FLYER",
-            "link": "/flyer",
-            "dropdown": []
+            "id": 2,
+            "megaMenuTitle": "Decor",
+            "link": "/Decor",
+            "haveIcon": "true",
+            "megaMenus": [
+                {
+                    "id": 2.1,
+                    "megaMenuTitle": "Mirrors & Mirror Accessories",
+                    "link": "/Mirrors & Mirror Accessories",
+                    "haveIcon": "true",
+                    "megaMenus": [
+                        {
+                            "id": 2.11,
+                            "megaMenuTitle": "Mirrors",
+                            "link": "/Mirrors"
+                        }
+                    ]
+                }
+               
+            ]
         }
+      
     ]
 }

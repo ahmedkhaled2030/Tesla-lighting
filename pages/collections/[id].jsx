@@ -18,11 +18,11 @@ const headers = {
   'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0'
 }
 
-const Collections = (props) => {
+const Collections = (props ) => {
   const productsDummy = [
     {
       id: "63eb621c09eedf45e735accb",
-      img: "/img/arrival1.png",
+      img: "/img/product1.png",
       title: "Aged Brass Frame with Etched Glass Shade Linear Pendant",
       price: "3,767.00",
     },
@@ -116,15 +116,15 @@ const Collections = (props) => {
       <div className={styles.imgContainer}>
         <h1 className={`primaryText ${styles.title}`}>Flush MOUNT</h1>
       </div>
-      <div className={`innerWidth  yPaddings  ${styles.wrapper}`}>
+      <div className={`innerWidth  yPaddings  ${styles.wrapper}`}> 
         <div className={styles.filterContainer}>
-          <button className={styles.filter}>
+          <button className={styles.filter} onClick={()  => props.setFilterOpen(true)}>
             <FilterAltOutlined />
-            <span className={styles.filterText}>Filter</span>
+            <span className={styles.filterText}>Filter</span> 
           </button>
           <div className={` secondaryText ${styles.number}`}>
-            {/* {props.products.count} products */}
-            4554 products
+            {/* {props.products.count} products */} 
+            5 products
           </div>
           <div className={styles.sorting}>
             <select name="sort" onChange={handleFilters}>

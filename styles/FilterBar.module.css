@@ -1,0 +1,92 @@
+
+
+.sidebar { 
+  width: 320px;
+
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background: white;
+  box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+  color: #000;
+
+  top: 0;
+  left: -200%;
+
+  z-index: 999;
+  position: fixed;
+  transition: transform 0.3s ease-out;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.open {
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  max-height: 5%;
+
+}
+
+.close{
+  margin-right: 20px;
+}
+.hr {
+  width: 100%;
+  margin: 10px auto;
+  height: 1px;
+  color: #ebebeb;
+  background-color: #ebebeb;
+}
+
+.sidebarItem {
+  padding: 0.75em 1em;
+  display: block;
+  transition: background-color 0.15s;
+
+}
+
+.sidebarTitle {
+  display: flex;
+  font-size: 20px;
+  justify-content: space-between;
+}
+
+.sidebarItem.open > .sidebarTitle .toggleBtn{
+  transform: rotate(180deg);
+
+}
+.sidebarContent {
+  padding-top: 0.25em;
+  height: 0;
+  overflow: hidden;
+
+}
+.sidebarItem.open > .sidebarContent {
+  height: auto;
+
+}
+
+.sidebarTitle span{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottom{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.slider{
+  color: black;
+}

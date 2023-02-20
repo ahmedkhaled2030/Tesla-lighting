@@ -30,8 +30,10 @@ import "swiper/css/navigation";
 
 // import required modules
 import { FreeMode, Pagination, Navigation } from "swiper";
+import Magnifier from "react-magnifier";
+import SideBar from "@/components/FilterBar";
 
-const FilterColor = styled.div` 
+const FilterColor = styled.div`
   background-color: ${(props) => props.color};
   width: 40px;
   height: 40px;
@@ -215,7 +217,7 @@ const Product = ({ productDetails, setCartOpen }) => {
 
   const toggleShow = () => {
     setShow(!show);
-  };
+  }; 
 
   var buttonText = show ? "Cancel review" : "Write a review";
 
@@ -238,57 +240,58 @@ const Product = ({ productDetails, setCartOpen }) => {
           rel="stylesheet"
         />
       </Head>
+
+
       <>
-      <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        freeMode={true}
-        pagination={{
-          clickable: true
-        }}
         
-          modules={[ Pagination]}
+        <Swiper
+          slidesPerView={3}
+          spaceBetween={30}
+          freeMode={true}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
           breakpoints={{
-              300: { 
-                slidesPerView: 1.5,
-              spaceBetween: -30,
-              centeredSlides: true
-              },
-              640: {
-                slidesPerView: 1.5,
-                spaceBetween: -30,
-                centeredSlides: true
-              },
-              768: {
-                slidesPerView: 1.5,
-                spaceBetween: -30,
-                centeredSlides: true
-              },
-              1024: {
-                slidesPerView: 5,
-                spaceBetween: 50,
-              },
-            }}
-        className={styles.swiper}
-      >
-            {images?.map((img, i) => (
-              <SwiperSlide className={styles.swiperSlide}>
-                <Image
-                   src={img}
-                  alt=""
-                  width="300px"
-                  height="300px"
-                  objectFit="contain"
-                  key={i}
-                />
-              </SwiperSlide>
-            ))}
-       
-
-      </Swiper>
-    </>
+            300: {
+              slidesPerView: 1.5,
+              spaceBetween: 10,
+              centeredSlides: true,
+            },
+            640: {
+              slidesPerView: 1.5,
+              spaceBetween: 10,
+              centeredSlides: true,
+            },
+            768: {
+              slidesPerView: 1.5,
+              spaceBetween: 10,
+              centeredSlides: true,
+            },
+            1024: {
+              slidesPerView: 5,
+              spaceBetween: 50,
+            },
+          }}
+          className={styles.swiper}
+        >
+          {images?.map((img, i) => (
+            <SwiperSlide className={styles.swiperSlide}>
+              {/* <Image
+                src={img}
+                alt=""
+                width="300px"
+                height="300px" 
+                objectFit="contain"
+                key={i}
+              /> */}     
+              {/* <ImageMagnifier width={"200px"} src={img} /> */}
+              <Magnifier src={img} width={200} /> 
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </>
       <div className={styles.top}>
-
         <div className={styles.left}>
           <div className={styles.subImagesContainer}>
             {images.map((image, i) => (
@@ -312,25 +315,25 @@ const Product = ({ productDetails, setCartOpen }) => {
           </div>
 
           <div className={styles.mainImgContainer}>
-            <Image
+            {/* <Image
               src={selectedImg}
               alt=""
               width="450px"
               height="450px"
               objectFit="contain"
               className={styles.mainImg}
-            />
-          </div>  
-        
-        
-       </div> 
+            /> */}
+            {/* <ImageMagnifier width={"450px"} src={selectedImg} /> */}
+            <Magnifier src={selectedImg} width={450} mgWidth={200} mgHeight={200} /> 
+          </div>
+        </div>
         <div className={styles.right}>
           <h1 className={`primaryText ${styles.title}`}>
             {productDetails?.title}
-          </h1>
-          <span className={styles.number}>{productDetails?.number}</span>
+          </h1> 
+          <span className={styles.number}><strong>{productDetails?.number.toString()}</strong></span>
           <div className={styles.prices}>
-            $ {price}
+            $ {price} 
             {/* $ {productDetails?.price} */}
             {/* <span className={styles.price}>$3,265.00</span>
             <span className={styles.price}>$2,972.00</span>
@@ -357,11 +360,12 @@ const Product = ({ productDetails, setCartOpen }) => {
               {productDetails?.colors.map((c) => (
                 <div
                   className={` ${
-                    color == c ? ` ${styles.color} ${styles.colorSelected}` : `${styles.color}`
+                    color == c
+                      ? ` ${styles.color} ${styles.colorSelected}`
+                      : `${styles.color}`
                   }  `}
                 >
                   <FilterColor color={c} key={c} onClick={() => setColor(c)} />
-                  
                 </div>
               ))}
             </div>

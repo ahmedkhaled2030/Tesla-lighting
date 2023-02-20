@@ -17,12 +17,13 @@ import PromoSlider from "@/components/PromoSlider";
 import CompanySlider from "@/components/CompanySlider";
 import Wishlist from "@/components/WishList";
 import Navbar from "@/components/Navbar";
+import FilterBar from "@/components/FilterBar";
 
 export default function Home() {
   const products = [
     {
       id: 1,
-      img: "/img/arrival1.png",
+      img: "/img/product1.png",
       title: "Aged Brass Frame with Etched Glass Shade Linear Pendant",
       price: "3,767.00",
     },
@@ -55,6 +56,10 @@ export default function Home() {
   ];
   const categories = [
     {
+      img: "/img/3.jpg",
+      title: "Chandelier",
+    },
+    {
       img: "/img/1.jpg",
       title: "TRACK LIGHT",
     },
@@ -62,10 +67,7 @@ export default function Home() {
       img: "/img/2.jpg",
       title: "MISC",
     },
-    {
-      img: "/img/3.jpg",
-      title: "Chandelier",
-    },
+
     {
       img: "/img/4.jpg",
       title: "LIGHTBULB",
@@ -97,6 +99,7 @@ export default function Home() {
   ];
 
 
+
   return (
     <div className={styles.container}>
       <Head>
@@ -117,7 +120,7 @@ export default function Home() {
         />
       </Head>
   
-      
+
 
       <Featured />
       <CategoryList categories={categories} title="shop by category" />

@@ -3,26 +3,25 @@
 
 .container {
   height: 100%;
-  background: white;
   position: fixed;
   top: 0;
   right: 0;
-
-  z-index: 900;
+  z-index: 200;
+  background: white;
   box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
-  transform: translate(100%);
+  transform: translateX(100%);
   transition: transform 0.3s ease-out;
   padding: 20px;
   font-family: "Poppins", sans-serif;
 
   @media (max-width: $sm) {
-    width: 85%;
+    width: 90%;
   }
   @media (min-width: $md) {
-    width: 40%;
+    width: 50%;
   }
   @media (min-width: $lg) {
-    width: 24%;
+    width: 25%;
   }
 }
 .open {
@@ -30,12 +29,20 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  // @media (max-width: $sm) {
+  //   transform: translateX(-10%);
+  // }
   .top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex:1;
+    flex: 1;
     max-height: 5%;
+
+    .close{
+      margin-right: 20px;
+    }
   }
   .hr {
     width: 100%;
@@ -46,12 +53,11 @@
   }
 
   .center {
-    flex:4;
+    flex: 4;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     gap: 40px;
-    
 
     margin: 40px 0px;
     .imgContainer {
@@ -61,14 +67,18 @@
     .detailsContainer {
       display: flex;
       flex-direction: column;
-.title{
-  margin: 2px 0;
-}
+      .title {
+        margin: 2px 0;
+      }
       .price {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-top: 20px;
+        @media (max-width: $sm) {
+          justify-content: flex-start;
+          gap: 30px;
+        }
         .number {
           border: 1px solid $line;
           height: 35px;
@@ -97,34 +107,45 @@
     }
   }
 
-  .bottom{
-    flex:1;
+  .bottom {
+    flex: 1;
     margin-bottom: 50px;
     max-height: 20%;
-      .hr {
-    width: 100%;
-    margin: 10px auto;
-    height: 1px;
-    color: $line;
-    background-color: $line;
-  }
-    .wrapper{
+
+    .hr {
+      width: 100%;
+      margin: 10px auto;
+      height: 1px;
+      color: $line;
+      background-color: $line;
+    }
+    .wrapper {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      .title{
+      @media (max-width: $sm) {
+        flex-direction: column;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+      .title {
         font-size: 14px;
         letter-spacing: 4.32px;
         font-weight: 400;
       }
     }
-    .text{
+    .text {
       font-size: 14px;
       font-weight: 400;
       display: block;
-      text-align: center;
+      text-align: left;
       margin: 20px 0;
       font-family: "Poppins", sans-serif;
+      @media (max-width: $sm) {
+        font-size: 12px;
+        width: 90%;
+      }
     }
     .switchButton {
       padding: 10px 0px;
@@ -138,15 +159,11 @@
       text-transform: uppercase;
       font-family: "Poppins", sans-serif;
       cursor: pointer;
-      @media (max-width: $sm),(max-width: $md) {
-     
-        width: 100px;
-      }
+    
     }
   }
-  button{
+  button {
     outline: none;
     border: none;
   }
 }
-

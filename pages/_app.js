@@ -10,11 +10,14 @@ import SearchBar from "@/components/SearchBar";
 import useDebounce from "../hooks/useDebounce";
 import axios from "axios";
 import { useRouter } from "next/router";
+import FilterBar from "@/components/FilterBar";
 
 export default function App({ Component, pageProps }) {
   const [cartOpen, setCartOpen] = useState(false);
+  const [FilterOpen, setFilterOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [closeWishList, setCloseWishList] = useState(true);
+  
   // const [searchValue, setSearchValue] = useState("");
   // const [searchText, setSearchText] = useState(pageProps.searchText);
   // const debouncedSearchValue = useDebounce(searchText, 1000);
@@ -53,14 +56,14 @@ export default function App({ Component, pageProps }) {
         <SearchBar
           searchOpen={searchOpen}
           setSearchOpen={setSearchOpen}
-          // searchValue={searchText}
-          // setSearchText={setSearchText}
-          // searchTerm={debouncedSearchValue}
+
         />
+            <FilterBar FilterOpen={FilterOpen} setFilterOpen={setFilterOpen}   />
         <Component
           {...pageProps}
           cartOpen={cartOpen}
           setCartOpen={setCartOpen}
+          FilterOpen={FilterOpen} setFilterOpen={setFilterOpen}
         />
       </Layout>
     </Provider>

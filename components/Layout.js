@@ -5,7 +5,7 @@ import { useState } from "react"
 import PromoSlider from "./PromoSlider";
 
 
-const Layout = ({children ,cartOpen , setCartOpen ,setCloseWishList,searchOpen,setSearchOpen }) => {
+const Layout = ({children ,cartOpen , setCartOpen ,setCloseWishList,searchOpen,setSearchOpen ,FilterOpen, setFilterOpen }) => {
 
   return (
     <>

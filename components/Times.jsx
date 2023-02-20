@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./../styles/Times.module.scss";
 
 const Times = () => {
@@ -14,8 +15,11 @@ const Times = () => {
                   Saturday, 11:00am - 7:00pm
                   <br />
                   Sunday, 11:00am - 6:00pm
-              </p>
-              <button>GET DIRECTIONS</button>
+        </p>
+        <Link href="https://goo.gl/maps/89LnzY4QbNtHzuQS7" passHref={true}>
+        <button>GET DIRECTIONS</button>
+  </Link>
+          
         </div>
     </div>
   );

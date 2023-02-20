@@ -48,7 +48,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
     <div className={`${styles.container}  ${cartOpen ? styles.open : " "} `}>
       <div className={styles.top}>
         <h1 className={`primaryText ${styles.title}`}>Cart</h1>
-        <Close onClick={() => setCartOpen(false)} />
+        <Close onClick={() => setCartOpen(false)} className={styles.close} />
       </div>
       <div className={styles.hr}></div>
       {cart.products.length < 1 ? (
