@@ -11,37 +11,13 @@ import useDebounce from "../hooks/useDebounce";
 import axios from "axios";
 import { useRouter } from "next/router";
 import FilterBar from "@/components/FilterBar";
-
 export default function App({ Component, pageProps }) {
   const [cartOpen, setCartOpen] = useState(false);
   const [FilterOpen, setFilterOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [closeWishList, setCloseWishList] = useState(true);
-  
-  // const [searchValue, setSearchValue] = useState("");
-  // const [searchText, setSearchText] = useState(pageProps.searchText);
-  // const debouncedSearchValue = useDebounce(searchText, 1000);
-
-
-
-// console.log(pageProps)
-//   const { asPath } = useRouter();
-
-//   const router = useRouter();
-  // useEffect(() => {
-  //   console.log(searchText);
-  //   const url = {
-  //     pathname: asPath,
-  //     query: { searchText: searchText },
-  //   };
-  //   // router.replace(url, undefined, { shallow: true });
-  //   if (searchText == null ) {
-  //    return
-  //   } else {
-  //     router.push(`${asPath.split("?")[0]}?searchText=${searchText}`);
-  //  } 
-  // }, [searchText]);
-
+  const [hideNavbar ,setHideNavbar] = useState(true)
+ 
   return (
     <Provider store={store}>
       <Layout
@@ -50,6 +26,7 @@ export default function App({ Component, pageProps }) {
         setCloseWishList={setCloseWishList}
         searchOpen={searchOpen}
         setSearchOpen={setSearchOpen}
+ 
       >
         {!closeWishList && <Wishlist setCloseWishList={setCloseWishList} />}
         <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />

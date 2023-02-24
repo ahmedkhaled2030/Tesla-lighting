@@ -124,7 +124,7 @@ const SignUp = () => {
           rel="stylesheet"
         />
       </Head>
-      <h1 className={` primaryText ${styles.title}`}>Login</h1>
+      <h1 className={` primaryText ${styles.title}`}>CREATE ACCOUNT</h1>
       <form className={styles.form}>
         {inputs.map((input) => (
           <FormInput

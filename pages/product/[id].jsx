@@ -276,7 +276,7 @@ const Product = ({ productDetails, setCartOpen }) => {
           className={styles.swiper}
         >
           {images?.map((img, i) => (
-            <SwiperSlide className={styles.swiperSlide}>
+            <SwiperSlide className={styles.swiperSlide} key={i}>
               {/* <Image
                 src={img}
                 alt=""
@@ -357,13 +357,14 @@ const Product = ({ productDetails, setCartOpen }) => {
           <div className={styles.colors}>
             <span>COLOR</span>
             <div className={styles.colorWrapper}>
-              {productDetails?.colors.map((c) => (
+              {productDetails?.colors.map((c,i) => (
                 <div
                   className={` ${
                     color == c
                       ? ` ${styles.color} ${styles.colorSelected}`
                       : `${styles.color}`
-                  }  `}
+                    }  `}
+                  key={i}
                 >
                   <FilterColor color={c} key={c} onClick={() => setColor(c)} />
                 </div>
@@ -381,6 +382,7 @@ const Product = ({ productDetails, setCartOpen }) => {
                   }  `}
                 >
                   {size.value}"
+              
                 </span>
               ))}
             </div>
@@ -445,6 +447,7 @@ const Product = ({ productDetails, setCartOpen }) => {
                 value={review.rating}
                 readOnly
                 className={styles.rating}
+                key={i}
               />
               <div className={styles.personData}>
                 <div className={styles.personImg}>
@@ -481,7 +484,7 @@ const Product = ({ productDetails, setCartOpen }) => {
 
       <ProductsList title="Recently Viewed" products={RecentViewedProducts} />
 
-      <div className={styles.hr}></div>
+     
     </div>
   );
 };

@@ -14,7 +14,7 @@ import { Scrollbar } from "swiper";
 const WishListList = ({ products }) => {
   return (
     <div className={`innerWidth ${styles.container}`}>
-      <h1 className={` primaryText ${styles.title}`}>WishList</h1>
+      <h1 className={` primaryText paddings ${styles.title}`}>WishList</h1>
 
       <div className={styles.wrapper}>
         {products?.map((product) => (

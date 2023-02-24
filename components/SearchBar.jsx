@@ -12,6 +12,9 @@ const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
   const [searchedProduct, setSearchedProduct] = useState([]);
   const [nullProducts, setNullProducts] = useState("");
   const [debouncedValue, setDebouncedValue] = useState(searchText);
+  const [focused, setFocused] = useState(false)
+const onFocus = () => setFocused(true)
+const onBlur = () => setFocused(false)
   useEffect(async () => {
     console.log(searchText, "searchText")
     if (searchText == "") {
@@ -24,7 +27,7 @@ const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
     const id = setTimeout(() => {
       setDebouncedValue(searchText); 
     }, 500);
-    if (searchText == "") {
+    if (searchText == "" && focused ==true) {
       console.log("empty2") 
       setSearchedProduct(null)
       setNullProducts("No matched products"); 
@@ -68,7 +71,8 @@ const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
   const closeHandler = () => {
     setSearchOpen(false);
     setSearchText("");
-    setSearchedProduct([]);      
+    setSearchedProduct([]);   
+    setFocused(false)
   };
 
   return (
@@ -81,7 +85,7 @@ const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
             type="text"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            autoFocus
+            onFocus={onFocus} onBlur={onBlur}
           />
         </div>
         <div className={styles.right}>
@@ -91,8 +95,8 @@ const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
 
       <div className={styles.modal}>   
         {(searchedProduct !== null && searchedProduct.length > 0  && searchText !== "") ? (
-          searchedProduct?.slice(0, 5).map((item) => (
-            <div className={styles.productWrapper}>
+          searchedProduct?.slice(0, 5).map((item ,i) => (
+            <div className={styles.productWrapper} key={i}>
         
               <Link href={`/product/${item._id}`} >
                 <Image

@@ -1,20 +1,45 @@
 import Navbar from "./Navbar";
- import Footer from "./Footer";
+import Footer from "./Footer";
 import Cart from "./Cart";
-import { useState } from "react"
+import { useState } from "react";
 import PromoSlider from "./PromoSlider";
+import { useRouter } from "next/router";
+const Layout = ({
+  children,
+  cartOpen,
+  setCartOpen,
+  setCloseWishList,
+  searchOpen,
+  setSearchOpen,
+  FilterOpen,
+  setFilterOpen,
+  setHideNavbar,
+}) => {
+  const router = useRouter();
 
+  const { asPath, pathname } = useRouter();
 
-const Layout = ({children ,cartOpen , setCartOpen ,setCloseWishList,searchOpen,setSearchOpen ,FilterOpen, setFilterOpen }) => {
-
+  const certainRoute = pathname.split("/")[1];
   return (
     <>
-            {/* <PromoSlider /> */}
-      <Navbar cartOpen ={cartOpen}  setCartOpen={setCartOpen}  setCloseWishList ={setCloseWishList} searchOpen={searchOpen}  setSearchOpen={setSearchOpen} />
-          {children }
-          <Footer /> 
-    </>
-  )
-}
+      {certainRoute == "/dashboard" && (
+        <Navbar
+          cartOpen={cartOpen}
+          setCartOpen={setCartOpen}
+          setCloseWishList={setCloseWishList}
+          searchOpen={searchOpen}
+          setSearchOpen={setSearchOpen}
+        />
+      )}
+      {certainRoute == "/dashboard" && (
+      <PromoSlider />
+      )}
 
-export default Layout
+      {children}
+      {certainRoute == "/dashboard" && ( <Footer />   )}
+      
+    </>
+  );
+};
+
+export default Layout;

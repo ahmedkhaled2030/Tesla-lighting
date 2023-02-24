@@ -56,7 +56,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
       ) : (
         <div>
           {cart.products?.map((product, i) => (
-            <div className={styles.center}>
+            <div className={styles.center} key={i}>
               <div className={styles.imgContainer}>
                 <Image
                   src={product.img}

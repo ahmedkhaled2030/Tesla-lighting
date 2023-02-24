@@ -10,9 +10,7 @@ const CategoryList = ({ categories, title }) => {
       <h1 className={`primaryText paddings ${styles.title}`}>{title}</h1>
       <div className={styles.wrapper}>
         {categories?.map((category, i) => (
-          <Link href={`/collections/1`} passHref className="link">
-            <CategoryCard img={category.img} title={category.title} key={i} />
-          </Link>
+          <CategoryCard img={category.img} title={category.title} key={i} />
         ))}
       </div>
     </div>
@@ -20,3 +18,4 @@ const CategoryList = ({ categories, title }) => {
 };
 
 export default CategoryList;
+

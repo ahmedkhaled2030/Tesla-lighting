@@ -28,10 +28,10 @@ const FilterBarItem = ({ item }) => {
         </div>
         <div className={styles.sidebarContent}>
           {item?.megaMenus?.map((child, index) => (
-            <FilterBarItem key={index} item={child} />
+            <FilterBarItem key={index} item={child}  />
           ))}
         </div>
-      </div>
+      </div> 
     </div>
   );
 };
