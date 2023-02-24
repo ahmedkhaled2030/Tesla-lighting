@@ -22,7 +22,7 @@ const Layout = ({
   const certainRoute = pathname.split("/")[1];
   return (
     <>
-      {certainRoute == "/dashboard" && (
+      {/* {certainRoute == "/dashboard" && ( */}
         <Navbar
           cartOpen={cartOpen}
           setCartOpen={setCartOpen}
@@ -30,13 +30,15 @@ const Layout = ({
           searchOpen={searchOpen}
           setSearchOpen={setSearchOpen}
         />
-      )}
-      {certainRoute == "/dashboard" && (
+      {/* )} */}
+      {/* {certainRoute == "/dashboard" && ( */}
       <PromoSlider />
-      )}
+      {/* )} */}
 
       {children}
-      {certainRoute == "/dashboard" && ( <Footer />   )}
+      {/* {certainRoute == "/dashboard" && ( */}
+        <Footer />
+      {/* )} */}
       
     </>
   );

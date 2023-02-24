@@ -6,6 +6,7 @@ import {
   WorkOutlineOutlined,
   FavoriteBorderOutlined,
   Menu,
+  Close,
 } from "@mui/icons-material";
 import Cart from "./Cart";
 import { useRef, useState } from "react";
@@ -29,6 +30,9 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
             menuOpened ? styles.open : " "
           } `}
         >
+          <div className={styles.close} onClick={() => setMenuOpened(false)}>
+            <Close />
+          </div>
           <div className={`secondaryText ${styles.listItem}`}>HOME</div>
           <div className={`secondaryText ${styles.listItem}`}>CATEGORIES</div>
           <div className={`secondaryText ${styles.listItem}`}>ABOUT</div>
@@ -80,14 +84,14 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
             <li className={`secondaryText ${styles.listItem}`}>CATEGORIES</li>
             <li className={`secondaryText ${styles.listItem}`}>ABOUT</li>
             <Link href={`/`} passHref>
-            <Image
-       src="/img/logo.png"
-              alt=""
-              width="200"
-              height="150"
-              objectFit="contain"
+              <Image
+                src="/img/logo.png"
+                alt=""
+                width="200"
+                height="150"
+                objectFit="contain"
               />
-              </Link>
+            </Link>
             <li className={`secondaryText ${styles.listItem}`}>CONTACT</li>
             <li className={`secondaryText ${styles.listItem}`}>PORTFOLIO</li>
             <li className={`secondaryText ${styles.listItem}`}>FLYER</li>

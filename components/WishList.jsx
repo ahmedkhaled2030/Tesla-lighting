@@ -28,7 +28,43 @@ const Wishlist = ({ setCloseWishList }) => {
       title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
       price: "3,767.00",
     },
-   
+    {
+      id: 2,
+      img: "/img/arrival2.jpg",
+      title:
+        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
+      price: "3,767.00",
+    },
+    {
+      id: 3,
+      img: "/img/arrival3.png",
+      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
+      price: "3,767.00",
+    },   {
+      id: 2,
+      img: "/img/arrival2.jpg",
+      title:
+        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
+      price: "3,767.00",
+    },
+    {
+      id: 3,
+      img: "/img/arrival3.png",
+      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
+      price: "3,767.00",
+    },   {
+      id: 2,
+      img: "/img/arrival2.jpg",
+      title:
+        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
+      price: "3,767.00",
+    },
+    {
+      id: 3,
+      img: "/img/arrival3.png",
+      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
+      price: "3,767.00",
+    },
   ];
 
   return (

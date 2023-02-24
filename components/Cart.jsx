@@ -36,8 +36,20 @@ const Cart = ({ cartOpen, setCartOpen }) => {
       price: "3,767.00",
     },
     {
-      id: 3,
-      img: "/img/arrival3.png",
+      id: 2,
+      img: "/img/arrival2.jpg",
+      title:
+        "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
+      price: "3,767.00",
+    },    {
+      id: 2,
+      img: "/img/arrival2.jpg",
+      title:
+        "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
+      price: "3,767.00",
+    },    {
+      id: 2,
+      img: "/img/arrival2.jpg",
       title:
         "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
       price: "3,767.00",
