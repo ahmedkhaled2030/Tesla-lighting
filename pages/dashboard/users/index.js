@@ -1,11 +1,12 @@
 import styles from "../../../styles/UsersDashboard.module.scss";
 import React from "react";
-import NavbarDashboard from "@/components/navbarDashboard";
+
 import Sidebar from "@/components/SideBarDashboard";
 import DataTableDashboard from "@/components/DataTableDashboard";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import NavbarDashboard from "@/components/NavbarDashboard";
 
 const Users = ({ usersList }) => {
   const router = useRouter();
