@@ -8,6 +8,7 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
+  padding: 1rem 0;
   
   @media (max-width: $sm),(max-width: $md)  {
     flex-direction: column;
@@ -27,8 +28,8 @@
     .title {
       margin: 10px 0;
       @media (max-width: $sm) {
-        font-size: 22px;
-        
+        font-size: 20px;
+        margin-bottom: 20px;
           }
     }
     .desc {

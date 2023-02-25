@@ -52,6 +52,7 @@
 
       }
       .filter {
+
         display: flex;
         align-items: center;
         justify-content: center;
@@ -62,10 +63,13 @@
         font-family: "Poppins", sans-serif;
         cursor: pointer;
         text-transform: capitalize;
-        background-color: white;
+   outline: none;
         font-size: 16px;
         height: 40px;
         max-width: 120px;
+        border-radius: 0;
+          background-color: white;
+          color: #000 !important;
         @media (max-width: $sm), (max-width: $md) {
           width: 100%;
 
@@ -88,6 +92,9 @@
           border: none;
           border: 1px solid $line;
           font-family: "Poppins", sans-serif;
+          border-radius: 0;
+          background-color: white;
+          color: #000 !important;
           cursor: pointer;
           text-transform: capitalize;
           font-size: 16px;

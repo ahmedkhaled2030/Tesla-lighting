@@ -197,7 +197,7 @@ const Categories = () => {
       
       
       
-      <div className={`innerWidth  yPaddings  ${styles.wrapper}`}>
+      <div className={`innerWidth    ${styles.wrapper}`}>
 
         <CategoryList categories={categories} title="CATALOG" />
       </div>

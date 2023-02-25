@@ -91,7 +91,7 @@ const SignUp = () => {
       type: "password",
       placeholder: "",
       errorMessage: "Passwords don't match!",
-      label: "Confirm Password",
+      label: "CONFIRM PASSWORD",
       pattern: values.password,
       required: true,
     },

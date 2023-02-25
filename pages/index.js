@@ -18,6 +18,7 @@ import CompanySlider from "@/components/CompanySlider";
 import Wishlist from "@/components/WishList";
 import Navbar from "@/components/Navbar";
 import FilterBar from "@/components/FilterBar";
+import VideoHome from "@/components/VideoHome";
 
 export default function Home() {
   const products = [
@@ -129,6 +130,7 @@ export default function Home() {
       <ReviewList />
       <Help />
       <CompanySlider />
+      <VideoHome />
       <StoreInfo />
       <Times />
     </div>

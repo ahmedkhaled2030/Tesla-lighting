@@ -51,12 +51,12 @@ const Product = ({ productDetails, setCartOpen }) => {
   //dummyData
 
   const images = [
-    "/img/product1.png",
-    "/img/product2.png",
-    "/img/product3.png",
+    "/img/product11.jpg",
+    "/img/product12.png",
+    "/img/product13.png",
   ];
   const prices = [{ value: 35 }, { value: 50 }];
-  const colors = [{ value: "red" }, { value: "black" }];
+  const colors = [{ value: "yellow" }, { value: "black" }];
 
   const SimilarProducts = [
     {
@@ -222,7 +222,7 @@ const Product = ({ productDetails, setCartOpen }) => {
   var buttonText = show ? "Cancel review" : "Write a review";
 
   return (
-    <div className={`paddings innerWidth ${styles.container}`}>
+    <div className={`yPaddings innerWidth ${styles.container}`}>
       <Head>
         <title> {productDetails?.title}</title>
         <meta name="description" content="Tesla Lighting" />
@@ -277,16 +277,8 @@ const Product = ({ productDetails, setCartOpen }) => {
         >
           {images?.map((img, i) => (
             <SwiperSlide className={styles.swiperSlide} key={i}>
-              {/* <Image
-                src={img}
-                alt=""
-                width="300px"
-                height="300px" 
-                objectFit="contain"
-                key={i}
-              /> */}     
-              {/* <ImageMagnifier width={"200px"} src={img} /> */}
-              <Magnifier src={img} width={200} /> 
+             
+              <Magnifier src={img} width={400}  /> 
             </SwiperSlide>
           ))}
         </Swiper>
@@ -305,7 +297,7 @@ const Product = ({ productDetails, setCartOpen }) => {
                 <Image
                   src={image}
                   alt=""
-                  width="100"
+                  width="100px"
                   height="100px"
                   objectFit="contain"
                   className={styles.subImg}

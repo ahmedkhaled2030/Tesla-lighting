@@ -6,7 +6,11 @@
 text-align: center;
 margin-top: 40px;
 
-
+.title{
+  @media (max-width: $sm) {
+    font-size: 1.3rem;
+  }
+}
 .rating{
     margin: 1rem 0rem 0.3rem 0rem;
     color: #383838;

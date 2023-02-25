@@ -35,7 +35,7 @@ const PromoSlider = () => {
           USE CODE LV08 TO GET 8% OFF OVER $100 │ USE CODE LV10 TO GET 10% OFF
         </SwiperSlide>
         <SwiperSlide className={styles.swiperSlide}>
-          Free shipping over $100 │ all price in cad
+          Free shipping over $100 │ all price in CAD
         </SwiperSlide>
         <SwiperSlide className={styles.swiperSlide}>
           UP TO 30% OFF STORE WIDE | PRICE ARE LOW, DON'T BE SLOW! LIMITED TIME

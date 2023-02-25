@@ -6,7 +6,7 @@ import CategoryCard from "./CategoryCard";
 
 const CategoryList = ({ categories, title }) => {
   return (
-    <div className={` innerWidth  yPaddings  ${styles.container}`}>
+    <div className={` innerWidth    ${styles.container}`}>
       <h1 className={`primaryText paddings ${styles.title}`}>{title}</h1>
       <div className={styles.wrapper}>
         {categories?.map((category, i) => (

@@ -33,13 +33,35 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
           <div className={styles.close} onClick={() => setMenuOpened(false)}>
             <Close />
           </div>
-          <div className={`secondaryText ${styles.listItem}`}>HOME</div>
+          <Link href={`/login`} passHref>
+            <div className={`secondaryText ${styles.listItem}`}>LOGIN</div>
+          </Link>
+
+          <div className={styles.hr}></div>
+          <Link href={`/`} passHref>
+          
+            <div className={`secondaryText ${styles.listItem}`}>HOME</div>
+          </Link>
+
+          <div className={styles.hr}></div>
+          <Link href={`/categories`} passHref>
           <div className={`secondaryText ${styles.listItem}`}>CATEGORIES</div>
+          </Link>
+   
+          <div className={styles.hr}></div>
+          <Link href={`/about`} passHref>
           <div className={`secondaryText ${styles.listItem}`}>ABOUT</div>
+          </Link>
+        
+          <div className={styles.hr}></div>
+          <Link href={`/contact`} passHref>
           <div className={`secondaryText ${styles.listItem}`}>CONTACT</div>
-          <div className={`secondaryText ${styles.listItem}`}>PORTFOLIO</div>
-          <div className={`secondaryText ${styles.listItem}`}>FLYER</div>
-          <div className={`secondaryText ${styles.listItem}`}>LOGIN</div>
+          </Link>
+          <div className={styles.hr}></div>
+          <Link href={`/portfolio`} passHref>
+            <div className={`secondaryText ${styles.listItem}`}>PORTFOLIO</div>
+            </Link>
+
         </div>
         <div className={styles.left}>
           <Menu onClick={() => setMenuOpened((prev) => !prev)} />
@@ -56,9 +78,10 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
         </div> */}
 
         <div className={styles.right}>
-          <div className={styles.iconWrapper}>
-            <PersonOutlineOutlined className={styles.icon} />
+          <div className={styles.item} onClick={() => setSearchOpen(true)}>
+            <Search className={styles.icon} />
           </div>
+
           <div className={styles.iconWrapper} onClick={() => setCartOpen(true)}>
             <WorkOutlineOutlined className={styles.icon} />
 
@@ -80,9 +103,16 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
         </div>
         <div className={styles.item}>
           <ul className={styles.listWrapper}>
-            <li className={`secondaryText ${styles.listItem}`}>HOME</li>
+                      <Link href={`/`} passHref>
+                      <li className={`secondaryText ${styles.listItem}`}>HOME</li>
+          </Link>
+            <Link href={`/categories`} passHref>
             <li className={`secondaryText ${styles.listItem}`}>CATEGORIES</li>
-            <li className={`secondaryText ${styles.listItem}`}>ABOUT</li>
+          </Link>
+          <Link href={`/about`} passHref>
+          <li className={`secondaryText ${styles.listItem}`}>ABOUT</li>
+          </Link>
+     
             <Link href={`/`} passHref>
               <Image
                 src="/img/logo.png"
@@ -92,15 +122,23 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
                 objectFit="contain"
               />
             </Link>
+            <Link href={`/contact`} passHref>
             <li className={`secondaryText ${styles.listItem}`}>CONTACT</li>
+            </Link>
+            <Link href={`/portfolio`} passHref>
             <li className={`secondaryText ${styles.listItem}`}>PORTFOLIO</li>
-            <li className={`secondaryText ${styles.listItem}`}>FLYER</li>
+            </Link>
+ 
+
           </ul>
         </div>
         <div className={styles.item}>
+          <Link href={`/account`} passHref>
           <div className={styles.iconWrapper}>
             <PersonOutlineOutlined className={styles.icon} />
           </div>
+        </Link>
+          
           <div className={styles.iconWrapper} onClick={() => setCartOpen(true)}>
             <WorkOutlineOutlined className={styles.icon} />
 
