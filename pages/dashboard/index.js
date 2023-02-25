@@ -1,6 +1,7 @@
 import styles from "../../styles/DashboardHome.module.scss";
 import React from "react";
 import NavbarDashboard from "@/components/NavbarDashboard";
+import Sidebar from "@/components/SideBarDashboard";
 
 
 
