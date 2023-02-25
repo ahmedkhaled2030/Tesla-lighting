@@ -30,7 +30,7 @@ import "swiper/css/navigation";
 
 // import required modules
 import { FreeMode, Pagination, Navigation } from "swiper";
-import Magnifier from "react-magnifier";
+// import Magnifier from "react-magnifier";
 import SideBar from "@/components/FilterBar";
 
 const FilterColor = styled.div`
@@ -278,7 +278,7 @@ const Product = ({ productDetails, setCartOpen }) => {
           {images?.map((img, i) => (
             <SwiperSlide className={styles.swiperSlide} key={i}>
              
-              <Magnifier src={img} width={400}  /> 
+              {/* <Magnifier src={img} width={400}  />  */}
             </SwiperSlide>
           ))}
         </Swiper>
@@ -316,7 +316,7 @@ const Product = ({ productDetails, setCartOpen }) => {
               className={styles.mainImg}
             /> */}
             {/* <ImageMagnifier width={"450px"} src={selectedImg} /> */}
-            <Magnifier src={selectedImg} width={450} mgWidth={200} mgHeight={200} /> 
+            {/* <Magnifier src={selectedImg} width={450} mgWidth={200} mgHeight={200} />  */}
           </div>
         </div>
         <div className={styles.right}>
