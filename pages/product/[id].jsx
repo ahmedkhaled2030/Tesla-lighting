@@ -30,7 +30,7 @@ import "swiper/css/navigation";
 
 // import required modules
 import { FreeMode, Pagination, Navigation } from "swiper";
-// import Magnifier from "react-magnifier";
+import Magnifier from "react-magnifier";
 import SideBar from "@/components/FilterBar";
 
 const FilterColor = styled.div`
@@ -161,7 +161,7 @@ const Product = ({ productDetails, setCartOpen }) => {
   const [price, setPrice] = useState(prices[0].value);
   const [itemSize, setSize] = useState(0);
   const [color, setColor] = useState("");
-  const [selectedImg, setSelectedImg] = useState(images[1]);
+  const [selectedImg, setSelectedImg] = useState(images[0]);
   const [show, setShow] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [isFavourited, setIsFavourited] = useState(false);
@@ -230,7 +230,7 @@ const Product = ({ productDetails, setCartOpen }) => {
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
-          rel="preconnect"
+          rel="preconnect" 
           href="https://fonts.gstatic.com"
           crossOrigin="true"
         />
@@ -278,7 +278,7 @@ const Product = ({ productDetails, setCartOpen }) => {
           {images?.map((img, i) => (
             <SwiperSlide className={styles.swiperSlide} key={i}>
              
-              {/* <Magnifier src={img} width={400}  />  */}
+              <Magnifier src={img} width={400}  /> 
             </SwiperSlide>
           ))}
         </Swiper>
@@ -316,7 +316,7 @@ const Product = ({ productDetails, setCartOpen }) => {
               className={styles.mainImg}
             /> */}
             {/* <ImageMagnifier width={"450px"} src={selectedImg} /> */}
-            {/* <Magnifier src={selectedImg} width={450} mgWidth={200} mgHeight={200} />  */}
+            <Magnifier src={selectedImg} width={450} mgWidth={200} mgHeight={200} /> 
           </div>
         </div>
         <div className={styles.right}>
@@ -485,10 +485,10 @@ export const getServerSideProps = async ({ params }) => {
   console.log(params, "params");
   const productRes = await axios.get(
     // `https://tesla-lightning.herokuapp.com/product/${params.id}`
-    `https://tesla-lightning.herokuapp.com/product/63eb621c09eedf45e735accb`
+    `https://tesla-lightning.herokuapp.com/product/63f73b458d582e1e78c4037e`
   );
 
-  return {
+  return { 
     props: {
       productDetails: productRes.data.data.product,
       // reqFavourite : reqFavourite

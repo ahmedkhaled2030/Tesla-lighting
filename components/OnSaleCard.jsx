@@ -2,35 +2,42 @@ import Image from "next/image";
 import { useState } from "react";
 import styles from "./../styles/OnSaleCard.module.scss";
 import { FavoriteBorderOutlined } from "@mui/icons-material";
+import Link from "next/link";
 
 const OnSaleCard = ({ title, img, price, sale }) => {
+  return (
+    
+    <div className={styles.container}>
+      <Link href={`/product/1`} passHref>
+      <div>
 
-    return (
-      <div className={styles.container}>
+      <Image
+        src={img}
+        alt={title} 
+        width="275"
+        height="275"
+        objectFit="contain"
+          />
    
-          <Image src={img} alt={title} width="275" height="275" objectFit="contain" />
-        <h1 className={`thirdText ${styles.title}`}>{title}</h1>
-        
-        
-    
-          <div className={styles.iconWrapper}>
-            <FavoriteBorderOutlined />
-        </div>
-        
-        
-        <div className={styles.priceWrapper}>
+      <h1 className={`thirdText ${styles.title}`}>{title}</h1>
+
+      <div className={styles.iconWrapper}>
+        <FavoriteBorderOutlined />
+      </div>
+
+      <div className={styles.priceWrapper}>
         <span className={styles.total}>$2.575.00</span>
-          <span className={styles.price}>from ${price}</span>
+        <span className={styles.price}>from ${price}</span>
         <span className={styles.sale}>Save ${sale}</span>
-        </div>
+      </div>
 
-        
-        <span className={styles.black}>Sale</span>
-  
+      <span className={styles.black}>Sale</span>
+      </div>
     
+     
+      </Link>
+    </div>
+  );
+};
 
-        </div>
-      );
-}
-
-export default OnSaleCard
+export default OnSaleCard;
