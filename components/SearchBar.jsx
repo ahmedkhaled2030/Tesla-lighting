@@ -7,31 +7,34 @@ import { Search } from "@mui/icons-material";
 import useDebounce from "../hooks/useDebounce";
 import Image from "next/image";
 import Link from "next/link";
+import { SwipeRightAlt } from "@mui/icons-material";
 const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
   const [searchText, setSearchText] = useState("");
   const [searchedProduct, setSearchedProduct] = useState([]);
   const [nullProducts, setNullProducts] = useState("");
   const [debouncedValue, setDebouncedValue] = useState(searchText);
-  const [focused, setFocused] = useState(false)
-const onFocus = () => setFocused(true)
-const onBlur = () => setFocused(false)
+  const [focused, setFocused] = useState(false);
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
+
   useEffect(async () => {
-    console.log(searchText, "searchText")
+    console.log(searchText, "searchText");
     if (searchText == "") {
-      console.log("empty")
-      setSearchedProduct(null)
-    }     
-    
-    console.log(debouncedValue, 'debouncedValue') 
-    console.log(searchedProduct ,'searchedProduct')           
+      console.log("empty");
+      setSearchedProduct(null);
+    }
+
+    console.log(debouncedValue, "debouncedValue");
+    console.log(searchedProduct, "searchedProduct");
     const id = setTimeout(() => {
-      setDebouncedValue(searchText); 
+      setDebouncedValue(searchText);
     }, 500);
-    if (searchText == "" && focused ==true) {
-      console.log("empty2") 
-      setSearchedProduct(null)
-      setNullProducts("No matched products"); 
-    }   
+
+    if (searchText == "" && focused == true) {
+      console.log("empty2");
+      setSearchedProduct(null);
+      setNullProducts("No matched products");
+    }
     if (searchText !== "") {
       try {
         const res = await axios.post(
@@ -50,13 +53,11 @@ const onBlur = () => setFocused(false)
         const data = await res.data.data.products;
         console.log(data, "data");
         if (data.length < 1) {
-          
-          setSearchedProduct(null);     
-        } if(data.length >= 1) {
-             setSearchedProduct(data);   
+          setSearchedProduct(null);
         }
-
- 
+        if (data.length >= 1) {
+          setSearchedProduct(data);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -64,15 +65,15 @@ const onBlur = () => setFocused(false)
 
     return () => {
       clearTimeout(id);
-      setSearchOpen(false); 
+      setSearchOpen(false);
     };
   }, [searchText, debouncedValue]);
 
   const closeHandler = () => {
     setSearchOpen(false);
     setSearchText("");
-    setSearchedProduct([]);   
-    setFocused(false)
+    setSearchedProduct([]);
+    setFocused(false);
   };
 
   return (
@@ -85,7 +86,8 @@ const onBlur = () => setFocused(false)
             type="text"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-            onFocus={onFocus} onBlur={onBlur}
+            onFocus={onFocus}
+            onBlur={onBlur}
           />
         </div>
         <div className={styles.right}>
@@ -93,27 +95,40 @@ const onBlur = () => setFocused(false)
         </div>
       </div>
 
-      <div className={styles.modal}>   
-        {(searchedProduct !== null && searchedProduct.length > 0  && searchText !== "") ? (
-          searchedProduct?.slice(0, 5).map((item ,i) => (
-            <div className={styles.productWrapper} key={i}>
-        
-              <Link href={`/product/${item._id}`} >
-                <Image
-                  src={item?.cover}     
-                  alt={item?.title}
-                  width="275" 
-                  height="275" 
-                  objectFit="contain"
-                />
-              </Link>
-              <span>{item?.title.substring(0,30)}...</span>
-            </div>
+      <div className={styles.modal}>
+        {searchedProduct !== null &&
+        searchedProduct.length > 0 &&
+        searchText !== "" ? (
+          searchedProduct?.slice(0, 3).map((item, i) => (
+      
+              <div className={styles.productWrapper} key={i}>
+                <Link href={`/product/${item._id}`}>
+                  <Image
+                    src={item?.cover}
+                    alt={item?.title}
+                    width="275px"
+                    height="275px"
+                    objectFit="contain"
+                    className={styles.image}
+                  />
+                </Link>
+                <span>{item?.title.substring(0, 30)}</span>
+              </div>
+      
+       
           ))
+            
         ) : (
           <span className="styles.nullText">{nullProducts}</span>
         )}
+        {/* <div className={styles.swiper}>
+        <SwipeRightAlt className={styles.swipe} />
+          <span>Swipe Right</span> */}
+      
+        {/* </div> */}
+   
       </div>
+ 
     </div>
   );
 };

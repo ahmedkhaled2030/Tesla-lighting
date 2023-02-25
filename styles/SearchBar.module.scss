@@ -1,85 +1,152 @@
 @import "./contants.scss";
 @import "./globals.scss";
 
+@-webkit-keyframes shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
+  }
+}
+@keyframes shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
+  }
+}
+
 .container {
-  height: 100vh;
+  height: 80vh;
   width: 100%;
 
   position: fixed;
   top: 0;
   right: 0;
   z-index: 500;
-  background-color:  rgba(255, 255, 255, 0.5);
-  box-shadow: 34px 16px 75px 31px rgba(0,0,0,0.35);
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 34px 16px 75px 31px rgba(0, 0, 0, 0.35);
   transform: translate(100%);
   // transition: transform 0.3s ease-out;
   margin: 0;
   padding: 0;
- 
+
   font-family: "Poppins", sans-serif;
-  .wrapper{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 4rem;
-  background-color: white;
-  z-index: 999;
-
-  .left{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-    flex: 5;
-    input{
-      outline: none;
-      background: transparent;
-      border: none;
-      width: 100%;
-      height: 100px;
-      font-size: 18px;
-      font-weight: 300;
-    }
-    input::placeholder{
-     font-size: 18px;
-     font-family: "Poppins", sans-serif;
-    }
-    .icon{
-      font-size: 25px;
-    }
+  @media (max-width: $sm) {
+    height: 60vh;
   }
-  .right{
-    flex:1;
+  .wrapper {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-  }
-
-  } 
-
-  .modal{
-    z-index: 255;
     padding: 0 4rem;
-    background-color: white; 
-    height: 70vh;
+    background-color: white;
+    z-index: 999;
+
+    .left {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 20px;
+      flex: 5;
+      input {
+        outline: none;
+        background: transparent;
+        border: none;
+        width: 100%;
+        height: 100px;
+        font-size: 18px;
+        font-weight: 300;
+      }
+      input::placeholder {
+        font-size: 18px;
+        font-family: "Poppins", sans-serif;
+      }
+      .icon {
+        font-size: 25px;
+      }
+    }
+    .right {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+
+  .modal {
+    padding: 0 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 70px;
-.productWrapper{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
-  cursor: pointer;
-}
-.nullText{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: auto;
-  width: 100vw;
-}
+   
+    gap: 20px;
+    box-shadow: 0px 84px 42px -87px rgba(134, 121, 121, 0.75) inset;
+    -webkit-box-shadow: 0px 84px 42px -87px rgba(134, 121, 121, 0.75) inset;
+    -moz-box-shadow: 0px 84px 42px -87px rgba(134, 121, 121, 0.75) inset;
+  
+    .productWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-direction: column;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 50px !important;
+      .image {
+        border-radius: 10px !important;
+      }
+    }
+    .nullText {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: auto;
+      width: 100vw;
+    }
+
   }
 }
 .open {
@@ -87,5 +154,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-
+  background-color: white;
+  z-index: 1000 !important;
 }
