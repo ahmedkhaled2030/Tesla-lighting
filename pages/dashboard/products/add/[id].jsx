@@ -1,6 +1,6 @@
 import styles from "../../../../styles/addProductDashboard.module.scss";
 import React, { useState } from "react";
-import NavbarDashboard from "@/components/navbarDashboard";
+
 import Sidebar from "@/components/SideBarDashboard";
 import DataTableDashboard from "@/components/DataTableDashboard";
 import axios from "axios";
@@ -17,6 +17,7 @@ import {
 import { Box } from "@mui/system";
 import Image from "next/image";
 import { DriveFolderUploadOutlined } from "@mui/icons-material";
+import NavbarDashboard from "@/components/NavbarDashboard";
 
 const AddProduct = ({ categoryList }) => {
 

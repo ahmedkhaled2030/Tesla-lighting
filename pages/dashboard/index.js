@@ -1,7 +1,8 @@
 import styles from "../../styles/DashboardHome.module.scss";
 import React from "react";
-import Sidebar from "@/components/SideBarDashboard";
-import NavbarDashboard from "@/components/navbarDashboard";
+import NavbarDashboard from "@/components/NavbarDashboard";
+
+
 
 const Dashboard = () => {
   return (

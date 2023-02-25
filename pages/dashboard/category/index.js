@@ -1,6 +1,6 @@
 import styles from "../../../styles/ProductsDashboard.module.scss";
 import React, { useState } from "react";
-import NavbarDashboard from "@/components/navbarDashboard";
+
 import Sidebar from "@/components/SideBarDashboard";
 import DataTableDashboard from "@/components/DataTableDashboard";
 import axios from "axios";
@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { Button, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import Image from "next/image";
+import NavbarDashboard from "@/components/NavbarDashboard";
 
 const Category = () => {
   const router = useRouter();
