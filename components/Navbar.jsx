@@ -33,6 +33,13 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
           <div className={styles.close} onClick={() => setMenuOpened(false)}>
             <Close />
           </div>
+
+          <div className={styles.hr}></div>
+          <Link href={`/account`} passHref>
+            <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>PROFILE</div>
+          </Link>
+
+          <div className={styles.hr}></div>
           <Link href={`/login`} passHref>
             <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>LOGIN</div>
           </Link>
