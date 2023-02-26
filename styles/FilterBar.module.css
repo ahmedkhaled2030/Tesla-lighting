@@ -89,5 +89,5 @@
   margin-bottom: 20px;
 }
 .slider {
-  color: black;
+  color: black !important;
 }

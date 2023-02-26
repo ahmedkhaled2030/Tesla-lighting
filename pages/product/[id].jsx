@@ -277,7 +277,14 @@ const Product = ({ productDetails, setCartOpen }) => {
         >
           {images?.map((img, i) => (
             <SwiperSlide className={styles.swiperSlide} key={i}>
-             
+            <Image
+                  src={img}
+                  alt=""
+                  width="400px"
+                  height="400px"
+                  objectFit="contain"
+                  className={styles.subImg}
+                />
               {/* <Magnifier src={img} width={400}  />  */}
             </SwiperSlide>
           ))}

@@ -7,15 +7,20 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
+  text-align: center !important;
   @media (max-width: $sm) {
     width: 180px;
+    text-align: center !important;
   }
-
+.wrapper{
+  text-align: center !important;
+}
   .title{
+
+    text-align: center !important;
     @media (max-width: $sm) {
       font-size: 10px;
-      text-align: center;
+      text-align: center !important;
     }
   }
 
