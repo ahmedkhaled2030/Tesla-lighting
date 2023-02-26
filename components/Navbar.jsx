@@ -34,32 +34,32 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
             <Close />
           </div>
           <Link href={`/login`} passHref>
-            <div className={`secondaryText ${styles.listItem}`}>LOGIN</div>
+            <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>LOGIN</div>
           </Link>
 
           <div className={styles.hr}></div>
           <Link href={`/`} passHref>
           
-            <div className={`secondaryText ${styles.listItem}`}>HOME</div>
+            <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>HOME</div>
           </Link>
 
           <div className={styles.hr}></div>
           <Link href={`/categories`} passHref>
-          <div className={`secondaryText ${styles.listItem}`}>CATEGORIES</div>
+          <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>CATEGORIES</div>
           </Link>
    
           <div className={styles.hr}></div>
           <Link href={`/about`} passHref>
-          <div className={`secondaryText ${styles.listItem}`}>ABOUT</div>
+          <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>ABOUT</div>
           </Link>
         
           <div className={styles.hr}></div>
           <Link href={`/contact`} passHref>
-          <div className={`secondaryText ${styles.listItem}`}>CONTACT</div>
+          <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>CONTACT</div>
           </Link>
           <div className={styles.hr}></div>
           <Link href={`/portfolio`} passHref>
-            <div className={`secondaryText ${styles.listItem}`}>PORTFOLIO</div>
+            <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>PORTFOLIO</div>
             </Link>
 
         </div>
