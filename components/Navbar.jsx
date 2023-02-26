@@ -152,7 +152,7 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
             onClick={() => setCloseWishList(false)}
           >
             <FavoriteBorderOutlined className={styles.icon} />
-            <span>0</span>
+            <span>6</span>
           </div>
         </div>
       </div>
