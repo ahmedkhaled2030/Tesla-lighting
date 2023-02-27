@@ -8,7 +8,8 @@ import { Autoplay, Navigation, EffectFade } from "swiper";
 import "swiper/css";
 import "swiper/css/effect-fade";
 
-const CompanySlider = () => {
+const CompanySlider = ({ partnersProps }) => {
+  console.log(partnersProps,'partnersProps')
   const images = [
     "/img/LOGO01.png",
     "/img/LOGO02.png",
@@ -43,40 +44,20 @@ const CompanySlider = () => {
         loop={true}
         effect={"fade"}
       >
-        <SwiperSlide className={styles.swiperSlide}>
+        {partnersProps.map((item) => (
+          <SwiperSlide className={styles.swiperSlide} key={item._id}>
           <Image
-            src="/img/LOGO1.png"
-            alt=""
+            src={item.image.path}
+            alt={item.name}
             layout="fill"
             className={styles.img}
           />
          
          
         </SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>
-          <Image
-             src="/img/LOGO2.png"
-            alt=""
-            layout="fill"
-            className={styles.img}
-          />
-        </SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>
-          <Image
-             src="/img/LOGO3.png"
-            alt=""
-            layout="fill"
-            className={styles.img}
-          />
-        </SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>
-          <Image
-             src="/img/LOGO4.png"
-            alt=""
-            layout="fill"
-            className={styles.img}
-          />
-        </SwiperSlide>
+        ))}
+
+      
       </Swiper>
     </>
   );

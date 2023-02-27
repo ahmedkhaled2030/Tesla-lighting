@@ -2,7 +2,8 @@ import Image from "next/image";
 import { useState } from "react";
 import styles from "./../styles/StoreInfo.module.scss";
 
-const StoreInfo = () => {
+const StoreInfo = ({ StoreInfo }) => {
+  console.log(StoreInfo,'StoreInfo')
   const sections = [
     {
       img: "/img/storeInfo1.jpg",
@@ -18,43 +19,25 @@ const StoreInfo = () => {
   return (
     <div className={` innerWidth  ${styles.container}`}>
 
+      {StoreInfo.map((item) => (
+        <div className={styles.section}>
+          <Image
+            src={item.image.path}
+            width="600"
+            height="400"
+            alt=""
+            // objectFit="contain"
+          />
+          <h3 className={`primaryText ${styles.title}`}>
+           {item.title}
+          </h3>
+          <p className={`secondaryText ${styles.desc}`}>
+          {item.text}
+          </p>
+          <h1 className="borderText">MORE INFO</h1>
+        </div>
+))}
 
-        <div className={styles.section}>
-          <Image
-            src="/img/storeInfo1.jpg"
-            width="600"
-            height="400"
-            alt=""
-            // objectFit="contain"
-          />
-          <h3 className={`primaryText ${styles.title}`}>
-            new magnetic track system
-          </h3>
-          <p className={`secondaryText ${styles.desc}`}>
-            Sleek, Slim Line, Latest LED technology. Thanks to the convenient
-            and versatile structure, the systems are used in various sapces from
-            commercial to residential settings.
-          </p>
-          <h1 className="borderText">MORE INFO</h1>
-        </div>
-        <div className={styles.section}>
-          <Image
-            src="/img/storeInfo2.jpg"
-            alt=""
-            width="600"
-            height="400"
-            // objectFit="contain"
-          />
-          <h3 className={`primaryText ${styles.title}`}>
-            new magnetic track system
-          </h3>
-          <p className={`secondaryText ${styles.desc}`}>
-            Sleek, Slim Line, Latest LED technology. Thanks to the convenient
-            and versatile structure, the systems are used in various sapces from
-            commercial to residential settings.
-          </p>
-          <h1 className="borderText">MORE INFO</h1>
-        </div>
       </div>
 
 

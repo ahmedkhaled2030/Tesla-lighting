@@ -19,8 +19,10 @@ import Wishlist from "@/components/WishList";
 import Navbar from "@/components/Navbar";
 import FilterBar from "@/components/FilterBar";
 import VideoHome from "@/components/VideoHome";
+import axios from "axios";
 
-export default function Home() {
+export default function Home({HomeProps ,partnersProps ,StoreInfoProps}) {
+  console.log(HomeProps , "HomeProps")
   const products = [
     {
       id: 1,
@@ -129,10 +131,53 @@ export default function Home() {
       <OnSaleList />
       <ReviewList />
       <Help />
-      <CompanySlider />
+      <CompanySlider partnersProps={partnersProps} />
       <VideoHome />
-      <StoreInfo />
-      <Times />
+      <StoreInfo StoreInfo={StoreInfoProps} />
+      <Times timeProps={HomeProps.find(item => item.name == 'retail-store')} />
     </div>
   );
 }
+
+export const getServerSideProps = async ({ params }) => {
+
+  const HomeRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/section`,
+
+    {
+      headers: {
+        Authorization:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+      },
+    }
+  );
+  const partners = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/partner`,
+
+    {
+      headers: {
+        Authorization:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+      },
+    }
+  );
+  const StoreInfoRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/section/featured-posts`,
+
+    {
+      headers: {
+        Authorization:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+      },
+    }
+  );
+
+  return {
+    props: {
+      HomeProps: HomeRes.data.data,
+      partnersProps: partners.data.data,
+      StoreInfoProps: StoreInfoRes.data.data
+    },
+  };
+};
+
