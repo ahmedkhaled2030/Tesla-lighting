@@ -11,22 +11,28 @@ import { Box } from "@mui/system";
 import Image from "next/image";
 import NavbarDashboard from "@/components/NavbarDashboard";
 
-const SubCategory = ({ categoryList }) => {
+const Model = ({ categoryList }) => {
 
   const router = useRouter();
   const [category, setCategory] = useState("");
-  const [subcategory, setSubCategory] = useState("");
+  const [subcategory, setSubCategory] = useState([]);
+  const [selectedSubcategory, setSelectedSubCategory] = useState("");
+  const [model, setModel] = useState("");
   const [status, setStatus] = useState("");
 
-console.log(category ,"category")
+
   const handleCategory = (event) => {
-  console.log(event.target.value  ,"event.target.value ")
-    setCategory(event.target.value );
+  console.log(event.target.value
+    ,"event.target.value")
+    setCategory(event.target.value);
+    setSubCategory(event.target.value.subCategories);
   };
  
 
   const handleSubCategory = (e) => {
-    setSubCategory(e.target.value);
+    console.log(e.target.value)
+    setSelectedSubCategory(e.target.value);
+    
   };
   const addSubCategory = async () => {
     try {
@@ -59,54 +65,112 @@ console.log(category ,"category")
     }
   };
 
+  const handleModel = (e) => {
+    setModel(event.target.value);
+  }
+  const addModel = async () => {
+    try {
+      const res = await axios.post(
+        `https://tesla-lightning.herokuapp.com/dashboard/category`,
+        {
+          name: model,
+         parent:selectedSubcategory
+        },
 
+        {
+          headers: {
+            Authorization:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+          },
+        }
+      );
+
+      const data = await res;
+
+      setStatus('Model created successfully');
+      setCategory("");
+      setSubCategory("");
+      setModel("");
+      // router.push("/dashboard/products");
+    } catch (err) {
+
+      setStatus("Model with same name exist");
+      setCategory("");
+      setSubCategory("");
+    }
+  };
   return (
     <div className={styles.products}>
       <Sidebar />
       <div className={styles.productsContainer}>
         <NavbarDashboard />
-
+{/* categoryList */}
         <Box sx={{ mx: "auto", my: 2, width: 500 }}>
       <FormControl sx={{  minWidth: 500 }} > 
-        <InputLabel id="demo-simple-select-label">select category</InputLabel>
+        <InputLabel id="demo-simple-select-label">category</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={category}
-          label="Category"  
+          label="Category"
           onChange={handleCategory}
             >
-              {categoryList.map((category) => (
-                <MenuItem value={category} key={category._id}>{category.name}</MenuItem>
+              {categoryList.map((item) => (
+                <MenuItem value={item} key={item._id}>{item.name}</MenuItem>
               ))}
      
      
         </Select>
       </FormControl>
-    </Box>
+        </Box>
+
+       {/* SubcategoryList */} 
+        <Box sx={{ mx: "auto", my: 10, width: 500 }}>
+      <FormControl sx={{  minWidth: 500 }} > 
+        <InputLabel id="demo-simple-select-label">sub Category</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={selectedSubcategory}
+          label="subcategory"
+          onChange={handleSubCategory}
+            >
+              {subcategory.length >0 && subcategory.map((item) => (
+                <MenuItem value={item} key={item._id}>{item.name}</MenuItem>
+              ))}
+     
+     
+        </Select>
+      </FormControl>
+        </Box>
+        
+
+            {/* add Model */} 
         <Box sx={{ mx: "auto", my: 5, width: 500 }}>
           <TextField
             sx={{ my: 5, width: 500 }}
             id="outlined-basic"
-            label="Add SubCategory"
-            value={subcategory}
+            label="Select Model"
+            value={model}
             variant="outlined"
-            onChange={handleSubCategory}
+            onChange={handleModel}
           />
+
+          
           <Box sx={{ textAlign: 'center', }}>
           <Button
-            onClick={addSubCategory}
+            onClick={addModel}
             sx={{ my: 1, width: 150 }}
             variant="contained"
             color="success"
           >
-            Add Sub Category
+            Add Model
           </Button>
                </Box>
        
         </Box>
         
-        {status == "SubCategory created successfully" && (
+        {status == "Model created successfully" && (
           <Box sx={{ mx: "auto", my: 5, width: 500 }}>
           <Box  sx={{  textAlign: 'center',   fontSize: '0.875rem',    fontFamily: 'sans',}}>
               <Image
@@ -122,7 +186,7 @@ console.log(category ,"category")
            
           </Box>
         )}
-        {status == "SubCategory with same name exist" && (
+        {status == "Model with same name exist" && (
           <Box sx={{ mx: "auto", my: 5, width: 500 }}>
             <Box  sx={{  textAlign: 'center',   fontSize: '0.875rem',}}>
               <Image
@@ -164,4 +228,4 @@ export const getServerSideProps = async ({ params }) => {
   };
 };
 
-export default SubCategory;
+export default Model;

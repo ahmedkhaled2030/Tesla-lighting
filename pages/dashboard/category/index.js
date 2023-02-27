@@ -58,7 +58,7 @@ const Category = () => {
           <TextField
             sx={{ my: 5, width: 500 }}
             id="outlined-basic"
-            label="category"
+            label="Add Category"
             value={category}
             variant="outlined"
             onChange={handleCategory}

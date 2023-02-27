@@ -1,13 +1,14 @@
 import styles from "./../styles/Wishlist.module.scss";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import WishListList from "./WishListList";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartSlice";
+import axios from "axios";
 
 const Wishlist = ({ setCloseWishList }) => {
-  console.log(setCloseWishList ,'setCloseWishList')      
+  const [favProducts, setFavProducts] = useState([]);
   const products = [
     {
       id: 1,
@@ -40,7 +41,8 @@ const Wishlist = ({ setCloseWishList }) => {
       img: "/img/arrival3.png",
       title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
       price: "3,767.00",
-    },   {
+    },
+    {
       id: 2,
       img: "/img/arrival2.jpg",
       title:
@@ -52,7 +54,8 @@ const Wishlist = ({ setCloseWishList }) => {
       img: "/img/arrival3.png",
       title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
       price: "3,767.00",
-    },   {
+    },
+    {
       id: 2,
       img: "/img/arrival2.jpg",
       title:
@@ -67,22 +70,36 @@ const Wishlist = ({ setCloseWishList }) => {
     },
   ];
 
+  useEffect(async () => {
+    const token = localStorage.getItem("token");
+
+    const profileFavs = await axios.get(
+      `https://tesla-lightning.herokuapp.com/user/favorites`, 
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+console.log(profileFavs.data.data)
+    setFavProducts(profileFavs?.data?.data);
+  }, []);
+
   return (
-    <div  className = { styles.container } >
-    
-    <div className={styles.header}>
-      <span onClick={() => setCloseWishList(true)} className={styles.close}>
-        X
-      </span>
-    </div>
-    <div className={styles.wrapper}>
-      <div className={styles.products}>
-        <WishListList products={products} />
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <span onClick={() => setCloseWishList(true)} className={styles.close}>
+          X
+        </span>
+      </div>
+      <div className={styles.wrapper}>
+        <div className={styles.products}>
+          {favProducts.length > 0 ? (<WishListList favProducts={favProducts} />) : (<h2 className={styles.noText}>No Favourite Yet !</h2>) }
+          
+        </div>
       </div>
     </div>
-  </div>
-)
-
+  );
 };
 
 export default Wishlist;

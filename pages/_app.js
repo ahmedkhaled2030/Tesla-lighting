@@ -47,25 +47,26 @@ export default function App({ Component, pageProps }) {
   );
 }
 
-// export const getServerSideProps = async ({ params ,query}) => {
-//   console.log(query, "query");
-//   const res = await axios.post(
-//     `https://tesla-lightning.herokuapp.com/product/search`,
-//     {
-//       text: query?.searchText
-//     },
-//     {
+export const getServerSideProps = async ({ params }) => {
+  console.log(params ,"params")
+  const token = localStorage.getItem("token");
+  console.log(token ,"token")
+  const HomeRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/section`,
 
-//       headers: {
-//         Authorization:
-//           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
-//       },
-//     }
-//   );
-//   return {
-//     props: {
-//       value: res,
-//       searchText: null,
-//     },
-//   };
-// };
+    {
+      headers: {
+        Authorization:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+      },
+    }
+  );
+
+
+  return {
+    props: {
+      HomeProps: HomeRes.data.data,
+    
+    },
+  };
+};

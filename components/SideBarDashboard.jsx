@@ -64,7 +64,7 @@ const Sidebar = () => {
               <span>Add SubCategory</span>
             </li>
           </Link>
-          <Link href="/dashboard/products" style={{ textDecoration: "none" }} passHref>
+          <Link href="/dashboard/model" style={{ textDecoration: "none" }} passHref>
             <li>
               <Category className={styles.icon} />
               <span>Add Model</span>

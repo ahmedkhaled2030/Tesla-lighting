@@ -13,15 +13,33 @@ import { useRef, useState } from "react";
 import primaryMenus from "../utils/navbar.json";
 import CategoriesNavbar from "./CategoriesNavbar";
 import { useSelector } from "react-redux";
-
+import { useRouter } from "next/router";
 import Link from "next/link";
 const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
+const router = useRouter();
+ 
   const { menus } = primaryMenus;
   const [menuOpened, setMenuOpened] = useState(false);
   const menuRef = useRef();
   // console.log(menus , "menus");
   const [status, setStatus] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
+  const user = useSelector((state) => state.auth.firstName); 
+  let url
+  if (user) {
+    url ="/account"
+  } else {
+    url = "/login"
+  }
+
+  const openFavourite = () => {
+    if (user) {
+      setCloseWishList(false)
+    } else {
+      router.push('/login') 
+    }
+    
+ }
   return (
     <div className={styles.container}>
       <div className={styles.mobileWrapper}>
@@ -35,19 +53,22 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
           </div>
 
           <div className={styles.hr}></div>
-          <Link href={`/account`} passHref>
+          <Link href={url} passHref>
+            
             <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>PROFILE</div>
           </Link>
 
-          <div className={styles.hr}></div>
+        
+          {!user &&(<> <div className={styles.hr}></div>
           <Link href={`/login`} passHref>
             <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>LOGIN</div>
-          </Link>
+          </Link></>)}
 
-          <div className={styles.hr}></div>
+{!user &&(<> <div className={styles.hr}></div>
           <Link href={`/signup`} passHref>
             <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>SIGNUP</div>
-          </Link>
+          </Link></>)}
+         
 
           <div className={styles.hr}></div>
           <Link href={`/`} passHref>
@@ -102,7 +123,7 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
 
           <div
             className={styles.iconWrapper}
-            onClick={() => setCloseWishList(false)}
+            onClick={openFavourite}
           >
             <FavoriteBorderOutlined className={styles.icon} />
             <span>0</span>
@@ -137,7 +158,7 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
             <Link href={`/contact`} passHref>
             <li className={`secondaryText ${styles.listItem}`}>CONTACT</li>
             </Link>
-            <Link href={`/portfolio`} passHref>
+            <Link href={url} passHref>
             <li className={`secondaryText ${styles.listItem}`}>PORTFOLIO</li>
             </Link>
             <Link href={`/`} passHref>
@@ -147,7 +168,7 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
           </ul>
         </div>
         <div className={styles.item}>
-          <Link href={`/account`} passHref>
+          <Link href={url} passHref>
           <div className={styles.iconWrapper}>
             <PersonOutlineOutlined className={styles.icon} />
           </div>
@@ -161,7 +182,7 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
 
           <div
             className={styles.iconWrapper}
-            onClick={() => setCloseWishList(false)}
+            onClick={openFavourite}
           >
             <FavoriteBorderOutlined className={styles.icon} />
             <span>6</span>
@@ -173,3 +194,5 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
 };
 
 export default Navbar;
+
+

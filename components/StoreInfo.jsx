@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./../styles/StoreInfo.module.scss";
 
 const StoreInfo = ({ StoreInfo }) => {
-  console.log(StoreInfo,'StoreInfo')
+  // console.log(StoreInfo,'StoreInfo')
   const sections = [
     {
       img: "/img/storeInfo1.jpg",

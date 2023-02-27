@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartSlice";
 
 const WishListCard = ({ product }) => {
+  console.log(product ,"productproductproduct" )
   const dispatch = useDispatch();
   const handleCart = () => {
     console.log("cart");
@@ -15,10 +16,12 @@ const WishListCard = ({ product }) => {
     dispatch(addProduct({ ...product , price} ));
   };
   return (
+
     <div className={styles.container}>
-      <Link href={`/product/${product?.id}`} passHref>
+      <Link href={`/product/${product._id}`} passHref>
         <Image
-          src={product?.img}
+          // src={product?.cover}
+          src="https://res.cloudinary.com/dsz4anlgs/image/upload/v1677345080/1677345080778.jpg"
           alt={product?.title}
           width="275"
           height="275"

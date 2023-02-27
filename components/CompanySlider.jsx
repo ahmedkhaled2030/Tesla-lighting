@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 
 const CompanySlider = ({ partnersProps }) => {
-  console.log(partnersProps,'partnersProps')
+  // console.log(partnersProps,'partnersProps')
   const images = [
     "/img/LOGO01.png",
     "/img/LOGO02.png",

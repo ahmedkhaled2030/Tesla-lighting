@@ -11,14 +11,15 @@ import "swiper/css/scrollbar";
 
 // import required modules
 import { Scrollbar } from "swiper";
-const WishListList = ({ products }) => {
+const WishListList = ({ favProducts }) => {
+
   return (
     <div className={`innerWidth ${styles.container}`}>
       <h1 className={` primaryText paddings ${styles.title}`}>WishList</h1>
 
       <div className={styles.wrapper}>
-        {products?.map((product) => (
-          <WishListCard product={product} key={product?.id} />
+        {favProducts?.map((product) => (
+          <WishListCard product={product.product} key={product?._id} />
         ))}
       </div>
     </div>
