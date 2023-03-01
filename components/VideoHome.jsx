@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./../styles/VideoHome.module.scss";
 
-const VideoHome = () => {
+const VideoHome = ({ VideoResProps }) => {
+  console.log(VideoResProps , 'VideoResProps')
   return (
     <div className={styles.container}>
       <div className={styles.overlay}></div>
@@ -17,7 +18,7 @@ const VideoHome = () => {
           autoplay
           playsinline
           preload="metadata"
-          src="/video/video.mp4" type="video/mp4"
+          src={VideoResProps.image.path} 
           className={styles.video}
           style={{width: 100% !important;}}
         >
@@ -27,7 +28,7 @@ const VideoHome = () => {
     />
 
       <div className={styles.content}>
-        <h1>light up your life with us</h1>
+        <h1>{VideoResProps.text}</h1>
       </div>
     </div>
   );

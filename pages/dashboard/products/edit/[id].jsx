@@ -21,7 +21,8 @@ import Image from "next/image";
 import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import NavbarDashboard from "@/components/NavbarDashboard";
 
-const AddProduct = ({ categoryList }) => {
+const EditProduct = ({ getById }) => {
+    console.log(getById,'getById')
   const router = useRouter();
 
   // images
@@ -145,7 +146,7 @@ const addData =(e) => {
     e.preventDefault();
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product", {
+      .post("https://tesla-lightning.herokuapp.com/dashboard/product/63f73b458d582e1e78c4037e", {
        
         "category": category._id,
         "subCategory": selectedSubcategory._id,
@@ -474,7 +475,7 @@ const addData =(e) => {
 export const getServerSideProps = async ({ params }) => {
   console.log(params, "params");
   const res = await axios.get(
-    `https://tesla-lightning.herokuapp.com/category/list`,
+    `https://tesla-lightning.herokuapp.com/dashboard/product/63defab477182fb0bdf96568`,
 
     {
       headers: {
@@ -486,9 +487,9 @@ export const getServerSideProps = async ({ params }) => {
 
   return {
     props: {
-      categoryList: res.data.data,
+      getById: res.data.data,
     },
   };
 };
 
-export default AddProduct;
+export default EditProduct;

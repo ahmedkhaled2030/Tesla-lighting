@@ -78,10 +78,40 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className={styles.title}>HomePage</p>
-          <Link href="/dashboard/products" style={{ textDecoration: "none" }} passHref>
+          <Link href="/dashboard" style={{ textDecoration: "none" }} passHref>
             <li>
               <Home className={styles.icon} />
-              <span>HomePage</span>
+              <span>PromoSlider</span>
+            </li>
+          </Link>
+          <Link href="/dashboard" style={{ textDecoration: "none" }} passHref>
+            <li>
+              <Home className={styles.icon} />
+              <span>HeaderSlider</span>
+            </li>
+          </Link>
+          <Link href="/dashboard/partners/add" style={{ textDecoration: "none" }} passHref>
+            <li>
+              <Home className={styles.icon} />
+              <span>Partners</span>
+            </li>
+          </Link>   
+          <Link href="/dashboard/video/add" style={{ textDecoration: "none" }} passHref>
+            <li> 
+              <Home className={styles.icon} />
+              <span>Video</span>
+            </li>
+          </Link>
+          <Link href="/dashboard" style={{ textDecoration: "none" }} passHref>
+            <li>
+              <Home className={styles.icon} />
+              <span>Store Info</span>
+            </li>
+          </Link>
+          <Link href="/dashboard" style={{ textDecoration: "none" }} passHref>
+            <li>
+              <Home className={styles.icon} />
+              <span>Store Times</span>
             </li>
           </Link>
           <p className={styles.title}>Pages</p>

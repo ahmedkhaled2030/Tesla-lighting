@@ -3,13 +3,15 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useState } from "react";
-
+import { useCookies } from "react-cookie"
 import Head from "next/head";
 import { useDispatch } from "react-redux";
 import { authLogin } from "../../redux/authSlice";
 import FormInput from "@/components/FormInput";
 import Link from "next/link";
 const Login = () => {
+
+
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
@@ -22,6 +24,7 @@ const Login = () => {
     password: "",
  
   });
+  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -30,9 +33,10 @@ const Login = () => {
        values
       ); 
       const authData = await res.data.data;
-      localStorage.setItem("token", authData.refreshToken);
+
+      setCookie('token', authData.refreshToken, { path: '/' });
       console.log(authData, "authData");
-      dispatch(authLogin({ ...authData.user }));
+      dispatch(authLogin({ ...authData.user })); 
       router.push("/")
     } catch (err) {
       setError(true);

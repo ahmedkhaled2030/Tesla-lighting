@@ -21,8 +21,8 @@ import FilterBar from "@/components/FilterBar";
 import VideoHome from "@/components/VideoHome";
 import axios from "axios";
 
-export default function Home({HomeProps ,partnersProps ,StoreInfoProps}) {
-  // console.log(HomeProps , "HomeProps")
+export default function Home({HomeProps,partnersProps,StoreInfoProps ,VideoResProps}) {
+
   const products = [
     {
       id: 1,
@@ -129,25 +129,26 @@ export default function Home({HomeProps ,partnersProps ,StoreInfoProps}) {
       <CategoryList categories={categories} title="shop by category" />
       <ProductsList title="New ARRIVAL" products={products} />
       <OnSaleList />
-      <ReviewList />
+      <ReviewList /> 
       <Help />
       <CompanySlider partnersProps={partnersProps} />
-      <VideoHome />
+      <VideoHome VideoResProps ={VideoResProps} />
       <StoreInfo StoreInfo={StoreInfoProps} />
       <Times timeProps={HomeProps.find(item => item.name == 'retail-store')} />
     </div>
   );
 }
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async (ctx) => {
+  const token = ctx.req?.cookies.token || "";
+
 
   const HomeRes = await axios.get(
     `https://tesla-lightning.herokuapp.com/dashboard/section`,
 
     {
       headers: {
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+        Authorization:token 
       },
     }
   );
@@ -156,8 +157,8 @@ export const getServerSideProps = async ({ params }) => {
 
     {
       headers: {
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+        Authorization:token
+         
       },
     }
   );
@@ -166,8 +167,18 @@ export const getServerSideProps = async ({ params }) => {
 
     {
       headers: {
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+        Authorization:token
+         
+      },
+    }
+  );
+  const VideoRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/section/video`,
+
+    {
+      headers: {
+        Authorization:token
+         
       },
     }
   );
@@ -176,7 +187,8 @@ export const getServerSideProps = async ({ params }) => {
     props: {
       HomeProps: HomeRes.data.data,
       partnersProps: partners.data.data,
-      StoreInfoProps: StoreInfoRes.data.data
+      StoreInfoProps: StoreInfoRes.data.data,
+      VideoResProps:VideoRes.data.data
     },
   };
 };

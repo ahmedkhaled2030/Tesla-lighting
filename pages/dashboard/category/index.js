@@ -1,5 +1,5 @@
 import styles from "../../../styles/ProductsDashboard.module.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Sidebar from "@/components/SideBarDashboard";
 import DataTableDashboard from "@/components/DataTableDashboard";
@@ -10,13 +10,18 @@ import { Button, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import Image from "next/image";
 import NavbarDashboard from "@/components/NavbarDashboard";
-
+import Cookies from 'js-cookie';
 const Category = () => {
   const router = useRouter();
   const [category, setCategory] = useState("");
   const [status, setStatus] = useState("");
-  // console.log(category, "category")
-
+const [token,setToken] = useState("")
+console.log(token , "111111111111")
+  useEffect(() => {
+    setToken(  Cookies.get('token'))
+ 
+  } , [token])
+  
   const handleCategory = (e) => {
     setCategory(e.target.value);
   };
@@ -30,8 +35,8 @@ const Category = () => {
 
         {
           headers: {
-            Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+            Authorization:token
+             
           },
         }
       );

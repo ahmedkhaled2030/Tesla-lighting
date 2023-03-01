@@ -1,5 +1,5 @@
 import styles from "../../../styles/ProductsDashboard.module.scss";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Sidebar from "@/components/SideBarDashboard";
 import DataTableDashboard from "@/components/DataTableDashboard";
@@ -10,9 +10,13 @@ import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@m
 import { Box } from "@mui/system";
 import Image from "next/image";
 import NavbarDashboard from "@/components/NavbarDashboard";
-
+import Cookies from 'js-cookie';
 const SubCategory = ({ categoryList }) => {
-
+  const [token,setToken] = useState("")
+  useEffect(() => {
+    setToken(  Cookies.get('token'))
+ 
+  } , [token])
   const router = useRouter();
   const [category, setCategory] = useState("");
   const [subcategory, setSubCategory] = useState("");
@@ -40,7 +44,7 @@ console.log(category ,"category")
         {
           headers: {
             Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+            token
           },
         }
       );
@@ -143,16 +147,16 @@ console.log(category ,"category")
   );
 };
 
-export const getServerSideProps = async ({ params }) => {
-  console.log(params, "params");
+export const getServerSideProps = async (ctx) => {
+  const token = ctx.req?.cookies.token || "";
   const res = await axios.get(
     // `https://tesla-lightning.herokuapp.com/product/${params.id}`
     `https://tesla-lightning.herokuapp.com/category/list`,
 
     {
       headers: {
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+        Authorization:token
+          
       },
     }
   );
