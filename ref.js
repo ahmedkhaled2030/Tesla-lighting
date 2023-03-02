@@ -1,49 +1,11 @@
-// //post Reqest
-// export const getServerSideProps = async ({ params }) => {
-//     const res = await axios.post(
-//       `https://tesla-lightning.herokuapp.com/product/search`,
-//       {
-        
-//           text: "new chandeller",
-        
-//         headers: {
-//           Authorization:
-//             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
-//         },
-//       }
-//     );
-//     return {
-//       props: {
-//         products: res.data.data,
-//       },
-//     };
-// };
-  
-// // ////////////////////////////////////
-// //get Reqest
-// export const getServerSideProps = async ({ params }) => {
-//     const res = await axios.get(
-//       `https://tesla-lightning.herokuapp.com/dashboard/product`,
-//       {
-        
-       
-        
-//         headers: {
-//           Authorization:
-//             "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
-//         },
-//       }
-//     );
-//     return {
-//       props: {
-//         products: res.data.data,
-//       },
-//     };
-//   };
-  
+// import Cookies from "js-cookie";
+// const Products = ({ productsList }) => {
+//   const [token, setToken] = useState("");
+//   useEffect(() => {
+//     setToken(Cookies.get("token"));
+//   }, [token]);
 
-//https://tesla-lightning.herokuapp.com
-//   {
-//     "email": "mohaned-magdy@hotmail.com",
-//     "password": "mohandd#kMs3"
-// }
+// 
+// export const getServerSideProps = async (ctx) => {
+//     const token = ctx.req?.cookies.token || "";
+  

@@ -8,7 +8,7 @@ const DataTableDashboard = ({ rowsList ,columns,actionColumn}) => {
   console.log(rowsList);
   return (
     <div className={styles.datatable}>
-      <DataGrid
+      <DataGrid sx={{outline:"none"}}
         getRowId={(row) => row._id}
         rows={rowsList}
         columns={columns.concat(actionColumn)}

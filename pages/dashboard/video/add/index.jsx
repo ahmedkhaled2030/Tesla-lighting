@@ -96,7 +96,7 @@ console.log(imagePath , "imagePath")
               <input
                 type="file"
                 id="file"
-                multiple
+          
                 onChange={handleImage}
                 style={{ display: "none" }}
               />

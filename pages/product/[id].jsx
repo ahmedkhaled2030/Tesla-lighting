@@ -275,11 +275,11 @@ const Product = ({ productDetails, setCartOpen }) => {
           }}
           className={styles.swiper}
         >
-          {images?.map((img, i) => (
+          {productDetails.images?.map((img, i) => (
             <SwiperSlide className={styles.swiperSlide} key={i}>
             <Image
-                  src={img}
-                  alt=""
+                  src={img.path}
+                  alt={img._id}
                   width="400px"
                   height="400px"
                   objectFit="contain"
@@ -293,17 +293,17 @@ const Product = ({ productDetails, setCartOpen }) => {
       <div className={styles.top}>
         <div className={styles.left}>
           <div className={styles.subImagesContainer}>
-            {images.map((image, i) => (
+            {productDetails.images.map((image, i) => (
               <div
                 key={i}
                 className={` ${
                   selectedImg === image ? `${styles.selected}` : ""
                 }  ${styles.image}`}
-                onClick={() => setSelectedImg(image)}
+                onClick={() => setSelectedImg(image.path)}
               >
                 <Image
-                  src={image}
-                  alt=""
+                  src={image.path}
+                  alt={image._id}
                   width="100px"
                   height="100px"
                   objectFit="contain"
@@ -332,7 +332,7 @@ const Product = ({ productDetails, setCartOpen }) => {
           </h1> 
           <span className={styles.number}><strong>{productDetails?.number.toString()}</strong></span>
           <div className={styles.prices}>
-            $ {price} 
+            $ {productDetails.price} 
             {/* $ {productDetails?.price} */}
             {/* <span className={styles.price}>$3,265.00</span>
             <span className={styles.price}>$2,972.00</span>
@@ -341,7 +341,7 @@ const Product = ({ productDetails, setCartOpen }) => {
           <p className={styles.shipping}>
             <span>Shipping</span> calculated at checkout.
           </p>
-          {isFavourited ? (
+          {productDetails.isFavourited ? (
             <button className={styles.buttonWish} onClick={handleFavourite}>
               <Favorite />
               Added to Wishlist
@@ -390,7 +390,8 @@ const Product = ({ productDetails, setCartOpen }) => {
             ADD TO CART
           </button>
           <h3 className={`primaryText ${styles.descHeading}`}>DESCRIPTION</h3>
-          <span className={styles.desc}>{desc}</span>
+          {/* <span className={styles.desc}>{productDetails.description}</span> */}
+          <span className={styles.desc} dangerouslySetInnerHTML={{ __html: productDetails.description }}></span>
         </div>
       </div>
 
@@ -491,8 +492,8 @@ const Product = ({ productDetails, setCartOpen }) => {
 export const getServerSideProps = async ({ params }) => {
   console.log(params, "params");
   const productRes = await axios.get(
-    // `https://tesla-lightning.herokuapp.com/product/${params.id}`
-    `https://tesla-lightning.herokuapp.com/product/63f73b458d582e1e78c4037e`
+    `https://tesla-lightning.herokuapp.com/product/${params.id}`
+    // `https://tesla-lightning.herokuapp.com/product/63f73b458d582e1e78c4037e`
   );
 
   return { 

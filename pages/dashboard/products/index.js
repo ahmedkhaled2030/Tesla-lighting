@@ -1,5 +1,5 @@
 import styles from "../../../styles/ProductsDashboard.module.scss";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Sidebar from "@/components/SideBarDashboard";
 import DataTableDashboard from "@/components/DataTableDashboard";
@@ -7,8 +7,14 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import NavbarDashboard from "@/components/NavbarDashboard";
-
+import Cookies from "js-cookie";
+import { Button } from "@mui/material";
+import { Box } from "@mui/system";
 const Products = ({ productsList }) => {
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+  }, [token]);
   const router = useRouter();
   const handleDelete = async (id) => {
     try {
@@ -17,8 +23,7 @@ const Products = ({ productsList }) => {
 
         {
           headers: {
-            Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+            Authorization: token,
           },
         }
       );
@@ -31,13 +36,12 @@ const Products = ({ productsList }) => {
     }
   };
   const columns = [
-    { field: "_id", headerName: "ID", width: 150 },
+    { field: "_id", headerName: "ID", width: 220 },
     {
       field: "title",
       headerName: "ProductTitle",
       description: "This column has a value getter and is not sortable.",
-       width: 300
-
+      width: 350,
     },
 
     {
@@ -46,17 +50,12 @@ const Products = ({ productsList }) => {
       type: "string",
       width: 150,
     },
-    {
-      field: "category",
-      headerName: "Category",
-      type: "string",
-      width: 100,
-    },
+
     {
       field: "price",
       headerName: "Price",
-      type: "number",
-      width: 100,
+      type: "string",
+      width: 50,
     },
   ];
 
@@ -64,7 +63,7 @@ const Products = ({ productsList }) => {
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 400,
       renderCell: (params) => {
         return (
           <div className={styles.cellAction}>
@@ -74,6 +73,15 @@ const Products = ({ productsList }) => {
               passHref
             >
               <div className={styles.viewButton}>View</div>
+            </Link>
+            <Link
+              href="/dashboard/products/1"
+              style={{ textDecoration: "none", backgroundColor: "green" }}
+              passHref
+            >
+              <Button variant="contained" color="secondary">
+                Edit
+              </Button>
             </Link>
             <div
               className={styles.deleteButton}
@@ -91,9 +99,21 @@ const Products = ({ productsList }) => {
   return (
     <div className={styles.products}>
       <Sidebar />
+                  
       <div className={styles.productsContainer}>
-        <NavbarDashboard />
-        <DataTableDashboard
+        <Box sx={{ m: '2rem' }}> 
+        <Link
+              href="/dashboard/products/add"
+          
+              passHref
+            >
+              <Button variant="contained" color="success"  >
+                Add Product
+              </Button>
+            </Link>
+        </Box>
+  
+        <DataTableDashboard 
           rowsList={productsList.products}
           columns={columns}
           actionColumn={actionColumn}
@@ -103,23 +123,21 @@ const Products = ({ productsList }) => {
   );
 };
 
-export const getServerSideProps = async ({ params }) => {
-  console.log(params, "params");
+export const getServerSideProps = async (ctx) => {
+  const token = ctx.req?.cookies.token || "";
   const res = await axios.get(
-    // `https://tesla-lightning.herokuapp.com/product/${params.id}`
     `https://tesla-lightning.herokuapp.com/dashboard/product`,
 
     {
       headers: {
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+        Authorization: token,
       },
     }
   );
 
   return {
     props: {
-     productsList: res.data.data,
+      productsList: res.data.data,
     },
   };
 };

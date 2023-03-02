@@ -108,7 +108,7 @@ const Sidebar = () => {
               <span>Store Info</span>
             </li>
           </Link>
-          <Link href="/dashboard" style={{ textDecoration: "none" }} passHref>
+          <Link href="/dashboard/storetime/add" style={{ textDecoration: "none" }} passHref>
             <li>
               <Home className={styles.icon} />
               <span>Store Times</span>
