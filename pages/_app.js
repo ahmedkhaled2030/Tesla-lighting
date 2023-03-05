@@ -16,8 +16,8 @@ export default function App({ Component, pageProps }) {
   const [FilterOpen, setFilterOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [closeWishList, setCloseWishList] = useState(true);
-  const [hideNavbar ,setHideNavbar] = useState(true)
- 
+  const [hideNavbar, setHideNavbar] = useState(true);
+
   return (
     <Provider store={store}>
       <Layout
@@ -26,21 +26,17 @@ export default function App({ Component, pageProps }) {
         setCloseWishList={setCloseWishList}
         searchOpen={searchOpen}
         setSearchOpen={setSearchOpen}
- 
       >
         {!closeWishList && <Wishlist setCloseWishList={setCloseWishList} />}
         <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
-        <SearchBar
-          searchOpen={searchOpen}
-          setSearchOpen={setSearchOpen}
-
-        />
-            <FilterBar FilterOpen={FilterOpen} setFilterOpen={setFilterOpen}   />
+        <SearchBar searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
+        <FilterBar FilterOpen={FilterOpen} setFilterOpen={setFilterOpen} />
         <Component
           {...pageProps}
           cartOpen={cartOpen}
           setCartOpen={setCartOpen}
-          FilterOpen={FilterOpen} setFilterOpen={setFilterOpen}
+          FilterOpen={FilterOpen}
+          setFilterOpen={setFilterOpen}
         />
       </Layout>
     </Provider>
@@ -48,9 +44,9 @@ export default function App({ Component, pageProps }) {
 }
 
 export const getServerSideProps = async ({ params }) => {
-  console.log(params ,"params")
+  //console.log(params ,"params")
   const token = localStorage.getItem("token");
-  console.log(token ,"token")
+  //console.log(token ,"token")
   const HomeRes = await axios.get(
     `https://tesla-lightning.herokuapp.com/dashboard/section`,
 
@@ -62,11 +58,9 @@ export const getServerSideProps = async ({ params }) => {
     }
   );
 
-
   return {
     props: {
       HomeProps: HomeRes.data.data,
-    
     },
   };
 };

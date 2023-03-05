@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./../styles/StoreInfo.module.scss";
 
 const StoreInfo = ({ StoreInfo }) => {
-  // console.log(StoreInfo,'StoreInfo')
+  // //console.log(StoreInfo,'StoreInfo')
   const sections = [
     {
       img: "/img/storeInfo1.jpg",
@@ -18,7 +18,6 @@ const StoreInfo = ({ StoreInfo }) => {
   ];
   return (
     <div className={` innerWidth  ${styles.container}`}>
-
       {StoreInfo.map((item) => (
         <div className={styles.section}>
           <Image
@@ -28,19 +27,12 @@ const StoreInfo = ({ StoreInfo }) => {
             alt=""
             // objectFit="contain"
           />
-          <h3 className={`primaryText ${styles.title}`}>
-           {item.title}
-          </h3>
-          <p className={`secondaryText ${styles.desc}`}>
-          {item.text}
-          </p>
+          <h3 className={`primaryText ${styles.title}`}>{item.title}</h3>
+          <p className={`secondaryText ${styles.desc}`}>{item.text}</p>
           <h1 className="borderText">MORE INFO</h1>
         </div>
-))}
-
-      </div>
-
-
+      ))}
+    </div>
   );
 };
 

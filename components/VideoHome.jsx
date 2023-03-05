@@ -3,15 +3,15 @@ import Link from "next/link";
 import styles from "./../styles/VideoHome.module.scss";
 
 const VideoHome = ({ VideoResProps }) => {
-  console.log(VideoResProps , 'VideoResProps')
+  //console.log(VideoResProps , 'VideoResProps')
   return (
     <div className={styles.container}>
       <div className={styles.overlay}></div>
-     
+
       <div
- className={styles.video}
-      dangerouslySetInnerHTML={{
-        __html: `
+        className={styles.video}
+        dangerouslySetInnerHTML={{
+          __html: `
         <video
           loop
           muted
@@ -23,9 +23,9 @@ const VideoHome = ({ VideoResProps }) => {
           style={{width: 100% !important;}}
         >
 
-        </video>`
-      }}
-    />
+        </video>`,
+        }}
+      />
 
       <div className={styles.content}>
         <h1>{VideoResProps.text}</h1>

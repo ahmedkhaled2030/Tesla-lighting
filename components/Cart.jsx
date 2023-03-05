@@ -6,17 +6,19 @@ import { Remove, Add } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { addCart, removeCart ,removeBulk } from "../redux/cartSlice";
+import { addCart, removeCart, removeBulk } from "../redux/cartSlice";
 const Cart = ({ cartOpen, setCartOpen }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const cart = useSelector((state) => state.cart);
   const handleQuantity = (_id, price, quantity, type, size) => {
-    console.log(_id, price, quantity, type, size)
+    //console.log(_id, price, quantity, type, size)
     if (type === "dec") {
-      quantity > 1 ? (dispatch(removeCart({ _id, price, size }))) : (dispatch(removeBulk({ _id, price, size })))
+      quantity > 1
+        ? dispatch(removeCart({ _id, price, size }))
+        : dispatch(removeBulk({ _id, price, size }));
     } else {
-      dispatch(addCart({ _id, price,  size }));
+      dispatch(addCart({ _id, price, size }));
     }
   };
 
@@ -41,27 +43,29 @@ const Cart = ({ cartOpen, setCartOpen }) => {
       title:
         "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
       price: "3,767.00",
-    },    {
-      id: 2,
-      img: "/img/arrival2.jpg",
-      title:
-        "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
-      price: "3,767.00",
-    },    {
+    },
+    {
       id: 2,
       img: "/img/arrival2.jpg",
       title:
         "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
       price: "3,767.00",
     },
-        {
+    {
       id: 2,
       img: "/img/arrival2.jpg",
       title:
         "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
       price: "3,767.00",
     },
-       {
+    {
+      id: 2,
+      img: "/img/arrival2.jpg",
+      title:
+        "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
+      price: "3,767.00",
+    },
+    {
       id: 2,
       img: "/img/arrival2.jpg",
       title:
@@ -107,7 +111,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
                           product.price,
                           product.quantity,
                           "dec",
-                      
+
                           product.size
                         )
                       }

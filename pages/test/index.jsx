@@ -1,13 +1,8 @@
-
-
 const index = () => {
-  return (
-    <div></div>
-  )
-}
+  return <div></div>;
+};
 
-export default index
-
+export default index;
 
 // import Image from "next/image";
 // import styles from "../styles/Navbar.module.scss";
@@ -23,11 +18,10 @@ export default index
 // import CategoriesNavbar from "./CategoriesNavbar";
 // import { useSelector } from "react-redux";
 
-
 // const Navbar = ({ setCloseWishList, cartOpen, setCartOpen  }) => {
-//   // console.log(setCloseWishList)
+//   // //console.log(setCloseWishList)
 //   const { menus } = primaryMenus;
-//   // console.log(menus , "menus");
+//   // //console.log(menus , "menus");
 //   const [status, setStatus] = useState(false);
 //   const quantity = useSelector((state) => state.cart.quantity);
 //   return (
@@ -53,12 +47,12 @@ export default index
 //         </div>
 //           <div className={styles.iconWrapper} onClick={() => setCartOpen(true)} >
 //             <WorkOutlineOutlined className={styles.icon} />
-   
+
 //           <span>{quantity}</span>
 //           </div>
-         
+
 //           <div className={styles.iconWrapper} onClick={() => setCloseWishList(false)}>
-            
+
 //           <FavoriteBorderOutlined className={styles.icon}  />
 //           <span>0</span>
 //         </div>
@@ -70,7 +64,6 @@ export default index
 // };
 
 // export default Navbar;
-
 
 // import Image from "next/image";
 // import styles from "../styles/Navbar.module.scss";
@@ -87,9 +80,9 @@ export default index
 // import { useSelector } from "react-redux";
 
 // const Navbar = ({ setCloseWishList, cartOpen, setCartOpen }) => {
-//   // console.log(setCloseWishList)
+//   // //console.log(setCloseWishList)
 //   const { menus } = primaryMenus;
-//   // console.log(menus , "menus");
+//   // //console.log(menus , "menus");
 //   const [status, setStatus] = useState(false);
 //   const quantity = useSelector((state) => state.cart.quantity);
 //   return (

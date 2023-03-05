@@ -74,14 +74,14 @@ const Wishlist = ({ setCloseWishList }) => {
     const token = localStorage.getItem("token");
 
     const profileFavs = await axios.get(
-      `https://tesla-lightning.herokuapp.com/user/favorites`, 
+      `https://tesla-lightning.herokuapp.com/user/favorites`,
       {
         headers: {
           Authorization: token,
         },
       }
     );
-console.log(profileFavs.data.data)
+    //console.log(profileFavs.data.data)
     setFavProducts(profileFavs?.data?.data);
   }, []);
 
@@ -94,8 +94,11 @@ console.log(profileFavs.data.data)
       </div>
       <div className={styles.wrapper}>
         <div className={styles.products}>
-          {favProducts.length > 0 ? (<WishListList favProducts={favProducts} />) : (<h2 className={styles.noText}>No Favourite Yet !</h2>) }
-          
+          {favProducts.length > 0 ? (
+            <WishListList favProducts={favProducts} />
+          ) : (
+            <h2 className={styles.noText}>No Favourite Yet !</h2>
+          )}
         </div>
       </div>
     </div>

@@ -7,16 +7,15 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartSlice";
 
 const WishListCard = ({ product }) => {
-  console.log(product ,"productproductproduct" )
+  //console.log(product ,"productproductproduct" )
   const dispatch = useDispatch();
   const handleCart = () => {
-    console.log("cart");
-    const price =  product?.price
+    //console.log("cart");
+    const price = product?.price;
     // dispatch(addProduct({ ...productDetails,  price, quantity }));
-    dispatch(addProduct({ ...product , price} ));
+    dispatch(addProduct({ ...product, price }));
   };
   return (
-
     <div className={styles.container}>
       <Link href={`/product/${product._id}`} passHref>
         <Image
@@ -40,7 +39,9 @@ const WishListCard = ({ product }) => {
 
       <span className="secondaryText">${product?.price}</span>
 
-      <button className={` button ${styles.wishlist} ` } onClick={handleCart}>MOVE TO CART</button>
+      <button className={` button ${styles.wishlist} `} onClick={handleCart}>
+        MOVE TO CART
+      </button>
     </div>
   );
 };

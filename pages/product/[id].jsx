@@ -44,10 +44,10 @@ const FilterColor = styled.div`
 `;
 
 const Product = ({ productDetails, setCartOpen }) => {
-  console.log(productDetails);
+  //console.log(productDetails);
 
-  // console.log(productDetails ,"productDetails")
-  // console.log(isFavourite,'isFavourite')
+  // //console.log(productDetails ,"productDetails")
+  // //console.log(isFavourite,'isFavourite')
   //dummyData
 
   const images = [
@@ -157,15 +157,15 @@ const Product = ({ productDetails, setCartOpen }) => {
   Voltage: 120
   Manufacturer Warranty: Three years warranty against manufacturers defect.`;
   //dummyData
-  // const [price, setPrice] = useState(productDetails.prices[0]);
-  const [price, setPrice] = useState(prices[0].value);
+console.log(productDetails.images ,'productDetails.images')
+  const [price, setPrice] = useState(prices[0].value); 
   const [itemSize, setSize] = useState(0);
   const [color, setColor] = useState("");
-  const [selectedImg, setSelectedImg] = useState(images[0]);
+  const [selectedImg, setSelectedImg] = useState(productDetails.images[0].path);
   const [show, setShow] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [isFavourited, setIsFavourited] = useState(false);
-  console.log(productDetails);
+  //console.log(productDetails);
   const dispatch = useDispatch();
 
   const changePrice = (number) => {
@@ -179,7 +179,7 @@ const Product = ({ productDetails, setCartOpen }) => {
     changePrice(difference);
   };
   const handleCart = () => {
-    console.log("cart");
+    //console.log("cart");
     setCartOpen(true);
 
     dispatch(
@@ -188,7 +188,7 @@ const Product = ({ productDetails, setCartOpen }) => {
   };
 
   const handleFavourite = async () => {
-    console.log("object");
+    //console.log("object");
 
     try {
       const res = await axios.post(
@@ -203,7 +203,7 @@ const Product = ({ productDetails, setCartOpen }) => {
       );
 
       const data = await res.data.message;
-      console.log(data);
+      //console.log(data);
       if (data == "Product added to favorites successfully") {
         setIsFavourited(true);
       }
@@ -211,13 +211,13 @@ const Product = ({ productDetails, setCartOpen }) => {
         setIsFavourited(false);
       }
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
 
   const toggleShow = () => {
     setShow(!show);
-  }; 
+  };
 
   var buttonText = show ? "Cancel review" : "Write a review";
 
@@ -230,7 +230,7 @@ const Product = ({ productDetails, setCartOpen }) => {
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
-          rel="preconnect" 
+          rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="true"
         />
@@ -241,9 +241,7 @@ const Product = ({ productDetails, setCartOpen }) => {
         />
       </Head>
 
-
       <>
-        
         <Swiper
           slidesPerView={3}
           spaceBetween={30}
@@ -277,14 +275,14 @@ const Product = ({ productDetails, setCartOpen }) => {
         >
           {productDetails.images?.map((img, i) => (
             <SwiperSlide className={styles.swiperSlide} key={i}>
-            <Image
-                  src={img.path}
-                  alt={img._id}
-                  width="400px"
-                  height="400px"
-                  objectFit="contain"
-                  className={styles.subImg}
-                />
+              <Image
+                src={img.path}
+                alt={img._id}
+                width="400px"
+                height="400px"
+                objectFit="contain"
+                className={styles.subImg}
+              />
               {/* <Magnifier src={img} width={400}  />  */}
             </SwiperSlide>
           ))}
@@ -329,10 +327,12 @@ const Product = ({ productDetails, setCartOpen }) => {
         <div className={styles.right}>
           <h1 className={`primaryText ${styles.title}`}>
             {productDetails?.title}
-          </h1> 
-          <span className={styles.number}><strong>{productDetails?.number.toString()}</strong></span>
+          </h1>
+          <span className={styles.number}>
+            <strong>{productDetails?.number.toString()}</strong>
+          </span>
           <div className={styles.prices}>
-            $ {productDetails.price} 
+            $ {productDetails.price}
             {/* $ {productDetails?.price} */}
             {/* <span className={styles.price}>$3,265.00</span>
             <span className={styles.price}>$2,972.00</span>
@@ -356,13 +356,13 @@ const Product = ({ productDetails, setCartOpen }) => {
           <div className={styles.colors}>
             <span>COLOR</span>
             <div className={styles.colorWrapper}>
-              {productDetails?.colors.map((c,i) => (
+              {productDetails?.colors.map((c, i) => (
                 <div
                   className={` ${
                     color == c
                       ? ` ${styles.color} ${styles.colorSelected}`
                       : `${styles.color}`
-                    }  `}
+                  }  `}
                   key={i}
                 >
                   <FilterColor color={c} key={c} onClick={() => setColor(c)} />
@@ -381,7 +381,6 @@ const Product = ({ productDetails, setCartOpen }) => {
                   }  `}
                 >
                   {size.value}"
-              
                 </span>
               ))}
             </div>
@@ -391,7 +390,10 @@ const Product = ({ productDetails, setCartOpen }) => {
           </button>
           <h3 className={`primaryText ${styles.descHeading}`}>DESCRIPTION</h3>
           {/* <span className={styles.desc}>{productDetails.description}</span> */}
-          <span className={styles.desc} dangerouslySetInnerHTML={{ __html: productDetails.description }}></span>
+          <span
+            className={styles.desc}
+            dangerouslySetInnerHTML={{ __html: productDetails.description }}
+          ></span>
         </div>
       </div>
 
@@ -483,20 +485,18 @@ const Product = ({ productDetails, setCartOpen }) => {
       <div className={styles.hr}></div>
 
       <ProductsList title="Recently Viewed" products={RecentViewedProducts} />
-
-     
     </div>
   );
 };
 
 export const getServerSideProps = async ({ params }) => {
-  console.log(params, "params");
+  //console.log(params, "params");
   const productRes = await axios.get(
     `https://tesla-lightning.herokuapp.com/product/${params.id}`
     // `https://tesla-lightning.herokuapp.com/product/63f73b458d582e1e78c4037e`
   );
 
-  return { 
+  return {
     props: {
       productDetails: productRes.data.data.product,
       // reqFavourite : reqFavourite

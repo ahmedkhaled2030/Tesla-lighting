@@ -3,49 +3,43 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { useState } from "react";
-import { useCookies } from "react-cookie"
+import { useCookies } from "react-cookie";
 import Head from "next/head";
 import { useDispatch } from "react-redux";
 import { authLogin } from "../../redux/authSlice";
 import FormInput from "@/components/FormInput";
 import Link from "next/link";
 const Login = () => {
-
-
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
   const [values, setValues] = useState({
-
     email: "",
 
     password: "",
- 
   });
-  const [cookies, setCookie, removeCookie] = useCookies(['cookie-name']);
+  const [cookies, setCookie, removeCookie] = useCookies(["cookie-name"]);
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(
         "https://tesla-lightning.herokuapp.com/user/login",
-       values
-      ); 
+        values
+      );
       const authData = await res.data.data;
 
-      setCookie('token', authData.refreshToken, { path: '/' });
-      console.log(authData, "authData");
-      dispatch(authLogin({ ...authData.user })); 
-      router.push("/")
+      setCookie("token", authData.refreshToken, { path: "/" });
+      //console.log(authData, "authData");
+      dispatch(authLogin({ ...authData.user }));
+      router.push("/");
     } catch (err) {
       setError(true);
     }
   };
 
-
   const inputs = [
-
     {
       id: 1,
       name: "email",
@@ -55,7 +49,7 @@ const Login = () => {
       label: "EMAIL",
       required: true,
     },
-   
+
     {
       id: 2,
       name: "password",
@@ -67,7 +61,6 @@ const Login = () => {
       pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
       required: true,
     },
-
   ];
 
   const handleSubmit = (e) => {
@@ -139,7 +132,7 @@ const Login = () => {
         </button>
         <Link href={`/signup`} passHref className="link">
           <span className={styles.text}>Create account ?</span>
-          </Link>
+        </Link>
       </form>
     </div>
   );

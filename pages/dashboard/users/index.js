@@ -1,5 +1,5 @@
-import styles from "../../../styles/UsersDashboard.module.scss";
-import React from "react";
+import styles from "../../../styles/ProductsDashboard.module.scss";
+import React, { useEffect, useState } from "react";
 
 import Sidebar from "@/components/SideBarDashboard";
 import DataTableDashboard from "@/components/DataTableDashboard";
@@ -7,53 +7,72 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import NavbarDashboard from "@/components/NavbarDashboard";
+import Cookies from "js-cookie";
+import { Button } from "@mui/material";
+import { Box } from "@mui/system";
+const Users = () => {
 
-const Users = ({ usersList }) => {
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+  }, [token]);
   const router = useRouter();
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(
-        `https://tesla-lightning.herokuapp.com/dashboard/user/${id}`,
+        `https://tesla-lightning.herokuapp.com/dashboard/product/${id}`,
 
         {
           headers: {
-            Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+            Authorization: token,
           },
         }
       );
 
       const data = await res;
-      console.log(data, "data");
-      router.push("/dashboard/users");
+      //console.log(data, "data");
+      router.reload(window.location.pathname)
     } catch (err) {
-      console.log(err);
+      //console.log(err);
+    }
+  };
+  const handleEdit = async (id) => {
+    //console.log(id)
+    try {
+      router.push(`/dashboard/user/edit/${id}`);
+    } catch (err) {
+      //console.log(err);
+    }
+  };
+  const handleView = async (id) => {
+    //console.log(id)
+    try {
+      router.push(`/dashboard/products/view/${id}`);
+    } catch (err) {
+      //console.log(err);
     }
   };
   const columns = [
-    { field: "_id", headerName: "ID", width: 300 },
+    { field: "_id", headerName: "ID", width: 220 },
     {
-      field: "fullName",
-      headerName: "Full name",
+      field: "title",
+      headerName: "ProductTitle",
       description: "This column has a value getter and is not sortable.",
-
-      width: 250,
-      valueGetter: (params) =>
-        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
+      width: 350,
     },
 
     {
-      field: "email",
-      headerName: "Email",
-      type: "email",
-      width: 250,
-    },
-    {
-      field: "createdAt",
-      headerName: "CreatedAt",
-      type: "date",
+      field: "number",
+      headerName: "Number",
+      type: "string",
       width: 150,
-      valueGetter: (params) => `${params.row.createdAt.split("T")[0]}`,
+    },
+
+    {
+      field: "price",
+      headerName: "Price",
+      type: "string",
+      width: 50,
     },
   ];
 
@@ -61,17 +80,25 @@ const Users = ({ usersList }) => {
     {
       field: "action",
       headerName: "Action",
-      width: 200,
+      width: 400,
       renderCell: (params) => {
         return (
           <div className={styles.cellAction}>
-            <Link
-              href="/dashboard/users/1"
-              style={{ textDecoration: "none" }}
-              passHref
+            <div
+              className={styles.viewButton}
+              onClick={() => handleView(params.row._id)}
             >
-              <div className={styles.viewButton}>View</div>
-            </Link>
+              View
+            </div>
+
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => handleEdit(params.row._id)}
+            >
+              Edit
+            </Button>
+
             <div
               className={styles.deleteButton}
               onClick={() => handleDelete(params.row._id)}
@@ -84,41 +111,33 @@ const Users = ({ usersList }) => {
     },
   ];
 
-  console.log(usersList, "usersList");
+
+
+
   return (
-    <div className={styles.users}>
+    <div className={styles.products}>
       <Sidebar />
-      <div className={styles.usersContainer}>
-        <NavbarDashboard />
+
+      <div className={styles.productsContainer}>
+        <Box sx={{ m: "2rem" }}>
+          <Link href="/dashboard/products/add" passHref>
+            <Button variant="contained" color="success">
+              Add User
+            </Button>
+          </Link>
+        </Box>
+
         <DataTableDashboard
-          rowsList={usersList}
+          type="user"
+          api="user"
           columns={columns}
           actionColumn={actionColumn}
+        
         />
       </div>
     </div>
   );
 };
 
-export const getServerSideProps = async ({ params }) => {
-  console.log(params, "params");
-  const res = await axios.get(
-    // `https://tesla-lightning.herokuapp.com/product/${params.id}`
-    `https://tesla-lightning.herokuapp.com/dashboard/user`,
-
-    {
-      headers: {
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
-      },
-    }
-  );
-
-  return {
-    props: {
-      usersList: res.data.data,
-    },
-  };
-};
 
 export default Users;

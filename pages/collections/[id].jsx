@@ -14,11 +14,11 @@ import { FilterAltOutlined } from "@mui/icons-material";
 import axios from "axios";
 import { useRouter } from "next/router";
 const headers = {
+  Authorization:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+};
 
-  'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0'
-}
-
-const Collections = (props ) => {
+const Collections = (props) => {
   const productsDummy = [
     {
       id: "63eb621c09eedf45e735accb",
@@ -53,26 +53,28 @@ const Collections = (props ) => {
       price: "3,767.00",
     },
   ];
-  // console.log(props)
+  // //console.log(props)
   const { asPath } = useRouter();
-  // console.log(asPath);
+  // //console.log(asPath);
   const router = useRouter();
 
   const [sortBy, setSortBy] = useState(props.initialSortBy);
   const [sortOrder, setSortOrder] = useState(props.initialSortOrder);
 
   useEffect(() => {
-    console.log(sortBy, sortOrder);
+    //console.log(sortBy, sortOrder);
     const url = {
       pathname: asPath,
       query: { sortBy: sortBy, sortOrder: sortOrder },
     };
     // router.replace(url, undefined, { shallow: true });
     if (sortBy == "" && sortOrder == "") {
-     return
+      return;
     } else {
-      router.push(`${asPath.split("?")[0]}?sortBy=${sortBy}&sortOrder=${sortOrder}`);
-   } 
+      router.push(
+        `${asPath.split("?")[0]}?sortBy=${sortBy}&sortOrder=${sortOrder}`
+      );
+    }
   }, [sortBy, sortOrder]);
 
   const handleFilters = (e) => {
@@ -116,15 +118,17 @@ const Collections = (props ) => {
       <div className={styles.imgContainer}>
         <h1 className={`primaryText ${styles.title}`}>Flush MOUNT</h1>
       </div>
-      <div className={`innerWidth  yPaddings  ${styles.wrapper}`}> 
+      <div className={`innerWidth  yPaddings  ${styles.wrapper}`}>
         <div className={styles.filterContainer}>
-          <button className={styles.filter} onClick={()  => props.setFilterOpen(true)}>
+          <button
+            className={styles.filter}
+            onClick={() => props.setFilterOpen(true)}
+          >
             <FilterAltOutlined />
-            <span className={styles.filterText}>Filter</span> 
+            <span className={styles.filterText}>Filter</span>
           </button>
           <div className={` secondaryText ${styles.number}`}>
-            {/* {props.products.count} products */} 
-            5 products
+            {/* {props.products.count} products */}5 products
           </div>
           <div className={styles.sorting}>
             <select name="sort" onChange={handleFilters}>
@@ -148,7 +152,7 @@ const Collections = (props ) => {
 };
 
 export const getServerSideProps = async ({ params, query }) => {
-  console.log(query, "query");
+  //console.log(query, "query");
   const res = await axios.post(
     `https://tesla-lightning.herokuapp.com/product/search`,
     {

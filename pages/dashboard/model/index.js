@@ -26,15 +26,14 @@ const Model = ({ categoryList }) => {
 
 
   const handleCategory = (event) => {
-  console.log(event.target.value
-    ,"event.target.value")
+
     setCategory(event.target.value);
     setSubCategory(event.target.value.subCategories);
   };
  
 
   const handleSubCategory = (e) => {
-    console.log(e.target.value)
+    //console.log(e.target.value)
     setSelectedSubCategory(e.target.value);
     
   };

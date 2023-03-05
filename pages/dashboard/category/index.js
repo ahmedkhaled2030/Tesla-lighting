@@ -10,18 +10,17 @@ import { Button, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import Image from "next/image";
 import NavbarDashboard from "@/components/NavbarDashboard";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 const Category = () => {
   const router = useRouter();
   const [category, setCategory] = useState("");
   const [status, setStatus] = useState("");
-const [token,setToken] = useState("")
-console.log(token , "111111111111")
+  const [token, setToken] = useState("");
+  //console.log(token , "111111111111")
   useEffect(() => {
-    setToken(  Cookies.get('token'))
- 
-  } , [token])
-  
+    setToken(Cookies.get("token"));
+  }, [token]);
+
   const handleCategory = (e) => {
     setCategory(e.target.value);
   };
@@ -35,24 +34,22 @@ console.log(token , "111111111111")
 
         {
           headers: {
-            Authorization:token
-             
+            Authorization: token,
           },
         }
       );
 
       const data = await res;
-      console.log(data.data.message, "data");
+      //console.log(data.data.message, "data");
       setStatus(data.data.message);
       setCategory("");
       // router.push("/dashboard/products");
     } catch (err) {
-      console.log(err.message);
+      //console.log(err.message);
       setStatus("Category with same name exist");
       setCategory("");
     }
   };
-
 
   return (
     <div className={styles.products}>
@@ -68,22 +65,27 @@ console.log(token , "111111111111")
             variant="outlined"
             onChange={handleCategory}
           />
-          <Box sx={{ textAlign: 'center', }}>
-          <Button
-            onClick={addCategory}
-            sx={{ my: 1, width: 150 }}
-            variant="contained"
-            color="success"
-          >
-            Add Category
-          </Button>
-               </Box>
-       
+          <Box sx={{ textAlign: "center" }}>
+            <Button
+              onClick={addCategory}
+              sx={{ my: 1, width: 150 }}
+              variant="contained"
+              color="success"
+            >
+              Add Category
+            </Button>
+          </Box>
         </Box>
-        
+
         {status == "Category created successfully" && (
           <Box sx={{ mx: "auto", my: 5, width: 500 }}>
-          <Box  sx={{  textAlign: 'center',   fontSize: '0.875rem',    fontFamily: 'sans',}}>
+            <Box
+              sx={{
+                textAlign: "center",
+                fontSize: "0.875rem",
+                fontFamily: "sans",
+              }}
+            >
               <Image
                 src="/img/done.png"
                 alt=""
@@ -91,15 +93,13 @@ console.log(token , "111111111111")
                 width="150px"
                 objectFit="contain"
               />
-               <h2 >{status}</h2>
+              <h2>{status}</h2>
             </Box>
-
-           
           </Box>
         )}
         {status == "Category with same name exist" && (
           <Box sx={{ mx: "auto", my: 5, width: 500 }}>
-            <Box  sx={{  textAlign: 'center',   fontSize: '0.875rem',}}>
+            <Box sx={{ textAlign: "center", fontSize: "0.875rem" }}>
               <Image
                 src="/img/wrong.png"
                 alt=""
@@ -109,14 +109,11 @@ console.log(token , "111111111111")
               />
               <h2>{status}</h2>
             </Box>
-
-            
           </Box>
         )}
       </div>
     </div>
   );
 };
-
 
 export default Category;

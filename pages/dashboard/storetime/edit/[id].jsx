@@ -14,7 +14,10 @@ import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import axios from "axios";
 import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
-const storeTimeAdd = () => {
+const storeTimeEdit = ({ EditRes }) => {
+  console.log(EditRes, 'EditRes')
+  
+  
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -77,17 +80,18 @@ const storeTimeAdd = () => {
 
   // End images
   const [text, setText] = useState("");
-  const [url, setUrl] = useState("");
-
+  const [url, setUrl] = useState(EditRes.url);
+const [id ,setID] = useState(EditRes._id)
   console.log(text, "text");
   console.log(url, "url");
   // start Partner
   const addSection = (e) => {
     e.preventDefault();
 
+    console.log(editorRef.current.getContent() ,url , imagePath )
     axios
-      .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/section",
+      .put(
+        ` https://tesla-lightning.herokuapp.com/dashboard/section/${id}`,
         {
           name: "retail-store",
           text: editorRef.current.getContent(),
@@ -122,17 +126,7 @@ const storeTimeAdd = () => {
   return (
     <div className={styles.home}>
       <Sidebar />
-      {/* <Snackbar
-        anchorOrigin={{ vertical, horizontal }}
-        open={open}
-        onClose={handleClose}
-        key={vertical + horizontal}
-        autoHideDuration={6000}
-      >
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          This Section is added successfully !
-        </Alert>
-      </Snackbar> */}
+
 
       <Snackbar
         open={open}
@@ -208,7 +202,8 @@ const storeTimeAdd = () => {
           <Box>
             <Editor
               onInit={(evt, editor) => (editorRef.current = editor)}
-              initialValue={text}
+              apiKey="8gxcb11g7m4xvisnyof1cbmu31sn3qt8ysggr7tkz7fq6ekh"
+              initialValue={EditRes.text}
               init={{
                 height: 500,
                 menubar: false,
@@ -243,7 +238,7 @@ const storeTimeAdd = () => {
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
-              disabled={!imagePath || ((text = "") && (url = ""))}
+      
             >
               Add Section
             </Button>
@@ -254,4 +249,26 @@ const storeTimeAdd = () => {
   );
 };
 
-export default storeTimeAdd;
+
+export const getServerSideProps = async (ctx) => {
+  const token = ctx.req?.cookies.token || "";
+
+
+  const EditRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/section/retail-store`,
+
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+
+  return {
+    props: {
+
+      EditRes: EditRes.data.data,
+    },
+  };
+};
+export default storeTimeEdit;

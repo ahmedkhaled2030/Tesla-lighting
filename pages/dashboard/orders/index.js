@@ -10,7 +10,7 @@ import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-const Products = () => {
+const Orders = ({ordersList}) => {
 
   const [token, setToken] = useState("");
   useEffect(() => {
@@ -18,9 +18,11 @@ const Products = () => {
   }, [token]);
   const router = useRouter();
   const handleDelete = async (id) => {
+    console.log(id)
     try {
       const res = await axios.delete(
-        `https://tesla-lightning.herokuapp.com/dashboard/product/${id}`,
+        `https://tesla-lightning.herokuapp.com/dashboard/order/${id}`,
+
 
         {
           headers: {
@@ -36,44 +38,48 @@ const Products = () => {
       //console.log(err);
     }
   };
-  const handleEdit = async (id) => {
-    //console.log(id)
-    try {
-      router.push(`/dashboard/products/edit/${id}`);
-    } catch (err) {
-      //console.log(err);
-    }
-  };
+ 
   const handleView = async (id) => {
     //console.log(id)
     try {
-      router.push(`/dashboard/products/view/${id}`);
+      router.push(`/dashboard/orders/view/${id}`)
     } catch (err) {
       //console.log(err);
     }
   };
+
+
+
+
   const columns = [
     { field: "_id", headerName: "ID", width: 220 },
     {
-      field: "title",
-      headerName: "ProductTitle",
+      field: "status",
+      headerName: "Status",
       description: "This column has a value getter and is not sortable.",
-      width: 350,
+      width: 100,
     },
 
     {
-      field: "number",
-      headerName: "Number",
+      field: "shippingCost",
+      headerName: "ShippingCost",
       type: "string",
-      width: 150,
+      width: 100,
     },
 
     {
       field: "price",
       headerName: "Price",
       type: "string",
-      width: 50,
+      width: 100,
     },
+    {
+      field: "createdAt",
+      headerName: "createdAt",
+      type: "string",
+      width: 200,
+    }
+
   ];
 
   const actionColumn = [
@@ -91,13 +97,6 @@ const Products = () => {
               View
             </div>
 
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => handleEdit(params.row._id)}
-            >
-              Edit
-            </Button>
 
             <div
               className={styles.deleteButton}
@@ -111,34 +110,45 @@ const Products = () => {
     },
   ];
 
-
-
-
+  //console.log(productsList, "productsList");
   return (
     <div className={styles.products}>
       <Sidebar />
 
       <div className={styles.productsContainer}>
-        <Box sx={{ m: "2rem" }}>
-          <Link href="/dashboard/products/add" passHref>
-            <Button variant="contained" color="success">
-              Add Product
-            </Button>
-          </Link>
-        </Box>
+  
 
         <DataTableDashboard
-          type="product"
-          api="products"
+          type="order"
+          api="orders"
           columns={columns}
           actionColumn={actionColumn}
           page="page"
-        
         />
       </div>
     </div>
   );
 };
 
+export const getServerSideProps = async (ctx) => {
+  const token = ctx.req?.cookies.token || "";
+  const res = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/order`,
 
-export default Products;
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+  console.log(res.data , "resssssss") 
+
+  return {
+    props: {
+      ordersList: res.data.data,
+      // numberOfRecors : 
+    },
+  };
+};
+
+export default Orders;

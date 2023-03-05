@@ -16,30 +16,29 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
 const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
-const router = useRouter();
- 
+  const router = useRouter();
+
   const { menus } = primaryMenus;
   const [menuOpened, setMenuOpened] = useState(false);
   const menuRef = useRef();
-  // console.log(menus , "menus");
+  // //console.log(menus , "menus");
   const [status, setStatus] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
-  const user = useSelector((state) => state.auth.firstName); 
-  let url
+  const user = useSelector((state) => state.auth.firstName);
+  let url;
   if (user) {
-    url ="/account"
+    url = "/account";
   } else {
-    url = "/login"
+    url = "/login";
   }
 
   const openFavourite = () => {
     if (user) {
-      setCloseWishList(false)
+      setCloseWishList(false);
     } else {
-      router.push('/login') 
+      router.push("/login");
     }
-    
- }
+  };
   return (
     <div className={styles.container}>
       <div className={styles.mobileWrapper}>
@@ -54,47 +53,92 @@ const router = useRouter();
 
           <div className={styles.hr}></div>
           <Link href={url} passHref>
-            
-            <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>PROFILE</div>
+            <div
+              className={`secondaryText ${styles.listItem}`}
+              onClick={() => setMenuOpened(false)}
+            >
+              PROFILE
+            </div>
           </Link>
 
-        
-          {!user &&(<> <div className={styles.hr}></div>
-          <Link href={`/login`} passHref>
-            <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>LOGIN</div>
-          </Link></>)}
+          {!user && (
+            <>
+              {" "}
+              <div className={styles.hr}></div>
+              <Link href={`/login`} passHref>
+                <div
+                  className={`secondaryText ${styles.listItem}`}
+                  onClick={() => setMenuOpened(false)}
+                >
+                  LOGIN
+                </div>
+              </Link>
+            </>
+          )}
 
-{!user &&(<> <div className={styles.hr}></div>
-          <Link href={`/signup`} passHref>
-            <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>SIGNUP</div>
-          </Link></>)}
-         
+          {!user && (
+            <>
+              {" "}
+              <div className={styles.hr}></div>
+              <Link href={`/signup`} passHref>
+                <div
+                  className={`secondaryText ${styles.listItem}`}
+                  onClick={() => setMenuOpened(false)}
+                >
+                  SIGNUP
+                </div>
+              </Link>
+            </>
+          )}
 
           <div className={styles.hr}></div>
           <Link href={`/`} passHref>
-          
-            <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>HOME</div>
+            <div
+              className={`secondaryText ${styles.listItem}`}
+              onClick={() => setMenuOpened(false)}
+            >
+              HOME
+            </div>
           </Link>
 
           <div className={styles.hr}></div>
           <Link href={`/categories`} passHref>
-          <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>CATEGORIES</div>
+            <div
+              className={`secondaryText ${styles.listItem}`}
+              onClick={() => setMenuOpened(false)}
+            >
+              CATEGORIES
+            </div>
           </Link>
-   
+
           <div className={styles.hr}></div>
           <Link href={`/about`} passHref>
-          <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>ABOUT</div>
+            <div
+              className={`secondaryText ${styles.listItem}`}
+              onClick={() => setMenuOpened(false)}
+            >
+              ABOUT
+            </div>
           </Link>
-        
+
           <div className={styles.hr}></div>
           <Link href={`/contact`} passHref>
-          <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>CONTACT</div>
+            <div
+              className={`secondaryText ${styles.listItem}`}
+              onClick={() => setMenuOpened(false)}
+            >
+              CONTACT
+            </div>
           </Link>
           <div className={styles.hr}></div>
           <Link href={`/portfolio`} passHref>
-            <div className={`secondaryText ${styles.listItem}`} onClick={() => setMenuOpened(false)}>PORTFOLIO</div>
-            </Link>
-
+            <div
+              className={`secondaryText ${styles.listItem}`}
+              onClick={() => setMenuOpened(false)}
+            >
+              PORTFOLIO
+            </div>
+          </Link>
         </div>
         <div className={styles.left}>
           <Menu onClick={() => setMenuOpened((prev) => !prev)} />
@@ -121,10 +165,7 @@ const router = useRouter();
             <span>{quantity}</span>
           </div>
 
-          <div
-            className={styles.iconWrapper}
-            onClick={openFavourite}
-          >
+          <div className={styles.iconWrapper} onClick={openFavourite}>
             <FavoriteBorderOutlined className={styles.icon} />
             <span>0</span>
           </div>
@@ -136,16 +177,16 @@ const router = useRouter();
         </div>
         <div className={styles.item}>
           <ul className={styles.listWrapper}>
-                      <Link href={`/`} passHref>
-                      <li className={`secondaryText ${styles.listItem}`}>HOME</li>
-          </Link>
+            <Link href={`/`} passHref>
+              <li className={`secondaryText ${styles.listItem}`}>HOME</li>
+            </Link>
             <Link href={`/categories`} passHref>
-            <li className={`secondaryText ${styles.listItem}`}>CATEGORIES</li>
-          </Link>
-          <Link href={`/about`} passHref>
-          <li className={`secondaryText ${styles.listItem}`}>ABOUT</li>
-          </Link>
-     
+              <li className={`secondaryText ${styles.listItem}`}>CATEGORIES</li>
+            </Link>
+            <Link href={`/about`} passHref>
+              <li className={`secondaryText ${styles.listItem}`}>ABOUT</li>
+            </Link>
+
             <Link href={`/`} passHref>
               <Image
                 src="/img/logo.png"
@@ -156,34 +197,30 @@ const router = useRouter();
               />
             </Link>
             <Link href={`/contact`} passHref>
-            <li className={`secondaryText ${styles.listItem}`}>CONTACT</li>
+              <li className={`secondaryText ${styles.listItem}`}>CONTACT</li>
             </Link>
             <Link href={url} passHref>
-            <li className={`secondaryText ${styles.listItem}`}>PORTFOLIO</li>
+              <li className={`secondaryText ${styles.listItem}`}>PORTFOLIO</li>
             </Link>
             <Link href={`/`} passHref>
-            <li className={`secondaryText ${styles.listItem}`}>POLICY</li>
+              <li className={`secondaryText ${styles.listItem}`}>POLICY</li>
             </Link>
-
           </ul>
         </div>
         <div className={styles.item}>
           <Link href={url} passHref>
-          <div className={styles.iconWrapper}>
-            <PersonOutlineOutlined className={styles.icon} />
-          </div>
-        </Link>
-          
+            <div className={styles.iconWrapper}>
+              <PersonOutlineOutlined className={styles.icon} />
+            </div>
+          </Link>
+
           <div className={styles.iconWrapper} onClick={() => setCartOpen(true)}>
             <WorkOutlineOutlined className={styles.icon} />
 
             <span>{quantity}</span>
           </div>
 
-          <div
-            className={styles.iconWrapper}
-            onClick={openFavourite}
-          >
+          <div className={styles.iconWrapper} onClick={openFavourite}>
             <FavoriteBorderOutlined className={styles.icon} />
             <span>6</span>
           </div>
@@ -194,5 +231,3 @@ const router = useRouter();
 };
 
 export default Navbar;
-
-

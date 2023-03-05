@@ -38,7 +38,7 @@ const AddProduct = ({ categoryList }) => {
   const [uploading, setUploading] = useState(null);
 
   const handleImage = (e) => {
-    console.log(e.target.files);
+    //console.log(e.target.files);
     setImage(e.target.files);
   };
   const uploadImages = (e) => {
@@ -60,14 +60,14 @@ const AddProduct = ({ categoryList }) => {
         },
       })
       .then((res) => {
-        console.log(res.data.data);
+        //console.log(res.data.data);
         res.data.data.map((item) => {
           setImagePath((oldArray) => [...oldArray, item._id]);
           setImageScreens((oldArray) => [...oldArray, item.path]);
         });
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   };
   // images
@@ -79,22 +79,15 @@ const AddProduct = ({ categoryList }) => {
   const [selectedModel, setSelectedModel] = useState("");
   const [status, setStatus] = useState("");
 
-  console.log(
-    category._id,
-    "category",
-    selectedSubcategory._id,
-    "selectedSubcategory",
-    selectedModel._id,
-    "selectedModel"
-  );
+
   const handleCategory = (event) => {
-    console.log(event.target.value, "event.target.value");
+    //console.log(event.target.value, "event.target.value");
     setCategory(event.target.value);
     setSubCategory(event.target.value.subCategories);
   };
 
   const handleSubCategory = (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     setSelectedSubCategory(e.target.value);
     setModel(e.target.value.subCategories);
   };
@@ -109,7 +102,7 @@ const AddProduct = ({ categoryList }) => {
     "write here what you need to explain about product"
   );
 
-  console.log(colors, "colors");
+  //console.log(colors, "colors");
   const handleSale = (e) => {
     setSale(e.target.value);
   };
@@ -128,9 +121,9 @@ const AddProduct = ({ categoryList }) => {
   const [size, seSize] = useState([]);
   const [sizeInput, setSizeInput] = useState(null);
 
-  console.log(size, "size");
+  //console.log(size, "size");
   const handleSizeInputs = (e) => {
-    console.log('')
+    //console.log('')
     e.preventDefault();
     setSizeInput({ ...sizeInput, [e.target.name]: e.target.value });
   };
@@ -140,7 +133,7 @@ const AddProduct = ({ categoryList }) => {
     seSize((prev) => [...prev, sizeInput]);
   };
   const [addDataInputs, setAddDataInputs] = useState(null);
-  console.log(addDataInputs, "addDataInputs");
+  //console.log(addDataInputs, "addDataInputs");
   const addData = (e) => {
     e.preventDefault();
     setAddDataInputs({ ...addDataInputs, [e.target.name]: e.target.value });
@@ -171,7 +164,7 @@ const AddProduct = ({ categoryList }) => {
         }
       )
       .then((res) => {
-        console.log(res.data.data);
+        //console.log(res.data.data);
         setImage([])
         setImagePath([])
         setImageScreens([])
@@ -190,7 +183,7 @@ const AddProduct = ({ categoryList }) => {
         setSizeInput(null)
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   };
 
@@ -208,7 +201,7 @@ const AddProduct = ({ categoryList }) => {
       label: "Price",
       type: "number",
       name: "price",
-      placeholder: "shippingCost",
+      placeholder: "price",
       min: "1",
     },
     {

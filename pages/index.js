@@ -21,7 +21,8 @@ import FilterBar from "@/components/FilterBar";
 import VideoHome from "@/components/VideoHome";
 import axios from "axios";
 
-export default function Home({HomeProps,partnersProps,StoreInfoProps ,VideoResProps}) {
+export default function Home({ HomeProps, partnersProps, StoreInfoProps, VideoResProps }) {
+  console.log(HomeProps,'HomeProps')
 
   const products = [
     {
@@ -134,7 +135,7 @@ export default function Home({HomeProps,partnersProps,StoreInfoProps ,VideoResPr
       <CompanySlider partnersProps={partnersProps} />
       <VideoHome VideoResProps ={VideoResProps} />
       <StoreInfo StoreInfo={StoreInfoProps} />
-      <Times timeProps={HomeProps.find(item => item.name == 'retail-store')} />
+      <Times timeProps={HomeProps.filter(item => item.name == 'retail-store')} />
     </div>
   );
 }

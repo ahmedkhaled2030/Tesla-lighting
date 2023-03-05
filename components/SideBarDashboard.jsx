@@ -45,10 +45,13 @@ const Sidebar = () => {
               <span>Products</span>
             </li>
           </Link>
+          <Link href="/dashboard/orders" style={{ textDecoration: "none" }} passHref>
           <li>
             <CreditCard className={styles.icon} />
             <span>Orders</span>
           </li>
+          </Link>
+         
 
 
           <p className={styles.title}>Category</p>
@@ -108,7 +111,7 @@ const Sidebar = () => {
               <span>Store Info</span>
             </li>
           </Link>
-          <Link href="/dashboard/storetime/add" style={{ textDecoration: "none" }} passHref>
+          <Link href="/dashboard/storetime" style={{ textDecoration: "none" }} passHref>
             <li>
               <Home className={styles.icon} />
               <span>Store Times</span>
