@@ -7,15 +7,19 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
+  Alert,
   Button,
   FormControl,
   InputLabel,
+  ListItem,
   MenuItem,
   Select,
+  Snackbar,
   TextareaAutosize,
   TextField,
   Typography,
 } from "@mui/material";
+import Checkbox from "@mui/joy/Checkbox";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Box } from "@mui/system";
 import Image from "next/image";
@@ -23,7 +27,24 @@ import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import { Editor } from "@tinymce/tinymce-react";
 import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
-const EditProduct = ({ categoryList, EditRes }) => {
+const EditProduct = ({ categoryList, editProps }) => {
+  const [state, setState] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "left",
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => {
+    console.log(newState, "newState");
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+  const colors = ["Gold", "Black", "Brown", "Blue", "Green"];
+
   const editorRef = useRef(null);
   const [token, setToken] = useState("");
   useEffect(() => {
@@ -34,13 +55,11 @@ const EditProduct = ({ categoryList, EditRes }) => {
   // images
   const [image, setImage] = useState([]);
   const [imagePath, setImagePath] = useState([]);
-  const [imageScreens, setImageScreens] = useState(
-    EditRes.product.images.map((item, i) => item.path)
-  );
+  const [imageScreens, setImageScreens] = useState([]);
   const [uploading, setUploading] = useState(null);
 
   const handleImage = (e) => {
-    console.log(e.target.files);
+    //console.log(e.target.files);
     setImage(e.target.files);
   };
   const uploadImages = (e) => {
@@ -62,39 +81,25 @@ const EditProduct = ({ categoryList, EditRes }) => {
         },
       })
       .then((res) => {
-        // ////console.log(res.data.data);
+        //console.log(res.data.data);
         res.data.data.map((item) => {
           setImagePath((oldArray) => [...oldArray, item._id]);
           setImageScreens((oldArray) => [...oldArray, item.path]);
         });
       })
       .catch((error) => {
-        // ////console.log(error);
+        //console.log(error);
       });
   };
   // images
-  // console.log(EditRes?.product?.category ,'EditRes?.product?.category')
-  const editedCategory = categoryList.filter(
-    (item) => item.name == EditRes?.product?.category.name
-  );
 
-  const [category, setCategory] = useState(editedCategory[0]);
+  const [category, setCategory] = useState(editProps.product.category);
   const [subcategory, setSubCategory] = useState([]);
-  const [selectedSubcategory, setSelectedSubCategory] = useState(
-    EditRes.product.subCategory
-  );
+  const [selectedSubcategory, setSelectedSubCategory] = useState("");
   const [model, setModel] = useState([]);
   const [selectedModel, setSelectedModel] = useState("");
   const [status, setStatus] = useState("");
 
-  // ////console.log(
-  //   category._id,
-  //   "category",
-  //   selectedSubcategory._id,
-  //   "selectedSubcategory",
-  //   selectedModel._id,
-  //   "selectedModel"
-  // );
   const handleCategory = (event) => {
     //console.log(event.target.value, "event.target.value");
     setCategory(event.target.value);
@@ -110,108 +115,109 @@ const EditProduct = ({ categoryList, EditRes }) => {
   const handleModel = (e) => {
     setSelectedModel(e.target.value);
   };
-  const [sale, setSale] = useState(EditRes.product.sale);
-  const [isNew, setIsNew] = useState(EditRes.product.new);
-  const [colors, setColors] = useState(EditRes.product.colors);
-  const [description, setDescription] = useState(EditRes.product.description);
+  const [sale, setSale] = useState(editProps.product.sale);
+  const [isNew, setIsNew] = useState(editProps.product.new);
+  const [selectedColors, setSelectedColors] = useState(
+    editProps.product.colors
+  );
+  const [description, setDescription] = useState(
+    "write here what you need to explain about product"
+  );
 
-  ////console.log(colors, "colors");
+  //console.log(colors, "colors");
   const handleSale = (e) => {
-    console.log(e.target.value);
+    console.log(e.target.value)
     setSale(e.target.value);
   };
 
   const handleIsNew = (e) => {
     setIsNew(e.target.value);
   };
-  const handleColors = (e) => {
-    setColors((prev) => [...prev, e.target.value]);
-  };
 
   const handleDescription = (e) => {
     setDescription(e.target.value);
   };
 
-  const [size, seSize] = useState(EditRes.product.size);
+  const [size, setSize] = useState(editProps.product.size);
   const [sizeInput, setSizeInput] = useState(null);
 
-  ////console.log(size, "size");
+  //console.log(size, "size");
   const handleSizeInputs = (e) => {
-    ////console.log('')
+    //console.log('')
     e.preventDefault();
     setSizeInput({ ...sizeInput, [e.target.name]: e.target.value });
   };
 
   const handleSize = (e) => {
     e.preventDefault();
-    seSize((prev) => [...prev, sizeInput]);
+    setSize((prev) => [...prev, sizeInput]);
   };
   const [addDataInputs, setAddDataInputs] = useState(null);
-  ////console.log(addDataInputs, "addDataInputs");
+  //console.log(addDataInputs, "addDataInputs");
   const addData = (e) => {
-    console.log(e.target.value);
-    console.log(addDataInputs ,"addDataInputs")
     e.preventDefault();
-    setAddDataInputs({ [e.target.name]: e.target.value });
+    setAddDataInputs({ ...addDataInputs, [e.target.name]: e.target.value });
   };
-  const editProduct = (e) => {
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    console.log(value, "value");
+    const isChecked = e.target.checked;
+    console.log(isChecked);
+
+    setSelectedColors(
+      isChecked
+        ? [...selectedColors, value]
+        : selectedColors.filter((item) => item !== value)
+    );
+  };
+  console.log(selectedColors, "selectedColors");
+
+  const addProduct = (e) => {
     e.preventDefault();
-    console.log({
-      title: title,
-      sale: sale,
-      new: isNew,
-      colors: colors,
-      size: size,
-      price: price,
 
-      description: editorRef.current.getContent(),
-      ...addDataInputs,
-    });
-
-    axios
-      .put(
-        `https://tesla-lightning.herokuapp.com/dashboard/product/${EditRes.product._id}`,
-        {
-          title: title,
-          sale: sale,
-          new: isNew,
-          colors: colors,
-          size: size,
-          price: price,
-              description: editorRef.current.getContent(),
+    console.log(
+              {
+         
+          "new": isNew,
+          "colors": selectedColors,
+          "size": size,
+          "description": editorRef.current.getContent(),
+          "sale": sale,
           ...addDataInputs,
         },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
-      .then((res) => {
-        ////console.log(res.data.data);
-        setImage([]);
-        setImagePath([]);
-        setImageScreens([]);
-        setUploading(null);
-        setCategory("");
-        setSubCategory([]);
-        setSelectedSubCategory("");
-        setModel("");
-        setSelectedModel("");
-        setStatus("");
-        setSale("");
-        setIsNew("");
-        setColors([]);
-        setDescription("");
-        seSize([]);
-        setSizeInput(null);
-      })
-      .catch((error) => {
-        ////console.log(error);
-      });
+    )
+
+    // axios
+    //   .put(
+    //     `https://tesla-lightning.herokuapp.com/dashboard/product/${editProps.product._id}`,
+    //     {
+         
+    //       new: isNew,
+    //       colors: selectedColors,
+    //       size: size,
+    //       description: editorRef.current.getContent(),
+    //       sale: sale,
+    //       ...addDataInputs,
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: token,
+    //       },
+    //     }
+    //   )
+    //   .then((res) => {
+    //     handleClick({
+    //       vertical: "top",
+    //       horizontal: "left",
+    //     });
+    //     router.push(`/dashboard/products`);
+    //   })
+    //   .catch((error) => {
+    //     //console.log(error);
+    //   });
   };
-  const { title, shippingCost, discount, price, stock } = EditRes.product;
-  // //console.log({ title, shippingCost ,discount ,price ,stock})
+
   const productInputs = [
     {
       id: 1,
@@ -219,7 +225,7 @@ const EditProduct = ({ categoryList, EditRes }) => {
       name: "title",
       type: "text",
       placeholder: "Title",
-      value: title,
+      value: editProps.product.title,
     },
 
     {
@@ -227,9 +233,9 @@ const EditProduct = ({ categoryList, EditRes }) => {
       label: "Price",
       type: "number",
       name: "price",
-      placeholder: "Price",
+      placeholder: "price",
       min: "1",
-      value: price,
+      value: editProps.product.price,
     },
     {
       id: 3,
@@ -238,7 +244,7 @@ const EditProduct = ({ categoryList, EditRes }) => {
       name: "shippingCost",
       placeholder: "shippingCost",
       min: "1",
-      value: shippingCost,
+      value: editProps.product.shippingCost,
     },
     {
       id: 4,
@@ -247,7 +253,7 @@ const EditProduct = ({ categoryList, EditRes }) => {
       name: "discount",
       placeholder: "Discount",
       min: "1",
-      value: discount,
+      value: editProps.product.discount,
     },
     {
       id: 5,
@@ -256,18 +262,29 @@ const EditProduct = ({ categoryList, EditRes }) => {
       name: "stock",
       placeholder: "Stock",
       min: "1",
-      value: stock,
+      value: editProps.product.stock,
     },
   ];
 
   return (
     <div className={styles.products}>
       <Sidebar />
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical, horizontal }}
+        key={vertical + horizontal}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          This is a success message!
+        </Alert>
+      </Snackbar>
       <div className={styles.productsContainer}>
         <div className={styles.new}>
           <div className={styles.newContainer}>
             <div className={styles.top}>
-              <h1>Edit Product</h1>
+              <h1>Add Product</h1>
             </div>
             <div className={styles.bottom}>
               <div className={styles.left}>
@@ -281,6 +298,7 @@ const EditProduct = ({ categoryList, EditRes }) => {
                   />
                 ))}
               </div>
+
               <Box
                 className={styles.right}
                 sx={{
@@ -290,9 +308,16 @@ const EditProduct = ({ categoryList, EditRes }) => {
                 }}
               >
                 <form>
-                  {/* <div className={styles.formInput}>
+                  {/* <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <label htmlFor="file">
-                      Image:{" "}
+                      Image:
                       <DriveFolderUploadOutlined className={styles.icon} />
                     </label>
                     <input
@@ -302,13 +327,22 @@ const EditProduct = ({ categoryList, EditRes }) => {
                       onChange={handleImage}
                       style={{ display: "none" }}
                     />
-                    <button
+                    <Button
                       onClick={uploadImages}
-                      className={styles.buttonTeal}
+                      sx={{ my: 1, mx: 5, width: 150 }}
+                      variant="contained"
+                      color="secondary"
+                      disabled={image.length == 0}
                     >
                       Upload Images
-                    </button>
-                    <Box sx={{ position: "relative" }}>
+                    </Button>
+                    <Box
+                      sx={{
+                        position: "relative",
+                        display: "inline-flex",
+                        mx: 5,
+                      }}
+                    >
                       {uploading && (
                         <CircularProgress
                           variant="determinate"
@@ -338,7 +372,68 @@ const EditProduct = ({ categoryList, EditRes }) => {
                         </Box>
                       )}
                     </Box>
-                  </div> */}
+                  </Box> */}
+
+                  {/* <FormControl sx={{ minWidth: 200 }}>
+                    <InputLabel id="demo-simple-select-label">
+                      category
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={category}
+                      label="Category"
+                      onChange={handleCategory}
+                    >
+                      {categoryList.map((item) => (
+                        <MenuItem value={item} key={item._id}>
+                          {item.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl> */}
+
+                  {/* SubcategoryList */}
+
+                  {/* <FormControl sx={{ minWidth: 200 }}>
+                    <InputLabel id="demo-simple-select-label">
+                      sub Category
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={selectedSubcategory}
+                      label="subcategory"
+                      onChange={handleSubCategory}
+                    >
+                      {subcategory.length > 0 &&
+                        subcategory.map((item) => (
+                          <MenuItem value={item} key={item._id}>
+                            {item.name}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                  </FormControl> */}
+
+                  {/* Model */}
+
+                  {/* <FormControl sx={{ minWidth: 200 }}>
+                    <InputLabel id="demo-simple-select-label">Model</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={selectedModel}
+                      label="model"
+                      onChange={handleModel}
+                    >
+                      {model.length > 0 &&
+                        model.map((item) => (
+                          <MenuItem value={item} key={item._id}>
+                            {item.name}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                  </FormControl> */}
 
                   {/* Sale */}
 
@@ -359,7 +454,7 @@ const EditProduct = ({ categoryList, EditRes }) => {
                   {/* isNew */}
 
                   <FormControl sx={{ minWidth: 200 }}>
-                    <InputLabel id="demo-simple-select-label">isNew</InputLabel>
+                    <InputLabel id="demo-simple-select-label">New</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -383,27 +478,54 @@ const EditProduct = ({ categoryList, EditRes }) => {
                       id="demo-simple-select"
                       value={colors}
                       label="colors"
-                      onChange={handleColors}
                     >
-                      <MenuItem value={"Gold"}>Gold</MenuItem>
+                      {colors?.map((color) => (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-around",
+                            alignItems: "center",
+                          }}
+                        >
+                          <ListItem
+                            variant="plain"
+                            color="warning"
+                            sx={{ borderRadius: "sm" }}
+                          >
+                            <Checkbox
+                              color="warning"
+                              label={color}
+                              value={color}
+                              checked={selectedColors.find(
+                                (item) => item == color
+                              )}
+                              overlay
+                              sx={{ color: "inherit" }}
+                              onChange={handleChange}
+                            />
+                          </ListItem>
+                        </Box>
+                      ))}
+
+                      {/* <MenuItem value={"Gold"}>Gold</MenuItem>
                       <MenuItem value={"Black"}>Black</MenuItem>
                       <MenuItem value={"Brown"}>Brown</MenuItem>
                       <MenuItem value={"Blue"}>Blue</MenuItem>
-                      <MenuItem value={"Green"}>Green</MenuItem>
+                      <MenuItem value={"Green"}>Green</MenuItem> */}
                     </Select>
-                    {colors?.map((color) => (
-                      <span>{color}</span>
-                    ))}
                   </FormControl>
 
                   {productInputs.map((input) => (
                     <div key={input.id}>
                       <TextField
                         sx={{ width: 250 }}
-                        variant="filled"
-                        label={input.name}
+                        id="outlined-basic"
+                        label={input.label}
+                        variant="outlined"
                         type={input.type}
                         name={input.name}
+                        placeholder={input.placeholder}
                         min={input.min}
                         onChange={addData}
                         defaultValue={input.value}
@@ -413,7 +535,8 @@ const EditProduct = ({ categoryList, EditRes }) => {
 
                   <Editor
                     onInit={(evt, editor) => (editorRef.current = editor)}
-                    initialValue={description}
+                    initialValue={editProps.product.description}
+                    apiKey="8gxcb11g7m4xvisnyof1cbmu31sn3qt8ysggr7tkz7fq6ekh"
                     init={{
                       height: 500,
                       menubar: false,
@@ -461,7 +584,7 @@ const EditProduct = ({ categoryList, EditRes }) => {
 
                     <Button
                       variant="contained"
-                      color="success"
+                      color="secondary"
                       onClick={handleSize}
                     >
                       Add Size
@@ -475,16 +598,17 @@ const EditProduct = ({ categoryList, EditRes }) => {
                       ))}
                     </div>
                   </Box>
+                </form>
 
+                <Box sx={{ margin: "auto", marginTop: "20px" }}>
                   <Button
                     variant="contained"
                     color="success"
-                    onClick={editProduct}
-                    className={styles.buttonTeal}
+                    onClick={addProduct}
                   >
-                    Edit Product
+                    Add Product
                   </Button>
-                </form>
+                </Box>
               </Box>
             </div>
           </div>
@@ -496,6 +620,7 @@ const EditProduct = ({ categoryList, EditRes }) => {
 
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
+  console.log(ctx.params.id);
   const categoryRes = await axios.get(
     `https://tesla-lightning.herokuapp.com/category/list`,
 
@@ -505,8 +630,7 @@ export const getServerSideProps = async (ctx) => {
       },
     }
   );
-
-  const EditRes = await axios.get(
+  const editRes = await axios.get(
     `https://tesla-lightning.herokuapp.com/product/${ctx.params.id}`,
 
     {
@@ -519,7 +643,7 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       categoryList: categoryRes.data.data,
-      EditRes: EditRes.data.data,
+      editProps: editRes.data.data,
     },
   };
 };

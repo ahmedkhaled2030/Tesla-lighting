@@ -26,7 +26,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
 const GetOrder = ({ orderProps }) => {
-  console.log(orderProps, "orderProps");
+ // console.log(orderProps, "orderProps");
 
   const [token, setToken] = useState("");
   useEffect(() => {
@@ -256,7 +256,7 @@ const GetOrder = ({ orderProps }) => {
 
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
-  console.log(token, "token");
+ // console.log(token, "token");
 
   const getOrderRes = await axios.get(
     `https://tesla-lightning.herokuapp.com/dashboard/order/${ctx.params.id}`,
@@ -268,7 +268,7 @@ export const getServerSideProps = async (ctx) => {
     }
   );
 
-  console.log(getOrderRes.data.data, "getOrderRes.data.data");
+  //console.log(getOrderRes.data.data, "getOrderRes.data.data");
   return {
     props: {
       orderProps: getOrderRes.data.data,

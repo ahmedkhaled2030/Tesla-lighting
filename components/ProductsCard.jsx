@@ -7,7 +7,7 @@ import Link from "next/link";
 const ProductsCard = ({ id, img, title, price, type }) => {
   return (
     <div className={styles.container}>
-      <Link href={`/product/1`} passHref>
+      <Link href={`/product/640516cd094fb4c6b0652e1b`} passHref>
         <div>
           <Image
             src={img}

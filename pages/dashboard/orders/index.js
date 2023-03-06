@@ -141,7 +141,7 @@ export const getServerSideProps = async (ctx) => {
       },
     }
   );
-  console.log(res.data , "resssssss") 
+ // console.log(res.data , "resssssss") 
 
   return {
     props: {

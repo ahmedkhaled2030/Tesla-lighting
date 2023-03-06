@@ -22,7 +22,7 @@ import VideoHome from "@/components/VideoHome";
 import axios from "axios";
 
 export default function Home({ HomeProps, partnersProps, StoreInfoProps, VideoResProps }) {
-  console.log(HomeProps,'HomeProps')
+//  console.log(HomeProps,'HomeProps')
 
   const products = [
     {

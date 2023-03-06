@@ -492,8 +492,8 @@ console.log(productDetails.images ,'productDetails.images')
 export const getServerSideProps = async ({ params }) => {
   //console.log(params, "params");
   const productRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/product/${params.id}`
-    // `https://tesla-lightning.herokuapp.com/product/63f73b458d582e1e78c4037e`
+    // `https://tesla-lightning.herokuapp.com/product/${params.id}`
+    `https://tesla-lightning.herokuapp.com/product/640516cd094fb4c6b0652e1b`
   );
 
   return {

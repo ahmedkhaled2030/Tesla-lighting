@@ -11,7 +11,6 @@ import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 const Products = () => {
-
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));
@@ -31,7 +30,7 @@ const Products = () => {
 
       const data = await res;
       //console.log(data, "data");
-      router.reload(window.location.pathname)
+      router.reload(window.location.pathname);
     } catch (err) {
       //console.log(err);
     }
@@ -74,6 +73,12 @@ const Products = () => {
       type: "string",
       width: 50,
     },
+    {
+      field: "createdAt",
+      headerName: "CreatedAt",
+      type: "string",
+      width: 200,
+    },
   ];
 
   const actionColumn = [
@@ -111,9 +116,6 @@ const Products = () => {
     },
   ];
 
-
-
-
   return (
     <div className={styles.products}>
       <Sidebar />
@@ -133,12 +135,10 @@ const Products = () => {
           columns={columns}
           actionColumn={actionColumn}
           page="page"
-        
         />
       </div>
     </div>
   );
 };
-
 
 export default Products;

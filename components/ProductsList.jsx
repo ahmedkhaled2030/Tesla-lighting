@@ -26,7 +26,7 @@ const ProductsList = ({ title, products, type }) => {
       {type == "collections"  ? (
         <div className={styles.wrapper}>
           {products?.map((product) => (
-            <Link href={`/product/$63eb621c09eedf45e735accb`} passHref className="link">
+            <Link href={`/product/640516cd094fb4c6b0652e1b`} passHref className="link"> 
             <ProductsCard
               img={product?.img} 
               title={product?.title}

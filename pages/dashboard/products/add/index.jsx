@@ -10,12 +10,14 @@ import {
   Button,
   FormControl,
   InputLabel,
+  ListItem,
   MenuItem,
   Select,
   TextareaAutosize,
   TextField,
   Typography,
 } from "@mui/material";
+import Checkbox from "@mui/joy/Checkbox";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Box } from "@mui/system";
 import Image from "next/image";
@@ -24,6 +26,8 @@ import { Editor } from "@tinymce/tinymce-react";
 import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
 const AddProduct = ({ categoryList }) => {
+  const colors = ["Gold", "Black", "Brown", "Blue", "Green"];
+
   const editorRef = useRef(null);
   const [token, setToken] = useState("");
   useEffect(() => {
@@ -79,7 +83,6 @@ const AddProduct = ({ categoryList }) => {
   const [selectedModel, setSelectedModel] = useState("");
   const [status, setStatus] = useState("");
 
-
   const handleCategory = (event) => {
     //console.log(event.target.value, "event.target.value");
     setCategory(event.target.value);
@@ -97,7 +100,7 @@ const AddProduct = ({ categoryList }) => {
   };
   const [sale, setSale] = useState(false);
   const [isNew, setIsNew] = useState(false);
-  const [colors, setColors] = useState([]);
+  const [selectedColors, setSelectedColors] = useState([]);
   const [description, setDescription] = useState(
     "write here what you need to explain about product"
   );
@@ -110,9 +113,7 @@ const AddProduct = ({ categoryList }) => {
   const handleIsNew = (e) => {
     setIsNew(e.target.value);
   };
-  const handleColors = (e) => {
-    setColors((prev) => [...prev, e.target.value]);
-  };
+
 
   const handleDescription = (e) => {
     setDescription(e.target.value);
@@ -138,9 +139,25 @@ const AddProduct = ({ categoryList }) => {
     e.preventDefault();
     setAddDataInputs({ ...addDataInputs, [e.target.name]: e.target.value });
   };
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    console.log(value ,'value')
+    const isChecked = e.target.checked;
+    console.log(isChecked);
+
+    setSelectedColors(
+      isChecked
+        ? [...selectedColors, value]
+        : selectedColors.filter((item) => item !== value)
+    );
+  };
+  console.log(selectedColors , 'selectedColors')
   const addProduct = (e) => {
     e.preventDefault();
-
+    productInputs.map((item) => (
+      console.log(item.value)
+    ))       
     axios
       .post(
         "https://tesla-lightning.herokuapp.com/product",
@@ -150,7 +167,7 @@ const AddProduct = ({ categoryList }) => {
           model: selectedModel._id,
           sale: sale,
           new: isNew,
-          colors: colors,
+          colors: selectedColors,
           size: size,
           cover: imagePath[0],
           images: imagePath,
@@ -164,23 +181,7 @@ const AddProduct = ({ categoryList }) => {
         }
       )
       .then((res) => {
-        //console.log(res.data.data);
-        setImage([])
-        setImagePath([])
-        setImageScreens([])
-        setUploading(null)
-        setCategory("")
-        setSubCategory([])
-        setSelectedSubCategory("")
-        setModel("")
-        setSelectedModel("")
-        setStatus("")
-        setSale("")
-        setIsNew("")
-        setColors([])
-        setDescription('')
-        seSize([])
-        setSizeInput(null)
+        router.push(`/dashboard/products`);
       })
       .catch((error) => {
         //console.log(error);
@@ -194,6 +195,7 @@ const AddProduct = ({ categoryList }) => {
       name: "title",
       type: "text",
       placeholder: "Title",
+      value:""
     },
 
     {
@@ -203,6 +205,7 @@ const AddProduct = ({ categoryList }) => {
       name: "price",
       placeholder: "price",
       min: "1",
+      value:""
     },
     {
       id: 3,
@@ -211,6 +214,7 @@ const AddProduct = ({ categoryList }) => {
       name: "shippingCost",
       placeholder: "shippingCost",
       min: "1",
+      value:""
     },
     {
       id: 4,
@@ -219,6 +223,7 @@ const AddProduct = ({ categoryList }) => {
       name: "discount",
       placeholder: "Discount",
       min: "1",
+      value:""
     },
     {
       id: 5,
@@ -227,8 +232,11 @@ const AddProduct = ({ categoryList }) => {
       name: "stock",
       placeholder: "Stock",
       min: "1",
+      value:""
     },
   ];
+
+  console.log(productInputs ,'productInputs')
 
   return (
     <div className={styles.products}>
@@ -250,12 +258,29 @@ const AddProduct = ({ categoryList }) => {
                     objectFit="contain"
                   />
                 ))}
+
+                
               </div>
-              <Box className={styles.right} sx={{  display: 'flex' ,justifyContent: 'flex-start' ,flexWrap: 'wrap' }}>
+       
+              <Box
+                className={styles.right}
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  flexWrap: "wrap",
+                }}
+              >
                 <form>
-                  <div className={styles.formInput}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
                     <label htmlFor="file">
-                      Image:{" "}
+                      Image:
                       <DriveFolderUploadOutlined className={styles.icon} />
                     </label>
                     <input
@@ -265,8 +290,22 @@ const AddProduct = ({ categoryList }) => {
                       onChange={handleImage}
                       style={{ display: "none" }}
                     />
-                    <button onClick={uploadImages}  className={styles.buttonTeal}>Upload Images</button>
-                    <Box sx={{ position: "relative" }}>
+                    <Button
+                      onClick={uploadImages}
+                      sx={{ my: 1, mx: 5, width: 150 }}
+                      variant="contained"
+                      color="secondary"
+                      disabled={image.length == 0}
+                    >
+                      Upload Images
+                    </Button>
+                    <Box
+                      sx={{
+                        position: "relative",
+                        display: "inline-flex",
+                        mx: 5,
+                      }}
+                    >
                       {uploading && (
                         <CircularProgress
                           variant="determinate"
@@ -296,209 +335,221 @@ const AddProduct = ({ categoryList }) => {
                         </Box>
                       )}
                     </Box>
-                  </div>
+                  </Box>
 
-         
-                    <FormControl sx={{ minWidth: 200 }}>
-                      <InputLabel id="demo-simple-select-label">
-                        category
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={category}
-                        label="Category"
-                        onChange={handleCategory}
-                      >
-                        {categoryList.map((item) => (
+                  <FormControl sx={{ minWidth: 200 }}>
+                    <InputLabel id="demo-simple-select-label">
+                      category
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={category}
+                      label="Category"
+                      onChange={handleCategory}
+                    >
+                      {categoryList.map((item) => (
+                        <MenuItem value={item} key={item._id}>
+                          {item.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+
+                  {/* SubcategoryList */}
+
+                  <FormControl sx={{ minWidth: 200 }}>
+                    <InputLabel id="demo-simple-select-label">
+                      sub Category
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={selectedSubcategory}
+                      label="subcategory"
+                      onChange={handleSubCategory}
+                    >
+                      {subcategory.length > 0 &&
+                        subcategory.map((item) => (
                           <MenuItem value={item} key={item._id}>
                             {item.name}
                           </MenuItem>
                         ))}
-                      </Select>
-                    </FormControl>
-               
-
-                  {/* SubcategoryList */}
-       
-                    <FormControl sx={{ minWidth: 200 }}>
-                      <InputLabel id="demo-simple-select-label">
-                        sub Category
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={selectedSubcategory}
-                        label="subcategory"
-                        onChange={handleSubCategory}
-                      >
-                        {subcategory.length > 0 &&
-                          subcategory.map((item) => (
-                            <MenuItem value={item} key={item._id}>
-                              {item.name}
-                            </MenuItem>
-                          ))}
-                      </Select>
-                    </FormControl>
-           
+                    </Select>
+                  </FormControl>
 
                   {/* Model */}
-              
-                    <FormControl sx={{ minWidth: 200 }}>
-                      <InputLabel id="demo-simple-select-label">
-                        Model
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={selectedModel}
-                        label="model"
-                        onChange={handleModel}
-                      >
-                        {model.length > 0 &&
-                          model.map((item) => (
-                            <MenuItem value={item} key={item._id}>
-                              {item.name}
-                            </MenuItem>
-                          ))}
-                      </Select>
-                    </FormControl>
-         
+
+                  <FormControl sx={{ minWidth: 200 }}>
+                    <InputLabel id="demo-simple-select-label">Model</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={selectedModel}
+                      label="model"
+                      onChange={handleModel}
+                    >
+                      {model.length > 0 &&
+                        model.map((item) => (
+                          <MenuItem value={item} key={item._id}>
+                            {item.name}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                  </FormControl>
+
                   {/* Sale */}
-               
-                    <FormControl sx={{ minWidth: 200 }}>
-                      <InputLabel id="demo-simple-select-label">
-                        Sale
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={sale}
-                        label="sale"
-                        onChange={handleSale}
-                      >
-                        <MenuItem value={true}>true</MenuItem>
-                        <MenuItem value={false}>false</MenuItem>
-                      </Select>
-                    </FormControl>
-              
+
+                  <FormControl sx={{ minWidth: 200 }}>
+                    <InputLabel id="demo-simple-select-label">Sale</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={sale}
+                      label="sale"
+                      onChange={handleSale}
+                    >
+                      <MenuItem value={true}>true</MenuItem>
+                      <MenuItem value={false}>false</MenuItem>
+                    </Select>
+                  </FormControl>
+
                   {/* isNew */}
-      
-                    <FormControl sx={{ minWidth: 200 }}>
-                      <InputLabel id="demo-simple-select-label">
-                        isNew
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={isNew}
-                        label="isNew"
-                        onChange={handleIsNew}
-                      >
-                        <MenuItem value={true}>true</MenuItem>
-                        <MenuItem value={false}>false</MenuItem>
-                      </Select>
-                    </FormControl>
-              
+
+                  <FormControl sx={{ minWidth: 200 }}>
+                    <InputLabel id="demo-simple-select-label">isNew</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={isNew}
+                      label="isNew"
+                      onChange={handleIsNew}
+                    >
+                      <MenuItem value={true}>true</MenuItem>
+                      <MenuItem value={false}>false</MenuItem>
+                    </Select>
+                  </FormControl>
+
                   {/* Colors */}
-        
-                    <FormControl sx={{ width: 200 }}>
-                      <InputLabel id="demo-simple-select-label">
-                        Colors
-                      </InputLabel>
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={colors}
-                        label="colors"
-                        onChange={handleColors}
-                      >
-                        <MenuItem value={"Gold"}>Gold</MenuItem>
-                        <MenuItem value={"Black"}>Black</MenuItem>
-                        <MenuItem value={"Brown"}>Brown</MenuItem>
-                        <MenuItem value={"Blue"}>Blue</MenuItem>
-                        <MenuItem value={"Green"}>Green</MenuItem>
-                      </Select>
+
+                  <FormControl sx={{ width: 200 }}>
+                    <InputLabel id="demo-simple-select-label">
+                      Colors
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={colors}
+                      label="colors"
+                    
+                    >
                       {colors?.map((color) => (
-                        <span>{color}</span>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            justifyContent: "space-around",
+                            alignItems: "center",
+                          }}
+                        >
+                          <ListItem
+                            variant="plain"
+                            color="warning"
+                            sx={{ borderRadius: "sm" }}
+                          >
+                            <Checkbox
+                              color="warning"
+                              label={color}
+                              value={color}
+                              overlay
+                              sx={{ color: "inherit" }}
+                              onChange={handleChange}
+                            />
+                          </ListItem>
+                        </Box>
                       ))}
-                    </FormControl>
-           
-  
-                    {productInputs.map((input) => (
-                      <div key={input.id}>
-                        <TextField
-                          sx={{ width: 250 }}
-                          id="outlined-basic"
-                          label={input.label}
-                          variant="outlined"
-                          type={input.type}
-                          name={input.name}
-                          placeholder={input.placeholder}
-                          min={input.min}
-                          onChange={addData}
-                        />
-                      </div>
-                    ))}
-            
+                      {/* <MenuItem value={"Gold"}>Gold</MenuItem>
+                      <MenuItem value={"Black"}>Black</MenuItem>
+                      <MenuItem value={"Brown"}>Brown</MenuItem>
+                      <MenuItem value={"Blue"}>Blue</MenuItem>
+                      <MenuItem value={"Green"}>Green</MenuItem> */}
+                    </Select>
+                    
+                  </FormControl>
 
-
-                     <Editor
-        onInit={(evt, editor) => (editorRef.current = editor)}
-        initialValue="<p>This is the initial content of the editor.</p>"
-        init={{
-          height: 500,
-          menubar: false,
-          plugins: [
-            "advlist autolink lists link image charmap print preview anchor link lists",
-            "searchreplace visualblocks code fullscreen",
-            "insertdatetime media table paste code help wordcount ",
-          ],
-          toolbar:
-            "undo redo | formatselect | lists" +
-            " fontsize fontfamily  | copy blockquote forecolor   backcolor  | strikethrough    " +
-            "bold italic  underline | alignleft aligncenter " +
-            "alignright alignjustify | bullist numlist outdent indent | " +
-            "removeformat | help",
-          content_style:
-            "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-        }}
-            />
-                
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexWrap: "wrap",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        gap: 2,
-                        my:2
-                      }}
-                  >
-                        <label className={styles.label}>Size</label>
+                  {productInputs.map((input) => (
+                    <div key={input.id}>
                       <TextField
+                        sx={{ width: 250 }}
                         id="outlined-basic"
-                        label="value"
+                        label={input.label}
+                        variant="outlined"
+                        type={input.type}
+                        name={input.name}
+                        placeholder={input.placeholder}
+                        min={input.min}
+                        onChange={addData}
+                      />
+                    </div>
+                  ))}
+
+                  <Editor
+                    onInit={(evt, editor) => (editorRef.current = editor)}
+                    initialValue="<p>This is the initial content of the editor.</p>"
+                    apiKey="8gxcb11g7m4xvisnyof1cbmu31sn3qt8ysggr7tkz7fq6ekh"
+                    init={{
+                      height: 500,
+                      menubar: false,
+                      plugins: [
+                        "advlist autolink lists link image charmap print preview anchor link lists",
+                        "searchreplace visualblocks code fullscreen",
+                        "insertdatetime media table paste code help wordcount ",
+                      ],
+                      toolbar:
+                        "undo redo | formatselect | lists" +
+                        " fontsize fontfamily  | copy blockquote forecolor   backcolor  | strikethrough    " +
+                        "bold italic  underline | alignleft aligncenter " +
+                        "alignright alignjustify | bullist numlist outdent indent | " +
+                        "removeformat | help",
+                      content_style:
+                        "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                    }}
+                  />
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: 2,
+                      my: 2,
+                    }}
+                  >
+                    <label className={styles.label}>Size</label>
+                    <TextField
+                      id="outlined-basic"
+                      label="value"
                       variant="outlined"
                       name="value"
-                        onChange={handleSizeInputs}
-                      />
-                      <TextField
-                        id="outlined-basic"
+                      onChange={handleSizeInputs}
+                    />
+                    <TextField
+                      id="outlined-basic"
                       label="Price"
                       name="price"
-                        variant="outlined"
-                        onChange={handleSizeInputs}
-                      />
+                      variant="outlined"
+                      onChange={handleSizeInputs}
+                    />
 
-                      <Button
-                        variant="contained"
-                        color="success"
-                        onClick={handleSize}
-                      >
-                        Add Size
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={handleSize}
+                    >
+                      Add Size
                     </Button>
-                    
+
                     <div className={styles.extraItems}>
                       {size.map((option) => (
                         <span key={option.value} className={styles.extraItem}>
@@ -506,20 +557,22 @@ const AddProduct = ({ categoryList }) => {
                         </span>
                       ))}
                     </div>
-                    </Box>
-                    
-                    
+                  </Box>
 
-                  <Button
+
+                </form>
+
+                <Box sx={{margin:"auto",marginTop:"20px"}}>
+                <Button
                     variant="contained"
                     color="success"
                     onClick={addProduct}
-             className={styles.buttonTeal}
                   >
                     Add Product
                   </Button>
-                </form>
+                </Box>
               </Box>
+          
             </div>
           </div>
         </div>
