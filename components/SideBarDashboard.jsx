@@ -73,13 +73,13 @@ const Sidebar = () => {
               <span>Add Model</span>
             </li>
           </Link>
-          <p className={styles.title}>Promo Codes</p>
+          {/* <p className={styles.title}>Promo Codes</p>
           <Link href="/dashboard/products" style={{ textDecoration: "none" }} passHref>
             <li>
               <LocalOffer className={styles.icon} />
               <span>Promo Codes</span>
             </li>
-          </Link>
+          </Link> */}
           <p className={styles.title}>HomePage</p>
           <Link href="/dashboard" style={{ textDecoration: "none" }} passHref>
             <li>

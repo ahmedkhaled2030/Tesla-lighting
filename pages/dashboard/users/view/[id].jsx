@@ -31,40 +31,47 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-const GetProduct = ({ categoryList, EditRes }) => {
+const GetProduct = ({ UserResProps }) => {
+
   function createData(name, value) {
     return { name, value };
   }
 
   const rows = [
-    createData("Product ID", EditRes?.product?._id),
-    createData("Title", EditRes?.product?.title),
-    createData("Category", EditRes?.product?.category?.name),
-    createData("SubCategory", EditRes?.product?.subCategory?.name),
-    createData("Number", EditRes?.product?.number),
-    createData("Price", EditRes?.product?.price + " " + "$"),
-    createData("Discount", EditRes?.product?.discount + " " + "$"),
-    createData("shippingCost", EditRes?.product?.shippingCost + " " + "$"),
-    createData("Stock", EditRes?.product?.stock + " " + "items"),
-    createData("No. of Favorite", EditRes?.product?.favorites),
-    createData(
-      "Sizes",
-      <div>
-        {EditRes?.product?.size.map((item) => (
-          <h4>
-            {item.value}" => {item.price} $
-          </h4>
-        ))}
-      </div>
-    ),
-    createData(
-      "Colors",
-      <div>
-        {EditRes?.product?.colors.map((item) => (
-          <h4>{item}</h4>
-        ))}
-      </div>
-    ),
+    createData("User ID", UserResProps?._id),
+    createData("Email", UserResProps?.email),
+    createData("FirstName", UserResProps?.firstName),
+    createData("LastName", UserResProps?.lastName),
+    createData("Role", UserResProps?.role),
+    createData("CreatedAt", UserResProps?.createdAt),
+
+    // createData("Title", EditRes?.product?.title),
+    // createData("Category", EditRes?.product?.category?.name),
+    // createData("SubCategory", EditRes?.product?.subCategory?.name),
+    // createData("Number", EditRes?.product?.number),
+    // createData("Price", EditRes?.product?.price + " " + "$"),
+    // createData("Discount", EditRes?.product?.discount + " " + "$"),
+    // createData("shippingCost", EditRes?.product?.shippingCost + " " + "$"),
+    // createData("Stock", EditRes?.product?.stock + " " + "items"),
+    // createData("No. of Favorite", EditRes?.product?.favorites),
+    // createData(
+    //   "Sizes",
+    //   <div>
+    //     {EditRes?.product?.size.map((item) => (
+    //       <h4>
+    //         {item.value}" => {item.price} $
+    //       </h4>
+    //     ))}
+    //   </div>
+    // ),
+    // createData(
+    //   "Colors",
+    //   <div>
+    //     {EditRes?.product?.colors.map((item) => (
+    //       <h4>{item}</h4>
+    //     ))}
+    //   </div>
+    // ),
   ];
 
 
@@ -83,7 +90,7 @@ const GetProduct = ({ categoryList, EditRes }) => {
         <div className={styles.new}>
           <div className={styles.newContainer}>
             <div className={styles.top}>
-              <h1>View Product</h1>
+              <h1>View User</h1>
             </div>
 
             <div className={styles.bottom} style={{ width: "100%" }}>
@@ -148,18 +155,10 @@ const GetProduct = ({ categoryList, EditRes }) => {
 
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
-  const categoryRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/category/list`,
+ 
 
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
-
-  const EditRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/product/${ctx.params.id}`,
+  const UserRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/user/${ctx.params.id}`,
 
     {
       headers: {
@@ -170,8 +169,8 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
-      categoryList: categoryRes.data.data,
-      EditRes: EditRes.data.data,
+    
+      UserResProps: UserRes.data.data,
     },
   };
 };

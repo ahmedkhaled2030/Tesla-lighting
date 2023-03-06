@@ -10,8 +10,7 @@ import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-const Users = () => {
-
+const Products = () => {
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));
@@ -20,7 +19,7 @@ const Users = () => {
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(
-        `https://tesla-lightning.herokuapp.com/dashboard/product/${id}`,
+        `https://tesla-lightning.herokuapp.com/dashboard/user/${id}`,
 
         {
           headers: {
@@ -31,7 +30,7 @@ const Users = () => {
 
       const data = await res;
       //console.log(data, "data");
-      router.reload(window.location.pathname)
+      router.reload(window.location.pathname);
     } catch (err) {
       //console.log(err);
     }
@@ -39,7 +38,7 @@ const Users = () => {
   const handleEdit = async (id) => {
     //console.log(id)
     try {
-      router.push(`/dashboard/user/edit/${id}`);
+      router.push(`/dashboard/users/edit/${id}`);
     } catch (err) {
       //console.log(err);
     }
@@ -47,32 +46,38 @@ const Users = () => {
   const handleView = async (id) => {
     //console.log(id)
     try {
-      router.push(`/dashboard/products/view/${id}`);
+      router.push(`/dashboard/users/view/${id}`);
     } catch (err) {
       //console.log(err);
     }
   };
   const columns = [
-    { field: "_id", headerName: "ID", width: 220 },
+    { field: "_id", headerName: "User ID", width: 220 },
     {
-      field: "title",
-      headerName: "ProductTitle",
-      description: "This column has a value getter and is not sortable.",
+      field: "email",
+      headerName: "Email",
+
       width: 350,
     },
 
     {
-      field: "number",
-      headerName: "Number",
+      field: "role",
+      headerName: "Role",
       type: "string",
       width: 150,
     },
 
     {
-      field: "price",
-      headerName: "Price",
+      field: "firstName",
+      headerName: "FirstName",
       type: "string",
-      width: 50,
+      width: 200,
+    },
+    {
+      field: "lastName",
+      headerName: "LastName",
+      type: "string",
+      width: 200,
     },
   ];
 
@@ -111,16 +116,13 @@ const Users = () => {
     },
   ];
 
-
-
-
   return (
     <div className={styles.products}>
       <Sidebar />
 
       <div className={styles.productsContainer}>
         <Box sx={{ m: "2rem" }}>
-          <Link href="/dashboard/products/add" passHref>
+          <Link href="/dashboard/users/add" passHref>
             <Button variant="contained" color="success">
               Add User
             </Button>
@@ -129,15 +131,14 @@ const Users = () => {
 
         <DataTableDashboard
           type="user"
-          api="user"
+          api="users"
           columns={columns}
           actionColumn={actionColumn}
-        
+          page="page"
         />
       </div>
     </div>
   );
 };
 
-
-export default Users;
+export default Products;

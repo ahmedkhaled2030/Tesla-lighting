@@ -8,7 +8,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 const DataTableDashboard = ({ type,api , columns, actionColumn ,page ,recordsHandler}) => {
     const router = useRouter();
-
+console.log(type,api)
   const [token, setToken] = useState(Cookies.get("token"));
 
 
@@ -44,7 +44,7 @@ const DataTableDashboard = ({ type,api , columns, actionColumn ,page ,recordsHan
         setPageState((old) => ({
           ...old,
           isLoading: false,
-          data: json[api],
+          data: json,
           total: json.count,
         }));
       };

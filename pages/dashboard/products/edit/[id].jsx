@@ -188,34 +188,34 @@ const EditProduct = ({ categoryList, editProps }) => {
         },
     )
 
-    // axios
-    //   .put(
-    //     `https://tesla-lightning.herokuapp.com/dashboard/product/${editProps.product._id}`,
-    //     {
+    axios
+      .put(
+        `https://tesla-lightning.herokuapp.com/dashboard/product/${editProps.product._id}`,
+        {
          
-    //       new: isNew,
-    //       colors: selectedColors,
-    //       size: size,
-    //       description: editorRef.current.getContent(),
-    //       sale: sale,
-    //       ...addDataInputs,
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: token,
-    //       },
-    //     }
-    //   )
-    //   .then((res) => {
-    //     handleClick({
-    //       vertical: "top",
-    //       horizontal: "left",
-    //     });
-    //     router.push(`/dashboard/products`);
-    //   })
-    //   .catch((error) => {
-    //     //console.log(error);
-    //   });
+          new: isNew,
+          colors: selectedColors,
+          size: size,
+          description: editorRef.current.getContent(),
+          sale: sale,
+          ...addDataInputs,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
+      .then((res) => {
+        handleClick({
+          vertical: "top",
+          horizontal: "left",
+        });
+        router.push(`/dashboard/products`);
+      })
+      .catch((error) => {
+        //console.log(error);
+      });
   };
 
   const productInputs = [
