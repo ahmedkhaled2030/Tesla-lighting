@@ -14,6 +14,7 @@ const Layout = ({
   FilterOpen,
   setFilterOpen,
   setHideNavbar,
+
 }) => {
   const router = useRouter();
 
@@ -32,8 +33,8 @@ const Layout = ({
         />
       {/* )} */}
       {/* {certainRoute == "/dashboard" && ( */}
-      <PromoSlider />
-      {/* )} */}
+      <PromoSlider  />
+      {/* )} */} 
 
       {children}
       {/* {certainRoute == "/dashboard" && ( */}

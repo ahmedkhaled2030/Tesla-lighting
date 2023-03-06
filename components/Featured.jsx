@@ -8,7 +8,8 @@ import { Autoplay, Navigation, EffectFade } from "swiper";
 import "swiper/css";
 import "swiper/css/effect-fade";
 
-const Featured = () => {
+const Featured = ({ HeaderSliderProps }) => {
+
   const images = [
     "/img/slider1.png",
     "/img/slider11.png",
@@ -19,63 +20,43 @@ const Featured = () => {
 
   return (
     <>
-      <Swiper
-        className={styles.swiper}
-        breakpoints={{
-          640: {
-            slidesPerView: 1,
-          },
-          768: {
-            slidesPerView: 1,
-          },
-          1024: {
-            slidesPerView: 1,
-          },
-        }}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        modules={[Autoplay, Navigation, EffectFade]}
-        loop={true}
-        effect={"fade"}
-      >
-        <SwiperSlide className={styles.swiperSlide}>
-          <Image
-            src="/img/slider1.png"
-            alt=""
-            layout="fill"
-            className={styles.img}
-          />
-          {/* <span className={`primaryText ${styles.text}`}>brand new</span>
+      {HeaderSliderProps && (
+        <Swiper
+          className={styles.swiper}
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+            },
+            768: {
+              slidesPerView: 1,
+            },
+            1024: {
+              slidesPerView: 1,
+            },
+          }}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          modules={[Autoplay, Navigation, EffectFade]}
+          loop={true}
+          effect={"fade"}
+        >
+          {HeaderSliderProps?.map((slide) => (
+            <SwiperSlide className={styles.swiperSlide}>
+              <Image
+                src={slide.image.path}
+                alt={slide.image._id}
+                layout="fill"
+                className={styles.img}
+              />
+              {/* <span className={`primaryText ${styles.text}`}>brand new</span>
           <h1 className={`primaryText ${styles.title}`}>MAGNETIC TRACK SYSTEM</h1>
           <div className={`borderText ${styles.button}`}>MORE INFO</div> */}
-        </SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>
-          <Image
-            src="/img/slider11.png"
-            alt=""
-            layout="fill"
-            className={styles.img}
-          />
-        </SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>
-          <Image
-            src="/img/slider3.png"
-            alt=""
-            layout="fill"
-            className={styles.img}
-          />
-        </SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>
-          <Image
-            src="/img/slider4.jpg"
-            alt=""
-            layout="fill"
-            className={styles.img}
-          />
-        </SwiperSlide>
-      </Swiper>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </>
   );
 };

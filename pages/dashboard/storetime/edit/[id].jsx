@@ -14,10 +14,11 @@ import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import axios from "axios";
 import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
+import { useRouter } from "next/router";
 const storeTimeEdit = ({ EditRes }) => {
   console.log(EditRes, 'EditRes')
   
-  
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -111,10 +112,7 @@ const [id ,setID] = useState(EditRes._id)
           horizontal: "left",
         });
 
-        setUploading(null);
-        setText("");
-        setUrl("");
-        setImage([]);
+        router.push(`/dashboard/storetime`);
       })
       .catch((error) => {
         console.log(error);

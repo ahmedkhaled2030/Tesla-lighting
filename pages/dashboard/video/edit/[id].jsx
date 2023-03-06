@@ -1,12 +1,39 @@
 import Sidebar from "@/components/SideBarDashboard";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "../../../../styles/DashboardHome.module.scss";
 import Cookies from "js-cookie";
-import { Button, CircularProgress, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Button,
+  CircularProgress,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import axios from "axios";
-const AddVideo = () => {
+import { Editor } from "@tinymce/tinymce-react";
+import Snackbar from "@mui/material/Snackbar";
+import { useRouter } from "next/router";
+const VideoEdit = ({ EditResProps }) => {
+  console.log(EditResProps , "EditResProps")
+    const router = useRouter();
+  const [state, setState] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "left",
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => {
+    console.log(newState, "newState");
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+  const editorRef = useRef(null);
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));
@@ -14,10 +41,10 @@ const AddVideo = () => {
 
   // start images
   const [image, setImage] = useState([]);
-  const [imagePath, setImagePath] = useState("");
+  const [imagePath, setImagePath] = useState(null);
   const [imageScreens, setImageScreens] = useState("");
   const [uploading, setUploading] = useState(null);
-  //console.log(imagePath , "imagePath")
+  //console.log(imagePath, "imagePath");
   const handleImage = (e) => {
     //console.log(e.target.files);
     setImage(e.target.files);
@@ -28,27 +55,23 @@ const AddVideo = () => {
     const formData = new FormData();
 
     for (var item of image) {
-      formData.append("video", item);
+      formData.append("image", item);
     }
 
     axios
-      .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/section/upload-video",
-        formData,
-        {
-          onUploadProgress: (data) => {
-            setUploading(Math.round((data.loaded / data.total) * 100));
-          },
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
+      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+        onUploadProgress: (data) => {
+          setUploading(Math.round((data.loaded / data.total) * 100));
+        },
+        headers: {
+          Authorization: token,
+        },
+      })
       .then((res) => {
         //console.log(res.data.data);
 
-        setImagePath(res.data.data._id);
-        setImageScreens(res.data.data.path);
+        setImagePath(res.data.data[0]._id);
+        setImageScreens(res.data.data[0].path);
       })
       .catch((error) => {
         //console.log(error);
@@ -56,19 +79,24 @@ const AddVideo = () => {
   };
 
   // End images
-  const [text, setText] = useState("");
-  // start Partner
-  const addVideo = (e) => {
+ 
+
+  const [text, setText] = useState(EditResProps.text);
+
+  // console.log(title, "title");
+
+  const addSection = (e) => {
     e.preventDefault();
 
     axios
-      .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/section",
+      .put(
+        `https://tesla-lightning.herokuapp.com/dashboard/section/${EditResProps._id}`,
         {
           name: "video",
-          title: "video",
+    
           text: text,
           image: imagePath,
+ 
         },
         {
           headers: {
@@ -77,12 +105,16 @@ const AddVideo = () => {
         }
       )
       .then((res) => {
-        alert("Video added successfully");
-        setUploading(null);
-        setText("");
+        console.log("clicked");
+        handleClick({
+          vertical: "top",
+          horizontal: "left",
+        });
+
+ router.push(`/dashboard/video`);
       })
       .catch((error) => {
-        //console.log(error);
+        console.log(error);
       });
   };
 
@@ -91,6 +123,18 @@ const AddVideo = () => {
   return (
     <div className={styles.home}>
       <Sidebar />
+
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical, horizontal }}
+        key={vertical + horizontal}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          This is a success message!
+        </Alert>
+      </Snackbar>
       <div className={styles.homeContainer}>
         <Box
           sx={{
@@ -110,7 +154,6 @@ const AddVideo = () => {
             <input
               type="file"
               id="file"
-              multiple
               onChange={handleImage}
               style={{ display: "none" }}
             />
@@ -120,8 +163,9 @@ const AddVideo = () => {
               sx={{ my: 1, mx: 5, width: 150 }}
               variant="contained"
               color="secondary"
+              disabled={image.length == 0}
             >
-              Upload Video
+              Upload Image
             </Button>
             <Box sx={{ position: "relative", display: "inline-flex", mx: 5 }}>
               {uploading && (
@@ -151,20 +195,27 @@ const AddVideo = () => {
               )}
             </Box>
           </Box>
-          <TextField
-            sx={{ my: 5, width: 500 }}
-            id="outlined-basic"
-            label="Add Video Text"
-            value={text}
-            variant="outlined"
-            onChange={(e) => setText(e.target.value)}
-          />
+          <Box>
+
+
+            <TextField
+              sx={{ my: 5, width: 500 }}
+              id="outlined-basic"
+              label="Add section Text"
+              value={text}
+              variant="outlined"
+              onChange={(e) => setText(e.target.value)}
+            />
+
+          </Box>
+
           <Box sx={{ textAlign: "center" }}>
             <Button
-              onClick={addVideo}
+              onClick={addSection}
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
+              disabled={!imagePath }
             >
               Add Video
             </Button>
@@ -174,5 +225,28 @@ const AddVideo = () => {
     </div>
   );
 };
+export const getServerSideProps = async (ctx) => {
+  const token = ctx.req?.cookies.token || "";
 
-export default AddVideo;
+
+  const EditRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/section/video`,
+
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+
+
+
+
+  return {
+    props: {
+
+      EditResProps: EditRes.data.data,
+    },
+  };
+};
+export default VideoEdit;

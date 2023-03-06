@@ -1,38 +1,12 @@
 import Sidebar from "@/components/SideBarDashboard";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../../../styles/DashboardHome.module.scss";
 import Cookies from "js-cookie";
-import {
-  Alert,
-  Button,
-  CircularProgress,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, CircularProgress, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import axios from "axios";
-import { Editor } from "@tinymce/tinymce-react";
-import Snackbar from "@mui/material/Snackbar";
-import { useRouter } from "next/router";
-const PartnersAdd = () => {
-    const router = useRouter();
-  const [state, setState] = useState({
-    open: false,
-    vertical: "top",
-    horizontal: "left",
-  });
-  const { vertical, horizontal, open } = state;
-
-  const handleClick = (newState) => {
-    console.log(newState, "newState");
-    setState({ open: true, ...newState });
-  };
-
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
-  const editorRef = useRef(null);
+const AddPartner = () => {
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));
@@ -40,10 +14,10 @@ const PartnersAdd = () => {
 
   // start images
   const [image, setImage] = useState([]);
-  const [imagePath, setImagePath] = useState(null);
-  const [imageScreens, setImageScreens] = useState("");
+  const [imagePath, setImagePath] = useState([]);
+  const [imageScreens, setImageScreens] = useState([]);
   const [uploading, setUploading] = useState(null);
-  //console.log(imagePath, "imagePath");
+
   const handleImage = (e) => {
     //console.log(e.target.files);
     setImage(e.target.files);
@@ -68,9 +42,10 @@ const PartnersAdd = () => {
       })
       .then((res) => {
         //console.log(res.data.data);
-
-        setImagePath(res.data.data[0]._id);
-        setImageScreens(res.data.data[0].path);
+        res.data.data.map((item) => {
+          setImagePath((oldArray) => [...oldArray, item._id]);
+          setImageScreens((prev) => [...prev, item.path]);
+        });
       })
       .catch((error) => {
         //console.log(error);
@@ -78,12 +53,9 @@ const PartnersAdd = () => {
   };
 
   // End images
-
   const [name, setName] = useState("");
-
-  // console.log(title, "title");
-
-  const addSection = (e) => {
+  // start Partner
+  const addPartner = (e) => {
     e.preventDefault();
 
     axios
@@ -91,9 +63,7 @@ const PartnersAdd = () => {
         "https://tesla-lightning.herokuapp.com/dashboard/partner",
         {
           name: name,
-
-          image: imagePath,
-     
+          image: imagePath[0],
         },
         {
           headers: {
@@ -102,16 +72,10 @@ const PartnersAdd = () => {
         }
       )
       .then((res) => {
-        console.log("clicked");
-        handleClick({
-          vertical: "top",
-          horizontal: "left",
-        });
-
- router.push(`/dashboard/partners`);
+        alert("partner added successfully");
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   };
 
@@ -120,18 +84,6 @@ const PartnersAdd = () => {
   return (
     <div className={styles.home}>
       <Sidebar />
-
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        anchorOrigin={{ vertical, horizontal }}
-        key={vertical + horizontal}
-      >
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
-          This is a success message!
-        </Alert>
-      </Snackbar>
       <div className={styles.homeContainer}>
         <Box
           sx={{
@@ -160,9 +112,8 @@ const PartnersAdd = () => {
               sx={{ my: 1, mx: 5, width: 150 }}
               variant="contained"
               color="secondary"
-              disabled={image.length == 0}
             >
-              Upload Image
+              Upload Images
             </Button>
             <Box sx={{ position: "relative", display: "inline-flex", mx: 5 }}>
               {uploading && (
@@ -192,27 +143,22 @@ const PartnersAdd = () => {
               )}
             </Box>
           </Box>
-          <Box>
           <TextField
-              sx={{ my: 5, width: 500 }}
-              id="outlined-basic"
-              label="Add section Title"
-              value={name}
-              variant="outlined"
-              onChange={(e) => setName(e.target.value)}
-            />
-
-          </Box>
-
+            sx={{ my: 5, width: 500 }}
+            id="outlined-basic"
+            label="Add Partner Name"
+            value={name}
+            variant="outlined"
+            onChange={(e) => setName(e.target.value)}
+          />
           <Box sx={{ textAlign: "center" }}>
             <Button
-              onClick={addSection}
+              onClick={addPartner}
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
-              disabled={!imagePath }
             >
-              Add partner
+              Add Partner
             </Button>
           </Box>
         </Box>
@@ -221,4 +167,4 @@ const PartnersAdd = () => {
   );
 };
 
-export default PartnersAdd;
+export default AddPartner;

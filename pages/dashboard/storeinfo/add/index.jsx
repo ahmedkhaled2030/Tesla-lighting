@@ -15,7 +15,7 @@ import axios from "axios";
 import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
-const PartnersAdd = () => {
+const storeInfoAdd = () => {
     const router = useRouter();
   const [state, setState] = useState({
     open: false,
@@ -79,8 +79,9 @@ const PartnersAdd = () => {
 
   // End images
 
-  const [name, setName] = useState("");
-
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+  const [url, setUrl] = useState("");
   // console.log(title, "title");
 
   const addSection = (e) => {
@@ -88,12 +89,13 @@ const PartnersAdd = () => {
 
     axios
       .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/partner",
+        "https://tesla-lightning.herokuapp.com/dashboard/section",
         {
-          name: name,
-
+          name: "featured-posts",
+           title: title,
+          text: text,
           image: imagePath,
-     
+          url:url
         },
         {
           headers: {
@@ -108,7 +110,7 @@ const PartnersAdd = () => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/partners`);
+ router.push(`/dashboard/storeinfo`);
       })
       .catch((error) => {
         console.log(error);
@@ -197,11 +199,27 @@ const PartnersAdd = () => {
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Title"
-              value={name}
+              value={title}
               variant="outlined"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
             />
 
+            <TextField
+              sx={{ my: 5, width: 500 }}
+              id="outlined-basic"
+              label="Add section Text"
+              value={text}
+              variant="outlined"
+              onChange={(e) => setText(e.target.value)}
+            />
+                        <TextField
+              sx={{ my: 5, width: 500 }}
+              id="outlined-basic"
+              label="Add section Url"
+              value={url}
+              variant="outlined"
+              onChange={(e) => setUrl(e.target.value)}
+            />
           </Box>
 
           <Box sx={{ textAlign: "center" }}>
@@ -212,7 +230,7 @@ const PartnersAdd = () => {
               color="success"
               disabled={!imagePath }
             >
-              Add partner
+              Add Section
             </Button>
           </Box>
         </Box>
@@ -221,4 +239,4 @@ const PartnersAdd = () => {
   );
 };
 
-export default PartnersAdd;
+export default storeInfoAdd;

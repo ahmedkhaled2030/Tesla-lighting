@@ -6,7 +6,35 @@ import "swiper/css";
 import "swiper/css/scrollbar";
 
 import { Scrollbar, Autoplay, Navigation } from "swiper";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
 const PromoSlider = () => {
+  const [token, setToken] = useState(Cookies.get("token"));
+  const [promos ,setPromos] = useState([])
+  useEffect(() => {
+
+    const fetchData = async () => {
+      await setToken(Cookies.get("token"));
+
+
+      const res = await axios.get(
+        `https://tesla-lightning.herokuapp.com/dashboard/section/promos`,
+
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      const json = await res.data.data;
+      setPromos(json)
+      console.log(json, "json");
+
+    };
+    fetchData();
+  }, []);
+  
   return (
     <div className={styles.container}>
       <Swiper
@@ -31,15 +59,13 @@ const PromoSlider = () => {
         modules={[Autoplay, Navigation]}
         className={styles.swiper}
       >
-        <SwiperSlide className={styles.swiperSlide}>
-          USE CODE LV08 TO GET 8% OFF OVER $100 │ USE CODE LV10 TO GET 10% OFF
+        {promos?.map((promo) => (
+          <SwiperSlide className={styles.swiperSlide} key={promo._id}>
+ {promo?.text}
         </SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>
-          Free shipping over $100 │ all price in CAD
-        </SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>
-          UP TO 30% OFF STORE WIDE | PRICE ARE LOW, DON'T BE SLOW! LIMITED TIME
-        </SwiperSlide>
+        ))}
+
+   
       </Swiper>
     </div>
   );

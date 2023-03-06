@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./../styles/Times.module.scss";
 
 const Times = ({ timeProps }) => {
-  console.log(timeProps, "timeProps");
+  // console.log(timeProps, "timeProps");
 
   return (
     <div className={styles.container}>

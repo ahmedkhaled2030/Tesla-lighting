@@ -15,7 +15,8 @@ import axios from "axios";
 import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
-const PartnersAdd = () => {
+const HeaderSliderEdit = ({ EditResProps }) => {
+  console.log(EditResProps , "EditResProps")
     const router = useRouter();
   const [state, setState] = useState({
     open: false,
@@ -78,20 +79,22 @@ const PartnersAdd = () => {
   };
 
   // End images
-
-  const [name, setName] = useState("");
-
+ 
+  const [title, setTitle] = useState(EditResProps[0].title);
+  const [text, setText] = useState(EditResProps[0].text);
+  const [url, setUrl] = useState(EditResProps[0].url);
   // console.log(title, "title");
 
   const addSection = (e) => {
     e.preventDefault();
 
     axios
-      .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/partner",
+      .put(
+        `https://tesla-lightning.herokuapp.com/dashboard/section/${EditResProps[0]._id}`,
         {
-          name: name,
-
+          name: "header",
+           title: title,
+   
           image: imagePath,
      
         },
@@ -108,7 +111,7 @@ const PartnersAdd = () => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/partners`);
+ router.push(`/dashboard/headerslider`);
       })
       .catch((error) => {
         console.log(error);
@@ -197,22 +200,38 @@ const PartnersAdd = () => {
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Title"
-              value={name}
+              value={title}
               variant="outlined"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setTitle(e.target.value)}
             />
 
+            {/* <TextField
+              sx={{ my: 5, width: 500 }}
+              id="outlined-basic"
+              label="Add section Text"
+              value={text}
+              variant="outlined"
+              onChange={(e) => setText(e.target.value)}
+            />
+                        <TextField
+              sx={{ my: 5, width: 500 }}
+              id="outlined-basic"
+              label="Add section Url"
+              value={url}
+              variant="outlined"
+              onChange={(e) => setUrl(e.target.value)}
+            /> */}
           </Box>
 
           <Box sx={{ textAlign: "center" }}>
             <Button
               onClick={addSection}
-              sx={{ my: 1, width: 150 }}
+              sx={{ my: 1, width: 200 }}
               variant="contained"
               color="success"
               disabled={!imagePath }
             >
-              Add partner
+              Add Header Slider
             </Button>
           </Box>
         </Box>
@@ -220,5 +239,30 @@ const PartnersAdd = () => {
     </div>
   );
 };
+export const getServerSideProps = async (ctx) => {
+  const token = ctx.req?.cookies.token || "";
 
-export default PartnersAdd;
+
+  const EditRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/section/header`,
+
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+
+ const selectedPost = EditRes.data.data.filter((item) => (
+    item._id == ctx.params.id
+ ))
+
+
+  return {
+    props: {
+
+      EditResProps: selectedPost,
+    },
+  };
+};
+export default HeaderSliderEdit;

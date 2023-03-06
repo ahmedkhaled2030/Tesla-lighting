@@ -23,7 +23,8 @@ const CompanySlider = ({ partnersProps }) => {
 
   return (
     <>
-      <Swiper
+      {
+        partnersProps && ( <Swiper
         className={styles.swiper}
         breakpoints={{
           640: {
@@ -54,7 +55,9 @@ const CompanySlider = ({ partnersProps }) => {
             />
           </SwiperSlide>
         ))}
-      </Swiper>
+      </Swiper>)
+      }
+     
     </>
   );
 };

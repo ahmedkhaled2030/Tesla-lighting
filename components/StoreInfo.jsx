@@ -18,7 +18,7 @@ const StoreInfo = ({ StoreInfo }) => {
   ];
   return (
     <div className={` innerWidth  ${styles.container}`}>
-      {StoreInfo.map((item) => (
+      {StoreInfo && StoreInfo.map((item) => (
         <div className={styles.section}>
           <Image
             src={item.image.path}

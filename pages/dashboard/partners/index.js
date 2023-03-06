@@ -10,7 +10,7 @@ import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-const StoreTime = ({ ordersList }) => {
+const Partners = () => {
   const router = useRouter();
   const [token, setToken] = useState("");
   useEffect(() => {
@@ -25,20 +25,28 @@ const StoreTime = ({ ordersList }) => {
   const handleEdit = async (id) => {
     console.log(id)
     try {
-      router.push(`/dashboard/storetime/edit/${id}`);
+      router.push(`/dashboard/partners/edit/${id}`);
     } catch (err) {
       //console.log(err);
     }
   };
-
+  const handleView = async (id) => {
+    //console.log(id)
+    try {
+      router.push(`/dashboard/partners/view/${id}`);
+    } catch (err) {
+      //console.log(err);
+    }
+  };
 
   const columns = [
     {
       field: "name",
       headerName: "Name",
       type: "string",
-      width: 400,
+      width: 200,
     },
+
 
     {
       field: "createdAt",
@@ -75,22 +83,22 @@ const StoreTime = ({ ordersList }) => {
       <Sidebar />
 
       <div className={styles.productsContainer}>
-        {records == 0 && (
+        {records < 2   && (
           <Box sx={{ m: "2rem" }}>
-            <Link href="/dashboard/storetime/add" passHref>
+            <Link href="/dashboard/partners/add" passHref>
               <Button variant="contained" color="success">
-                Add New Timing
+                Add New Partner
               </Button>
             </Link>
           </Box>
         )}
 
         <DataTableDashboard
-          type="retail-store"
-          api="retail-store"
+          type="partner"
+          api="partner"
           columns={columns}
           actionColumn={actionColumn}
-          page="section"
+          page="page"
           recordsHandler={recordsHandler}
         />
       </div>
@@ -98,4 +106,4 @@ const StoreTime = ({ ordersList }) => {
   );
 };
 
-export default StoreTime;
+export default Partners;

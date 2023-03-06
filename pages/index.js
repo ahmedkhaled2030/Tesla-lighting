@@ -21,7 +21,7 @@ import FilterBar from "@/components/FilterBar";
 import VideoHome from "@/components/VideoHome";
 import axios from "axios";
 
-export default function Home({ HomeProps, partnersProps, StoreInfoProps, VideoResProps }) {
+export default function Home({ HomeProps, partnersProps, StoreInfoProps, VideoResProps ,HeaderSliderProps }) {
 //  console.log(HomeProps,'HomeProps')
 
   const products = [
@@ -125,13 +125,13 @@ export default function Home({ HomeProps, partnersProps, StoreInfoProps, VideoRe
       </Head>
   
 
-
-      <Featured />
+ 
+      <Featured HeaderSliderProps ={HeaderSliderProps}  />
       <CategoryList categories={categories} title="shop by category" />
       <ProductsList title="New ARRIVAL" products={products} />
       <OnSaleList />
       <ReviewList /> 
-      <Help />
+      {/* <Help /> */}
       <CompanySlider partnersProps={partnersProps} />
       <VideoHome VideoResProps ={VideoResProps} />
       <StoreInfo StoreInfo={StoreInfoProps} />
@@ -153,6 +153,18 @@ export const getServerSideProps = async (ctx) => {
       },
     }
   );
+  const HeaderSliderRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/section/header`,
+
+    {
+      headers: {
+        Authorization:token
+         
+      },
+    }
+  );
+ 
+
   const partners = await axios.get(
     `https://tesla-lightning.herokuapp.com/dashboard/partner`,
 
@@ -187,6 +199,7 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       HomeProps: HomeRes.data.data,
+      HeaderSliderProps: HeaderSliderRes.data.data,
       partnersProps: partners.data.data,
       StoreInfoProps: StoreInfoRes.data.data,
       VideoResProps:VideoRes.data.data

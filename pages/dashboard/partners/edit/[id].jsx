@@ -15,7 +15,8 @@ import axios from "axios";
 import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
-const PartnersAdd = () => {
+const PartnersEdit = ({ EditResProps }) => {
+  console.log(EditResProps , "EditResProps")
     const router = useRouter();
   const [state, setState] = useState({
     open: false,
@@ -78,8 +79,8 @@ const PartnersAdd = () => {
   };
 
   // End images
-
-  const [name, setName] = useState("");
+ 
+  const [name, setName] = useState(EditResProps.name);
 
   // console.log(title, "title");
 
@@ -87,13 +88,13 @@ const PartnersAdd = () => {
     e.preventDefault();
 
     axios
-      .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/partner",
+      .put(
+        `https://tesla-lightning.herokuapp.com/dashboard/partner/${EditResProps._id}`,
         {
           name: name,
 
           image: imagePath,
-     
+         
         },
         {
           headers: {
@@ -202,6 +203,7 @@ const PartnersAdd = () => {
               onChange={(e) => setName(e.target.value)}
             />
 
+      
           </Box>
 
           <Box sx={{ textAlign: "center" }}>
@@ -212,7 +214,7 @@ const PartnersAdd = () => {
               color="success"
               disabled={!imagePath }
             >
-              Add partner
+              Add Partner
             </Button>
           </Box>
         </Box>
@@ -220,5 +222,27 @@ const PartnersAdd = () => {
     </div>
   );
 };
+export const getServerSideProps = async (ctx) => {
+  const token = ctx.req?.cookies.token || "";
 
-export default PartnersAdd;
+
+  const EditRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/dashboard/partner/${ctx.params.id}`,
+
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
+
+
+
+  return {
+    props: {
+
+      EditResProps: EditRes.data.data,
+    },
+  };
+};
+export default PartnersEdit;

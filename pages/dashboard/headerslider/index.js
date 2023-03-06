@@ -10,7 +10,7 @@ import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-const StoreTime = ({ ordersList }) => {
+const Header = () => {
   const router = useRouter();
   const [token, setToken] = useState("");
   useEffect(() => {
@@ -25,19 +25,32 @@ const StoreTime = ({ ordersList }) => {
   const handleEdit = async (id) => {
     console.log(id)
     try {
-      router.push(`/dashboard/storetime/edit/${id}`);
+      router.push(`/dashboard/headerslider/edit/${id}`);
     } catch (err) {
       //console.log(err);
     }
   };
-
+  const handleView = async (id) => {
+    //console.log(id)
+    try {
+      router.push(`/dashboard/headerslider/view/${id}`);
+    } catch (err) {
+      //console.log(err);
+    }
+  };
 
   const columns = [
     {
       field: "name",
       headerName: "Name",
       type: "string",
-      width: 400,
+      width: 200,
+    },
+    {
+      field: "title",
+      headerName: "Title",
+      type: "string",
+      width: 200,
     },
 
     {
@@ -75,19 +88,19 @@ const StoreTime = ({ ordersList }) => {
       <Sidebar />
 
       <div className={styles.productsContainer}>
-        {records == 0 && (
+ 
           <Box sx={{ m: "2rem" }}>
-            <Link href="/dashboard/storetime/add" passHref>
+            <Link href="/dashboard/headerslider/add" passHref>
               <Button variant="contained" color="success">
-                Add New Timing
+                Add New HeaderSlider
               </Button>
             </Link>
           </Box>
-        )}
+       
 
         <DataTableDashboard
-          type="retail-store"
-          api="retail-store"
+          type="header"
+          api="header"
           columns={columns}
           actionColumn={actionColumn}
           page="section"
@@ -98,4 +111,4 @@ const StoreTime = ({ ordersList }) => {
   );
 };
 
-export default StoreTime;
+export default Header;

@@ -83,7 +83,7 @@ console.log(type,api)
             total: json.count,
           }));
         } else {
-          recordsHandler(json.length)
+          recordsHandler([json].length)
           setPageState((old) => ({
             ...old,
             isLoading: false,
