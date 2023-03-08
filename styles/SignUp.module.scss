@@ -24,7 +24,6 @@
       width: 60%;
     }
 
-
     .signPart {
       display: flex;
       justify-content: space-between;
@@ -114,13 +113,12 @@
   }
 }
 
-
 // const handleSignUp = async (e) => {
 
 //   e.preventDefault();
 //   try {
 //     const res = await axios.post(
-//       "https://tesla-lightning.herokuapp.com/user/register",
+//       "http://18.214.112.247:4000/user/register",
 //       { firstName, lastName, email, password }
 //     );
 

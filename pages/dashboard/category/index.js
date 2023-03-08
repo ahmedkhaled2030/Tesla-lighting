@@ -27,7 +27,7 @@ const Category = () => {
   const addCategory = async () => {
     try {
       const res = await axios.post(
-        `https://tesla-lightning.herokuapp.com/dashboard/category`,
+        `http://18.214.112.247:4000/dashboard/category`,
         {
           name: category,
         },
@@ -55,7 +55,6 @@ const Category = () => {
     <div className={styles.products}>
       <Sidebar />
       <div className={styles.productsContainer}>
-
         <Box sx={{ mx: "auto", my: 2, width: 500 }}>
           <TextField
             sx={{ my: 5, width: 500 }}

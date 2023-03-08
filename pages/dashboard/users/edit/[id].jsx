@@ -26,7 +26,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
 const EditUser = ({ editUserProps }) => {
-  console.log(editUserProps ,'editUserProps')
+  console.log(editUserProps, "editUserProps");
   const editorRef = useRef(null);
   const [token, setToken] = useState("");
   useEffect(() => {
@@ -54,7 +54,7 @@ const EditUser = ({ editUserProps }) => {
 
     axios
       .put(
-        `https://tesla-lightning.herokuapp.com/dashboard/user/${editUserProps._id}`,
+        `http://18.214.112.247:4000/dashboard/user/${editUserProps._id}`,
         {
           role: role,
 
@@ -92,8 +92,6 @@ const EditUser = ({ editUserProps }) => {
       placeholder: "LastName",
       value: editUserProps.lastName,
     },
-
-
   ];
 
   console.log(productInputs, "productInputs");
@@ -152,7 +150,11 @@ const EditUser = ({ editUserProps }) => {
                 </form>
 
                 <Box sx={{ margin: "auto", marginTop: "20px" }}>
-                  <Button variant="contained" color="success" onClick={editUser}>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    onClick={editUser}
+                  >
                     Edit User
                   </Button>
                 </Box>
@@ -168,7 +170,7 @@ const EditUser = ({ editUserProps }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const editUser = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/user/${ctx.params.id}`,
+    `http://18.214.112.247:4000/dashboard/user/${ctx.params.id}`,
 
     {
       headers: {

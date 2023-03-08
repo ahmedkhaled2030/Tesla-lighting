@@ -32,7 +32,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 const GetProduct = ({ categoryList, EditRes }) => {
-
   function createData(name, value) {
     return { name, value };
   }
@@ -68,14 +67,12 @@ const GetProduct = ({ categoryList, EditRes }) => {
     ),
   ];
 
-
   const editorRef = useRef(null);
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));
   }, [token]);
   const router = useRouter();
-
 
   return (
     <div className={styles.products}>
@@ -97,7 +94,6 @@ const GetProduct = ({ categoryList, EditRes }) => {
                 }}
                 style={{ width: "100%" }}
               >
-     
                 <Box
                   sx={{
                     display: "flex",
@@ -109,49 +105,38 @@ const GetProduct = ({ categoryList, EditRes }) => {
                   }}
                   fullWidth
                 >
-                  <Box >
-                    <Box   sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignItems: "center",
-               
-                    
-                    }}>
+                  <Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
                       {EditRes.product.images.map((img) => (
-                        <Box sx={{marginRight:"30px"}}>
-                        <Image
-                          
-                          src={img.path}
-                          width="150"
-                          height="150"
-                        />
-                          </Box>
+                        <Box sx={{ marginRight: "30px" }}>
+                          <Image src={img.path} width="150" height="150" />
+                        </Box>
                       ))}
-
-                      
                     </Box>
 
                     <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 1050  }} aria-label="simple table">
-                        <TableBody sx={{ fontWeight: "bold"  }}>
+                      <Table sx={{ minWidth: 1050 }} aria-label="simple table">
+                        <TableBody sx={{ fontWeight: "bold" }}>
                           {rows.map((row) => (
                             <TableRow
                               key={row.name}
                               sx={{
-                             
                                 "&:last-child td, &:last-child th": {
                                   border: 0,
-                                  
                                 },
                               }}
                             >
                               <TableCell component="th" scope="row">
                                 {row.name}
                               </TableCell>
-                              <TableCell align="right">
-                                {row.value}
-                              </TableCell>
+                              <TableCell align="right">{row.value}</TableCell>
                             </TableRow>
                           ))}
                         </TableBody>
@@ -171,7 +156,7 @@ const GetProduct = ({ categoryList, EditRes }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const categoryRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/category/list`,
+    `http://18.214.112.247:4000/category/list`,
 
     {
       headers: {
@@ -181,7 +166,7 @@ export const getServerSideProps = async (ctx) => {
   );
 
   const EditRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/product/${ctx.params.id}`,
+    `http://18.214.112.247:4000/product/${ctx.params.id}`,
 
     {
       headers: {

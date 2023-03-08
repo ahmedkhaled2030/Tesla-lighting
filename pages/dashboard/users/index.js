@@ -19,7 +19,7 @@ const Products = () => {
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(
-        `https://tesla-lightning.herokuapp.com/dashboard/user/${id}`,
+        `http://18.214.112.247:4000/dashboard/user/${id}`,
 
         {
           headers: {

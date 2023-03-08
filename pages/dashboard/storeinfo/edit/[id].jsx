@@ -16,8 +16,8 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const storeInfoEdit = ({ EditResProps }) => {
-  console.log(EditResProps , "EditResProps")
-    const router = useRouter();
+  console.log(EditResProps, "EditResProps");
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -59,7 +59,7 @@ const storeInfoEdit = ({ EditResProps }) => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -79,7 +79,7 @@ const storeInfoEdit = ({ EditResProps }) => {
   };
 
   // End images
- 
+
   const [title, setTitle] = useState(EditResProps[0].title);
   const [text, setText] = useState(EditResProps[0].text);
   const [url, setUrl] = useState(EditResProps[0].url);
@@ -90,13 +90,13 @@ const storeInfoEdit = ({ EditResProps }) => {
 
     axios
       .put(
-        `https://tesla-lightning.herokuapp.com/dashboard/section/${EditResProps[0]._id}`,
+        `http://18.214.112.247:4000/dashboard/section/${EditResProps[0]._id}`,
         {
           name: "featured-posts",
-           title: title,
+          title: title,
           text: text,
           image: imagePath,
-          url:url
+          url: url,
         },
         {
           headers: {
@@ -111,7 +111,7 @@ const storeInfoEdit = ({ EditResProps }) => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/storeinfo`);
+        router.push(`/dashboard/storeinfo`);
       })
       .catch((error) => {
         console.log(error);
@@ -196,7 +196,7 @@ const storeInfoEdit = ({ EditResProps }) => {
             </Box>
           </Box>
           <Box>
-          <TextField
+            <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Title"
@@ -213,7 +213,7 @@ const storeInfoEdit = ({ EditResProps }) => {
               variant="outlined"
               onChange={(e) => setText(e.target.value)}
             />
-                        <TextField
+            <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Url"
@@ -229,7 +229,7 @@ const storeInfoEdit = ({ EditResProps }) => {
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
-              disabled={!imagePath }
+              disabled={!imagePath}
             >
               Add Section
             </Button>
@@ -242,9 +242,8 @@ const storeInfoEdit = ({ EditResProps }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
-
   const EditRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/section/featured-posts`,
+    `http://18.214.112.247:4000/dashboard/section/featured-posts`,
 
     {
       headers: {
@@ -253,14 +252,12 @@ export const getServerSideProps = async (ctx) => {
     }
   );
 
- const selectedPost = EditRes.data.data.filter((item) => (
-    item._id == ctx.params.id
- ))
-
+  const selectedPost = EditRes.data.data.filter(
+    (item) => item._id == ctx.params.id
+  );
 
   return {
     props: {
-
       EditResProps: selectedPost,
     },
   };

@@ -10,19 +10,17 @@ import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-const Orders = ({ordersList}) => {
-
+const Orders = ({ ordersList }) => {
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));
   }, [token]);
   const router = useRouter();
   const handleDelete = async (id) => {
-    console.log(id)
+    console.log(id);
     try {
       const res = await axios.delete(
-        `https://tesla-lightning.herokuapp.com/dashboard/order/${id}`,
-
+        `http://18.214.112.247:4000/dashboard/order/${id}`,
 
         {
           headers: {
@@ -33,23 +31,20 @@ const Orders = ({ordersList}) => {
 
       const data = await res;
       //console.log(data, "data");
-      router.reload(window.location.pathname)
+      router.reload(window.location.pathname);
     } catch (err) {
       //console.log(err);
     }
   };
- 
+
   const handleView = async (id) => {
     //console.log(id)
     try {
-      router.push(`/dashboard/orders/view/${id}`)
+      router.push(`/dashboard/orders/view/${id}`);
     } catch (err) {
       //console.log(err);
     }
   };
-
-
-
 
   const columns = [
     { field: "_id", headerName: "ID", width: 220 },
@@ -78,8 +73,7 @@ const Orders = ({ordersList}) => {
       headerName: "createdAt",
       type: "string",
       width: 200,
-    }
-
+    },
   ];
 
   const actionColumn = [
@@ -96,7 +90,6 @@ const Orders = ({ordersList}) => {
             >
               View
             </div>
-
 
             <div
               className={styles.deleteButton}
@@ -116,8 +109,6 @@ const Orders = ({ordersList}) => {
       <Sidebar />
 
       <div className={styles.productsContainer}>
-  
-
         <DataTableDashboard
           type="order"
           api="orders"
@@ -133,7 +124,7 @@ const Orders = ({ordersList}) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const res = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/order`,
+    `http://18.214.112.247:4000/dashboard/order`,
 
     {
       headers: {
@@ -141,12 +132,12 @@ export const getServerSideProps = async (ctx) => {
       },
     }
   );
- // console.log(res.data , "resssssss") 
+  // console.log(res.data , "resssssss")
 
   return {
     props: {
       ordersList: res.data.data,
-      // numberOfRecors : 
+      // numberOfRecors :
     },
   };
 };

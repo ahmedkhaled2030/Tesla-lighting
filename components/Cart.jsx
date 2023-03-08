@@ -14,7 +14,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const cart = useSelector((state) => state.cart);
-  console.log(cart,'cart')
+  console.log(cart, "cart");
   const handleQuantity = (_id, price, quantity, type, size) => {
     //console.log(_id, price, quantity, type, size)
     if (type === "dec") {
@@ -96,7 +96,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
     console.log(orderSchema, "orderSchema");
     try {
       const res = await axios.post(
-        "https://tesla-lightning.herokuapp.com/order",
+        "http://18.214.112.247:4000/order",
         orderSchema,
         {
           headers: {
@@ -108,14 +108,14 @@ const Cart = ({ cartOpen, setCartOpen }) => {
 
       dispatch(
         makingOrder({
-          "clientSecret": res.data.data.clientSecret,
-          "tax": res.data.data.tax,
-          "shippingCost": res.data.data.shippingCost,
-          "price": res.data.data.price,
-          "discount": res.data.data.discount,
+          clientSecret: res.data.data.clientSecret,
+          tax: res.data.data.tax,
+          shippingCost: res.data.data.shippingCost,
+          price: res.data.data.price,
+          discount: res.data.data.discount,
         })
       );
-      router.push("/checkout")
+      router.push("/checkout");
     } catch (err) {
       console.log(err);
     }

@@ -16,7 +16,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const storeInfoAdd = () => {
-    const router = useRouter();
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -58,7 +58,7 @@ const storeInfoAdd = () => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -89,13 +89,13 @@ const storeInfoAdd = () => {
 
     axios
       .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/section",
+        "http://18.214.112.247:4000/dashboard/section",
         {
           name: "featured-posts",
-           title: title,
+          title: title,
           text: text,
           image: imagePath,
-          url:url
+          url: url,
         },
         {
           headers: {
@@ -110,7 +110,7 @@ const storeInfoAdd = () => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/storeinfo`);
+        router.push(`/dashboard/storeinfo`);
       })
       .catch((error) => {
         console.log(error);
@@ -195,7 +195,7 @@ const storeInfoAdd = () => {
             </Box>
           </Box>
           <Box>
-          <TextField
+            <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Title"
@@ -212,7 +212,7 @@ const storeInfoAdd = () => {
               variant="outlined"
               onChange={(e) => setText(e.target.value)}
             />
-                        <TextField
+            <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Url"
@@ -228,7 +228,7 @@ const storeInfoAdd = () => {
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
-              disabled={!imagePath }
+              disabled={!imagePath}
             >
               Add Section
             </Button>

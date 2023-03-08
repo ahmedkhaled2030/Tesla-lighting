@@ -16,8 +16,8 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const PartnersEdit = ({ EditResProps }) => {
-  console.log(EditResProps , "EditResProps")
-    const router = useRouter();
+  console.log(EditResProps, "EditResProps");
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -59,7 +59,7 @@ const PartnersEdit = ({ EditResProps }) => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -79,7 +79,7 @@ const PartnersEdit = ({ EditResProps }) => {
   };
 
   // End images
- 
+
   const [name, setName] = useState(EditResProps.name);
 
   // console.log(title, "title");
@@ -89,12 +89,11 @@ const PartnersEdit = ({ EditResProps }) => {
 
     axios
       .put(
-        `https://tesla-lightning.herokuapp.com/dashboard/partner/${EditResProps._id}`,
+        `http://18.214.112.247:4000/dashboard/partner/${EditResProps._id}`,
         {
           name: name,
 
           image: imagePath,
-         
         },
         {
           headers: {
@@ -109,7 +108,7 @@ const PartnersEdit = ({ EditResProps }) => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/partners`);
+        router.push(`/dashboard/partners`);
       })
       .catch((error) => {
         console.log(error);
@@ -194,7 +193,7 @@ const PartnersEdit = ({ EditResProps }) => {
             </Box>
           </Box>
           <Box>
-          <TextField
+            <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Title"
@@ -202,8 +201,6 @@ const PartnersEdit = ({ EditResProps }) => {
               variant="outlined"
               onChange={(e) => setName(e.target.value)}
             />
-
-      
           </Box>
 
           <Box sx={{ textAlign: "center" }}>
@@ -212,7 +209,7 @@ const PartnersEdit = ({ EditResProps }) => {
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
-              disabled={!imagePath }
+              disabled={!imagePath}
             >
               Add Partner
             </Button>
@@ -225,9 +222,8 @@ const PartnersEdit = ({ EditResProps }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
-
   const EditRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/partner/${ctx.params.id}`,
+    `http://18.214.112.247:4000/dashboard/partner/${ctx.params.id}`,
 
     {
       headers: {
@@ -236,11 +232,8 @@ export const getServerSideProps = async (ctx) => {
     }
   );
 
-
-
   return {
     props: {
-
       EditResProps: EditRes.data.data,
     },
   };

@@ -16,7 +16,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const videoAdd = () => {
-    const router = useRouter();
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -58,7 +58,7 @@ const videoAdd = () => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -79,7 +79,6 @@ const videoAdd = () => {
 
   // End images
 
-
   const [text, setText] = useState("");
 
   // console.log(title, "title");
@@ -89,13 +88,12 @@ const videoAdd = () => {
 
     axios
       .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/section",
+        "http://18.214.112.247:4000/dashboard/section",
         {
           name: "video",
-  
+
           text: text,
           image: imagePath,
-    
         },
         {
           headers: {
@@ -110,7 +108,7 @@ const videoAdd = () => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/video`);
+        router.push(`/dashboard/video`);
       })
       .catch((error) => {
         console.log(error);
@@ -195,8 +193,6 @@ const videoAdd = () => {
             </Box>
           </Box>
           <Box>
-
-
             <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
@@ -205,7 +201,6 @@ const videoAdd = () => {
               variant="outlined"
               onChange={(e) => setText(e.target.value)}
             />
-                 
           </Box>
 
           <Box sx={{ textAlign: "center" }}>
@@ -214,7 +209,7 @@ const videoAdd = () => {
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
-              disabled={!imagePath }
+              disabled={!imagePath}
             >
               Add Video
             </Button>

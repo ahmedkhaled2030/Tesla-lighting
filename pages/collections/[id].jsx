@@ -20,7 +20,7 @@ import usePagination from "@/components/Pagination";
 const Collections = (props) => {
   const { asPath } = useRouter();
   const router = useRouter();
-console.log(asPath[0])
+  console.log(asPath[0]);
   let [page, setPage] = useState(1);
   let [data, setData] = useState([]);
   const PER_PAGE = 50;
@@ -36,14 +36,17 @@ console.log(asPath[0])
   const [maxPrice, setMaxPrice] = useState(props.initialMaxPrice);
   const [sortBy, setSortBy] = useState(props.initialSortBy);
   const [sortOrder, setSortOrder] = useState(props.initialSortOrder);
-  const [selectedCategory, setSelectedCategory] = useState(props.initialCategory);
-  const [selectedSubCategory, setSelectedSubCategory] = useState(props.initialSubCategory);
+  const [selectedCategory, setSelectedCategory] = useState(
+    props.initialCategory
+  );
+  const [selectedSubCategory, setSelectedSubCategory] = useState(
+    props.initialSubCategory
+  );
 
   console.log(minPrice, "minPrice");
   console.log(maxPrice, "maxPrice");
 
   useEffect(() => {
- 
     const url = {
       pathname: asPath,
       query: {
@@ -51,31 +54,34 @@ console.log(asPath[0])
         sortOrder: sortOrder,
         minPrice: minPrice,
         maxPrice: maxPrice,
-        selectedSubCategory : selectedSubCategory
+        selectedSubCategory: selectedSubCategory,
       },
     };
 
     // if (sortBy == "" && sortOrder == "" ) {
     //   return;
     // }
-    if (sortBy !== "" || sortOrder !== "" || minPrice !== "" || maxPrice !== "" || selectedSubCategory !=="" ) {
+    if (
+      sortBy !== "" ||
+      sortOrder !== "" ||
+      minPrice !== "" ||
+      maxPrice !== "" ||
+      selectedSubCategory !== ""
+    ) {
       router.push(
         `${
           asPath.split("?")[0]
         }?selectedSubCategory=${selectedSubCategory}&sortBy=${sortBy}&sortOrder=${sortOrder}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${PER_PAGE}&page=${page}`
       );
     }
-
-  
   }, [, selectedSubCategory, sortBy, sortOrder, minPrice, maxPrice]);
-  
+
   useEffect(() => {
-    console.log('changed')
+    console.log("changed");
     if (selectedCategory !== "") {
-      router.push(`/collections/${selectedCategory}`)
- 
+      router.push(`/collections/${selectedCategory}`);
     }
-  } , [selectedCategory])
+  }, [selectedCategory]);
 
   const handleSort = (e) => {
     if (e.target.value == "Price, low to high") {
@@ -109,13 +115,12 @@ console.log(asPath[0])
   };
   const handleCategories = (cat, type) => {
     if (type == "category") {
-      setSelectedCategory(cat._id)
+      setSelectedCategory(cat._id);
     }
     if (type == "Subcategory") {
-      setSelectedSubCategory(cat._id)
+      setSelectedSubCategory(cat._id);
     }
-
-  }
+  };
   return (
     <div className={styles.container}>
       <Head>
@@ -136,7 +141,13 @@ console.log(asPath[0])
         />
       </Head>
       <Box>
-        <FilterBar setOpen={setOpen} open={open} handleFilter={handleFilter} categoryProps={props.categoryProps} handleCategories={handleCategories} />
+        <FilterBar
+          setOpen={setOpen}
+          open={open}
+          handleFilter={handleFilter}
+          categoryProps={props.categoryProps}
+          handleCategories={handleCategories}
+        />
       </Box>
       <div className={styles.imgContainer}>
         <h1 className={`primaryText ${styles.title}`}>Flush MOUNT</h1>
@@ -167,18 +178,23 @@ console.log(asPath[0])
         </div>
         <ProductsList products={_DATA.currentData()} type="collections" />
         {/* <ProductsList products={productsDummy} type="collections" /> */}
-        <Box sx={{display: 'flex',flexDirection: 'row' ,justifyContent: 'center',alignItems: 'center' }}> 
-          
-        <Pagination
-          count={count}
-          size="large"
-          page={page}
-          variant="outlined"
-          shape="rounded"
-          onChange={handleChange}
-        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Pagination
+            count={count}
+            size="large"
+            page={page}
+            variant="outlined"
+            shape="rounded"
+            onChange={handleChange}
+          />
         </Box>
-
       </div>
     </div>
   );
@@ -188,23 +204,21 @@ export const getServerSideProps = async ({ params, query }) => {
   console.log(query, "query");
   console.log(params, "params");
   const CollectionRes = await axios.post(
-    // `https://tesla-lightning.herokuapp.com/product/search?page=${pageState.page}&limit=${pageState.pageSize}`,
-    `https://tesla-lightning.herokuapp.com/product/search?page=${query.page}&limit=${query.limit}`,
+    // `http://18.214.112.247:4000/product/search?page=${pageState.page}&limit=${pageState.pageSize}`,
+    `http://18.214.112.247:4000/product/search?page=${query.page}&limit=${query.limit}`,
     {
       minPrice: query?.minPrice,
       maxPrice: query?.maxPrice,
       sortBy: query?.sortBy,
       sortOrder: query?.sortOrder,
       category: params.id,
-      subCategory:query?.selectedSubCategory,
+      subCategory: query?.selectedSubCategory,
     }
   );
   const categoryRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/category/list`,
-
-   
+    `http://18.214.112.247:4000/category/list`
   );
-  
+
   return {
     props: {
       products: CollectionRes.data.data,
@@ -214,7 +228,7 @@ export const getServerSideProps = async ({ params, query }) => {
       initialMaxPrice: "",
       categoryProps: categoryRes.data.data,
       initialCategory: "",
-      initialSubCategory:"",
+      initialSubCategory: "",
     },
   };
 };

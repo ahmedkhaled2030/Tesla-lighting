@@ -21,8 +21,14 @@ import FilterBar from "@/components/FilterBar";
 import VideoHome from "@/components/VideoHome";
 import axios from "axios";
 
-export default function Home({ HomeProps, partnersProps, StoreInfoProps, VideoResProps ,HeaderSliderProps }) {
-//  console.log(HomeProps,'HomeProps')
+export default function Home({
+  HomeProps,
+  partnersProps,
+  StoreInfoProps,
+  VideoResProps,
+  HeaderSliderProps,
+}) {
+  //  console.log(HomeProps,'HomeProps')
 
   const products = [
     {
@@ -102,8 +108,6 @@ export default function Home({ HomeProps, partnersProps, StoreInfoProps, VideoRe
     },
   ];
 
-
-
   return (
     <div className={styles.container}>
       <Head>
@@ -123,19 +127,19 @@ export default function Home({ HomeProps, partnersProps, StoreInfoProps, VideoRe
           rel="stylesheet"
         />
       </Head>
-  
 
- 
-      <Featured HeaderSliderProps ={HeaderSliderProps}  />
+      <Featured HeaderSliderProps={HeaderSliderProps} />
       <CategoryList categories={categories} title="shop by category" />
       <ProductsList title="New ARRIVAL" products={products} />
       <OnSaleList />
-      <ReviewList /> 
+      <ReviewList />
       {/* <Help /> */}
       <CompanySlider partnersProps={partnersProps} />
-      <VideoHome VideoResProps ={VideoResProps} />
+      <VideoHome VideoResProps={VideoResProps} />
       <StoreInfo StoreInfo={StoreInfoProps} />
-      <Times timeProps={HomeProps.filter(item => item.name == 'retail-store')} />
+      <Times
+        timeProps={HomeProps.filter((item) => item.name == "retail-store")}
+      />
     </div>
   );
 }
@@ -143,55 +147,49 @@ export default function Home({ HomeProps, partnersProps, StoreInfoProps, VideoRe
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
-
   const HomeRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/section`,
+    `http://18.214.112.247:4000/dashboard/section`,
 
     {
       headers: {
-        Authorization:token 
+        Authorization: token,
       },
     }
   );
   const HeaderSliderRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/section/header`,
+    `http://18.214.112.247:4000/dashboard/section/header`,
 
     {
       headers: {
-        Authorization:token
-         
+        Authorization: token,
       },
     }
   );
- 
 
   const partners = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/partner`,
+    `http://18.214.112.247:4000/dashboard/partner`,
 
     {
       headers: {
-        Authorization:token
-         
+        Authorization: token,
       },
     }
   );
   const StoreInfoRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/section/featured-posts`,
+    `http://18.214.112.247:4000/dashboard/section/featured-posts`,
 
     {
       headers: {
-        Authorization:token
-         
+        Authorization: token,
       },
     }
   );
   const VideoRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/section/video`,
+    `http://18.214.112.247:4000/dashboard/section/video`,
 
     {
       headers: {
-        Authorization:token
-         
+        Authorization: token,
       },
     }
   );
@@ -202,8 +200,7 @@ export const getServerSideProps = async (ctx) => {
       HeaderSliderProps: HeaderSliderRes.data.data,
       partnersProps: partners.data.data,
       StoreInfoProps: StoreInfoRes.data.data,
-      VideoResProps:VideoRes.data.data
+      VideoResProps: VideoRes.data.data,
     },
   };
 };
-

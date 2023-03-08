@@ -53,7 +53,7 @@ const AddProduct = ({ categoryList }) => {
 
     axios
       .post(
-        "https://tesla-lightning.herokuapp.com/user/register",
+        "http://18.214.112.247:4000/user/register",
         {
           role: role,
 
@@ -183,7 +183,7 @@ const AddProduct = ({ categoryList }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const res = await axios.get(
-    `https://tesla-lightning.herokuapp.com/category/list`,
+    `http://18.214.112.247:4000/category/list`,
 
     {
       headers: {

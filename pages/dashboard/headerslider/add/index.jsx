@@ -16,7 +16,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const HeaderSliderAdd = () => {
-    const router = useRouter();
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -58,7 +58,7 @@ const HeaderSliderAdd = () => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -89,12 +89,11 @@ const HeaderSliderAdd = () => {
 
     axios
       .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/section",
+        "http://18.214.112.247:4000/dashboard/section",
         {
           name: "header",
-           title: title,
-               image: imagePath,
-  
+          title: title,
+          image: imagePath,
         },
         {
           headers: {
@@ -109,7 +108,7 @@ const HeaderSliderAdd = () => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/headerslider`);
+        router.push(`/dashboard/headerslider`);
       })
       .catch((error) => {
         console.log(error);
@@ -194,7 +193,7 @@ const HeaderSliderAdd = () => {
             </Box>
           </Box>
           <Box>
-          <TextField
+            <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Title"
@@ -202,7 +201,7 @@ const HeaderSliderAdd = () => {
               variant="outlined"
               onChange={(e) => setTitle(e.target.value)}
             />
-{/* 
+            {/* 
             <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
@@ -227,7 +226,7 @@ const HeaderSliderAdd = () => {
               sx={{ my: 1, width: 200 }}
               variant="contained"
               color="success"
-              disabled={!imagePath }
+              disabled={!imagePath}
             >
               Add Header Slider
             </Button>

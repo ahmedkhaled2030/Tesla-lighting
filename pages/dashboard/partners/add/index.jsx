@@ -16,7 +16,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const PartnersAdd = () => {
-    const router = useRouter();
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -58,7 +58,7 @@ const PartnersAdd = () => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -88,12 +88,11 @@ const PartnersAdd = () => {
 
     axios
       .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/partner",
+        "http://18.214.112.247:4000/dashboard/partner",
         {
           name: name,
 
           image: imagePath,
-     
         },
         {
           headers: {
@@ -108,7 +107,7 @@ const PartnersAdd = () => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/partners`);
+        router.push(`/dashboard/partners`);
       })
       .catch((error) => {
         console.log(error);
@@ -193,7 +192,7 @@ const PartnersAdd = () => {
             </Box>
           </Box>
           <Box>
-          <TextField
+            <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Title"
@@ -201,7 +200,6 @@ const PartnersAdd = () => {
               variant="outlined"
               onChange={(e) => setName(e.target.value)}
             />
-
           </Box>
 
           <Box sx={{ textAlign: "center" }}>
@@ -210,7 +208,7 @@ const PartnersAdd = () => {
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
-              disabled={!imagePath }
+              disabled={!imagePath}
             >
               Add partner
             </Button>

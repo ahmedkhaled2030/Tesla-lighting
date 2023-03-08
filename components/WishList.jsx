@@ -74,7 +74,7 @@ const Wishlist = ({ setCloseWishList }) => {
     const token = localStorage.getItem("token");
 
     const profileFavs = await axios.get(
-      `https://tesla-lightning.herokuapp.com/user/favorites`,
+      `http://18.214.112.247:4000/user/favorites`,
       {
         headers: {
           Authorization: token,

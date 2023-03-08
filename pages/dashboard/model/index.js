@@ -6,17 +6,23 @@ import DataTableDashboard from "@/components/DataTableDashboard";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import Image from "next/image";
 import NavbarDashboard from "@/components/NavbarDashboard";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 const Model = ({ categoryList }) => {
-  const [token,setToken] = useState("")
+  const [token, setToken] = useState("");
   useEffect(() => {
-    setToken(  Cookies.get('token'))
- 
-  } , [token])
+    setToken(Cookies.get("token"));
+  }, [token]);
   const router = useRouter();
   const [category, setCategory] = useState("");
   const [subcategory, setSubCategory] = useState([]);
@@ -24,44 +30,38 @@ const Model = ({ categoryList }) => {
   const [model, setModel] = useState("");
   const [status, setStatus] = useState("");
 
-
   const handleCategory = (event) => {
-
     setCategory(event.target.value);
     setSubCategory(event.target.value.subCategories);
   };
- 
 
   const handleSubCategory = (e) => {
     //console.log(e.target.value)
     setSelectedSubCategory(e.target.value);
-    
   };
   const addSubCategory = async () => {
     try {
       const res = await axios.post(
-        `https://tesla-lightning.herokuapp.com/dashboard/category`,
+        `http://18.214.112.247:4000/dashboard/category`,
         {
           name: subcategory,
-         parent:category._id
+          parent: category._id,
         },
 
         {
           headers: {
-            Authorization:token
-             
+            Authorization: token,
           },
         }
       );
 
       const data = await res;
 
-      setStatus('SubCategory created successfully');
+      setStatus("SubCategory created successfully");
       setCategory("");
       setSubCategory("");
       // router.push("/dashboard/products");
     } catch (err) {
-
       setStatus("SubCategory with same name exist");
       setCategory("");
       setSubCategory("");
@@ -70,33 +70,31 @@ const Model = ({ categoryList }) => {
 
   const handleModel = (e) => {
     setModel(event.target.value);
-  }
+  };
   const addModel = async () => {
     try {
       const res = await axios.post(
-        `https://tesla-lightning.herokuapp.com/dashboard/category`,
+        `http://18.214.112.247:4000/dashboard/category`,
         {
           name: model,
-         parent:selectedSubcategory
+          parent: selectedSubcategory,
         },
 
         {
           headers: {
-            Authorization:token
-              
+            Authorization: token,
           },
         }
       );
 
       const data = await res;
 
-      setStatus('Model created successfully');
+      setStatus("Model created successfully");
       setCategory("");
       setSubCategory("");
       setModel("");
       // router.push("/dashboard/products");
     } catch (err) {
-
       setStatus("Model with same name exist");
       setCategory("");
       setSubCategory("");
@@ -106,49 +104,48 @@ const Model = ({ categoryList }) => {
     <div className={styles.products}>
       <Sidebar />
       <div className={styles.productsContainer}>
-
-{/* categoryList */}
+        {/* categoryList */}
         <Box sx={{ mx: "auto", my: 2, width: 500 }}>
-      <FormControl sx={{  minWidth: 500 }} > 
-        <InputLabel id="demo-simple-select-label">category</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={category}
-          label="Category"
-          onChange={handleCategory}
+          <FormControl sx={{ minWidth: 500 }}>
+            <InputLabel id="demo-simple-select-label">category</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={category}
+              label="Category"
+              onChange={handleCategory}
             >
               {categoryList.map((item) => (
-                <MenuItem value={item} key={item._id}>{item.name}</MenuItem>
+                <MenuItem value={item} key={item._id}>
+                  {item.name}
+                </MenuItem>
               ))}
-     
-     
-        </Select>
-      </FormControl>
+            </Select>
+          </FormControl>
         </Box>
 
-       {/* SubcategoryList */} 
+        {/* SubcategoryList */}
         <Box sx={{ mx: "auto", my: 10, width: 500 }}>
-      <FormControl sx={{  minWidth: 500 }} > 
-        <InputLabel id="demo-simple-select-label">sub Category</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={selectedSubcategory}
-          label="subcategory"
-          onChange={handleSubCategory}
+          <FormControl sx={{ minWidth: 500 }}>
+            <InputLabel id="demo-simple-select-label">sub Category</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectedSubcategory}
+              label="subcategory"
+              onChange={handleSubCategory}
             >
-              {subcategory.length >0 && subcategory.map((item) => (
-                <MenuItem value={item} key={item._id}>{item.name}</MenuItem>
-              ))}
-     
-     
-        </Select>
-      </FormControl>
+              {subcategory.length > 0 &&
+                subcategory.map((item) => (
+                  <MenuItem value={item} key={item._id}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
         </Box>
-        
 
-            {/* add Model */} 
+        {/* add Model */}
         <Box sx={{ mx: "auto", my: 5, width: 500 }}>
           <TextField
             sx={{ my: 5, width: 500 }}
@@ -159,23 +156,27 @@ const Model = ({ categoryList }) => {
             onChange={handleModel}
           />
 
-          
-          <Box sx={{ textAlign: 'center', }}>
-          <Button
-            onClick={addModel}
-            sx={{ my: 1, width: 150 }}
-            variant="contained"
-            color="success"
-          >
-            Add Model
-          </Button>
-               </Box>
-       
+          <Box sx={{ textAlign: "center" }}>
+            <Button
+              onClick={addModel}
+              sx={{ my: 1, width: 150 }}
+              variant="contained"
+              color="success"
+            >
+              Add Model
+            </Button>
+          </Box>
         </Box>
-        
+
         {status == "Model created successfully" && (
           <Box sx={{ mx: "auto", my: 5, width: 500 }}>
-          <Box  sx={{  textAlign: 'center',   fontSize: '0.875rem',    fontFamily: 'sans',}}>
+            <Box
+              sx={{
+                textAlign: "center",
+                fontSize: "0.875rem",
+                fontFamily: "sans",
+              }}
+            >
               <Image
                 src="/img/done.png"
                 alt=""
@@ -183,15 +184,13 @@ const Model = ({ categoryList }) => {
                 width="150px"
                 objectFit="contain"
               />
-               <h2 >{status}</h2>
+              <h2>{status}</h2>
             </Box>
-
-           
           </Box>
         )}
         {status == "Model with same name exist" && (
           <Box sx={{ mx: "auto", my: 5, width: 500 }}>
-            <Box  sx={{  textAlign: 'center',   fontSize: '0.875rem',}}>
+            <Box sx={{ textAlign: "center", fontSize: "0.875rem" }}>
               <Image
                 src="/img/wrong.png"
                 alt=""
@@ -201,8 +200,6 @@ const Model = ({ categoryList }) => {
               />
               <h2>{status}</h2>
             </Box>
-
-            
           </Box>
         )}
       </div>
@@ -213,13 +210,12 @@ const Model = ({ categoryList }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const res = await axios.get(
-    // `https://tesla-lightning.herokuapp.com/product/${params.id}`
-    `https://tesla-lightning.herokuapp.com/category/list`,
+    // `http://18.214.112.247:4000/product/${params.id}`
+    `http://18.214.112.247:4000/category/list`,
 
     {
       headers: {
-        Authorization:token
-       
+        Authorization: token,
       },
     }
   );

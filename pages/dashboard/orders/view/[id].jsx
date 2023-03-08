@@ -168,7 +168,7 @@ const GetOrder = ({ orderProps }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const categoryRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/category/list`,
+    `http://18.214.112.247:4000/category/list`,
 
     {
       headers: {
@@ -178,7 +178,7 @@ export const getServerSideProps = async (ctx) => {
   );
 
   const getOrderRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/order/${ctx.params.id}`,
+    `http://18.214.112.247:4000/dashboard/order/${ctx.params.id}`,
 
     {
       headers: {

@@ -16,8 +16,8 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const storeTimeEdit = ({ EditRes }) => {
-  console.log(EditRes, 'EditRes')
-  
+  console.log(EditRes, "EditRes");
+
   const router = useRouter();
   const [state, setState] = useState({
     open: false,
@@ -60,7 +60,7 @@ const storeTimeEdit = ({ EditRes }) => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -82,17 +82,17 @@ const storeTimeEdit = ({ EditRes }) => {
   // End images
   const [text, setText] = useState("");
   const [url, setUrl] = useState(EditRes.url);
-const [id ,setID] = useState(EditRes._id)
+  const [id, setID] = useState(EditRes._id);
   console.log(text, "text");
   console.log(url, "url");
   // start Partner
   const addSection = (e) => {
     e.preventDefault();
 
-    console.log(editorRef.current.getContent() ,url , imagePath )
+    console.log(editorRef.current.getContent(), url, imagePath);
     axios
       .put(
-        ` https://tesla-lightning.herokuapp.com/dashboard/section/${id}`,
+        ` http://18.214.112.247:4000/dashboard/section/${id}`,
         {
           name: "retail-store",
           text: editorRef.current.getContent(),
@@ -124,7 +124,6 @@ const [id ,setID] = useState(EditRes._id)
   return (
     <div className={styles.home}>
       <Sidebar />
-
 
       <Snackbar
         open={open}
@@ -236,7 +235,6 @@ const [id ,setID] = useState(EditRes._id)
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
-      
             >
               Add Section
             </Button>
@@ -247,13 +245,11 @@ const [id ,setID] = useState(EditRes._id)
   );
 };
 
-
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
-
   const EditRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/section/retail-store`,
+    `http://18.214.112.247:4000/dashboard/section/retail-store`,
 
     {
       headers: {
@@ -264,7 +260,6 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
-
       EditRes: EditRes.data.data,
     },
   };

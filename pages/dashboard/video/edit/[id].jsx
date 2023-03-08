@@ -16,8 +16,8 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const VideoEdit = ({ EditResProps }) => {
-  console.log(EditResProps , "EditResProps")
-    const router = useRouter();
+  console.log(EditResProps, "EditResProps");
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -59,7 +59,7 @@ const VideoEdit = ({ EditResProps }) => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -79,7 +79,6 @@ const VideoEdit = ({ EditResProps }) => {
   };
 
   // End images
- 
 
   const [text, setText] = useState(EditResProps.text);
 
@@ -90,13 +89,12 @@ const VideoEdit = ({ EditResProps }) => {
 
     axios
       .put(
-        `https://tesla-lightning.herokuapp.com/dashboard/section/${EditResProps._id}`,
+        `http://18.214.112.247:4000/dashboard/section/${EditResProps._id}`,
         {
           name: "video",
-    
+
           text: text,
           image: imagePath,
- 
         },
         {
           headers: {
@@ -111,7 +109,7 @@ const VideoEdit = ({ EditResProps }) => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/video`);
+        router.push(`/dashboard/video`);
       })
       .catch((error) => {
         console.log(error);
@@ -196,8 +194,6 @@ const VideoEdit = ({ EditResProps }) => {
             </Box>
           </Box>
           <Box>
-
-
             <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
@@ -206,7 +202,6 @@ const VideoEdit = ({ EditResProps }) => {
               variant="outlined"
               onChange={(e) => setText(e.target.value)}
             />
-
           </Box>
 
           <Box sx={{ textAlign: "center" }}>
@@ -215,7 +210,7 @@ const VideoEdit = ({ EditResProps }) => {
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
-              disabled={!imagePath }
+              disabled={!imagePath}
             >
               Add Video
             </Button>
@@ -228,9 +223,8 @@ const VideoEdit = ({ EditResProps }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
-
   const EditRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/section/video`,
+    `http://18.214.112.247:4000/dashboard/section/video`,
 
     {
       headers: {
@@ -239,12 +233,8 @@ export const getServerSideProps = async (ctx) => {
     }
   );
 
-
-
-
   return {
     props: {
-
       EditResProps: EditRes.data.data,
     },
   };

@@ -72,7 +72,7 @@ const EditProduct = ({ categoryList, editProps }) => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -126,7 +126,7 @@ const EditProduct = ({ categoryList, editProps }) => {
 
   //console.log(colors, "colors");
   const handleSale = (e) => {
-    console.log(e.target.value)
+    console.log(e.target.value);
     setSale(e.target.value);
   };
 
@@ -176,23 +176,19 @@ const EditProduct = ({ categoryList, editProps }) => {
   const addProduct = (e) => {
     e.preventDefault();
 
-    console.log(
-              {
-         
-          "new": isNew,
-          "colors": selectedColors,
-          "size": size,
-          "description": editorRef.current.getContent(),
-          "sale": sale,
-          ...addDataInputs,
-        },
-    )
+    console.log({
+      new: isNew,
+      colors: selectedColors,
+      size: size,
+      description: editorRef.current.getContent(),
+      sale: sale,
+      ...addDataInputs,
+    });
 
     axios
       .put(
-        `https://tesla-lightning.herokuapp.com/dashboard/product/${editProps.product._id}`,
+        `http://18.214.112.247:4000/dashboard/product/${editProps.product._id}`,
         {
-         
           new: isNew,
           colors: selectedColors,
           size: size,
@@ -622,7 +618,7 @@ export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   console.log(ctx.params.id);
   const categoryRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/category/list`,
+    `http://18.214.112.247:4000/category/list`,
 
     {
       headers: {
@@ -631,7 +627,7 @@ export const getServerSideProps = async (ctx) => {
     }
   );
   const editRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/product/${ctx.params.id}`,
+    `http://18.214.112.247:4000/product/${ctx.params.id}`,
 
     {
       headers: {

@@ -55,7 +55,7 @@ const AddProduct = ({ categoryList }) => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -114,7 +114,6 @@ const AddProduct = ({ categoryList }) => {
     setIsNew(e.target.value);
   };
 
-
   const handleDescription = (e) => {
     setDescription(e.target.value);
   };
@@ -142,7 +141,7 @@ const AddProduct = ({ categoryList }) => {
 
   const handleChange = (e) => {
     const value = e.target.value;
-    console.log(value ,'value')
+    console.log(value, "value");
     const isChecked = e.target.checked;
     console.log(isChecked);
 
@@ -152,15 +151,13 @@ const AddProduct = ({ categoryList }) => {
         : selectedColors.filter((item) => item !== value)
     );
   };
-  console.log(selectedColors , 'selectedColors')
+  console.log(selectedColors, "selectedColors");
   const addProduct = (e) => {
     e.preventDefault();
-    productInputs.map((item) => (
-      console.log(item.value)
-    ))       
+    productInputs.map((item) => console.log(item.value));
     axios
       .post(
-        "https://tesla-lightning.herokuapp.com/product",
+        "http://18.214.112.247:4000/product",
         {
           category: category._id,
           subCategory: selectedSubcategory._id,
@@ -195,7 +192,7 @@ const AddProduct = ({ categoryList }) => {
       name: "title",
       type: "text",
       placeholder: "Title",
-      value:""
+      value: "",
     },
 
     {
@@ -205,7 +202,7 @@ const AddProduct = ({ categoryList }) => {
       name: "price",
       placeholder: "price",
       min: "1",
-      value:""
+      value: "",
     },
     {
       id: 3,
@@ -214,7 +211,7 @@ const AddProduct = ({ categoryList }) => {
       name: "shippingCost",
       placeholder: "shippingCost",
       min: "1",
-      value:""
+      value: "",
     },
     {
       id: 4,
@@ -223,7 +220,7 @@ const AddProduct = ({ categoryList }) => {
       name: "discount",
       placeholder: "Discount",
       min: "1",
-      value:""
+      value: "",
     },
     {
       id: 5,
@@ -232,11 +229,11 @@ const AddProduct = ({ categoryList }) => {
       name: "stock",
       placeholder: "Stock",
       min: "1",
-      value:""
+      value: "",
     },
   ];
 
-  console.log(productInputs ,'productInputs')
+  console.log(productInputs, "productInputs");
 
   return (
     <div className={styles.products}>
@@ -258,10 +255,8 @@ const AddProduct = ({ categoryList }) => {
                     objectFit="contain"
                   />
                 ))}
-
-                
               </div>
-       
+
               <Box
                 className={styles.right}
                 sx={{
@@ -441,7 +436,6 @@ const AddProduct = ({ categoryList }) => {
                       id="demo-simple-select"
                       value={colors}
                       label="colors"
-                    
                     >
                       {colors?.map((color) => (
                         <Box
@@ -474,7 +468,6 @@ const AddProduct = ({ categoryList }) => {
                       <MenuItem value={"Blue"}>Blue</MenuItem>
                       <MenuItem value={"Green"}>Green</MenuItem> */}
                     </Select>
-                    
                   </FormControl>
 
                   {productInputs.map((input) => (
@@ -558,12 +551,10 @@ const AddProduct = ({ categoryList }) => {
                       ))}
                     </div>
                   </Box>
-
-
                 </form>
 
-                <Box sx={{margin:"auto",marginTop:"20px"}}>
-                <Button
+                <Box sx={{ margin: "auto", marginTop: "20px" }}>
+                  <Button
                     variant="contained"
                     color="success"
                     onClick={addProduct}
@@ -572,7 +563,6 @@ const AddProduct = ({ categoryList }) => {
                   </Button>
                 </Box>
               </Box>
-          
             </div>
           </div>
         </div>
@@ -584,7 +574,7 @@ const AddProduct = ({ categoryList }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const res = await axios.get(
-    `https://tesla-lightning.herokuapp.com/category/list`,
+    `http://18.214.112.247:4000/category/list`,
 
     {
       headers: {

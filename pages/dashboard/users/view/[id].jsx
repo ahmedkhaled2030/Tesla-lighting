@@ -32,7 +32,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 const GetProduct = ({ UserResProps }) => {
-
   function createData(name, value) {
     return { name, value };
   }
@@ -74,14 +73,12 @@ const GetProduct = ({ UserResProps }) => {
     // ),
   ];
 
-
   const editorRef = useRef(null);
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));
   }, [token]);
   const router = useRouter();
-
 
   return (
     <div className={styles.products}>
@@ -103,7 +100,6 @@ const GetProduct = ({ UserResProps }) => {
                 }}
                 style={{ width: "100%" }}
               >
-     
                 <Box
                   sx={{
                     display: "flex",
@@ -115,28 +111,23 @@ const GetProduct = ({ UserResProps }) => {
                   }}
                   fullWidth
                 >
-                  <Box >
-
+                  <Box>
                     <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 1050  }} aria-label="simple table">
-                        <TableBody sx={{ fontWeight: "bold"  }}>
+                      <Table sx={{ minWidth: 1050 }} aria-label="simple table">
+                        <TableBody sx={{ fontWeight: "bold" }}>
                           {rows.map((row) => (
                             <TableRow
                               key={row.name}
                               sx={{
-                             
                                 "&:last-child td, &:last-child th": {
                                   border: 0,
-                                  
                                 },
                               }}
                             >
                               <TableCell component="th" scope="row">
                                 {row.name}
                               </TableCell>
-                              <TableCell align="right">
-                                {row.value}
-                              </TableCell>
+                              <TableCell align="right">{row.value}</TableCell>
                             </TableRow>
                           ))}
                         </TableBody>
@@ -155,10 +146,9 @@ const GetProduct = ({ UserResProps }) => {
 
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
- 
 
   const UserRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/user/${ctx.params.id}`,
+    `http://18.214.112.247:4000/dashboard/user/${ctx.params.id}`,
 
     {
       headers: {
@@ -169,7 +159,6 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
-    
       UserResProps: UserRes.data.data,
     },
   };

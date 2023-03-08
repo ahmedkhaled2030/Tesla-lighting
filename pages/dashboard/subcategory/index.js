@@ -40,7 +40,7 @@ const SubCategory = ({ categoryList }) => {
   const addSubCategory = async () => {
     try {
       const res = await axios.post(
-        `https://tesla-lightning.herokuapp.com/dashboard/category`,
+        `http://18.214.112.247:4000/dashboard/category`,
         {
           name: subcategory,
           parent: category._id,
@@ -70,8 +70,6 @@ const SubCategory = ({ categoryList }) => {
     <div className={styles.products}>
       <Sidebar />
       <div className={styles.productsContainer}>
-
-
         <Box sx={{ mx: "auto", my: 2, width: 500 }}>
           <FormControl sx={{ minWidth: 500 }}>
             <InputLabel id="demo-simple-select-label">
@@ -155,8 +153,8 @@ const SubCategory = ({ categoryList }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const res = await axios.get(
-    // `https://tesla-lightning.herokuapp.com/product/${params.id}`
-    `https://tesla-lightning.herokuapp.com/category/list`,
+    // `http://18.214.112.247:4000/product/${params.id}`
+    `http://18.214.112.247:4000/category/list`,
 
     {
       headers: {

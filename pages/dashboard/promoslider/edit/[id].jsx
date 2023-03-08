@@ -16,8 +16,8 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const PromoSliderEdit = ({ EditResProps }) => {
-  console.log(EditResProps , "EditResProps")
-    const router = useRouter();
+  console.log(EditResProps, "EditResProps");
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -39,9 +39,6 @@ const PromoSliderEdit = ({ EditResProps }) => {
     setToken(Cookies.get("token"));
   }, [token]);
 
- 
- 
-
   const [text, setText] = useState(EditResProps[0]?.text);
 
   // console.log(title, "title");
@@ -51,13 +48,10 @@ const PromoSliderEdit = ({ EditResProps }) => {
 
     axios
       .put(
-        `https://tesla-lightning.herokuapp.com/dashboard/section/${EditResProps[0]?._id}`,
+        `http://18.214.112.247:4000/dashboard/section/${EditResProps[0]?._id}`,
         {
           name: "promos",
-           text: text,
-   
-
-     
+          text: text,
         },
         {
           headers: {
@@ -72,7 +66,7 @@ const PromoSliderEdit = ({ EditResProps }) => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/promoslider`);
+        router.push(`/dashboard/promoslider`);
       })
       .catch((error) => {
         console.log(error);
@@ -108,9 +102,8 @@ const PromoSliderEdit = ({ EditResProps }) => {
             flexDirection: "column",
           }}
         >
-    
           <Box>
-          <TextField
+            <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Title"
@@ -143,9 +136,8 @@ const PromoSliderEdit = ({ EditResProps }) => {
               sx={{ my: 1, width: 200 }}
               variant="contained"
               color="success"
-
             >
-              Add  promo
+              Add promo
             </Button>
           </Box>
         </Box>
@@ -156,9 +148,8 @@ const PromoSliderEdit = ({ EditResProps }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
-
   const EditRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/section/promos`,
+    `http://18.214.112.247:4000/dashboard/section/promos`,
 
     {
       headers: {
@@ -166,15 +157,13 @@ export const getServerSideProps = async (ctx) => {
       },
     }
   );
-console.log(EditRes.data.data ,'EditRes')
- const selectedPost = EditRes.data.data.filter((item) => (
-    item._id == ctx.params.id
- ))
-
+  console.log(EditRes.data.data, "EditRes");
+  const selectedPost = EditRes.data.data.filter(
+    (item) => item._id == ctx.params.id
+  );
 
   return {
     props: {
-
       EditResProps: selectedPost,
     },
   };

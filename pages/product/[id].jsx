@@ -43,8 +43,8 @@ const FilterColor = styled.div`
   display: block;
 `;
 
-const Product = ({ productDetails, setCartOpen,ReviewProps }) => {
-  console.log(ReviewProps,"ReviewProps");
+const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
+  console.log(ReviewProps, "ReviewProps");
 
   // //console.log(productDetails ,"productDetails")
   // //console.log(isFavourite,'isFavourite')
@@ -158,9 +158,9 @@ const Product = ({ productDetails, setCartOpen,ReviewProps }) => {
   Manufacturer Warranty: Three years warranty against manufacturers defect.`;
   //dummyData
 
-  const [price, setPrice] = useState(productDetails.size[0].price); 
+  const [price, setPrice] = useState(productDetails.size[0].price);
   const [itemSize, setSize] = useState(0);
-  const [selectedSizeId ,setSelectedSizeId] = useState("")
+  const [selectedSizeId, setSelectedSizeId] = useState("");
   const [color, setColor] = useState("");
   const [selectedImg, setSelectedImg] = useState(productDetails.images[0].path);
   const [show, setShow] = useState(false);
@@ -170,12 +170,11 @@ const Product = ({ productDetails, setCartOpen,ReviewProps }) => {
   const dispatch = useDispatch();
 
   const changePrice = (number) => {
-
     setPrice(price + number);
   };
 
   const handleSize = (sizeIndex) => {
-    console.log(sizeIndex,'sizeIndex')
+    console.log(sizeIndex, "sizeIndex");
     const difference = prices[sizeIndex].value - prices[itemSize].value;
     setSize(sizeIndex);
 
@@ -183,14 +182,21 @@ const Product = ({ productDetails, setCartOpen,ReviewProps }) => {
   };
 
   const selectedSizeHandler = (id) => {
-    setSelectedSizeId(id)
-  } 
+    setSelectedSizeId(id);
+  };
   const handleCart = () => {
     //console.log("cart");
     setCartOpen(true);
 
     dispatch(
-      addProduct({ ...productDetails, price, itemSize, color, quantity,selectedSizeId })
+      addProduct({
+        ...productDetails,
+        price,
+        itemSize,
+        color,
+        quantity,
+        selectedSizeId,
+      })
     );
   };
 
@@ -199,7 +205,7 @@ const Product = ({ productDetails, setCartOpen,ReviewProps }) => {
 
     try {
       const res = await axios.post(
-        `https://tesla-lightning.herokuapp.com/product/favorite/${productDetails._id}`,
+        `http://18.214.112.247:4000/product/favorite/${productDetails._id}`,
         {},
         {
           headers: {
@@ -359,44 +365,49 @@ const Product = ({ productDetails, setCartOpen,ReviewProps }) => {
               Add to Wishlist
             </button>
           )}
-          {
-            productDetails?.colors && (   <div className={styles.colors}>
-            <span>COLOR</span>
-            <div className={styles.colorWrapper}>
-              {productDetails?.colors.map((c, i) => (
-                <div
-                  className={` ${
-                    color == c
-                      ? ` ${styles.color} ${styles.colorSelected}`
-                      : `${styles.color}`
-                  }  `}
-                  key={i}
-                >
-                  <FilterColor color={c} key={c} onClick={() => setColor(c)} />
-                </div>
-              ))}
+          {productDetails?.colors && (
+            <div className={styles.colors}>
+              <span>COLOR</span>
+              <div className={styles.colorWrapper}>
+                {productDetails?.colors.map((c, i) => (
+                  <div
+                    className={` ${
+                      color == c
+                        ? ` ${styles.color} ${styles.colorSelected}`
+                        : `${styles.color}`
+                    }  `}
+                    key={i}
+                  >
+                    <FilterColor
+                      color={c}
+                      key={c}
+                      onClick={() => setColor(c)}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>)
-}
-          {
-            productDetails?.size && ( <div className={styles.sizes}>
-            <span>SIZE</span>
-            <div className={styles.sizeWrapper}>
-              {productDetails?.size.map((size, i) => (
-                <span
-                  onClick={() => { handleSize(i); selectedSizeHandler(size._id) }}
-                  className={` ${
-                    itemSize == i ? `${styles.sizeSelected}` : ""
-                  }  `}
-                >
-                  {size.value}"
-                </span>
-              ))}
+          )}
+          {productDetails?.size && (
+            <div className={styles.sizes}>
+              <span>SIZE</span>
+              <div className={styles.sizeWrapper}>
+                {productDetails?.size.map((size, i) => (
+                  <span
+                    onClick={() => {
+                      handleSize(i);
+                      selectedSizeHandler(size._id);
+                    }}
+                    className={` ${
+                      itemSize == i ? `${styles.sizeSelected}` : ""
+                    }  `}
+                  >
+                    {size.value}"
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>)
-       }
-
-         
+          )}
 
           <button className={styles.buttonCart} onClick={handleCart}>
             ADD TO CART
@@ -455,42 +466,41 @@ const Product = ({ productDetails, setCartOpen,ReviewProps }) => {
         )}
         {ReviewProps && (
           <div className={styles.reviews}>
-          {ReviewProps?.map((review, i) => (
-            <div className={styles.review}>
-              <Rating
-                name="readOnly"
-                value={review.rating}
-                readOnly
-                className={styles.rating}
-                key={i}
-              />
-              <div className={styles.personData}>
-                <div className={styles.personImg}>
-                  <PersonOutlineOutlined />
+            {ReviewProps?.map((review, i) => (
+              <div className={styles.review}>
+                <Rating
+                  name="readOnly"
+                  value={review.rating}
+                  readOnly
+                  className={styles.rating}
+                  key={i}
+                />
+                <div className={styles.personData}>
+                  <div className={styles.personImg}>
+                    <PersonOutlineOutlined />
+                    {review.Verified ? (
+                      <div className={styles.check}>
+                        <Check className={styles.icon} />
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className={styles.personName}>{review.name}</div>
                   {review.Verified ? (
-                    <div className={styles.check}>
-                      <Check className={styles.icon} />
-                    </div>
+                    <div className={styles.verified}>Verified</div>
                   ) : (
                     ""
                   )}
                 </div>
-                <div className={styles.personName}>{review.name}</div>
-                {review.Verified ? (
-                  <div className={styles.verified}>Verified</div>
-                ) : (
-                  ""
-                )}
+                <span className={styles.reviewTitle}>{review.reviewTitle}</span>
+                <span className={styles.reviewComment}>
+                  {review.reviewComment}
+                </span>
               </div>
-              <span className={styles.reviewTitle}>{review.reviewTitle}</span>
-              <span className={styles.reviewComment}>
-                {review.reviewComment}
-              </span>
-            </div>
-          ))}
-        </div>
-)}
-    
+            ))}
+          </div>
+        )}
       </div>
 
       <div className={styles.hr}></div>
@@ -507,18 +517,16 @@ const Product = ({ productDetails, setCartOpen,ReviewProps }) => {
 export const getServerSideProps = async ({ params }) => {
   console.log(params, "params");
   const productRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/product/${params.id}`
-   
+    `http://18.214.112.247:4000/product/${params.id}`
   );
   const ReviewRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/product/${params.id}/reviews`
-   
+    `http://18.214.112.247:4000/product/${params.id}/reviews`
   );
-console.log(ReviewRes.data.data,'ReviewRes')
+  console.log(ReviewRes.data.data, "ReviewRes");
   return {
     props: {
       productDetails: productRes.data.data.product,
-      ReviewProps :ReviewRes.data.data,
+      ReviewProps: ReviewRes.data.data,
       // reqFavourite : reqFavourite
     },
   };

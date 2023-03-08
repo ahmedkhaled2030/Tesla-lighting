@@ -16,7 +16,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const storeTimeAdd = () => {
-    const router = useRouter();
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -58,7 +58,7 @@ const storeTimeAdd = () => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -89,7 +89,7 @@ const storeTimeAdd = () => {
 
     axios
       .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/section",
+        "http://18.214.112.247:4000/dashboard/section",
         {
           name: "retail-store",
           text: editorRef.current.getContent(),
@@ -109,7 +109,7 @@ const storeTimeAdd = () => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/storetime`);
+        router.push(`/dashboard/storetime`);
       })
       .catch((error) => {
         console.log(error);

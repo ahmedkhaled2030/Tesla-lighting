@@ -25,7 +25,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "https://tesla-lightning.herokuapp.com/user/login",
+        "http://18.214.112.247:4000/user/login",
         values
       );
       const authData = await res.data.data;

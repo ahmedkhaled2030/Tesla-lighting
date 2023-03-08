@@ -16,8 +16,8 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const HeaderSliderEdit = ({ EditResProps }) => {
-  console.log(EditResProps , "EditResProps")
-    const router = useRouter();
+  console.log(EditResProps, "EditResProps");
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -59,7 +59,7 @@ const HeaderSliderEdit = ({ EditResProps }) => {
     }
 
     axios
-      .post("https://tesla-lightning.herokuapp.com/product/upload", formData, {
+      .post("http://18.214.112.247:4000/product/upload", formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -79,7 +79,7 @@ const HeaderSliderEdit = ({ EditResProps }) => {
   };
 
   // End images
- 
+
   const [title, setTitle] = useState(EditResProps[0].title);
   const [text, setText] = useState(EditResProps[0].text);
   const [url, setUrl] = useState(EditResProps[0].url);
@@ -90,13 +90,12 @@ const HeaderSliderEdit = ({ EditResProps }) => {
 
     axios
       .put(
-        `https://tesla-lightning.herokuapp.com/dashboard/section/${EditResProps[0]._id}`,
+        `http://18.214.112.247:4000/dashboard/section/${EditResProps[0]._id}`,
         {
           name: "header",
-           title: title,
-   
+          title: title,
+
           image: imagePath,
-     
         },
         {
           headers: {
@@ -111,7 +110,7 @@ const HeaderSliderEdit = ({ EditResProps }) => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/headerslider`);
+        router.push(`/dashboard/headerslider`);
       })
       .catch((error) => {
         console.log(error);
@@ -196,7 +195,7 @@ const HeaderSliderEdit = ({ EditResProps }) => {
             </Box>
           </Box>
           <Box>
-          <TextField
+            <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Title"
@@ -229,7 +228,7 @@ const HeaderSliderEdit = ({ EditResProps }) => {
               sx={{ my: 1, width: 200 }}
               variant="contained"
               color="success"
-              disabled={!imagePath }
+              disabled={!imagePath}
             >
               Add Header Slider
             </Button>
@@ -242,9 +241,8 @@ const HeaderSliderEdit = ({ EditResProps }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
-
   const EditRes = await axios.get(
-    `https://tesla-lightning.herokuapp.com/dashboard/section/header`,
+    `http://18.214.112.247:4000/dashboard/section/header`,
 
     {
       headers: {
@@ -253,14 +251,12 @@ export const getServerSideProps = async (ctx) => {
     }
   );
 
- const selectedPost = EditRes.data.data.filter((item) => (
-    item._id == ctx.params.id
- ))
-
+  const selectedPost = EditRes.data.data.filter(
+    (item) => item._id == ctx.params.id
+  );
 
   return {
     props: {
-
       EditResProps: selectedPost,
     },
   };

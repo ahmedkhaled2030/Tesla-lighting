@@ -25,22 +25,19 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "https://tesla-lightning.herokuapp.com/user/register",
-        {
-          "firstName": values.firstName,
-          "lastName":values.lastName,
-          "email": values.email,
-          "password": values.password,
-        }
-      );   
+      const res = await axios.post("http://18.214.112.247:4000/user/register", {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        password: values.password,
+      });
 
       router.push("/login");
     } catch (err) {
       setError(true);
     }
   };
-//ahmedKh@15455
+  //ahmedKh@15455
   const inputs = [
     {
       id: 1,

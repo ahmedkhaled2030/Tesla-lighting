@@ -38,7 +38,7 @@ const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
     if (searchText !== "") {
       try {
         const res = await axios.post(
-          `https://tesla-lightning.herokuapp.com/product/search`,
+          `http://18.214.112.247:4000/product/search`,
           {
             text: debouncedValue,
           },

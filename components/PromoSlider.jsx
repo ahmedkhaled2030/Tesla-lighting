@@ -11,15 +11,13 @@ import Cookies from "js-cookie";
 import axios from "axios";
 const PromoSlider = () => {
   const [token, setToken] = useState(Cookies.get("token"));
-  const [promos ,setPromos] = useState([])
+  const [promos, setPromos] = useState([]);
   useEffect(() => {
-
     const fetchData = async () => {
       await setToken(Cookies.get("token"));
 
-
       const res = await axios.get(
-        `https://tesla-lightning.herokuapp.com/dashboard/section/promos`,
+        `http://18.214.112.247:4000/dashboard/section/promos`,
 
         {
           headers: {
@@ -28,13 +26,12 @@ const PromoSlider = () => {
         }
       );
       const json = await res.data.data;
-      setPromos(json)
+      setPromos(json);
       console.log(json, "json");
-
     };
     fetchData();
   }, []);
-  
+
   return (
     <div className={styles.container}>
       <Swiper
@@ -61,11 +58,9 @@ const PromoSlider = () => {
       >
         {promos?.map((promo) => (
           <SwiperSlide className={styles.swiperSlide} key={promo._id}>
- {promo?.text}
-        </SwiperSlide>
+            {promo?.text}
+          </SwiperSlide>
         ))}
-
-   
       </Swiper>
     </div>
   );

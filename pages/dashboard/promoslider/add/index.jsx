@@ -16,7 +16,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const PromoSliderAdd = () => {
-    const router = useRouter();
+  const router = useRouter();
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -38,8 +38,6 @@ const PromoSliderAdd = () => {
     setToken(Cookies.get("token"));
   }, [token]);
 
-
-
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [url, setUrl] = useState("");
@@ -50,13 +48,11 @@ const PromoSliderAdd = () => {
 
     axios
       .post(
-        "https://tesla-lightning.herokuapp.com/dashboard/section",
+        "http://18.214.112.247:4000/dashboard/section",
         {
           name: "promos",
-  
-           text:text,
 
-  
+          text: text,
         },
         {
           headers: {
@@ -71,7 +67,7 @@ const PromoSliderAdd = () => {
           horizontal: "left",
         });
 
- router.push(`/dashboard/promoslider`);
+        router.push(`/dashboard/promoslider`);
       })
       .catch((error) => {
         console.log(error);
@@ -107,9 +103,8 @@ const PromoSliderAdd = () => {
             flexDirection: "column",
           }}
         >
-    
           <Box>
-          <TextField
+            <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
               label="Add section Title"
@@ -117,7 +112,7 @@ const PromoSliderAdd = () => {
               variant="outlined"
               onChange={(e) => setText(e.target.value)}
             />
-{/* 
+            {/* 
             <TextField
               sx={{ my: 5, width: 500 }}
               id="outlined-basic"
@@ -142,9 +137,8 @@ const PromoSliderAdd = () => {
               sx={{ my: 1, width: 200 }}
               variant="contained"
               color="success"
-      
             >
-              Add  promo
+              Add promo
             </Button>
           </Box>
         </Box>
