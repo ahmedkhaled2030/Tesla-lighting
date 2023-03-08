@@ -5,9 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "prod" : "git pull && next build && next start"
-
+    "lint": "next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
