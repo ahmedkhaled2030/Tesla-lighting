@@ -106,7 +106,7 @@ const Model = ({ categoryList }) => {
     <div className={styles.products}>
       <Sidebar />
       <div className={styles.productsContainer}>
-        <NavbarDashboard />
+
 {/* categoryList */}
         <Box sx={{ mx: "auto", my: 2, width: 500 }}>
       <FormControl sx={{  minWidth: 500 }} > 

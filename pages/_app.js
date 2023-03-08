@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import "../styles/globals.scss";
 import "../styles/index.css";
-import store from "../redux/store";
+
 import { Provider } from "react-redux";
 import { useEffect, useState } from "react";
 import Cart from "@/components/Cart";
@@ -11,6 +11,8 @@ import useDebounce from "../hooks/useDebounce";
 import axios from "axios";
 import { useRouter } from "next/router";
 import FilterBar from "@/components/FilterBar";
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from "../redux/store"; 
 export default function App({ Component, pageProps  }) {
 
   const [cartOpen, setCartOpen] = useState(false);
@@ -21,6 +23,7 @@ export default function App({ Component, pageProps  }) {
 
   return (
     <Provider store={store}>
+       <PersistGate loading={null} persistor={persistor}>
       <Layout
         cartOpen={cartOpen}
         setCartOpen={setCartOpen}
@@ -32,7 +35,7 @@ export default function App({ Component, pageProps  }) {
         {!closeWishList && <Wishlist setCloseWishList={setCloseWishList} />}
         <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
         <SearchBar searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
-        <FilterBar FilterOpen={FilterOpen} setFilterOpen={setFilterOpen} />
+ 
         <Component
           {...pageProps}
           cartOpen={cartOpen}
@@ -40,7 +43,8 @@ export default function App({ Component, pageProps  }) {
           FilterOpen={FilterOpen}
           setFilterOpen={setFilterOpen}
         />
-      </Layout>
+        </Layout>
+        </PersistGate>
     </Provider>
   );
 }

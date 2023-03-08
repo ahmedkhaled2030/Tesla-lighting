@@ -1,0 +1,87 @@
+{
+    "menus": [
+        {
+            "id": 2,
+            "megaMenuTitle": "Lights",
+            "link": "/Lights",
+            "haveIcon": "true",
+            "megaMenus": [
+                {
+                    "id": 2.1,
+                    "megaMenuTitle": "CEILINGS",
+                    "link": "/CEILINGS",
+                    "haveIcon": "true",
+                    "megaMenus": [
+                        {
+                            "id": 2.11,
+                            "megaMenuTitle": "Chandeliers",
+                            "link": "/Chandeliers"
+                        },
+                        {
+                            "id": 2.12,
+                            "megaMenuTitle": "Pendants",
+                            "link": "/Pendants"
+                        },
+                        {
+                            "id": 2.13,
+                            "megaMenuTitle": "Flush Mounts",
+                            "link": "/Flush Mounts"
+                        },
+                        {
+                            "id": 2.14,
+                            "megaMenuTitle": "All",
+                            "link": "/All"
+                        }
+                    ]
+                },
+                {
+                    "id": 2.2,
+                    "megaMenuTitle": "WALL",
+                    "link": "/WALL",
+                    "haveIcon": "true",
+                    "megaMenus": [
+                        {
+                            "id": 2.21,
+                            "megaMenuTitle": "Bathroom",
+                            "link": "/Bathroom"
+                        },
+                        {
+                            "id": 2.22,
+                            "megaMenuTitle": "Sconces",
+                            "link": "/Sconces"
+                        },
+                        {
+                            "id": 2.23,
+                            "megaMenuTitle": "All",
+                            "link": "/All"
+                        }
+
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "megaMenuTitle": "Decor",
+            "link": "/Decor",
+            "haveIcon": "true",
+            "megaMenus": [
+                {
+                    "id": 2.1,
+                    "megaMenuTitle": "Mirrors & Mirror Accessories",
+                    "link": "/Mirrors & Mirror Accessories",
+                    "haveIcon": "true",
+                    "megaMenus": [
+                        {
+                            "id": 2.11,
+                            "megaMenuTitle": "Mirrors",
+                            "link": "/Mirrors"
+                        }
+                    ]
+                }
+               
+            ]
+        }
+      
+    ]
+}

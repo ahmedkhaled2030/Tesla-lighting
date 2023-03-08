@@ -7,10 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { addCart, removeCart, removeBulk } from "../redux/cartSlice";
+import { makingOrder } from "../redux/orderSlice";
+import Cookies from "js-cookie";
 const Cart = ({ cartOpen, setCartOpen }) => {
+  const [token, setToken] = useState(Cookies.get("token"));
   const dispatch = useDispatch();
   const router = useRouter();
   const cart = useSelector((state) => state.cart);
+  console.log(cart,'cart')
   const handleQuantity = (_id, price, quantity, type, size) => {
     //console.log(_id, price, quantity, type, size)
     if (type === "dec") {
@@ -73,6 +77,49 @@ const Cart = ({ cartOpen, setCartOpen }) => {
       price: "3,767.00",
     },
   ];
+
+  const makeOrder = async () => {
+    // console.log(cart.products, "cart");
+    const checkoutProduct = cart.products.map((product) => {
+      return {
+        id: product._id,
+        color: product.color,
+        size: product.selectedSizeId,
+        count: product.quantity,
+      };
+    });
+    // console.log(checkoutProduct ,'checkoutProduct')
+    const orderSchema = {
+      address: "63ee4042a881d677137625d6",
+      products: checkoutProduct,
+    };
+    console.log(orderSchema, "orderSchema");
+    try {
+      const res = await axios.post(
+        "https://tesla-lightning.herokuapp.com/order",
+        orderSchema,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      console.log(res.data.data, "res");
+
+      dispatch(
+        makingOrder({
+          "clientSecret": res.data.data.clientSecret,
+          "tax": res.data.data.tax,
+          "shippingCost": res.data.data.shippingCost,
+          "price": res.data.data.price,
+          "discount": res.data.data.discount,
+        })
+      );
+      router.push("/checkout")
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className={`${styles.container}  ${cartOpen ? styles.open : " "} `}>
@@ -150,7 +197,9 @@ const Cart = ({ cartOpen, setCartOpen }) => {
             <span className={styles.text}>
               Shipping, taxes, and discount codes calculated at checkout.
             </span>
-            <button className={styles.switchButton}>Check out</button>
+            <button onClick={makeOrder} className={styles.switchButton}>
+              Check out
+            </button>
           </div>
         </div>
       )}

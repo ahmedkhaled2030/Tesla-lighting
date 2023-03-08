@@ -5,9 +5,10 @@ import { Close, FavoriteBorderOutlined } from "@mui/icons-material";
 import Link from "next/link";
 
 const ProductsCard = ({ id, img, title, price, type }) => {
+  console.log(img,'img111')
   return (
     <div className={styles.container}>
-      <Link href={`/product/640516cd094fb4c6b0652e1b`} passHref>
+      <Link href={`/product/${id}`} passHref>
         <div>
           <Image
             src={img}

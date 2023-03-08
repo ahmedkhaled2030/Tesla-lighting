@@ -9,18 +9,19 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action) => {
-      // //console.log(action.payload )
+      console.log(action.payload )
       const size = action.payload.size[action.payload.itemSize].value;
       // //console.log(size)
       const product = {
         _id: action.payload._id,
         size: size,
+        selectedSizeId:action.payload.selectedSizeId,
         color: action.payload.color,
         price: action.payload.price,
         quantity: action.payload.quantity,
         title: action.payload.title,
         // image: action.payload.images[0],
-        img: "/img/arrival1.png",
+        img: action.payload.images[0].path,
       };
 
       const index = state.products.findIndex(

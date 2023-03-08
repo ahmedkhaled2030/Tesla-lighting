@@ -13,7 +13,7 @@ import "swiper/css/scrollbar";
 import { Scrollbar } from "swiper";
 import Link from "next/link";
 const ProductsList = ({ title, products, type }) => {
-
+console.log(products ,'products')
 
   return (
     <div className={`innerWidth ${styles.container}`}>
@@ -26,14 +26,14 @@ const ProductsList = ({ title, products, type }) => {
       {type == "collections"  ? (
         <div className={styles.wrapper}>
           {products?.map((product) => (
-            <Link href={`/product/640516cd094fb4c6b0652e1b`} passHref className="link"> 
+            <Link href={`/product/${product?._id}`} passHref className="link"> 
             <ProductsCard
-              img={product?.img} 
+              img={product?.cover} 
               title={product?.title}
               price={product?.price}
               type={type}
-              key={product?.id}
-              id={product?.id}
+              key={product?._id}
+              id={product?._id}
               />
               </Link>
           ))}
@@ -74,6 +74,7 @@ const ProductsList = ({ title, products, type }) => {
                   title={product?.title}
                   price={product?.price}
                   key={i}
+                  id={product?._id}
                 />
               </SwiperSlide>
             ))}

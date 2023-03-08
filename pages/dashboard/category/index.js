@@ -55,7 +55,7 @@ const Category = () => {
     <div className={styles.products}>
       <Sidebar />
       <div className={styles.productsContainer}>
-        <NavbarDashboard />
+
         <Box sx={{ mx: "auto", my: 2, width: 500 }}>
           <TextField
             sx={{ my: 5, width: 500 }}

@@ -40,13 +40,24 @@ console.log(type,api)
         );
         const json = await res.data.data;
   
-        console.log(json, "json");
-        setPageState((old) => ({
-          ...old,
-          isLoading: false,
-          data: json,
-          total: json.count,
-        }));
+        console.log(type, "json");
+        if (type == "product" || type=="order") {
+         
+          setPageState((old) => ({
+            ...old,
+            isLoading: false,
+            data: json[api],
+            total: json.count, 
+          }));
+        } else {
+          setPageState((old) => ({
+            ...old,
+            isLoading: false,
+            data: json,
+            total: json.count,
+          }));
+        }
+      
       };
       fetchData();
     }, [pageState.page, pageState.pageSize, token]);

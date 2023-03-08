@@ -606,7 +606,7 @@ const EditProduct = ({ categoryList, editProps }) => {
                     color="success"
                     onClick={addProduct}
                   >
-                    Add Product
+                    Edit Product
                   </Button>
                 </Box>
               </Box>

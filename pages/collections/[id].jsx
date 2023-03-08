@@ -12,72 +12,72 @@ import Head from "next/head";
 import ProductsList from "@/components/ProductsList";
 import { FilterAltOutlined } from "@mui/icons-material";
 import axios from "axios";
-import { useRouter } from "next/router";
-const headers = {
-  Authorization:
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
-};
-
+import Router, { useRouter } from "next/router";
+import FilterBar from "@/components/FilterBar";
+import { Box } from "@mui/system";
+import { Pagination } from "@material-ui/lab";
+import usePagination from "@/components/Pagination";
 const Collections = (props) => {
-  const productsDummy = [
-    {
-      id: "63eb621c09eedf45e735accb",
-      img: "/img/product1.png",
-      title: "Aged Brass Frame with Etched Glass Shade Linear Pendant",
-      price: "3,767.00",
-    },
-    {
-      id: 2323234,
-      img: "/img/arrival2.jpg",
-      title:
-        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
-      price: "3,767.00",
-    },
-    {
-      id: 234234253,
-      img: "/img/arrival3.png",
-      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
-      price: "3,767.00",
-    },
-    {
-      id: 54345345,
-      img: "/img/arrival4.png",
-      title: "Gold Leaf Leafy Bohemian Shade Wall Sconce",
-      price: "3,767.00",
-    },
-    {
-      id: 234234324,
-      img: "/img/arrival5.png",
-      title:
-        "Handcrafted Wallflower Frame with Opal Matte Glass Globe Pendant / Chandelier",
-      price: "3,767.00",
-    },
-  ];
-  // //console.log(props)
   const { asPath } = useRouter();
-  // //console.log(asPath);
   const router = useRouter();
+console.log(asPath[0])
+  let [page, setPage] = useState(1);
+  let [data, setData] = useState([]);
+  const PER_PAGE = 50;
+  const count = Math.ceil(props.products.products.length / PER_PAGE);
+  const _DATA = usePagination(props.products.products, PER_PAGE);
+  const handleChange = (e, p) => {
+    setPage(p);
+    _DATA.jump(p);
+  };
 
+  const [open, setOpen] = useState(false);
+  const [minPrice, setMinPrice] = useState(props.initialMinPrice);
+  const [maxPrice, setMaxPrice] = useState(props.initialMaxPrice);
   const [sortBy, setSortBy] = useState(props.initialSortBy);
   const [sortOrder, setSortOrder] = useState(props.initialSortOrder);
+  const [selectedCategory, setSelectedCategory] = useState(props.initialCategory);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(props.initialSubCategory);
+
+  console.log(minPrice, "minPrice");
+  console.log(maxPrice, "maxPrice");
 
   useEffect(() => {
-    //console.log(sortBy, sortOrder);
+ 
     const url = {
       pathname: asPath,
-      query: { sortBy: sortBy, sortOrder: sortOrder },
+      query: {
+        sortBy: sortBy,
+        sortOrder: sortOrder,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        selectedSubCategory : selectedSubCategory
+      },
     };
-    // router.replace(url, undefined, { shallow: true });
-    if (sortBy == "" && sortOrder == "") {
-      return;
-    } else {
+
+    // if (sortBy == "" && sortOrder == "" ) {
+    //   return;
+    // }
+    if (sortBy !== "" || sortOrder !== "" || minPrice !== "" || maxPrice !== "" || selectedSubCategory !=="" ) {
       router.push(
-        `${asPath.split("?")[0]}?sortBy=${sortBy}&sortOrder=${sortOrder}`
+        `${
+          asPath.split("?")[0]
+        }?selectedSubCategory=${selectedSubCategory}&sortBy=${sortBy}&sortOrder=${sortOrder}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${PER_PAGE}&page=${page}`
       );
     }
-  }, [sortBy, sortOrder]);
 
-  const handleFilters = (e) => {
+  
+  }, [, selectedSubCategory, sortBy, sortOrder, minPrice, maxPrice]);
+  
+  useEffect(() => {
+    console.log('changed')
+    if (selectedCategory !== "") {
+      router.push(`/collections/${selectedCategory}`)
+ 
+    }
+  } , [selectedCategory])
+
+  const handleSort = (e) => {
     if (e.target.value == "Price, low to high") {
       setSortBy("price");
       setSortOrder("asc");
@@ -94,8 +94,28 @@ const Collections = (props) => {
       setSortBy("title");
       setSortOrder("desc");
     }
+    if (e.target.value == "Date, old to new") {
+      setSortBy("createdAt");
+      setSortOrder("asc");
+    }
+    if (e.target.value == "Date, new to old") {
+      setSortBy("createdAt");
+      setSortOrder("desc");
+    }
   };
+  const handleFilter = (values) => {
+    setMinPrice(values[0]);
+    setMaxPrice(values[1]);
+  };
+  const handleCategories = (cat, type) => {
+    if (type == "category") {
+      setSelectedCategory(cat._id)
+    }
+    if (type == "Subcategory") {
+      setSelectedSubCategory(cat._id)
+    }
 
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -115,26 +135,27 @@ const Collections = (props) => {
           rel="stylesheet"
         />
       </Head>
+      <Box>
+        <FilterBar setOpen={setOpen} open={open} handleFilter={handleFilter} categoryProps={props.categoryProps} handleCategories={handleCategories} />
+      </Box>
       <div className={styles.imgContainer}>
         <h1 className={`primaryText ${styles.title}`}>Flush MOUNT</h1>
       </div>
       <div className={`innerWidth  yPaddings  ${styles.wrapper}`}>
         <div className={styles.filterContainer}>
-          <button
-            className={styles.filter}
-            onClick={() => props.setFilterOpen(true)}
-          >
+          <button className={styles.filter} onClick={() => setOpen(true)}>
             <FilterAltOutlined />
             <span className={styles.filterText}>Filter</span>
           </button>
           <div className={` secondaryText ${styles.number}`}>
-            {/* {props.products.count} products */}5 products
+            {props.products.count} products
           </div>
+
           <div className={styles.sorting}>
-            <select name="sort" onChange={handleFilters}>
+            <select name="sort" onChange={handleSort}>
               {/* <option value="sort">Sort</option> */}
-              <option>Featured</option>
-              <option>Best selling</option>
+              {/* <option>Featured</option>
+              <option>Best selling</option> */}
               <option>Alphabetically, A-Z</option>
               <option>Alphabetically, Z-A</option>
               <option>Price, low to high</option>
@@ -144,33 +165,56 @@ const Collections = (props) => {
             </select>
           </div>
         </div>
-        {/* <ProductsList products={props.products.products} type="collections" /> */}
-        <ProductsList products={productsDummy} type="collections" />
+        <ProductsList products={_DATA.currentData()} type="collections" />
+        {/* <ProductsList products={productsDummy} type="collections" /> */}
+        <Box sx={{display: 'flex',flexDirection: 'row' ,justifyContent: 'center',alignItems: 'center' }}> 
+          
+        <Pagination
+          count={count}
+          size="large"
+          page={page}
+          variant="outlined"
+          shape="rounded"
+          onChange={handleChange}
+        />
+        </Box>
+
       </div>
     </div>
   );
 };
 
 export const getServerSideProps = async ({ params, query }) => {
-  //console.log(query, "query");
-  const res = await axios.post(
-    `https://tesla-lightning.herokuapp.com/product/search`,
+  console.log(query, "query");
+  console.log(params, "params");
+  const CollectionRes = await axios.post(
+    // `https://tesla-lightning.herokuapp.com/product/search?page=${pageState.page}&limit=${pageState.pageSize}`,
+    `https://tesla-lightning.herokuapp.com/product/search?page=${query.page}&limit=${query.limit}`,
     {
-      // "minPrice": 15,
-      // "maxPrice": 20,
+      minPrice: query?.minPrice,
+      maxPrice: query?.maxPrice,
       sortBy: query?.sortBy,
       sortOrder: query?.sortOrder,
-      headers: {
-        Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
-      },
+      category: params.id,
+      subCategory:query?.selectedSubCategory,
     }
   );
+  const categoryRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/category/list`,
+
+   
+  );
+  
   return {
     props: {
-      products: res.data.data,
+      products: CollectionRes.data.data,
       initialSortBy: "",
       initialSortOrder: "",
+      initialMinPrice: "",
+      initialMaxPrice: "",
+      categoryProps: categoryRes.data.data,
+      initialCategory: "",
+      initialSubCategory:"",
     },
   };
 };

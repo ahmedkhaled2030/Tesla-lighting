@@ -3,29 +3,53 @@ import FilterBarItem from "./FilterBarItem";
 import primaryMenus from "../utils/navbar.json";
 import { Close } from "@mui/icons-material";
 import Slider from "@mui/material/Slider";
-import { useState } from "react";
-const FilterBar = ({ FilterOpen, setFilterOpen }) => {
+import { useEffect, useState } from "react";
+import { Button } from "@mui/material";
+import { Box } from "@mui/system";
+const FilterBar = ({  setOpen, open ,handleFilter,categoryProps ,handleCategories }) => {
+  // console.log(categoryProps ,'categoryProps')
   const { menus } = primaryMenus;
   const [value, setValue] = useState([0, 20000]);
+
+  useEffect(() => {
+    setValue[0,2000]
+  },[value])
+
   const handleChange = (event, newValue) => {
-    //console.log(value);
+   
+
     setValue(newValue);
   };
+
+  const FilterButton = () => {
+    handleFilter(value)
+  }
   return (
-    <div className={`${styles.sidebar}  ${FilterOpen ? styles.open : " "} `}>
+    <div className={`${styles.sidebar}  ${open ? styles.open : " "} `}>
       <div className={styles.top}>
         <h1 className={`primaryText ${styles.title}`}>Filter</h1>
-        <Close onClick={() => setFilterOpen(false)} className={styles.close} />
+        <Close onClick={() => setOpen(false)} className={styles.close} />
       </div>
       <div className={styles.hr}></div>
       <div className={styles.wrapper}>
-        {menus.map((item, i) => (
-          <FilterBarItem key={i} item={item} />
+        {/* <span>{categoryProps.map((item, i) => (
+          item.name
+        ))}</span> */}
+        {categoryProps.map((item, i) => (
+          <FilterBarItem key={i} item={item} handleCategories={handleCategories} />
         ))}
       </div>
       <div className={styles.hr}></div>
-      <div className={styles.bottom}>
-        <h1 className={`primaryText ${styles.title}`}>Price</h1>
+      <h1 className={`primaryText ${styles.title}`}>Price</h1>
+      <Box
+        // className={styles.bottom}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Slider
           getAriaLabel={() => "Temperature range"}
           value={value}
@@ -36,7 +60,22 @@ const FilterBar = ({ FilterOpen, setFilterOpen }) => {
           className={styles.slider}
         />
         <span className={styles.prices}>Price: $0.00 – $2000.00</span>
-      </div>
+        <Button
+          variant="contained"
+          color="success"
+          sx={{
+            width: "40% !important",
+            color: "white !important",
+            background: "black !important",
+            padding: "10px 15px !important",
+            margin:"20px 0px 40px !important"
+           
+          }}
+          onClick={FilterButton}
+        >
+          Filter
+        </Button>
+      </Box>
     </div>
   );
 };

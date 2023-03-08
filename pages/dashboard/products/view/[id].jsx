@@ -32,6 +32,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 const GetProduct = ({ categoryList, EditRes }) => {
+
   function createData(name, value) {
     return { name, value };
   }
@@ -109,6 +110,27 @@ const GetProduct = ({ categoryList, EditRes }) => {
                   fullWidth
                 >
                   <Box >
+                    <Box   sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    alignItems: "center",
+               
+                    
+                    }}>
+                      {EditRes.product.images.map((img) => (
+                        <Box sx={{marginRight:"30px"}}>
+                        <Image
+                          
+                          src={img.path}
+                          width="150"
+                          height="150"
+                        />
+                          </Box>
+                      ))}
+
+                      
+                    </Box>
 
                     <TableContainer component={Paper}>
                       <Table sx={{ minWidth: 1050  }} aria-label="simple table">

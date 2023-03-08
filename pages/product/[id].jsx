@@ -43,8 +43,8 @@ const FilterColor = styled.div`
   display: block;
 `;
 
-const Product = ({ productDetails, setCartOpen }) => {
-  //console.log(productDetails);
+const Product = ({ productDetails, setCartOpen,ReviewProps }) => {
+  console.log(ReviewProps,"ReviewProps");
 
   // //console.log(productDetails ,"productDetails")
   // //console.log(isFavourite,'isFavourite')
@@ -157,33 +157,40 @@ const Product = ({ productDetails, setCartOpen }) => {
   Voltage: 120
   Manufacturer Warranty: Three years warranty against manufacturers defect.`;
   //dummyData
-console.log(productDetails.images ,'productDetails.images')
-  const [price, setPrice] = useState(prices[0].value); 
+
+  const [price, setPrice] = useState(productDetails.size[0].price); 
   const [itemSize, setSize] = useState(0);
+  const [selectedSizeId ,setSelectedSizeId] = useState("")
   const [color, setColor] = useState("");
   const [selectedImg, setSelectedImg] = useState(productDetails.images[0].path);
   const [show, setShow] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [isFavourited, setIsFavourited] = useState(false);
-  //console.log(productDetails);
+
   const dispatch = useDispatch();
 
   const changePrice = (number) => {
+
     setPrice(price + number);
   };
 
   const handleSize = (sizeIndex) => {
+    console.log(sizeIndex,'sizeIndex')
     const difference = prices[sizeIndex].value - prices[itemSize].value;
     setSize(sizeIndex);
 
     changePrice(difference);
   };
+
+  const selectedSizeHandler = (id) => {
+    setSelectedSizeId(id)
+  } 
   const handleCart = () => {
     //console.log("cart");
     setCartOpen(true);
 
     dispatch(
-      addProduct({ ...productDetails, price, itemSize, color, quantity })
+      addProduct({ ...productDetails, price, itemSize, color, quantity,selectedSizeId })
     );
   };
 
@@ -276,8 +283,8 @@ console.log(productDetails.images ,'productDetails.images')
           {productDetails.images?.map((img, i) => (
             <SwiperSlide className={styles.swiperSlide} key={i}>
               <Image
-                src={img.path}
-                alt={img._id}
+                src={img?.path}
+                alt={img?._id}
                 width="400px"
                 height="400px"
                 objectFit="contain"
@@ -291,7 +298,7 @@ console.log(productDetails.images ,'productDetails.images')
       <div className={styles.top}>
         <div className={styles.left}>
           <div className={styles.subImagesContainer}>
-            {productDetails.images.map((image, i) => (
+            {productDetails?.images.map((image, i) => (
               <div
                 key={i}
                 className={` ${
@@ -332,7 +339,7 @@ console.log(productDetails.images ,'productDetails.images')
             <strong>{productDetails?.number.toString()}</strong>
           </span>
           <div className={styles.prices}>
-            $ {productDetails.price}
+            $ {price}
             {/* $ {productDetails?.price} */}
             {/* <span className={styles.price}>$3,265.00</span>
             <span className={styles.price}>$2,972.00</span>
@@ -352,8 +359,8 @@ console.log(productDetails.images ,'productDetails.images')
               Add to Wishlist
             </button>
           )}
-
-          <div className={styles.colors}>
+          {
+            productDetails?.colors && (   <div className={styles.colors}>
             <span>COLOR</span>
             <div className={styles.colorWrapper}>
               {productDetails?.colors.map((c, i) => (
@@ -369,13 +376,15 @@ console.log(productDetails.images ,'productDetails.images')
                 </div>
               ))}
             </div>
-          </div>
-          <div className={styles.sizes}>
+          </div>)
+}
+          {
+            productDetails?.size && ( <div className={styles.sizes}>
             <span>SIZE</span>
             <div className={styles.sizeWrapper}>
               {productDetails?.size.map((size, i) => (
                 <span
-                  onClick={() => handleSize(i)}
+                  onClick={() => { handleSize(i); selectedSizeHandler(size._id) }}
                   className={` ${
                     itemSize == i ? `${styles.sizeSelected}` : ""
                   }  `}
@@ -384,7 +393,11 @@ console.log(productDetails.images ,'productDetails.images')
                 </span>
               ))}
             </div>
-          </div>
+          </div>)
+       }
+
+         
+
           <button className={styles.buttonCart} onClick={handleCart}>
             ADD TO CART
           </button>
@@ -400,7 +413,7 @@ console.log(productDetails.images ,'productDetails.images')
       <div className={styles.bottom}>
         <h1 className={`primaryText ${styles.title}`}>Customer Reviews</h1>
         <div className={styles.reviewTop}>
-          {Reviews.length >= 1 ? (
+          {ReviewProps.length >= 1 ? (
             ""
           ) : (
             <div className={styles.reviewTopLeft}>
@@ -440,9 +453,9 @@ console.log(productDetails.images ,'productDetails.images')
             </div>
           </div>
         )}
-
-        <div className={styles.reviews}>
-          {Reviews.map((review, i) => (
+        {ReviewProps && (
+          <div className={styles.reviews}>
+          {ReviewProps?.map((review, i) => (
             <div className={styles.review}>
               <Rating
                 name="readOnly"
@@ -476,6 +489,8 @@ console.log(productDetails.images ,'productDetails.images')
             </div>
           ))}
         </div>
+)}
+    
       </div>
 
       <div className={styles.hr}></div>
@@ -490,15 +505,20 @@ console.log(productDetails.images ,'productDetails.images')
 };
 
 export const getServerSideProps = async ({ params }) => {
-  //console.log(params, "params");
+  console.log(params, "params");
   const productRes = await axios.get(
-    // `https://tesla-lightning.herokuapp.com/product/${params.id}`
-    `https://tesla-lightning.herokuapp.com/product/640516cd094fb4c6b0652e1b`
+    `https://tesla-lightning.herokuapp.com/product/${params.id}`
+   
   );
-
+  const ReviewRes = await axios.get(
+    `https://tesla-lightning.herokuapp.com/product/${params.id}/reviews`
+   
+  );
+console.log(ReviewRes.data.data,'ReviewRes')
   return {
     props: {
       productDetails: productRes.data.data.product,
+      ReviewProps :ReviewRes.data.data,
       // reqFavourite : reqFavourite
     },
   };
