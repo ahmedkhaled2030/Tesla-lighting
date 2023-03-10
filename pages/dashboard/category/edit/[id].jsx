@@ -27,7 +27,8 @@ import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import { Editor } from "@tinymce/tinymce-react";
 import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
-const EditProduct = ({ categoryList, editProps }) => {
+const EditCategory = ({ editProps }) => {
+  console.log(editProps ,'editProps')
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -54,7 +55,7 @@ const EditProduct = ({ categoryList, editProps }) => {
 
   // images
   const [image, setImage] = useState([]);
-  const [imagePath, setImagePath] = useState([]);
+  const [imagePath, setImagePath] = useState();
   const [imageScreens, setImageScreens] = useState([]);
   const [uploading, setUploading] = useState(null);
 
@@ -72,7 +73,7 @@ const EditProduct = ({ categoryList, editProps }) => {
     }
 
     axios
-      .post(`${NEXT_PUBLIC_GAID}/product/upload`, formData, {
+      .post(`${process.env.NEXT_PUBLIC_GAID}/product/upload`, formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -83,7 +84,7 @@ const EditProduct = ({ categoryList, editProps }) => {
       .then((res) => {
         //console.log(res.data.data);
         res.data.data.map((item) => {
-          setImagePath((oldArray) => [...oldArray, item._id]);
+          setImagePath(item._id);
           setImageScreens((oldArray) => [...oldArray, item.path]);
         });
       })
@@ -93,9 +94,9 @@ const EditProduct = ({ categoryList, editProps }) => {
   };
   // images
 
-  const [name, setName] = useState(editProps.product.category);
+  const [name, setName] = useState(editProps.name);
 
-  const handleCategory = (event) => {
+  const handleCategoryName = (event) => {
     //console.log(event.target.value, "event.target.value");
     setName(event.target.value);
   };
@@ -104,15 +105,15 @@ const EditProduct = ({ categoryList, editProps }) => {
     e.preventDefault();
 
     console.log({
-      name,
+      name:name,
       image: imagePath,
     });
 
     axios
       .put(
-        `${process.env.NEXT_PUBLIC_GAID}/dashboard/category/${editProps.product._id}`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/category/${editProps._id}`,
         {
-          name,
+          name:name,
           image: imagePath,
         },
         {
@@ -158,24 +159,70 @@ const EditProduct = ({ categoryList, editProps }) => {
                 className={styles.right}
                 sx={{
                   display: "flex",
-                  justifyContent: "flex-start",
+                  justifyContent: "center",
                   flexWrap: "wrap",
                 }}
               >
                 <form>
-                  <FormControl sx={{ minWidth: 200 }}>
-                    <InputLabel id="demo-simple-select-label">Name</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={name}
-                      label="name"
-                      onChange={handleSale}
-                    >
-                      <MenuItem value={true}>true</MenuItem>
-                      <MenuItem value={false}>false</MenuItem>
-                    </Select>
-                  </FormControl>
+                <Box sx={{ mx: "auto", my: 2, width: 500 }}>
+            <label htmlFor="file">
+              Image: <DriveFolderUploadOutlined className={styles.icon} />
+            </label>
+            <input
+              type="file"
+              id="file"
+              onChange={handleImage}
+              style={{ display: "none" }}
+            />
+
+            <Button
+              onClick={uploadImages}
+              sx={{ my: 1, mx: 5, width: 150 }}
+              variant="contained"
+              color="secondary"
+              disabled={image.length == 0}
+            >
+              Upload Image
+            </Button>
+            <Box sx={{ position: "relative", display: "inline-flex", mx: 5 }}>
+              {uploading && (
+                <CircularProgress variant="determinate" value={uploading} />
+              )}
+              {uploading && (
+                <Box
+                  sx={{
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    position: "absolute",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Typography
+                    variant="caption"
+                    component="div"
+                    color="text.secondary"
+                  >
+                    {uploading}%
+                  </Typography>
+                </Box>
+              )}
+            </Box>
+                  </Box>
+                  <Box>
+                  <TextField
+              sx={{ my: 5, width: 500 }}
+              id="outlined-basic"
+              label="Edit Category Name"
+              value={name}
+              variant="outlined"
+              onChange={(e) => setName(e.target.value)}
+            />
+                  </Box>
+                 
                 </form>
 
                 <Box sx={{ margin: "auto", marginTop: "20px" }}>
@@ -201,7 +248,7 @@ export const getServerSideProps = async (ctx) => {
   console.log(ctx.params.id);
 
   const editRes = await axios.get(
-    `${process.env.PRIVATE_URL}/product/${ctx.params.id}`,
+    `${process.env.PRIVATE_URL}/dashboard/category/${ctx.params.id}`,
 
     { 
       headers: {
@@ -212,10 +259,10 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
-      categoryList: categoryRes.data.data,
+
       editProps: editRes.data.data,
     },
   };
 };
 
-export default EditProduct;
+export default EditCategory;

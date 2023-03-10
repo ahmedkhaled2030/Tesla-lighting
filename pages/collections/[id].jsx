@@ -18,15 +18,19 @@ import { Box } from "@mui/system";
 import { Pagination } from "@material-ui/lab";
 import usePagination from "@/components/Pagination";
 const Collections = (props) => {
+  console.log(props.categoryIdProps, "categoryIdProps");
   const { asPath } = useRouter();
   const router = useRouter();
   console.log(asPath[0]);
   let [page, setPage] = useState(1);
   let [data, setData] = useState([]);
   const PER_PAGE = 50;
-  const count = Math.ceil(props.products.products.length / PER_PAGE);
+  const count = Math.ceil(props.products.count / PER_PAGE);
+  console.log(props.products.products.length,'props.products.products.length')
   const _DATA = usePagination(props.products.products, PER_PAGE);
+  console.log(page ,"page")
   const handleChange = (e, p) => {
+    console.log(p ," p")
     setPage(p);
     _DATA.jump(p);
   };
@@ -62,6 +66,8 @@ const Collections = (props) => {
     //   return;
     // }
     if (
+      page > 1 ||
+
       sortBy !== "" ||
       sortOrder !== "" ||
       minPrice !== "" ||
@@ -74,7 +80,7 @@ const Collections = (props) => {
         }?selectedSubCategory=${selectedSubCategory}&sortBy=${sortBy}&sortOrder=${sortOrder}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${PER_PAGE}&page=${page}`
       );
     }
-  }, [, selectedSubCategory, sortBy, sortOrder, minPrice, maxPrice]);
+  }, [page, selectedSubCategory, sortBy, sortOrder, minPrice, maxPrice]);
 
   useEffect(() => {
     console.log("changed");
@@ -149,8 +155,8 @@ const Collections = (props) => {
           handleCategories={handleCategories}
         />
       </Box>
-      <div className={styles.imgContainer}>
-        <h1 className={`primaryText ${styles.title}`}>Flush MOUNT</h1>
+      <div className={styles.imgContainer} style={{ backgroundImage: `url('${process.env.NEXT_PUBLIC_GAID}/${props.categoryIdProps.image}')` }}>
+        <h1 className={`primaryText ${styles.title}`}>{props.categoryIdProps.name}</h1>
       </div>
       <div className={`innerWidth  yPaddings  ${styles.wrapper}`}>
         <div className={styles.filterContainer}>
@@ -200,23 +206,32 @@ const Collections = (props) => {
   );
 };
 
-export const getServerSideProps = async ({ params, query }) => {
-  console.log(query, "query");
-  console.log(params, "params");
+export const getServerSideProps = async (ctx) => {
+  console.log(ctx.query, "q");
+  console.log(ctx.params, "p");
+
+  const token = ctx.req?.cookies.token || "";
   const CollectionRes = await axios.post(
-    // `http://18.214.112.247:4000/product/search?page=${pageState.page}&limit=${pageState.pageSize}`,
-    `http://18.214.112.247:4000/product/search?page=${query.page}&limit=${query.limit}`,
+    `${process.env.PRIVATE_URL}/product/search?page=${ctx.query.page}&limit=${ctx.query.limit}`,
     {
-      minPrice: query?.minPrice,
-      maxPrice: query?.maxPrice,
-      sortBy: query?.sortBy,
-      sortOrder: query?.sortOrder,
-      category: params.id,
-      subCategory: query?.selectedSubCategory,
+      minPrice: ctx.query?.minPrice,
+      maxPrice: ctx.query?.maxPrice,
+      sortBy: ctx.query?.sortBy,
+      sortOrder: ctx.query?.sortOrder,
+      category: ctx.params.id,
+      subCategory: ctx.query?.selectedSubCategory,
     }
   );
   const categoryRes = await axios.get(
-    `http://18.214.112.247:4000/category/list`
+    `${process.env.PRIVATE_URL}/category/list`
+  );
+  const categoryId = await axios.get(
+    `${process.env.PRIVATE_URL}/dashboard/category/${ctx.params.id}`,
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
   );
 
   return {
@@ -229,6 +244,7 @@ export const getServerSideProps = async ({ params, query }) => {
       categoryProps: categoryRes.data.data,
       initialCategory: "",
       initialSubCategory: "",
+      categoryIdProps: categoryId.data.data,
     },
   };
 };

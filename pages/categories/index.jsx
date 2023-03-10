@@ -204,9 +204,13 @@ const Categories = ({ categoryResProps }) => {
 };
 export const getServerSideProps = async (ctx) => {
   const categoryRes = await axios.get(
-    `http://18.214.112.247:4000/category/list`
+    `${process.env.PRIVATE_URL}/dashboard/category`,
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
   );
-
   return {
     props: {
       categoryResProps: categoryRes.data.data,

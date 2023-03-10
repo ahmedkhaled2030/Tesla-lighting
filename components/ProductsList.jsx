@@ -28,7 +28,7 @@ console.log(products ,'products')
           {products?.map((product) => (
             <Link href={`/product/${product?._id}`} passHref className="link"> 
             <ProductsCard
-              img={`${process.env.NEXT_PUBLIC_GAID}product?.cover`} 
+              img={`${process.env.NEXT_PUBLIC_GAID}/product?.cover`} 
               title={product?.title}
               price={product?.price}
               type={type}
@@ -70,7 +70,7 @@ console.log(products ,'products')
             {products?.map((product, i) => (
               <SwiperSlide className={styles.swiperSlide}>
                 <ProductsCard
-                  img={`${process.env.NEXT_PUBLIC_GAID}${product?.img}`}
+                  img={`${process.env.NEXT_PUBLIC_GAID}/${product?.img}`}
                   title={product?.title}
                   price={product?.price}
                   key={i}

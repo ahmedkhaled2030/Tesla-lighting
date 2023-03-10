@@ -29,7 +29,7 @@ export default function Home({
   HeaderSliderProps,
   categoryResProps,
 }) {
-   console.log(HomeProps,'HomeProps')
+  console.log(categoryResProps, "categoryResProps");
 
   const products = [
     {
@@ -129,7 +129,7 @@ export default function Home({
         />
       </Head>
 
-     <Featured HeaderSliderProps={HeaderSliderProps} />
+      <Featured HeaderSliderProps={HeaderSliderProps} />
       {/* <CategoryList
         categories={categories}
         title="shop by category"
@@ -150,10 +150,10 @@ export default function Home({
 }
 
 export const getServerSideProps = async (ctx) => {
-  console.log(process.env.PRIVATE_URL)   
+  console.log(process.env.PRIVATE_URL);
 
   const token = ctx.req?.cookies.token || "";
- 
+
   const HomeRes = await axios.get(
     `${process.env.PRIVATE_URL}/dashboard/section`,
 
@@ -167,9 +167,14 @@ export const getServerSideProps = async (ctx) => {
     `${process.env.PRIVATE_URL}/dashboard/section/header`
   );
 
-  // const categoryRes = await axios.get(
-  //   `${process.env.PRIVATE_URL}/category/list`
-  // );
+  const categoryRes = await axios.get(
+    `${process.env.PRIVATE_URL}/dashboard/category`,
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
+  );
 
   const partners = await axios.get(
     `${process.env.PRIVATE_URL}/dashboard/partner`,
@@ -202,7 +207,7 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       HomeProps: HomeRes.data.data,
-      // categoryResProps: categoryRes.data.data,
+      categoryResProps: categoryRes.data.data,
       HeaderSliderProps: HeaderSliderRes.data.data,
       partnersProps: partners.data.data,
       StoreInfoProps: StoreInfoRes.data.data,

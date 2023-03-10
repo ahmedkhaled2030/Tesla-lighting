@@ -7,12 +7,14 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
+  Alert,
   Button,
   FormControl,
   InputLabel,
   ListItem,
   MenuItem,
   Select,
+  Snackbar,
   TextareaAutosize,
   TextField,
   Typography,
@@ -25,8 +27,23 @@ import { DriveFolderUploadOutlined } from "@mui/icons-material";
 import { Editor } from "@tinymce/tinymce-react";
 import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
-const AddCategory = ({ categoryList }) => {
-  const colors = ["Gold", "Black", "Brown", "Blue", "Green"];
+const addCategory = () => {
+
+  const [state, setState] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "left",
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => {
+    console.log(newState, "newState");
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
 
   const editorRef = useRef(null);
   const [token, setToken] = useState("");
@@ -38,7 +55,7 @@ const AddCategory = ({ categoryList }) => {
 
   // images
   const [image, setImage] = useState([]);
-  const [imagePath, setImagePath] = useState([]);
+  const [imagePath, setImagePath] = useState();
   const [imageScreens, setImageScreens] = useState([]);
   const [uploading, setUploading] = useState(null);
 
@@ -56,7 +73,7 @@ const AddCategory = ({ categoryList }) => {
     }
 
     axios
-      .post("http://18.214.112.247:4000/product/upload", formData, {
+      .post(`${process.env.NEXT_PUBLIC_GAID}/product/upload`, formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -67,7 +84,7 @@ const AddCategory = ({ categoryList }) => {
       .then((res) => {
         //console.log(res.data.data);
         res.data.data.map((item) => {
-          setImagePath((oldArray) => [...oldArray, item._id]);
+          setImagePath(item._id);
           setImageScreens((oldArray) => [...oldArray, item.path]);
         });
       })
@@ -77,20 +94,26 @@ const AddCategory = ({ categoryList }) => {
   };
   // images
 
-  const [name, setName] = useState("");
+  const [name, setName] = useState();
 
-  const handleCategory = (event) => {
+  const handleCategoryName = (event) => {
     //console.log(event.target.value, "event.target.value");
     setName(event.target.value);
   };
+
   const addCategory = (e) => {
     e.preventDefault();
 
+    console.log({
+      name:name,
+      image: imagePath,
+    });
+
     axios
       .post(
-        "http://18.214.112.247:4000/dashboard/category",
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/category`,
         {
-          name,
+          name:name,
           image: imagePath,
         },
         {
@@ -100,6 +123,10 @@ const AddCategory = ({ categoryList }) => {
         }
       )
       .then((res) => {
+        handleClick({
+          vertical: "top",
+          horizontal: "left",
+        });
         router.push(`/dashboard/category`);
       })
       .catch((error) => {
@@ -110,119 +137,92 @@ const AddCategory = ({ categoryList }) => {
   return (
     <div className={styles.products}>
       <Sidebar />
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical, horizontal }}
+        key={vertical + horizontal}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          This is a success message!
+        </Alert>
+      </Snackbar>
       <div className={styles.productsContainer}>
         <div className={styles.new}>
           <div className={styles.newContainer}>
             <div className={styles.top}>
-              <h1>Add Category</h1>
+              <h1>Edit Category</h1>
             </div>
             <div className={styles.bottom}>
-              <div className={styles.left}>
-                {imageScreens.map((img) => (
-                  <Image
-                    src={`http://18.214.112.247:4000/${img}`}
-                    alt={img}
-                    width="100"
-                    height="100"
-                    objectFit="contain"
-                  />
-                ))}
-              </div>
-
               <Box
                 className={styles.right}
                 sx={{
                   display: "flex",
-                  justifyContent: "flex-start",
+                  justifyContent: "center",
                   flexWrap: "wrap",
                 }}
               >
                 <form>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <label htmlFor="file">
-                      Image:
-                      <DriveFolderUploadOutlined className={styles.icon} />
-                    </label>
-                    <input
-                      type="file"
-                      id="file"
-                      multiple
-                      onChange={handleImage}
-                      style={{ display: "none" }}
-                    />
-                    <Button
-                      onClick={uploadImages}
-                      sx={{ my: 1, mx: 5, width: 150 }}
-                      variant="contained"
-                      color="secondary"
-                      disabled={image.length == 0}
-                    >
-                      Upload Images
-                    </Button>
-                    <Box
-                      sx={{
-                        position: "relative",
-                        display: "inline-flex",
-                        mx: 5,
-                      }}
-                    >
-                      {uploading && (
-                        <CircularProgress
-                          variant="determinate"
-                          value={uploading}
-                        />
-                      )}
-                      {uploading && (
-                        <Box
-                          sx={{
-                            top: 0,
-                            left: 0,
-                            bottom: 0,
-                            right: 0,
-                            position: "absolute",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Typography
-                            variant="caption"
-                            component="div"
-                            color="text.secondary"
-                          >
-                            {uploading}%
-                          </Typography>
-                        </Box>
-                      )}
-                    </Box>
-                  </Box>
+                <Box sx={{ mx: "auto", my: 2, width: 500 }}>
+            <label htmlFor="file">
+              Image: <DriveFolderUploadOutlined className={styles.icon} />
+            </label>
+            <input
+              type="file"
+              id="file"
+              onChange={handleImage}
+              style={{ display: "none" }}
+            />
 
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      gap: 2,
-                      my: 2,
-                    }}
+            <Button
+              onClick={uploadImages}
+              sx={{ my: 1, mx: 5, width: 150 }}
+              variant="contained"
+              color="secondary"
+              disabled={image.length == 0}
+            >
+              Upload Image
+            </Button>
+            <Box sx={{ position: "relative", display: "inline-flex", mx: 5 }}>
+              {uploading && (
+                <CircularProgress variant="determinate" value={uploading} />
+              )}
+              {uploading && (
+                <Box
+                  sx={{
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                    position: "absolute",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Typography
+                    variant="caption"
+                    component="div"
+                    color="text.secondary"
                   >
-                    <label className={styles.label}>Name</label>
-                    <TextField
-                      id="outlined-basic"
-                      label="name"
-                      variant="outlined"
-                      name="name"
-                      onChange={handleCategory}
-                    />
+                    {uploading}%
+                  </Typography>
+                </Box>
+              )}
+            </Box>
                   </Box>
+                  <Box>
+                  <TextField
+              sx={{ my: 5, width: 500 }}
+              id="outlined-basic"
+              label="Edit Category Name"
+              value={name}
+              variant="outlined"
+              onChange={(e) => setName(e.target.value)}
+            />
+                  </Box>
+                 
                 </form>
 
                 <Box sx={{ margin: "auto", marginTop: "20px" }}>
@@ -243,23 +243,6 @@ const AddCategory = ({ categoryList }) => {
   );
 };
 
-export const getServerSideProps = async (ctx) => {
-  const token = ctx.req?.cookies.token || "";
-  const res = await axios.get(
-    `http://18.214.112.247:4000/category/list`,
 
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
-  );
 
-  return {
-    props: {
-      categoryList: res.data.data,
-    },
-  };
-};
-
-export default AddCategory;
+export default addCategory;
