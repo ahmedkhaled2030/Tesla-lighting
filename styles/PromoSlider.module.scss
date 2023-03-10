@@ -8,6 +8,9 @@
     width: 90%;
     background: black;
     font-family: "Poppins", sans-serif;
+    @media (max-width: $sm) {
+      height: 90px;
+    }
     .swiperSlide {
       text-align: center;
 

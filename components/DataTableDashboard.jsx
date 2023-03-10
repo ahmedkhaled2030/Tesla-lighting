@@ -33,7 +33,7 @@ const DataTableDashboard = ({
         await setPageState((old) => ({ ...old, isLoading: true }));
 
         const res = await axios.get(
-          `http://18.214.112.247:4000/dashboard/${type}?page=${pageState.page}&limit=${pageState.pageSize}`,
+          `${process.env.NEXT_PUBLIC_GAID}/dashboard/${type}?page=${pageState.page}&limit=${pageState.pageSize}`,
 
           {
             headers: {
@@ -72,7 +72,7 @@ const DataTableDashboard = ({
         await setPageState((old) => ({ ...old, isLoading: true }));
 
         const res = await axios.get(
-          `http://18.214.112.247:4000/dashboard/section/${type}?page=${pageState.page}&limit=${pageState.pageSize}`,
+          `${process.env.NEXT_PUBLIC_GAID}/dashboard/section/${type}?page=${pageState.page}&limit=${pageState.pageSize}`,
 
           {
             headers: {
@@ -107,21 +107,53 @@ const DataTableDashboard = ({
     }, [pageState.page, pageState.pageSize, token]);
   }
 
+  if (page == "category") {
+    console.log(type, "category");
+    useEffect(() => {
+      const fetchData = async () => {
+        await setToken(Cookies.get("token"));
+        await setPageState((old) => ({ ...old, isLoading: true }));
+
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_GAID}/category/list`,
+
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        const json = await res.data.data;
+
+        console.log(json, "json");
+
+        console.log(Array.isArray(json));
+        if (Array.isArray(json)) {
+          setPageState((old) => ({
+            ...old,
+            isLoading: false,
+            data: json,
+            total: json.count,
+          }));
+        } else {
+          setPageState((old) => ({
+            ...old,
+            isLoading: false,
+            data: [json],
+            total: json.count,
+          }));
+        }
+      };
+      fetchData();
+    }, [pageState.page, pageState.pageSize, token]);
+  }
+
   return (
     <div className={styles.datatable}>
-      {/* <DataGrid
-        sx={{ outline: "none" }}
-        getRowId={(row) => row._id+ row.price}
-        rows={rowsList}
-        columns={columns.concat(actionColumn)}
-        pageSize={pageSize}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        rowsPerPageOptions={[5, 10, 20]}
-        checkboxSelection
-        pagination
 
-      /> */}
-      <DataGrid
+      {
+        pageState.data && (
+          <DataGrid
         autoHeight
         getRowId={(row) => row._id + Date.now()}
         rows={pageState.data}
@@ -140,6 +172,9 @@ const DataTableDashboard = ({
         }
         columns={columns.concat(actionColumn)}
       />
+        )
+      }
+  
     </div>
   );
 };

@@ -12,7 +12,8 @@ import Head from "next/head";
 import ProductsList from "@/components/ProductsList";
 import { FilterAltOutlined } from "@mui/icons-material";
 import CategoryList from "@/components/CategoryList";
-const Categories = () => {
+import axios from "axios";
+const Categories = ({ categoryResProps }) => {
   const categories = [
     {
       img: "/img/1.jpg",
@@ -194,15 +195,22 @@ const Categories = () => {
           rel="stylesheet"
         />
       </Head>
-      
-      
-      
-      <div className={`innerWidth    ${styles.wrapper}`}>
 
-        <CategoryList categories={categories} title="CATALOG" />
+      <div className={`innerWidth    ${styles.wrapper}`}>
+        <CategoryList categoryResProps={categoryResProps} title="CATALOG" />
       </div>
     </div>
   );
 };
+export const getServerSideProps = async (ctx) => {
+  const categoryRes = await axios.get(
+    `http://18.214.112.247:4000/category/list`
+  );
 
+  return {
+    props: {
+      categoryResProps: categoryRes.data.data,
+    },
+  };
+};
 export default Categories;

@@ -3,25 +3,14 @@ import { useState } from "react";
 import styles from "./../styles/StoreInfo.module.scss";
 
 const StoreInfo = ({ StoreInfo }) => {
-  // //console.log(StoreInfo,'StoreInfo')
-  const sections = [
-    {
-      img: "/img/storeInfo1.jpg",
-      title: "new magnetic track system",
-      desc: "Sleek, Slim Line, Latest LED technology. Thanks to the convenient and versatile structure, the systems are used in various sapces from commercial to residential settings.",
-    },
-    {
-      img: "/img/storeInfo1.jpg",
-      title: "free lighting design",
-      desc: "Now available in Vancouver areas!",
-    },
-  ];
+ console.log(StoreInfo,'StoreInfo')
+
   return (
     <div className={` innerWidth  ${styles.container}`}>
       {StoreInfo && StoreInfo.map((item) => (
         <div className={styles.section}>
           <Image
-            src={item.image.path}
+            src={`${process.env.NEXT_PUBLIC_GAID}/${item?.image?.path}`}
             width="600"
             height="400"
             alt=""

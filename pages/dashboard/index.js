@@ -6,6 +6,7 @@ import Sidebar from "@/components/SideBarDashboard";
 
 
 const Dashboard = () => {
+console.log(process.env.NEXT_PUBLIC_GAID)
   return (
     <div className={styles.home}>
       <Sidebar />

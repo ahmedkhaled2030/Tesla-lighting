@@ -58,19 +58,19 @@ const Sidebar = () => {
           <Link href="/dashboard/category" style={{ textDecoration: "none" }} passHref>
             <li>
               <Category className={styles.icon} />
-              <span>Add Category</span>
+              <span>Category</span>
             </li>
           </Link>
           <Link href="/dashboard/subcategory" style={{ textDecoration: "none" }} passHref>
             <li>
               <Category className={styles.icon} />
-              <span>Add SubCategory</span>
+              <span>SubCategory</span>
             </li>
           </Link>
           <Link href="/dashboard/model" style={{ textDecoration: "none" }} passHref>
             <li>
               <Category className={styles.icon} />
-              <span>Add Model</span>
+              <span>Model</span>
             </li>
           </Link>
           {/* <p className={styles.title}>Promo Codes</p>

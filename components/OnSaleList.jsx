@@ -79,7 +79,7 @@ const OnSaleList = () => {
           {list?.map((item, i) => (
             <SwiperSlide className={styles.swiperSlide}>
               <OnSaleCard
-                img={item.img}
+                img={`${process.env.NEXT_PUBLIC_GAID}/item.img`}
                 title={item.title}
                 price={item.price}
                 sale={item.sale}

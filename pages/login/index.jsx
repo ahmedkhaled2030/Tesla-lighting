@@ -26,8 +26,8 @@ const Login = () => {
     try {
       const res = await axios.post(
         "http://18.214.112.247:4000/user/login",
-        values
-      );
+        values  
+      ); 
       const authData = await res.data.data;
 
       setCookie("token", authData.refreshToken, { path: "/" });

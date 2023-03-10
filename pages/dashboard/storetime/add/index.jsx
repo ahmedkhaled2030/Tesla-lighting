@@ -58,7 +58,7 @@ const storeTimeAdd = () => {
     }
 
     axios
-      .post("http://18.214.112.247:4000/product/upload", formData, {
+      .post(`${process.env.NEXT_PUBLIC_GAID}/product/upload`, formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -89,7 +89,7 @@ const storeTimeAdd = () => {
 
     axios
       .post(
-        "http://18.214.112.247:4000/dashboard/section",
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/section`,
         {
           name: "retail-store",
           text: editorRef.current.getContent(),
@@ -242,7 +242,7 @@ const storeTimeAdd = () => {
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
-              disabled={!imagePath || ((text = "") && (url = ""))}
+              disabled={!imagePath }
             >
               Add Section
             </Button>
@@ -254,3 +254,4 @@ const storeTimeAdd = () => {
 };
 
 export default storeTimeAdd;
+ 

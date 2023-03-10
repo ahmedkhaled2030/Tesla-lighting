@@ -222,7 +222,7 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
 
           <div className={styles.iconWrapper} onClick={openFavourite}>
             <FavoriteBorderOutlined className={styles.icon} />
-            <span>6</span>
+            <span></span>
           </div>
         </div>
       </div>

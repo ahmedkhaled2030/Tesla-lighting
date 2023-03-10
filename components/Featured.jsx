@@ -45,10 +45,11 @@ const Featured = ({ HeaderSliderProps }) => {
           {HeaderSliderProps?.map((slide) => (
             <SwiperSlide className={styles.swiperSlide}>
               <Image
-                src={slide.image.path}
+                src={`${process.env.NEXT_PUBLIC_GAID}/${slide.image.path}`}
                 alt={slide.image._id}
                 layout="fill"
                 className={styles.img}
+            
               />
               {/* <span className={`primaryText ${styles.text}`}>brand new</span>
           <h1 className={`primaryText ${styles.title}`}>MAGNETIC TRACK SYSTEM</h1>

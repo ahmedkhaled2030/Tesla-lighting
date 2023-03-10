@@ -34,7 +34,7 @@ const Account = () => {
               <div className={styles.details}>
                   <div className={`primaryText ${styles.title}`}>account details</div>
                   <p className={styles.text}>You haven't placed any address yet.</p>
-                  <p className={styles.text}>View addresses (2)</p>
+                  <p className={styles.text}>View addresses</p>
               </div>
           </div>
       

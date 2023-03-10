@@ -27,8 +27,9 @@ export default function Home({
   StoreInfoProps,
   VideoResProps,
   HeaderSliderProps,
+  categoryResProps,
 }) {
-  //  console.log(HomeProps,'HomeProps')
+   console.log(HomeProps,'HomeProps')
 
   const products = [
     {
@@ -128,11 +129,15 @@ export default function Home({
         />
       </Head>
 
-      <Featured HeaderSliderProps={HeaderSliderProps} />
-      <CategoryList categories={categories} title="shop by category" />
+     <Featured HeaderSliderProps={HeaderSliderProps} />
+      {/* <CategoryList
+        categories={categories}
+        title="shop by category"
+        categoryResProps={categoryResProps}
+      />
       <ProductsList title="New ARRIVAL" products={products} />
       <OnSaleList />
-      <ReviewList />
+      <ReviewList />  */}
       {/* <Help /> */}
       <CompanySlider partnersProps={partnersProps} />
       <VideoHome VideoResProps={VideoResProps} />
@@ -145,10 +150,12 @@ export default function Home({
 }
 
 export const getServerSideProps = async (ctx) => {
-  const token = ctx.req?.cookies.token || "";
+  console.log(process.env.PRIVATE_URL)   
 
+  const token = ctx.req?.cookies.token || "";
+ 
   const HomeRes = await axios.get(
-    `http://18.214.112.247:4000/dashboard/section`,
+    `${process.env.PRIVATE_URL}/dashboard/section`,
 
     {
       headers: {
@@ -157,17 +164,15 @@ export const getServerSideProps = async (ctx) => {
     }
   );
   const HeaderSliderRes = await axios.get(
-    `http://18.214.112.247:4000/dashboard/section/header`,
-
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
+    `${process.env.PRIVATE_URL}/dashboard/section/header`
   );
 
+  // const categoryRes = await axios.get(
+  //   `${process.env.PRIVATE_URL}/category/list`
+  // );
+
   const partners = await axios.get(
-    `http://18.214.112.247:4000/dashboard/partner`,
+    `${process.env.PRIVATE_URL}/dashboard/partner`,
 
     {
       headers: {
@@ -176,7 +181,7 @@ export const getServerSideProps = async (ctx) => {
     }
   );
   const StoreInfoRes = await axios.get(
-    `http://18.214.112.247:4000/dashboard/section/featured-posts`,
+    `${process.env.PRIVATE_URL}/dashboard/section/featured-posts`,
 
     {
       headers: {
@@ -185,7 +190,7 @@ export const getServerSideProps = async (ctx) => {
     }
   );
   const VideoRes = await axios.get(
-    `http://18.214.112.247:4000/dashboard/section/video`,
+    `${process.env.PRIVATE_URL}/dashboard/section/video`,
 
     {
       headers: {
@@ -197,6 +202,7 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       HomeProps: HomeRes.data.data,
+      // categoryResProps: categoryRes.data.data,
       HeaderSliderProps: HeaderSliderRes.data.data,
       partnersProps: partners.data.data,
       StoreInfoProps: StoreInfoRes.data.data,

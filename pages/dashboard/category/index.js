@@ -1,36 +1,25 @@
 import styles from "../../../styles/ProductsDashboard.module.scss";
 import React, { useEffect, useState } from "react";
-
 import Sidebar from "@/components/SideBarDashboard";
 import DataTableDashboard from "@/components/DataTableDashboard";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Button, TextField } from "@mui/material";
-import { Box } from "@mui/system";
-import Image from "next/image";
 import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
+import { Button } from "@mui/material";
+import { Box } from "@mui/system";
 const Category = () => {
-  const router = useRouter();
-  const [category, setCategory] = useState("");
-  const [status, setStatus] = useState("");
   const [token, setToken] = useState("");
-  //console.log(token , "111111111111")
   useEffect(() => {
     setToken(Cookies.get("token"));
   }, [token]);
-
-  const handleCategory = (e) => {
-    setCategory(e.target.value);
-  };
-  const addCategory = async () => {
+  const router = useRouter();
+  const handleDelete = async (id) => {
+    console.log(id)
     try {
-      const res = await axios.post(
-        `http://18.214.112.247:4000/dashboard/category`,
-        {
-          name: category,
-        },
+      const res = await axios.delete(
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/category/${id}`,
 
         {
           headers: {
@@ -40,76 +29,93 @@ const Category = () => {
       );
 
       const data = await res;
-      //console.log(data.data.message, "data");
-      setStatus(data.data.message);
-      setCategory("");
-      // router.push("/dashboard/products");
+      //console.log(data, "data");
+      router.reload(window.location.pathname);
     } catch (err) {
-      //console.log(err.message);
-      setStatus("Category with same name exist");
-      setCategory("");
+      //console.log(err);
     }
   };
+  const handleEdit = async (id) => {
+    //console.log(id)
+    try {
+      router.push(`/dashboard/category/edit/${id}`);
+    } catch (err) {
+      //console.log(err);
+    }
+  };
+  const handleView = async (id) => {
+    //console.log(id)
+    try {
+      router.push(`/dashboard/category/view/${id}`);
+    } catch (err) {
+      //console.log(err);
+    }
+  };
+  const columns = [
+    { field: "_id", headerName: "ID", width: 220 },
+    {
+      field: "name",
+      headerName: "Name",
+      width: 350,
+    },
+  ];
+
+  const actionColumn = [
+    {
+      field: "action",
+      headerName: "Action",
+      width: 400,
+      renderCell: (params) => {
+        return (
+          <div className={styles.cellAction}>
+            {/* <div
+              className={styles.viewButton}
+              onClick={() => handleView(params.row._id)}
+            >
+              View
+            </div> */}
+
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => handleEdit(params.row._id)}
+            >
+              Edit
+            </Button>
+
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => handleDelete(params.row._id)}
+            >
+              Delete
+            </Button>
+          </div>
+        );
+      },
+    },
+  ];
 
   return (
     <div className={styles.products}>
       <Sidebar />
+
       <div className={styles.productsContainer}>
-        <Box sx={{ mx: "auto", my: 2, width: 500 }}>
-          <TextField
-            sx={{ my: 5, width: 500 }}
-            id="outlined-basic"
-            label="Add Category"
-            value={category}
-            variant="outlined"
-            onChange={handleCategory}
-          />
-          <Box sx={{ textAlign: "center" }}>
-            <Button
-              onClick={addCategory}
-              sx={{ my: 1, width: 150 }}
-              variant="contained"
-              color="success"
-            >
+        <Box sx={{ m: "2rem" }}>
+          <Link href="/dashboard/category/add" passHref>
+            <Button variant="contained" color="success">
               Add Category
             </Button>
-          </Box>
+          </Link>
         </Box>
 
-        {status == "Category created successfully" && (
-          <Box sx={{ mx: "auto", my: 5, width: 500 }}>
-            <Box
-              sx={{
-                textAlign: "center",
-                fontSize: "0.875rem",
-                fontFamily: "sans",
-              }}
-            >
-              <Image
-                src="/img/done.png"
-                alt=""
-                height="150px"
-                width="150px"
-                objectFit="contain"
-              />
-              <h2>{status}</h2>
-            </Box>
-          </Box>
-        )}
-        {status == "Category with same name exist" && (
-          <Box sx={{ mx: "auto", my: 5, width: 500 }}>
-            <Box sx={{ textAlign: "center", fontSize: "0.875rem" }}>
-              <Image
-                src="/img/wrong.png"
-                alt=""
-                height="150px"
-                width="150px"
-                objectFit="contain"
-              />
-              <h2>{status}</h2>
-            </Box>
-          </Box>
-        )}
+        <DataTableDashboard
+          type="category"
+          api="category"
+          columns={columns}
+          actionColumn={actionColumn}
+          page="category"
+        />
       </div>
     </div>
   );
