@@ -32,6 +32,12 @@ import "swiper/css/navigation";
 import { FreeMode, Pagination, Navigation } from "swiper";
 // import Magnifier from "react-magnifier";
 import SideBar from "@/components/FilterBar";
+import Cookies from "js-cookie";
+import { Box } from "@mui/system";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import { TabPanel } from "@mui/joy";
 
 const FilterColor = styled.div`
   background-color: ${(props) => props.color};
@@ -43,129 +49,56 @@ const FilterColor = styled.div`
   display: block;
 `;
 
-const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
-  console.log(ReviewProps, "ReviewProps");
+const Product = ({
+  productDetails,
+  setCartOpen,
+  ReviewProps,
+  SimilarResProps,
+  RecentlyResProps
+}) => {
+  console.log(process.env.NEXT_PUBLIC_OLDPATH, "AAA");
+  console.log(productDetails, "productDetails");
+  const [token, setToken] = useState(Cookies.get("token"));
 
   // //console.log(productDetails ,"productDetails")
   // //console.log(isFavourite,'isFavourite')
   //dummyData
 
-  const images = [
-    "/img/product11.jpg",
-    "/img/product12.png",
-    "/img/product13.png",
-  ];
-  const prices = [{ value: 35 }, { value: 50 }];
-  const colors = [{ value: "yellow" }, { value: "black" }];
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
 
-  const SimilarProducts = [
-    {
-      img: "/img/arrival1.png",
-      title: "Aged Brass Frame with Etched Glass Shade Linear Pendant",
-      price: "3,767.00",
-    },
-    {
-      img: "/img/arrival2.jpg",
-      title:
-        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
-      price: "3,767.00",
-    },
-    {
-      img: "/img/arrival3.png",
-      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
-      price: "3,767.00",
-    },
-    {
-      img: "/img/arrival4.png",
-      title: "Gold Leaf Leafy Bohemian Shade Wall Sconce",
-      price: "3,767.00",
-    },
-    {
-      img: "/img/arrival5.png",
-      title:
-        "Handcrafted Wallflower Frame with Opal Matte Glass Globe Pendant / Chandelier",
-      price: "3,767.00",
-    },
-  ];
-  const RecentViewedProducts = [
-    {
-      img: "/img/1.jpg",
-      title: "Aged Brass Frame with Etched Glass Shade Linear Pendant",
-      price: "3,767.00",
-    },
-    {
-      img: "/img/2.jpg",
-      title:
-        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
-      price: "3,767.00",
-    },
-    {
-      img: "/img/3.jpg",
-      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
-      price: "3,767.00",
-    },
-    {
-      img: "/img/4.jpg",
-      title: "Gold Leaf Leafy Bohemian Shade Wall Sconce",
-      price: "3,767.00",
-    },
-    {
-      img: "/img/5.jpg",
-      title:
-        "Handcrafted Wallflower Frame with Opal Matte Glass Globe Pendant / Chandelier",
-      price: "3,767.00",
-    },
-  ];
-  const Reviews = [
-    {
-      name: "Laura Carter",
-      Verified: true,
-      rating: 5,
-      reviewTitle: "Vey Nice",
-      reviewComment:
-        "Hi, I purchased it for my new build… not completed yet… however cannot wait to hang it!…",
-    },
-    {
-      name: "Ivy Ng",
-      Verified: false,
-      rating: 3,
-      reviewTitle: "Love it",
-      reviewComment: "It match my place, quality is good, worth it",
-    },
-    {
-      name: "Eladio Carter",
-      Verified: true,
-      rating: 4,
-      reviewTitle: "EXcellent",
-      reviewComment:
-        "quality is good not completed yet… however cannot wait to hang it!…",
-    },
-  ];
-  const desc = `SKU: 1233W70-36
-  Finish: Matte White
-  Width: 70
-  Height: 36
-  Extension: 2
-  Collection: Abigail
-  Bulb 1 max wattage: 28
-  Bulb 1 Type: LED
-  Bulb 1 base: LED
-  Lumens: 1456
-  CRI: 80
-  Shipping Method: LTL
-  Color Temperature: 3000k to 6000k
-  Voltage: 120
-  Manufacturer Warranty: Three years warranty against manufacturers defect.`;
-  //dummyData
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box sx={{ p: 3 }}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
 
-  const [price, setPrice] = useState(productDetails.size[0].price);
+  const [price, setPrice] = useState(productDetails?.size[0]?.price);
   const [itemSize, setSize] = useState(0);
   const [selectedSizeId, setSelectedSizeId] = useState("");
   const [color, setColor] = useState("");
-  const [selectedImg, setSelectedImg] = useState(productDetails.images[0].path);
+  const [selectedImg, setSelectedImg] = useState(
+    productDetails?.images[0]?.path
+  );
   const [show, setShow] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [isFavourited, setIsFavourited] = useState(false);
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   const dispatch = useDispatch();
 
@@ -175,7 +108,7 @@ const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
 
   const handleSize = (sizeIndex) => {
     console.log(sizeIndex, "sizeIndex");
-    const difference = prices[sizeIndex].value - prices[itemSize].value;
+    const difference = prices[sizeIndex]?.value - prices[itemSize]?.value;
     setSize(sizeIndex);
 
     changePrice(difference);
@@ -205,12 +138,11 @@ const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
 
     try {
       const res = await axios.post(
-        `http://18.214.112.247:4000/product/favorite/${productDetails._id}`,
+        `${process.env.NEXT_PUBLIC_GAID}/product/favorite/${productDetails._id}`,
         {},
         {
           headers: {
-            Authorization:
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
+            Authorization: token,
           },
         }
       );
@@ -286,11 +218,25 @@ const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
           }}
           className={styles.swiper}
         >
-          {productDetails.images?.map((img, i) => (
-            <SwiperSlide className={styles.swiperSlide} key={i}>
+          {productDetails.images.length >= 1 ? (
+            productDetails.images?.map((img, i) => (
+              <SwiperSlide className={styles.swiperSlide} key={i}>
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_OLDPATH}/${img?.path} `}
+                  alt={img?._id}
+                  width="400px"
+                  height="400px"
+                  objectFit="contain"
+                  className={styles.subImg}
+                />
+                {/* <Magnifier src={img} width={400}  />  */}
+              </SwiperSlide>
+            ))
+          ) : (
+            <SwiperSlide className={styles.swiperSlide}>
               <Image
-                src={img?.path}
-                alt={img?._id}
+                src={`${process.env.NEXT_PUBLIC_OLDPATH}/${productDetails?.cover} `}
+                alt={productDetails?._id}
                 width="400px"
                 height="400px"
                 objectFit="contain"
@@ -298,35 +244,52 @@ const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
               />
               {/* <Magnifier src={img} width={400}  />  */}
             </SwiperSlide>
-          ))}
+          )}
         </Swiper>
       </>
       <div className={styles.top}>
         <div className={styles.left}>
           <div className={styles.subImagesContainer}>
-            {productDetails?.images.map((image, i) => (
-              <div
-                key={i}
-                className={` ${
-                  selectedImg === image ? `${styles.selected}` : ""
-                }  ${styles.image}`}
-                onClick={() => setSelectedImg(image.path)}
-              >
+            {productDetails?.images.length >= 1 ? (
+              productDetails.images.map((image, i) => (
+                <div
+                  key={i}
+                  className={` ${
+                    selectedImg === image ? `${styles.selected}` : ""
+                  }  ${styles.image}`}
+                  onClick={() => setSelectedImg(image?.path)}
+                >
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_OLDPATH}/${image?.path} `}
+                    alt={image._id}
+                    width="100px"
+                    height="100px"
+                    objectFit="contain"
+                    className={styles.subImg}
+                  />
+                </div>
+              ))
+            ) : (
+              <div>
                 <Image
-                  src={image.path}
-                  alt={image._id}
+                  src={`${process.env.NEXT_PUBLIC_OLDPATH}/${productDetails?.cover} `}
+                  alt={productDetails._id}
                   width="100px"
                   height="100px"
                   objectFit="contain"
                   className={styles.subImg}
                 />
               </div>
-            ))}
+            )}
           </div>
 
           <div className={styles.mainImgContainer}>
             <Image
-              src={selectedImg}
+              src={
+                productDetails?.images.length >= 1
+                  ? `${process.env.NEXT_PUBLIC_OLDPATH}/${selectedImg}`
+                  : `${process.env.NEXT_PUBLIC_OLDPATH}/${productDetails?.cover}`
+              }
               alt=""
               width="450px"
               height="450px"
@@ -342,10 +305,10 @@ const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
             {productDetails?.title}
           </h1>
           <span className={styles.number}>
-            <strong>{productDetails?.number.toString()}</strong>
+            <strong>{productDetails?.number?.toString()}</strong>
           </span>
           <div className={styles.prices}>
-            $ {price}
+            $ {!price && productDetails?.price}
             {/* $ {productDetails?.price} */}
             {/* <span className={styles.price}>$3,265.00</span>
             <span className={styles.price}>$2,972.00</span>
@@ -354,6 +317,44 @@ const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
           <p className={styles.shipping}>
             <span>Shipping</span> calculated at checkout.
           </p>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <h4>Availability:</h4>{" "}
+            <div>
+              {productDetails?.stock >= 1 ? (
+                <span
+                  style={{
+                    color: "#62bf77",
+                    fontSize: "20px",
+                    marginLeft: "10px",
+                    fontWeight: "400",
+                  }}
+                >
+                  {" "}
+                  In Stock
+                </span>
+              ) : (
+                <span
+                  style={{
+                    color: "#ff6c37",
+                    fontSize: "20px",
+                    marginLeft: "10px",
+                    fontWeight: "400",
+                  }}
+                >
+                  {" "}
+                  Out Of Stock
+                </span>
+              )}
+            </div>
+          </Box>
+
           {productDetails.isFavourited ? (
             <button className={styles.buttonWish} onClick={handleFavourite}>
               <Favorite />
@@ -365,7 +366,7 @@ const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
               Add to Wishlist
             </button>
           )}
-          {productDetails?.colors && (
+          {productDetails?.colors.length >= 1 && (
             <div className={styles.colors}>
               <span>COLOR</span>
               <div className={styles.colorWrapper}>
@@ -388,7 +389,7 @@ const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
               </div>
             </div>
           )}
-          {productDetails?.size && (
+          {productDetails?.size >= 1 && (
             <div className={styles.sizes}>
               <span>SIZE</span>
               <div className={styles.sizeWrapper}>
@@ -408,23 +409,44 @@ const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
               </div>
             </div>
           )}
+          {productDetails?.stock >= 1 && (
+            <button className={styles.buttonCart} onClick={handleCart}>
+              ADD TO CART
+            </button>
+          )}
 
-          <button className={styles.buttonCart} onClick={handleCart}>
-            ADD TO CART
-          </button>
           <h3 className={`primaryText ${styles.descHeading}`}>DESCRIPTION</h3>
           {/* <span className={styles.desc}>{productDetails.description}</span> */}
           <span
             className={styles.desc}
             dangerouslySetInnerHTML={{ __html: productDetails.description }}
           ></span>
+          {/* <Box sx={{ width: '100%' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+          <Tab label="DESCRIPTION"  />
+          <Tab label="SPECIFICATION "  />
+       
+        </Tabs>
+      </Box>
+      <TabPanel value={value} index={0}>
+      <span
+            className={styles.desc}
+            dangerouslySetInnerHTML={{ __html: productDetails.description }}
+          ></span>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+              <span>{productDetails.specification}</span>
+      </TabPanel>
+  
+    </Box> */}
         </div>
       </div>
 
       <div className={styles.bottom}>
         <h1 className={`primaryText ${styles.title}`}>Customer Reviews</h1>
         <div className={styles.reviewTop}>
-          {ReviewProps.length >= 1 ? (
+          {ReviewProps?.length >= 1 ? (
             ""
           ) : (
             <div className={styles.reviewTopLeft}>
@@ -505,28 +527,47 @@ const Product = ({ productDetails, setCartOpen, ReviewProps }) => {
 
       <div className={styles.hr}></div>
 
-      <ProductsList title="You may also like" products={SimilarProducts} />
+      <ProductsList title="You may also like" products={SimilarResProps} link={productDetails?.category?._id} />
 
       <div className={styles.hr}></div>
-
-      <ProductsList title="Recently Viewed" products={RecentViewedProducts} />
+      {/* <ProductsList title="You may also like" products={SimilarResProps} link={productDetails?.category?._id} /> */}
+      <ProductsList title="Recently Viewed" products={SimilarResProps} />
     </div>
   );
 };
 
-export const getServerSideProps = async ({ params }) => {
-  console.log(params, "params");
+export const getServerSideProps = async (ctx) => {
+  const token = ctx.req?.cookies.token || "";
+
   const productRes = await axios.get(
-    `http://18.214.112.247:4000/product/${params.id}`
+    `${process.env.PRIVATE_URL}/product/${ctx.params.id}`
   );
+  console.log(productRes.data.data.product.category._id);
   const ReviewRes = await axios.get(
-    `http://18.214.112.247:4000/product/${params.id}/reviews`
+    `${process.env.PRIVATE_URL}/product/${ctx.params.id}/reviews`
   );
-  console.log(ReviewRes.data.data, "ReviewRes");
+
+  const SimilarRes = await axios.post(
+    `${process.env.PRIVATE_URL}/product/search?page=1&limit=5`,
+    {
+      category: productRes.data.data.product.category._id,
+    }
+  );
+
+  const RecentlyRes = await axios.post(
+    `${process.env.PRIVATE_URL}/product/search?page=3&limit=5`,
+    {
+      category: productRes.data.data.product.category._id,
+    }
+  );
+  console.log('RecentlyRes',RecentlyRes.data.data,"RecentlyRes")
+
   return {
     props: {
       productDetails: productRes.data.data.product,
       ReviewProps: ReviewRes.data.data,
+      SimilarResProps: SimilarRes.data.data,
+      RecentlyResProps: RecentlyRes.data.data,
       // reqFavourite : reqFavourite
     },
   };

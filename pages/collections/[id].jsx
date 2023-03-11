@@ -28,7 +28,7 @@ const Collections = (props) => {
   const count = Math.ceil(props.products.count / PER_PAGE);
   console.log(props.products.products.length,'props.products.products.length')
   const _DATA = usePagination(props.products.products, PER_PAGE);
-  console.log(page ,"page")
+  console.log(_DATA.currentData() ,"_DATA")
   const handleChange = (e, p) => {
     console.log(p ," p")
     setPage(p);
@@ -88,6 +88,7 @@ const Collections = (props) => {
       router.push(`/collections/${selectedCategory}`);
     }
   }, [selectedCategory]);
+
 
   const handleSort = (e) => {
     if (e.target.value == "Price, low to high") {
@@ -155,8 +156,10 @@ const Collections = (props) => {
           handleCategories={handleCategories}
         />
       </Box>
-      <div className={styles.imgContainer} style={{ backgroundImage: `url('${process.env.NEXT_PUBLIC_GAID}/${props.categoryIdProps.image}')` }}>
-        <h1 className={`primaryText ${styles.title}`}>{props.categoryIdProps.name}</h1>
+      <div className={styles.imgContainer}
+        style={{ backgroundImage: `url('${process.env.NEXT_PUBLIC_GAID}/${props.categoryIdProps.image.path}')` }}
+      >
+        <h1 className={`primaryText ${styles.title}`}>{props?.categoryIdProps?.name}</h1>
       </div>
       <div className={`innerWidth  yPaddings  ${styles.wrapper}`}>
         <div className={styles.filterContainer}>
@@ -165,7 +168,7 @@ const Collections = (props) => {
             <span className={styles.filterText}>Filter</span>
           </button>
           <div className={` secondaryText ${styles.number}`}>
-            {props.products.count} products
+            {props?.products?.count} products
           </div>
 
           <div className={styles.sorting}>
@@ -183,7 +186,7 @@ const Collections = (props) => {
           </div>
         </div>
         <ProductsList products={_DATA.currentData()} type="collections" />
-        {/* <ProductsList products={productsDummy} type="collections" /> */}
+
         <Box
           sx={{
             display: "flex",

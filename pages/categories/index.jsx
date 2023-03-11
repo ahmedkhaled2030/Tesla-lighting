@@ -14,6 +14,7 @@ import { FilterAltOutlined } from "@mui/icons-material";
 import CategoryList from "@/components/CategoryList";
 import axios from "axios";
 const Categories = ({ categoryResProps }) => {
+  console.log(categoryResProps ,'categoryResProps')
   const categories = [
     {
       img: "/img/1.jpg",
@@ -204,12 +205,8 @@ const Categories = ({ categoryResProps }) => {
 };
 export const getServerSideProps = async (ctx) => {
   const categoryRes = await axios.get(
-    `${process.env.PRIVATE_URL}/dashboard/category`,
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
+    `${process.env.PRIVATE_URL}/dashboard/category`
+   
   );
   return {
     props: {

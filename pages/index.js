@@ -130,11 +130,13 @@ export default function Home({
       </Head>
 
       <Featured HeaderSliderProps={HeaderSliderProps} />
-      {/* <CategoryList
+      
+      <CategoryList
         categories={categories}
         title="shop by category"
         categoryResProps={categoryResProps}
       />
+      {/* 
       <ProductsList title="New ARRIVAL" products={products} />
       <OnSaleList />
       <ReviewList />  */}
@@ -168,12 +170,8 @@ export const getServerSideProps = async (ctx) => {
   );
 
   const categoryRes = await axios.get(
-    `${process.env.PRIVATE_URL}/dashboard/category`,
-    {
-      headers: {
-        Authorization: token,
-      },
-    }
+    `${process.env.PRIVATE_URL}/dashboard/category`
+   
   );
 
   const partners = await axios.get(
