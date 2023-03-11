@@ -37,7 +37,7 @@ import { Box } from "@mui/system";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
-import { TabPanel } from "@mui/joy";
+import { ColorInversionProvider, TabPanel } from "@mui/joy";
 
 const FilterColor = styled.div`
   background-color: ${(props) => props.color};
@@ -84,7 +84,8 @@ const Product = ({
     );
   }
 
-  const [price, setPrice] = useState(productDetails?.size[0]?.price);
+  // const [price, setPrice] = useState(productDetails?.size[0]?.price);
+ const [price, setPrice] = useState(productDetails?.price);
   const [itemSize, setSize] = useState(0);
   const [selectedSizeId, setSelectedSizeId] = useState("");
   const [color, setColor] = useState("");
@@ -120,17 +121,30 @@ const Product = ({
   const handleCart = () => {
     //console.log("cart");
     setCartOpen(true);
+   
+      dispatch(
+        addProduct({
+          ...productDetails,
+          price,
+      
+    
+          quantity,
 
-    dispatch(
-      addProduct({
-        ...productDetails,
-        price,
-        itemSize,
-        color,
-        quantity,
-        selectedSizeId,
-      })
-    );
+        })
+      );
+    
+    
+    
+    // dispatch(
+    //   addProduct({
+    //     ...productDetails,
+    //     price,
+    //     itemSize,
+    //     color,
+    //     quantity,
+    //     selectedSizeId,
+    //   })
+    // );
   };
 
   const handleFavourite = async () => {
@@ -308,8 +322,8 @@ const Product = ({
             <strong>{productDetails?.number?.toString()}</strong>
           </span>
           <div className={styles.prices}>
-            $ {!price && productDetails?.price}
-            {/* $ {productDetails?.price} */}
+            {/* $ {!price && productDetails?.price} */}
+            $ {productDetails?.price}
             {/* <span className={styles.price}>$3,265.00</span>
             <span className={styles.price}>$2,972.00</span>
             <span className={styles.price}>Save $293.00</span> */}

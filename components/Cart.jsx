@@ -26,57 +26,6 @@ const Cart = ({ cartOpen, setCartOpen }) => {
     }
   };
 
-  const products = [
-    {
-      id: 1,
-      img: "/img/arrival1.png",
-      title:
-        "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
-      price: "3,767.00",
-    },
-    {
-      id: 2,
-      img: "/img/arrival2.jpg",
-      title:
-        "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
-      price: "3,767.00",
-    },
-    {
-      id: 2,
-      img: "/img/arrival2.jpg",
-      title:
-        "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
-      price: "3,767.00",
-    },
-    {
-      id: 2,
-      img: "/img/arrival2.jpg",
-      title:
-        "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
-      price: "3,767.00",
-    },
-    {
-      id: 2,
-      img: "/img/arrival2.jpg",
-      title:
-        "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
-      price: "3,767.00",
-    },
-    {
-      id: 2,
-      img: "/img/arrival2.jpg",
-      title:
-        "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
-      price: "3,767.00",
-    },
-    {
-      id: 2,
-      img: "/img/arrival2.jpg",
-      title:
-        "Steel Round Frame with Crystal Rods and Frosted Glass Diffuser Flush Mount",
-      price: "3,767.00",
-    },
-  ];
 
   const makeOrder = async () => {
     // console.log(cart.products, "cart");
@@ -145,9 +94,9 @@ const Cart = ({ cartOpen, setCartOpen }) => {
               </div>
               <div className={styles.detailsContainer}>
                 <span className={styles.title}>{product.title}</span>
-                <span className={styles.title}>
+                {/* <span className={styles.title}>
                   <strong>size :</strong> {product.size}"
-                </span>
+                </span> */}
                 <div className={styles.price}>
                   <div className={styles.number}>
                     <button
@@ -182,7 +131,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
                       +
                     </button>
                   </div>
-                  <span>${product.price * product.quantity}</span>
+                  <span style={{marginLeft:"10px"}}>${(product.price* product.quantity) .toFixed(2)}</span>
                 </div>
               </div>
             </div>
@@ -192,12 +141,14 @@ const Cart = ({ cartOpen, setCartOpen }) => {
             <div className={styles.hr}></div>
             <div className={styles.wrapper}>
               <span className={styles.title}>SUBTOTAL</span>
-              <span className={styles.price}>$ {cart.total}</span>
+              <span className={styles.price} >$ {cart.total.toFixed(2)}</span>
             </div>
             <span className={styles.text}>
               Shipping, taxes, and discount codes calculated at checkout.
             </span>
-            <button onClick={makeOrder} className={styles.switchButton}>
+              <button
+                // onClick={makeOrder}
+                className={styles.switchButton}>
               Check out
             </button>
           </div>

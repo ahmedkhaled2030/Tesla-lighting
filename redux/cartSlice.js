@@ -10,37 +10,48 @@ const cartSlice = createSlice({
   reducers: {
     addProduct: (state, action) => {
       console.log(action.payload )
-      const size = action.payload.size[action.payload.itemSize].value;
+      // const size = action.payload.size[action.payload.itemSize].value;
       // //console.log(size)
       const product = {
         _id: action.payload._id,
-        size: size,
-        selectedSizeId:action.payload.selectedSizeId,
-        color: action.payload.color,
+        // size: size,
+        // selectedSizeId:action.payload.selectedSizeId,
+        // color: action.payload.color,
         price: action.payload.price,
         quantity: action.payload.quantity,
         title: action.payload.title,
         // image: action.payload.images[0],
-        img: action.payload.images[0].path,
+        img: `${process.env.NEXT_PUBLIC_OLDPATH}/${action.payload.cover}`,
       };
 
+      // const index = state.products.findIndex(
+      //   (item) => item._id === product._id && item.size === product.size
+      // );
       const index = state.products.findIndex(
-        (item) => item._id === product._id && item.size === product.size
+        (item) => item._id === product._id
       );
-
-      if (index !== -1) {
+            if (index !== -1) {
         state.products[index].quantity += action.payload.quantity;
 
-        state.total += action.payload.price * action.payload.quantity;
+        state.total += action.payload.price.toFixed(2) * action.payload.quantity;
       } else {
         state.products.push(product);
         state.quantity += 1;
-        state.total += action.payload.price * action.payload.quantity;
+        state.total += action.payload.price.toFixed(2) * product.quantity;
       }
+      // if (index !== -1) {
+      //   state.products[index].quantity += action.payload.quantity;
+
+      //   state.total += action.payload.price * action.payload.quantity;
+      // } else {
+      //   state.products.push(product);
+      //   state.quantity += 1;
+      //   state.total += action.payload.price * action.payload.quantity;
+      // }
 
       // state.products.push(product);
       // state.quantity += 1;
-      // state.total += action.payload.price * action.payload.quantity;
+      // state.total += action.payload.price * product.quantity;
     },
     reset: (state) => {
       state.products = [];
