@@ -37,6 +37,7 @@ const ProductsList = ({ title, products, type , link }) => {
                 type={type}
                 key={product?._id}
                 id={product?._id}
+                isFavorited={product?.isFavorited}
               />
             </Link>
           ))}
@@ -77,6 +78,7 @@ const ProductsList = ({ title, products, type , link }) => {
                   price={product?.price}
                   key={i}
                   id={product?._id}
+                  isFavorited={product?.isFavorited}
                 />
               </SwiperSlide>
             ))}

@@ -256,7 +256,7 @@ const Checkout = () => {
                 margin: "auto",
                 textAlign: "center",
               }}
-              onClick={handleClick}
+              // onClick={handleClick}
               disabled={!address || !city || !state || !zipCode}
             >
               Place Order
