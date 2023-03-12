@@ -104,10 +104,7 @@ const addCategory = () => {
   const addCategory = (e) => {
     e.preventDefault();
 
-    //console.log({
-      name:name,
-      image: imagePath,
-    });
+
 
     axios
       .post(

@@ -104,10 +104,7 @@ const EditCategory = ({ editProps }) => {
   const editCategory = (e) => {
     e.preventDefault();
 
-    //console.log({
-      name:name,
-      image: imagePath,
-    });
+
 
     axios
       .put(

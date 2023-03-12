@@ -151,10 +151,10 @@ const AddProduct = ({ categoryList }) => {
         : selectedColors.filter((item) => item !== value)
     );
   };
-  //console.log(selectedColors, "selectedColors");
+
   const addProduct = (e) => {
     e.preventDefault();
-    productInputs.map((item) => //console.log(item.value));
+
     axios
       .post(
         "http://18.214.112.247:4000/product",
@@ -181,8 +181,8 @@ const AddProduct = ({ categoryList }) => {
         router.push(`/dashboard/products`);
       })
       .catch((error) => {
-        ////console.log(error);
-      });
+    
+      })
   };
 
   const productInputs = [

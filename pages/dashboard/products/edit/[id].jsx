@@ -176,14 +176,7 @@ const EditProduct = ({ categoryList, editProps }) => {
   const addProduct = (e) => {
     e.preventDefault();
 
-    //console.log({
-      new: isNew,
-      colors: selectedColors,
-      size: size,
-      description: editorRef.current.getContent(),
-      sale: sale,
-      ...addDataInputs,
-    });
+   
 
     axios
       .put(
