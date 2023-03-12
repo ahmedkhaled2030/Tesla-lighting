@@ -61,17 +61,17 @@ const Product = styled.div`
 
 const ProductInfo = styled.div`
   display: flex;
+
   align-items: center;
+  align-items: flex-start;
 `;
 const ImageWrapper = styled.div`
   position: relative;
-`;
-const InfoWrapper = styled.div`
+
   display: flex;
-  flex-direction: column;
-  margin-left: 20px;
-  width: 60%;
+  justify-content: flex-start;
 `;
+const InfoWrapper = styled.div``;
 
 const ProductImage = styled.img`
   width: 100px;
@@ -81,6 +81,13 @@ const ProductImage = styled.img`
 
 const Title = styled.span`
   font-size: 20px;
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-left: 30px;
+  width: 60%;
 `;
 const Specs = styled.span``;
 const Amount = styled.span`
@@ -199,21 +206,24 @@ const Checkout = () => {
             style={{ marginBottom: "10px" }}
             onChange={(e) => setZipCode(e.target.value)}
           />
+                    <TextField
+            id="outlined-basic"
+            label="Phone"
+            name="postCode"
+            variant="outlined"
+            style={{ marginBottom: "10px" }}
+            onChange={(e) => setZipCode(e.target.value)}
+          />
         </Left>
         <Right>
           {cart.products.map((item) => (
             <Product key={item.createdAt + item.size + item.color}>
               <ProductInfo>
                 <ImageWrapper>
-                  <Image src={item.img} width="200" height="200" />
+                  <Image src={item.img} width="150" height="150" />
                   <Qunatity>{item.quantity}</Qunatity>
                 </ImageWrapper>
-                <InfoWrapper>
-                  <Title>{item.title}</Title>
-                  <Specs>
-                    {item.size} cm / {item.color}
-                  </Specs>
-                </InfoWrapper>
+                <Title>{item.title}</Title>
               </ProductInfo>
               <Amount>{item.price * item.quantity} $ </Amount>
             </Product>
@@ -226,18 +236,18 @@ const Checkout = () => {
             </Subtotal>
             <Shipping>
               <span>Estimated Shipping</span>
-              <span>{order.shippingCost} $</span>
+              <span>{order.shippingCost} 40 $</span>
             </Shipping>
             <Shipping>
               <span>Tax</span>
-              <span>{order.tax} $</span>
+              <span>{order.tax} 774.332 $</span>
             </Shipping>
           </AmountInfo>
 
           <Hr />
           <Total>
             <span>Total</span>
-            <span>{order.price} $</span>
+            <span>{order.price} 6770.73 $</span>
           </Total>
           <Box
             sx={{

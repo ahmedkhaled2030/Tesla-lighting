@@ -202,8 +202,8 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
             <Link href={url} passHref>
               <li className={`secondaryText ${styles.listItem}`}>PORTFOLIO</li>
             </Link>
-            <Link href={`/`} passHref>
-              <li className={`secondaryText ${styles.listItem}`}>POLICY</li>
+            <Link href={`/terms`} passHref>
+              <li className={`secondaryText ${styles.listItem}`}>Terms</li>
             </Link>
           </ul>
         </div>

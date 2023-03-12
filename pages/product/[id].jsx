@@ -545,7 +545,7 @@ const Product = ({
 
       <div className={styles.hr}></div>
       {/* <ProductsList title="You may also like" products={SimilarResProps} link={productDetails?.category?._id} /> */}
-      <ProductsList title="Recently Viewed" products={SimilarResProps} />
+      <ProductsList title="Recently Viewed" products={RecentlyResProps} />
     </div>
   );
 };
@@ -569,9 +569,10 @@ export const getServerSideProps = async (ctx) => {
   );
 
   const RecentlyRes = await axios.post(
-    `${process.env.PRIVATE_URL}/product/search?page=3&limit=5`,
+    `${process.env.PRIVATE_URL}/product/search?page=1&limit=5`,
     {
-      category: productRes.data.data.product.category._id,
+      // category: productRes.data.data.product.category._id,
+      category: "6408ef89be47ab1b5a1db458"
     }
   );
   //console.log('RecentlyRes',RecentlyRes.data.data,"RecentlyRes")

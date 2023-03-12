@@ -130,7 +130,7 @@ const Sidebar = () => {
               <span>Shipping</span>
             </li>
           </Link>
-          <Link href="/dashboard/products" style={{ textDecoration: "none" }} passHref>
+          <Link href="/dashboard/terms" style={{ textDecoration: "none" }} passHref>
             <li>
               <Layers className={styles.icon} />
               <span>Terms</span>
