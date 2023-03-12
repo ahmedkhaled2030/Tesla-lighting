@@ -4,7 +4,7 @@ import Link from "next/link";
 import styles from "./../styles/VideoHome.module.scss";
 
 const VideoHome = ({ VideoResProps }) => {
-  // console.log(VideoResProps, "VideoResProps");
+  // //console.log(VideoResProps, "VideoResProps");
   const src = VideoResProps.image.path;
 
   return (

@@ -28,9 +28,9 @@ const SubCategory = ({ categoryList }) => {
   const [subcategory, setSubCategory] = useState("");
   const [status, setStatus] = useState("");
 
-  //console.log(category ,"category")
+  ////console.log(category ,"category")
   const handleCategory = (event) => {
-    //console.log(event.target.value  ,"event.target.value ")
+    ////console.log(event.target.value  ,"event.target.value ")
     setCategory(event.target.value);
   };
 

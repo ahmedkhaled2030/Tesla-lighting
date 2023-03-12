@@ -36,7 +36,7 @@ const Model = ({ categoryList }) => {
   };
 
   const handleSubCategory = (e) => {
-    //console.log(e.target.value)
+    ////console.log(e.target.value)
     setSelectedSubCategory(e.target.value);
   };
   const addSubCategory = async () => {

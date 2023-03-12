@@ -37,7 +37,7 @@ const addCategory = () => {
   const { vertical, horizontal, open } = state;
 
   const handleClick = (newState) => {
-    console.log(newState, "newState");
+    //console.log(newState, "newState");
     setState({ open: true, ...newState });
   };
 
@@ -47,7 +47,7 @@ const addCategory = () => {
 
   const editorRef = useRef(null);
   const [token, setToken] = useState("");
-  console.log(token, "token");
+  //console.log(token, "token");
   useEffect(() => {
     setToken(Cookies.get("token"));
   }, [token]);
@@ -60,7 +60,7 @@ const addCategory = () => {
   const [uploading, setUploading] = useState(null);
 
   const handleImage = (e) => {
-    //console.log(e.target.files);
+    ////console.log(e.target.files);
     setImage(e.target.files);
   };
   const uploadImages = (e) => {
@@ -82,14 +82,14 @@ const addCategory = () => {
         },
       })
       .then((res) => {
-        //console.log(res.data.data);
+        ////console.log(res.data.data);
         res.data.data.map((item) => {
           setImagePath(item._id);
           setImageScreens((oldArray) => [...oldArray, item.path]);
         });
       })
       .catch((error) => {
-        //console.log(error);
+        ////console.log(error);
       });
   };
   // images
@@ -97,14 +97,14 @@ const addCategory = () => {
   const [name, setName] = useState();
 
   const handleCategoryName = (event) => {
-    //console.log(event.target.value, "event.target.value");
+    ////console.log(event.target.value, "event.target.value");
     setName(event.target.value);
   };
 
   const addCategory = (e) => {
     e.preventDefault();
 
-    console.log({
+    //console.log({
       name:name,
       image: imagePath,
     });
@@ -130,7 +130,7 @@ const addCategory = () => {
         router.push(`/dashboard/category`);
       })
       .catch((error) => {
-        //console.log(error);
+        ////console.log(error);
       });
   };
 

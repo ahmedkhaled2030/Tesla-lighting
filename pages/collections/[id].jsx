@@ -18,19 +18,19 @@ import { Box } from "@mui/system";
 import { Pagination } from "@material-ui/lab";
 import usePagination from "@/components/Pagination";
 const Collections = (props) => {
-  console.log(props.categoryIdProps, "categoryIdProps");
+  //console.log(props.categoryIdProps, "categoryIdProps");
   const { asPath } = useRouter();
   const router = useRouter();
-  console.log(asPath[0]);
+  //console.log(asPath[0]);
   let [page, setPage] = useState(1);
   let [data, setData] = useState([]);
   const PER_PAGE = 50;
   const count = Math.ceil(props.products.count / PER_PAGE);
-  console.log(props.products.products.length,'props.products.products.length')
+  //console.log(props.products.products.length,'props.products.products.length')
   const _DATA = usePagination(props.products.products, PER_PAGE);
-  console.log(_DATA.currentData() ,"_DATA")
+  //console.log(_DATA.currentData() ,"_DATA")
   const handleChange = (e, p) => {
-    console.log(p ," p")
+    //console.log(p ," p")
     setPage(p);
     _DATA.jump(p);
   };
@@ -47,8 +47,6 @@ const Collections = (props) => {
     props.initialSubCategory
   );
 
-  console.log(minPrice, "minPrice");
-  console.log(maxPrice, "maxPrice");
 
   useEffect(() => {
     const url = {
@@ -58,16 +56,12 @@ const Collections = (props) => {
         sortOrder: sortOrder,
         minPrice: minPrice,
         maxPrice: maxPrice,
-        selectedSubCategory: selectedSubCategory,
+
       },
     };
 
-    // if (sortBy == "" && sortOrder == "" ) {
-    //   return;
-    // }
     if (
       page > 1 ||
-
       sortBy !== "" ||
       sortOrder !== "" ||
       minPrice !== "" ||
@@ -76,19 +70,19 @@ const Collections = (props) => {
     ) {
       router.push(
         `${
-          asPath.split("?")[0]
-        }?selectedSubCategory=${selectedSubCategory}&sortBy=${sortBy}&sortOrder=${sortOrder}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${PER_PAGE}&page=${page}`
+          `/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}`
+        }&sortBy=${sortBy}&sortOrder=${sortOrder}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${PER_PAGE}&page=${page}`
       );
     }
-  }, [page, selectedSubCategory, sortBy, sortOrder, minPrice, maxPrice]);
+  }, [page,  sortBy, sortOrder, minPrice, maxPrice]);
 
   useEffect(() => {
-    console.log("changed");
+ 
     if (selectedCategory !== "") {
-      router.push(`/collections/${selectedCategory}`);
+      router.push(`/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}`);
     }
-  }, [selectedCategory]);
 
+  }, [selectedCategory,selectedSubCategory]);
 
   const handleSort = (e) => {
     if (e.target.value == "Price, low to high") {
@@ -120,14 +114,20 @@ const Collections = (props) => {
     setMinPrice(values[0]);
     setMaxPrice(values[1]);
   };
-  const handleCategories = (cat, type) => {
-    if (type == "category") {
-      setSelectedCategory(cat._id);
-    }
-    if (type == "Subcategory") {
-      setSelectedSubCategory(cat._id);
-    }
+  const handleCategories = (cat) => {
+    console.log(cat ,"cat")
+    setSelectedCategory(cat._id);
+    setSelectedSubCategory("");
   };
+  const handleSubCategories = (cat, sub) => {
+    setSelectedCategory("")
+    console.log(cat, 'cat')
+    console.log(sub,'sub')
+    setSelectedCategory(cat._id);
+
+    setSelectedSubCategory(sub._id);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -154,12 +154,18 @@ const Collections = (props) => {
           handleFilter={handleFilter}
           categoryProps={props.categoryProps}
           handleCategories={handleCategories}
+          handleSubCategories={handleSubCategories}
         />
       </Box>
-      <div className={styles.imgContainer}
-        style={{ backgroundImage: `url('${process.env.NEXT_PUBLIC_GAID}/${props.categoryIdProps.image.path}')` }}
+      <div
+        className={styles.imgContainer}
+        style={{
+          backgroundImage: `url('${process.env.NEXT_PUBLIC_GAID}/${props?.categoryIdProps?.image?.path}')`,
+        }}
       >
-        <h1 className={`primaryText ${styles.title}`}>{props?.categoryIdProps?.name}</h1>
+        <h1 className={`primaryText ${styles.title}`}>
+          {props?.categoryIdProps?.name}
+        </h1>
       </div>
       <div className={`innerWidth  yPaddings  ${styles.wrapper}`}>
         <div className={styles.filterContainer}>
@@ -210,8 +216,8 @@ const Collections = (props) => {
 };
 
 export const getServerSideProps = async (ctx) => {
-  console.log(ctx.query, "q");
-  console.log(ctx.params, "p");
+  //console.log(ctx.query, "q");
+  //console.log(ctx.params, "p");
 
   const token = ctx.req?.cookies.token || "";
   const CollectionRes = await axios.post(

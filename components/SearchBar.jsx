@@ -18,20 +18,20 @@ const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
   const onBlur = () => setFocused(false);
 
   useEffect(async () => {
-    //console.log(searchText, "searchText");
+    ////console.log(searchText, "searchText");
     if (searchText == "") {
-      //console.log("empty");
+      ////console.log("empty");
       setSearchedProduct(null);
     }
 
-    //console.log(debouncedValue, "debouncedValue");
-    //console.log(searchedProduct, "searchedProduct");
+    ////console.log(debouncedValue, "debouncedValue");
+    ////console.log(searchedProduct, "searchedProduct");
     const id = setTimeout(() => {
       setDebouncedValue(searchText);
     }, 500);
 
     if (searchText == "" && focused == true) {
-      //console.log("empty2");
+      ////console.log("empty2");
       setSearchedProduct(null);
       setNullProducts("No matched products");
     }
@@ -41,17 +41,11 @@ const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
           `http://18.214.112.247:4000/product/search`,
           {
             text: debouncedValue,
-          },
-          {
-            headers: {
-              Authorization:
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2RlNjBhZDdiOWZiNDZkZjI4MzZkNzkiLCJpYXQiOjE2NzU1MTg2MDQsImV4cCI6MjI4MDMxODYwNH0.n-_K3QKqNB612L6wD9cCTFNp76DycxFlrJVQMlZE9C0",
-            },
           }
         );
 
         const data = await res.data.data.products;
-        //console.log(data, "data");
+        ////console.log(data, "data");
         if (data.length < 1) {
           setSearchedProduct(null);
         }
@@ -59,7 +53,7 @@ const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
           setSearchedProduct(data);
         }
       } catch (err) {
-        //console.log(err);
+        ////console.log(err);
       }
     }
 
@@ -103,7 +97,7 @@ const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
             <div className={styles.productWrapper} key={i}>
               <Link href={`/product/${item._id}`}>
                 <Image
-                  src={item?.cover}
+                  src={`${process.env.NEXT_PUBLIC_OLDPATH}/${item?.cover}`}
                   alt={item?.title}
                   width="275px"
                   height="275px"

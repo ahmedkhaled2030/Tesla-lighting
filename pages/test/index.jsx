@@ -19,9 +19,9 @@ export default index;
 // import { useSelector } from "react-redux";
 
 // const Navbar = ({ setCloseWishList, cartOpen, setCartOpen  }) => {
-//   // //console.log(setCloseWishList)
+//   // ////console.log(setCloseWishList)
 //   const { menus } = primaryMenus;
-//   // //console.log(menus , "menus");
+//   // ////console.log(menus , "menus");
 //   const [status, setStatus] = useState(false);
 //   const quantity = useSelector((state) => state.cart.quantity);
 //   return (
@@ -80,9 +80,9 @@ export default index;
 // import { useSelector } from "react-redux";
 
 // const Navbar = ({ setCloseWishList, cartOpen, setCartOpen }) => {
-//   // //console.log(setCloseWishList)
+//   // ////console.log(setCloseWishList)
 //   const { menus } = primaryMenus;
-//   // //console.log(menus , "menus");
+//   // ////console.log(menus , "menus");
 //   const [status, setStatus] = useState(false);
 //   const quantity = useSelector((state) => state.cart.quantity);
 //   return (

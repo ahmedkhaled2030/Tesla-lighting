@@ -29,7 +29,7 @@ export default function Home({
   HeaderSliderProps,
   categoryResProps,
 }) {
-  console.log(categoryResProps, "categoryResProps");
+  //console.log(categoryResProps, "categoryResProps");
 
   const products = [
     {
@@ -130,7 +130,7 @@ export default function Home({
       </Head>
 
       <Featured HeaderSliderProps={HeaderSliderProps} />
-      
+
       <CategoryList
         categories={categories}
         title="shop by category"
@@ -152,7 +152,7 @@ export default function Home({
 }
 
 export const getServerSideProps = async (ctx) => {
-  console.log(process.env.PRIVATE_URL);
+  //console.log(process.env.PRIVATE_URL);
 
   const token = ctx.req?.cookies.token || "";
 
@@ -171,7 +171,6 @@ export const getServerSideProps = async (ctx) => {
 
   const categoryRes = await axios.get(
     `${process.env.PRIVATE_URL}/dashboard/category`
-   
   );
 
   const partners = await axios.get(

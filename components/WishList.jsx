@@ -81,7 +81,7 @@ const Wishlist = ({ setCloseWishList }) => {
         },
       }
     );
-    //console.log(profileFavs.data.data)
+    ////console.log(profileFavs.data.data)
     setFavProducts(profileFavs?.data?.data);
   }, []);
 

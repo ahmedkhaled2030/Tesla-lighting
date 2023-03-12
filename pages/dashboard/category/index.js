@@ -16,7 +16,7 @@ const Category = () => {
   }, [token]);
   const router = useRouter();
   const handleDelete = async (id) => {
-    console.log(id)
+    //console.log(id)
     try {
       const res = await axios.delete(
         `${process.env.NEXT_PUBLIC_GAID}/dashboard/category/${id}`,
@@ -29,26 +29,26 @@ const Category = () => {
       );
 
       const data = await res;
-      //console.log(data, "data");
+      ////console.log(data, "data");
       router.reload(window.location.pathname);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
   const handleEdit = async (id) => {
-    //console.log(id)
+    ////console.log(id)
     try {
       router.push(`/dashboard/category/edit/${id}`);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
   const handleView = async (id) => {
-    //console.log(id)
+    ////console.log(id)
     try {
       router.push(`/dashboard/category/view/${id}`);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
   const columns = [

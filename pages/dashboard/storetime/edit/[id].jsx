@@ -16,7 +16,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const storeTimeEdit = ({ EditRes }) => {
-  console.log(EditRes, "EditRes");
+  //console.log(EditRes, "EditRes");
 
   const router = useRouter();
   const [state, setState] = useState({
@@ -27,7 +27,7 @@ const storeTimeEdit = ({ EditRes }) => {
   const { vertical, horizontal, open } = state;
 
   const handleClick = (newState) => {
-    console.log(newState, "newState");
+    //console.log(newState, "newState");
     setState({ open: true, ...newState });
   };
 
@@ -45,9 +45,9 @@ const storeTimeEdit = ({ EditRes }) => {
   const [imagePath, setImagePath] = useState(null);
   const [imageScreens, setImageScreens] = useState("");
   const [uploading, setUploading] = useState(null);
-  //console.log(imagePath, "imagePath");
+  ////console.log(imagePath, "imagePath");
   const handleImage = (e) => {
-    //console.log(e.target.files);
+    ////console.log(e.target.files);
     setImage(e.target.files);
   };
   const uploadImages = (e) => {
@@ -69,13 +69,13 @@ const storeTimeEdit = ({ EditRes }) => {
         },
       })
       .then((res) => {
-        //console.log(res.data.data);
+        ////console.log(res.data.data);
 
         setImagePath(res.data.data[0]._id);
         setImageScreens(res.data.data[0].path);
       })
       .catch((error) => {
-        //console.log(error);
+        ////console.log(error);
       });
   };
 
@@ -83,13 +83,13 @@ const storeTimeEdit = ({ EditRes }) => {
   const [text, setText] = useState("");
   const [url, setUrl] = useState(EditRes.url);
   const [id, setID] = useState(EditRes._id);
-  console.log(text, "text");
-  console.log(url, "url");
+  //console.log(text, "text");
+  //console.log(url, "url");
   // start Partner
   const addSection = (e) => {
     e.preventDefault();
 
-    console.log(editorRef.current.getContent(), url, imagePath);
+    //console.log(editorRef.current.getContent(), url, imagePath);
     axios
       .put(
         ` http://18.214.112.247:4000/dashboard/section/${id}`,
@@ -106,7 +106,7 @@ const storeTimeEdit = ({ EditRes }) => {
         }
       )
       .then((res) => {
-        console.log("clicked");
+        //console.log("clicked");
         handleClick({
           vertical: "top",
           horizontal: "left",
@@ -115,7 +115,7 @@ const storeTimeEdit = ({ EditRes }) => {
         router.push(`/dashboard/storetime`);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   };
 

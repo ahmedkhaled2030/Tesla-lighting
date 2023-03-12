@@ -16,7 +16,7 @@ const Category = () => {
   const [category, setCategory] = useState("");
   const [status, setStatus] = useState("");
   const [token, setToken] = useState("");
-  //console.log(token , "111111111111")
+  ////console.log(token , "111111111111")
   useEffect(() => {
     setToken(Cookies.get("token"));
   }, [token]);
@@ -40,12 +40,12 @@ const Category = () => {
       );
 
       const data = await res;
-      //console.log(data.data.message, "data");
+      ////console.log(data.data.message, "data");
       setStatus(data.data.message);
       setCategory("");
       // router.push("/dashboard/products");
     } catch (err) {
-      //console.log(err.message);
+      ////console.log(err.message);
       setStatus("Category with same name exist");
       setCategory("");
     }

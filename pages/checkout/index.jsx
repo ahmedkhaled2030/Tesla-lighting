@@ -141,7 +141,7 @@ const Checkout = () => {
   const cart = useSelector((state) => state.cart);
   const subtotal = cart.products.map((x) => x.price * x.quantity);
   const order = useSelector((state) => state.order);
-  console.log(order);
+  //console.log(order);
 
   const dispatch = useDispatch();
 
@@ -154,7 +154,7 @@ const Checkout = () => {
     e.preventDefault();
 
     // const order = { user, ...inputs, cart, products: [...cart.products] };
-    // console.log(order, "order");
+    // //console.log(order, "order");
     // addOrder(order, dispatch);
   };
 

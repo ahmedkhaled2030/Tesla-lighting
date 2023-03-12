@@ -12,26 +12,28 @@ import "swiper/css/scrollbar";
 // import required modules
 import { Scrollbar } from "swiper";
 import Link from "next/link";
-const ProductsList = ({ title, products, type , link }) => {
-  console.log(products, "products");
+const ProductsList = ({ title, products, type, link }) => {
+  //console.log(products, "products");
 
   return (
     <div className={`innerWidth ${styles.container}`}>
       <h1 className={` primaryText ${styles.title}`}>{title}</h1>
-      {type !== "collections" &&
-        ( <Link href={`/collections/${link}`} passHref>
-      <h1 className="borderText">VIEW ALL</h1>
-      </Link>
-       )
-     
-      }
+      {type !== "collections" && (
+        <Link href={`/collections/${link}`} passHref>
+          <h1 className="borderText">VIEW ALL</h1>
+        </Link>
+      )}
 
       {type == "collections" ? (
         <div className={styles.wrapper}>
           {products?.map((product) => (
             <Link href={`/product/${product?._id}`} passHref className="link">
               <ProductsCard
-                img={product?.images.length >= 1 ? (`${process.env.NEXT_PUBLIC_OLDPATH}/${product?.images[0].path}`):(`${process.env.NEXT_PUBLIC_OLDPATH}/${product?.cover}`) }
+                img={
+                  product?.images.length >= 1
+                    ? `${process.env.NEXT_PUBLIC_OLDPATH}/${product?.images[0].path}`
+                    : `${process.env.NEXT_PUBLIC_OLDPATH}/${product?.cover}`
+                }
                 title={product?.title}
                 price={product?.price}
                 type={type}
@@ -73,7 +75,11 @@ const ProductsList = ({ title, products, type , link }) => {
             {products?.products?.map((product, i) => (
               <SwiperSlide className={styles.swiperSlide}>
                 <ProductsCard
-                  img={product?.images.length >= 1 ? (`${process.env.NEXT_PUBLIC_OLDPATH}/${product?.images[0]?.path} ` ) : (`${process.env.NEXT_PUBLIC_OLDPATH}/${product?.cover} `) }
+                  img={
+                    product?.images.length >= 1
+                      ? `${process.env.NEXT_PUBLIC_OLDPATH}/${product?.images[0]?.path} `
+                      : `${process.env.NEXT_PUBLIC_OLDPATH}/${product?.cover} `
+                  }
                   title={product?.title}
                   price={product?.price}
                   key={i}

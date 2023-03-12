@@ -4,10 +4,11 @@ import styles from "../styles/FilterBarItem.module.css";
 import { KeyboardArrowDownOutlined } from "@mui/icons-material";
 import { Box } from "@mui/system";
 
-const FilterBarItem = ({ item ,handleCategories }) => {
-  // console.log(item, "item");
-  const [open, setOpen] = useState(false);
-  // console.log(open, "open");
+const FilterBarItem = ({ item, handleCategories,handleSubCategories }) => {
+  // //console.log(item, "item");
+  const [open, setOpen] = useState(true);
+  const [hideArrow, setHideArrow] = useState(false);
+  // //console.log(open, "open");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
 
@@ -17,20 +18,21 @@ const FilterBarItem = ({ item ,handleCategories }) => {
 
   // }, [selectedCategory, selectedSubCategory])
 
-  // console.log(selectedCategory, "selectedCategory");
-  // console.log(selectedSubCategory, "selectedSubCategory");
+  // //console.log(selectedCategory, "selectedCategory");
+  // //console.log(selectedSubCategory, "selectedSubCategory");
 
   const handleCategory = (item) => {
+    setHideArrow(true)
     setSelectedCategory(item);
     setSelectedSubCategory(item.subCategories);
-    setOpen(true);
-    handleCategories(item , "category")
+    
+    handleCategories(item);
   };
-  const handleSubCategory = (sub) => {
-
+  const handleSubCategory = (category , sub) => {
+setOpen(false)
     setSelectedSubCategory(sub);
-    setOpen(true)
-    handleCategories(sub , "Subcategory")
+   
+    handleSubCategories(category,sub);
   };
   return (
     <div className={styles.container}>
@@ -41,13 +43,16 @@ const FilterBarItem = ({ item ,handleCategories }) => {
             : `${styles.sidebarItem}`
         }
       >
-        <div className={styles.sidebarTitle} onClick={() => setOpen(!open)}>
+        <div className={styles.sidebarTitle} onClick={() => setOpen(!open)} >
           <div onClick={() => handleCategory(item)}>{item.name}</div>
-          {/* {item?.subCategories?.length >= 1 && (  */}
-          <KeyboardArrowDownOutlined className={styles.toggleBtn} />
-          {/* )} */}
+          {
+            hideArrow &&     <KeyboardArrowDownOutlined className={styles.toggleBtn} onClick={() => setOpen(!open)}  />
+        }
+     
+         
         </div>
-        <Box
+        {open && (
+          <Box
           sx={{
             display: "flex",
             flexDirection: "column",
@@ -69,7 +74,7 @@ const FilterBarItem = ({ item ,handleCategories }) => {
                   mt: 2,
                 }}
                 key={index}
-                onClick={() => handleSubCategory(child)}
+                onClick={() => handleSubCategory(item, child)}
               >
                 {child.name}
                 {/* {child?.subCategories?.length >= 1 && (
@@ -78,6 +83,8 @@ const FilterBarItem = ({ item ,handleCategories }) => {
               </Box>
             ))}
         </Box>
+        )}
+      
         {/* <div className={styles.sidebarContent}>
           {selectedModel !== "" && selectedModel.length > 1 &&
             selectedSubCategory.map((child, index) => (

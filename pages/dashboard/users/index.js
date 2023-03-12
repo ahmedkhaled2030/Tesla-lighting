@@ -29,26 +29,26 @@ const Products = () => {
       );
 
       const data = await res;
-      //console.log(data, "data");
+      ////console.log(data, "data");
       router.reload(window.location.pathname);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
   const handleEdit = async (id) => {
-    //console.log(id)
+    ////console.log(id)
     try {
       router.push(`/dashboard/users/edit/${id}`);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
   const handleView = async (id) => {
-    //console.log(id)
+    ////console.log(id)
     try {
       router.push(`/dashboard/users/view/${id}`);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
   const columns = [

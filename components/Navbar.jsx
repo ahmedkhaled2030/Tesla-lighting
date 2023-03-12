@@ -21,7 +21,7 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
   const { menus } = primaryMenus;
   const [menuOpened, setMenuOpened] = useState(false);
   const menuRef = useRef();
-  // //console.log(menus , "menus");
+  // ////console.log(menus , "menus");
   const [status, setStatus] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.auth.firstName);
@@ -167,7 +167,7 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
 
           <div className={styles.iconWrapper} onClick={openFavourite}>
             <FavoriteBorderOutlined className={styles.icon} />
-            <span>0</span>
+            <span></span>
           </div>
         </div>
       </div>

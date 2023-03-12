@@ -17,7 +17,7 @@ const Orders = ({ ordersList }) => {
   }, [token]);
   const router = useRouter();
   const handleDelete = async (id) => {
-    console.log(id);
+    //console.log(id);
     try {
       const res = await axios.delete(
         `http://18.214.112.247:4000/dashboard/order/${id}`,
@@ -30,19 +30,19 @@ const Orders = ({ ordersList }) => {
       );
 
       const data = await res;
-      //console.log(data, "data");
+      ////console.log(data, "data");
       router.reload(window.location.pathname);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
 
   const handleView = async (id) => {
-    //console.log(id)
+    ////console.log(id)
     try {
       router.push(`/dashboard/orders/view/${id}`);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
 
@@ -103,7 +103,7 @@ const Orders = ({ ordersList }) => {
     },
   ];
 
-  //console.log(productsList, "productsList");
+  ////console.log(productsList, "productsList");
   return (
     <div className={styles.products}>
       <Sidebar />
@@ -132,7 +132,7 @@ export const getServerSideProps = async (ctx) => {
       },
     }
   );
-  // console.log(res.data , "resssssss")
+  // //console.log(res.data , "resssssss")
 
   return {
     props: {

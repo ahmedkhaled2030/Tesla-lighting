@@ -28,7 +28,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
 const EditCategory = ({ editProps }) => {
-  console.log(editProps ,'editProps')
+  //console.log(editProps ,'editProps')
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -37,7 +37,7 @@ const EditCategory = ({ editProps }) => {
   const { vertical, horizontal, open } = state;
 
   const handleClick = (newState) => {
-    console.log(newState, "newState");
+    //console.log(newState, "newState");
     setState({ open: true, ...newState });
   };
 
@@ -47,7 +47,7 @@ const EditCategory = ({ editProps }) => {
 
   const editorRef = useRef(null);
   const [token, setToken] = useState("");
-  console.log(token, "token");
+  //console.log(token, "token");
   useEffect(() => {
     setToken(Cookies.get("token"));
   }, [token]);
@@ -60,7 +60,7 @@ const EditCategory = ({ editProps }) => {
   const [uploading, setUploading] = useState(null);
 
   const handleImage = (e) => {
-    //console.log(e.target.files);
+    ////console.log(e.target.files);
     setImage(e.target.files);
   };
   const uploadImages = (e) => {
@@ -82,14 +82,14 @@ const EditCategory = ({ editProps }) => {
         },
       })
       .then((res) => {
-        //console.log(res.data.data);
+        ////console.log(res.data.data);
         res.data.data.map((item) => {
           setImagePath(item._id);
           setImageScreens((oldArray) => [...oldArray, item.path]);
         });
       })
       .catch((error) => {
-        //console.log(error);
+        ////console.log(error);
       });
   };
   // images
@@ -97,14 +97,14 @@ const EditCategory = ({ editProps }) => {
   const [name, setName] = useState(editProps.name);
 
   const handleCategoryName = (event) => {
-    //console.log(event.target.value, "event.target.value");
+    ////console.log(event.target.value, "event.target.value");
     setName(event.target.value);
   };
 
   const editCategory = (e) => {
     e.preventDefault();
 
-    console.log({
+    //console.log({
       name:name,
       image: imagePath,
     });
@@ -130,7 +130,7 @@ const EditCategory = ({ editProps }) => {
         router.push(`/dashboard/category`);
       })
       .catch((error) => {
-        //console.log(error);
+        ////console.log(error);
       });
   };
 
@@ -245,7 +245,7 @@ const EditCategory = ({ editProps }) => {
 
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
-  console.log(ctx.params.id);
+  //console.log(ctx.params.id);
 
   const editRes = await axios.get(
     `${process.env.PRIVATE_URL}/dashboard/category/${ctx.params.id}`,

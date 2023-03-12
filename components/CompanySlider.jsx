@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/effect-fade";
 
 const CompanySlider = ({ partnersProps }) => {
-  console.log(partnersProps,'partnersProps')
+  //console.log(partnersProps,'partnersProps')
   const images = [
     "/img/LOGO01.png",
     "/img/LOGO02.png",
@@ -23,41 +23,40 @@ const CompanySlider = ({ partnersProps }) => {
 
   return (
     <>
-      {
-        partnersProps && ( <Swiper
-        className={styles.swiper}
-        breakpoints={{
-          640: {
-            slidesPerView: 1,
-          },
-          768: {
-            slidesPerView: 1,
-          },
-          1024: {
-            slidesPerView: 1,
-          },
-        }}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        modules={[Autoplay, Navigation, EffectFade]}
-        loop={true}
-        effect={"fade"}
-      >
-        {partnersProps.map((item) => (
-          <SwiperSlide className={styles.swiperSlide} key={item._id}>
-            <Image
-              src={`${process.env.NEXT_PUBLIC_GAID}/${item.image.path}`}
-              alt={item.name}
-              layout="fill"
-              className={styles.img}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>)
-      }
-     
+      {partnersProps && (
+        <Swiper
+          className={styles.swiper}
+          breakpoints={{
+            640: {
+              slidesPerView: 1,
+            },
+            768: {
+              slidesPerView: 1,
+            },
+            1024: {
+              slidesPerView: 1,
+            },
+          }}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          modules={[Autoplay, Navigation, EffectFade]}
+          loop={true}
+          effect={"fade"}
+        >
+          {partnersProps.map((item) => (
+            <SwiperSlide className={styles.swiperSlide} key={item._id}>
+              <Image
+                src={`${process.env.NEXT_PUBLIC_GAID}/${item.image.path}`}
+                alt={item.name}
+                layout="fill"
+                className={styles.img}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </>
   );
 };

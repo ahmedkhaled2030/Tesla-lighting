@@ -14,9 +14,9 @@ const Cart = ({ cartOpen, setCartOpen }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const cart = useSelector((state) => state.cart);
-  console.log(cart, "cart");
+  //console.log(cart, "cart");
   const handleQuantity = (_id, price, quantity, type, size) => {
-    //console.log(_id, price, quantity, type, size)
+    ////console.log(_id, price, quantity, type, size)
     if (type === "dec") {
       quantity > 1
         ? dispatch(removeCart({ _id, price, size }))
@@ -26,9 +26,8 @@ const Cart = ({ cartOpen, setCartOpen }) => {
     }
   };
 
-
   const makeOrder = async () => {
-    // console.log(cart.products, "cart");
+    // //console.log(cart.products, "cart");
     const checkoutProduct = cart.products.map((product) => {
       return {
         id: product._id,
@@ -37,12 +36,12 @@ const Cart = ({ cartOpen, setCartOpen }) => {
         count: product.quantity,
       };
     });
-    // console.log(checkoutProduct ,'checkoutProduct')
+    // //console.log(checkoutProduct ,'checkoutProduct')
     const orderSchema = {
       address: "63ee4042a881d677137625d6",
       products: checkoutProduct,
     };
-    console.log(orderSchema, "orderSchema");
+    //console.log(orderSchema, "orderSchema");
     try {
       const res = await axios.post(
         "http://18.214.112.247:4000/order",
@@ -53,7 +52,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
           },
         }
       );
-      console.log(res.data.data, "res");
+      //console.log(res.data.data, "res");
 
       dispatch(
         makingOrder({
@@ -66,7 +65,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
       );
       router.push("/checkout");
     } catch (err) {
-      console.log(err);
+      //console.log(err);
     }
   };
 
@@ -87,8 +86,8 @@ const Cart = ({ cartOpen, setCartOpen }) => {
                 <Image
                   src={product.img}
                   alt=""
-                  height="250px"
-                  width="250px"
+                  height="150px"
+                  width="150px"
                   objectFit="contain"
                 />
               </div>
@@ -131,7 +130,9 @@ const Cart = ({ cartOpen, setCartOpen }) => {
                       +
                     </button>
                   </div>
-                  <span style={{marginLeft:"10px"}}>${(product.price* product.quantity) .toFixed(2)}</span>
+                  <span style={{ marginLeft: "10px" }}>
+                    ${(product.price * product.quantity).toFixed(2)}
+                  </span>
                 </div>
               </div>
             </div>
@@ -141,14 +142,15 @@ const Cart = ({ cartOpen, setCartOpen }) => {
             <div className={styles.hr}></div>
             <div className={styles.wrapper}>
               <span className={styles.title}>SUBTOTAL</span>
-              <span className={styles.price} >$ {cart.total.toFixed(2)}</span>
+              <span className={styles.price}>$ {cart.total.toFixed(2)}</span>
             </div>
             <span className={styles.text}>
               Shipping, taxes, and discount codes calculated at checkout.
             </span>
-              <button
-                // onClick={makeOrder}
-                className={styles.switchButton}>
+            <button
+              // onClick={makeOrder}
+              className={styles.switchButton}
+            >
               Check out
             </button>
           </div>

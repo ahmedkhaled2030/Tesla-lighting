@@ -16,7 +16,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const PromoSliderEdit = ({ EditResProps }) => {
-  console.log(EditResProps, "EditResProps");
+  //console.log(EditResProps, "EditResProps");
   const router = useRouter();
   const [state, setState] = useState({
     open: false,
@@ -26,7 +26,7 @@ const PromoSliderEdit = ({ EditResProps }) => {
   const { vertical, horizontal, open } = state;
 
   const handleClick = (newState) => {
-    console.log(newState, "newState");
+    //console.log(newState, "newState");
     setState({ open: true, ...newState });
   };
 
@@ -41,7 +41,7 @@ const PromoSliderEdit = ({ EditResProps }) => {
 
   const [text, setText] = useState(EditResProps[0]?.text);
 
-  // console.log(title, "title");
+  // //console.log(title, "title");
 
   const addSection = (e) => {
     e.preventDefault();
@@ -60,7 +60,7 @@ const PromoSliderEdit = ({ EditResProps }) => {
         }
       )
       .then((res) => {
-        console.log("clicked");
+        //console.log("clicked");
         handleClick({
           vertical: "top",
           horizontal: "left",
@@ -69,7 +69,7 @@ const PromoSliderEdit = ({ EditResProps }) => {
         router.push(`/dashboard/promoslider`);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   };
 
@@ -157,7 +157,7 @@ export const getServerSideProps = async (ctx) => {
       },
     }
   );
-  console.log(EditRes.data.data, "EditRes");
+  //console.log(EditRes.data.data, "EditRes");
   const selectedPost = EditRes.data.data.filter(
     (item) => item._id == ctx.params.id
   );

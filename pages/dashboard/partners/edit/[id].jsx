@@ -16,7 +16,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import Snackbar from "@mui/material/Snackbar";
 import { useRouter } from "next/router";
 const PartnersEdit = ({ EditResProps }) => {
-  console.log(EditResProps, "EditResProps");
+  //console.log(EditResProps, "EditResProps");
   const router = useRouter();
   const [state, setState] = useState({
     open: false,
@@ -26,7 +26,7 @@ const PartnersEdit = ({ EditResProps }) => {
   const { vertical, horizontal, open } = state;
 
   const handleClick = (newState) => {
-    console.log(newState, "newState");
+    //console.log(newState, "newState");
     setState({ open: true, ...newState });
   };
 
@@ -44,9 +44,9 @@ const PartnersEdit = ({ EditResProps }) => {
   const [imagePath, setImagePath] = useState(null);
   const [imageScreens, setImageScreens] = useState("");
   const [uploading, setUploading] = useState(null);
-  //console.log(imagePath, "imagePath");
+  ////console.log(imagePath, "imagePath");
   const handleImage = (e) => {
-    //console.log(e.target.files);
+    ////console.log(e.target.files);
     setImage(e.target.files);
   };
   const uploadImages = (e) => {
@@ -68,13 +68,13 @@ const PartnersEdit = ({ EditResProps }) => {
         },
       })
       .then((res) => {
-        //console.log(res.data.data);
+        ////console.log(res.data.data);
 
         setImagePath(res.data.data[0]._id);
         setImageScreens(res.data.data[0].path);
       })
       .catch((error) => {
-        //console.log(error);
+        ////console.log(error);
       });
   };
 
@@ -82,7 +82,7 @@ const PartnersEdit = ({ EditResProps }) => {
 
   const [name, setName] = useState(EditResProps.name);
 
-  // console.log(title, "title");
+  // //console.log(title, "title");
 
   const addSection = (e) => {
     e.preventDefault();
@@ -102,7 +102,7 @@ const PartnersEdit = ({ EditResProps }) => {
         }
       )
       .then((res) => {
-        console.log("clicked");
+        //console.log("clicked");
         handleClick({
           vertical: "top",
           horizontal: "left",
@@ -111,7 +111,7 @@ const PartnersEdit = ({ EditResProps }) => {
         router.push(`/dashboard/partners`);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   };
 

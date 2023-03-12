@@ -7,10 +7,10 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartSlice";
 
 const WishListCard = ({ product }) => {
-  //console.log(product ,"productproductproduct" )
+  ////console.log(product ,"productproductproduct" )
   const dispatch = useDispatch();
   const handleCart = () => {
-    //console.log("cart");
+    ////console.log("cart");
     const price = product?.price;
     // dispatch(addProduct({ ...productDetails,  price, quantity }));
     dispatch(addProduct({ ...product, price }));

@@ -36,7 +36,7 @@ const EditProduct = ({ categoryList, editProps }) => {
   const { vertical, horizontal, open } = state;
 
   const handleClick = (newState) => {
-    console.log(newState, "newState");
+    //console.log(newState, "newState");
     setState({ open: true, ...newState });
   };
 
@@ -59,7 +59,7 @@ const EditProduct = ({ categoryList, editProps }) => {
   const [uploading, setUploading] = useState(null);
 
   const handleImage = (e) => {
-    //console.log(e.target.files);
+    ////console.log(e.target.files);
     setImage(e.target.files);
   };
   const uploadImages = (e) => {
@@ -81,14 +81,14 @@ const EditProduct = ({ categoryList, editProps }) => {
         },
       })
       .then((res) => {
-        //console.log(res.data.data);
+        ////console.log(res.data.data);
         res.data.data.map((item) => {
           setImagePath((oldArray) => [...oldArray, item._id]);
           setImageScreens((oldArray) => [...oldArray, item.path]);
         });
       })
       .catch((error) => {
-        //console.log(error);
+        ////console.log(error);
       });
   };
   // images
@@ -101,13 +101,13 @@ const EditProduct = ({ categoryList, editProps }) => {
   const [status, setStatus] = useState("");
 
   const handleCategory = (event) => {
-    //console.log(event.target.value, "event.target.value");
+    ////console.log(event.target.value, "event.target.value");
     setCategory(event.target.value);
     setSubCategory(event.target.value.subCategories);
   };
 
   const handleSubCategory = (e) => {
-    //console.log(e.target.value);
+    ////console.log(e.target.value);
     setSelectedSubCategory(e.target.value);
     setModel(e.target.value.subCategories);
   };
@@ -124,9 +124,9 @@ const EditProduct = ({ categoryList, editProps }) => {
     "write here what you need to explain about product"
   );
 
-  //console.log(colors, "colors");
+  ////console.log(colors, "colors");
   const handleSale = (e) => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     setSale(e.target.value);
   };
 
@@ -141,9 +141,9 @@ const EditProduct = ({ categoryList, editProps }) => {
   const [size, setSize] = useState(editProps.product.size);
   const [sizeInput, setSizeInput] = useState(null);
 
-  //console.log(size, "size");
+  ////console.log(size, "size");
   const handleSizeInputs = (e) => {
-    //console.log('')
+    ////console.log('')
     e.preventDefault();
     setSizeInput({ ...sizeInput, [e.target.name]: e.target.value });
   };
@@ -153,7 +153,7 @@ const EditProduct = ({ categoryList, editProps }) => {
     setSize((prev) => [...prev, sizeInput]);
   };
   const [addDataInputs, setAddDataInputs] = useState(null);
-  //console.log(addDataInputs, "addDataInputs");
+  ////console.log(addDataInputs, "addDataInputs");
   const addData = (e) => {
     e.preventDefault();
     setAddDataInputs({ ...addDataInputs, [e.target.name]: e.target.value });
@@ -161,9 +161,9 @@ const EditProduct = ({ categoryList, editProps }) => {
 
   const handleChange = (e) => {
     const value = e.target.value;
-    console.log(value, "value");
+    //console.log(value, "value");
     const isChecked = e.target.checked;
-    console.log(isChecked);
+    //console.log(isChecked);
 
     setSelectedColors(
       isChecked
@@ -171,12 +171,12 @@ const EditProduct = ({ categoryList, editProps }) => {
         : selectedColors.filter((item) => item !== value)
     );
   };
-  console.log(selectedColors, "selectedColors");
+  //console.log(selectedColors, "selectedColors");
 
   const addProduct = (e) => {
     e.preventDefault();
 
-    console.log({
+    //console.log({
       new: isNew,
       colors: selectedColors,
       size: size,
@@ -210,7 +210,7 @@ const EditProduct = ({ categoryList, editProps }) => {
         router.push(`/dashboard/products`);
       })
       .catch((error) => {
-        //console.log(error);
+        ////console.log(error);
       });
   };
 
@@ -616,7 +616,7 @@ const EditProduct = ({ categoryList, editProps }) => {
 
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
-  console.log(ctx.params.id);
+  //console.log(ctx.params.id);
   const categoryRes = await axios.get(
     `http://18.214.112.247:4000/category/list`,
 

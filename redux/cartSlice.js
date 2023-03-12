@@ -9,9 +9,9 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action) => {
-      console.log(action.payload )
+      //console.log(action.payload )
       // const size = action.payload.size[action.payload.itemSize].value;
-      // //console.log(size)
+      // ////console.log(size)
       const product = {
         _id: action.payload._id,
         // size: size,
@@ -30,10 +30,12 @@ const cartSlice = createSlice({
       const index = state.products.findIndex(
         (item) => item._id === product._id
       );
-            if (index !== -1) {
+      //console.log(index ,'index')
+      if (index !== -1) {
         state.products[index].quantity += action.payload.quantity;
 
-        state.total += action.payload.price.toFixed(2) * action.payload.quantity;
+        state.total +=
+          action.payload.price.toFixed(2) * action.payload.quantity;
       } else {
         state.products.push(product);
         state.quantity += 1;
@@ -59,28 +61,28 @@ const cartSlice = createSlice({
       state.total = 0;
     },
     addCart: (state, action) => {
-      //console.log(action.payload);
+      ////console.log(action.payload);
       const index = state.products.findIndex(
         (item) =>
           item._id === action.payload._id && item.size === action.payload.size
       );
-      //console.log(index);
+      ////console.log(index);
       if (index !== -1) {
-        //console.log("first");
+        ////console.log("first");
         state.products[index].quantity += 1;
         state.total += state.products[index].price;
       }
     },
 
     removeCart: (state, action) => {
-      //console.log(action.payload);
+      ////console.log(action.payload);
       const index = state.products.findIndex(
         (item) =>
           item._id === action.payload._id && item.size === action.payload.size
       );
 
       if (index !== -1) {
-        //console.log("first");
+        ////console.log("first");
         state.products[index].quantity -= 1;
         state.total -= state.products[index].price;
       }

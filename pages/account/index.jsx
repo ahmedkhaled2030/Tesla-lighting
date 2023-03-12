@@ -2,6 +2,7 @@ import styles from "../../styles/Account.module.scss";
 import Image from "next/image";
 import { useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 const Account = () => {
   return (
     <div className={`paddings innerWidth ${styles.container}`}>
@@ -23,8 +24,11 @@ const Account = () => {
       />
           </Head>
 
-          <div className={`primaryText ${styles.title}`}>MY ACCOUNT</div>
-          <div className={`borderText  ${styles.logout}`}>LOG OUT</div>
+      <div className={`primaryText ${styles.title}`}>MY ACCOUNT</div>
+      <Link href={`/dashboard/products`} passHref>
+      <div className={`borderText  ${styles.logout}`}>Dashboard</div>
+      </Link>
+
           
           <div className={styles.wrapper}>
               <div className={styles.orders}>

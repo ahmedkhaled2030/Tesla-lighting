@@ -6,24 +6,29 @@ import Slider from "@mui/material/Slider";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-const FilterBar = ({  setOpen, open ,handleFilter,categoryProps ,handleCategories }) => {
-  // console.log(categoryProps ,'categoryProps')
+const FilterBar = ({
+  setOpen,
+  open,
+  handleFilter,
+  categoryProps,
+  handleCategories,
+  handleSubCategories
+}) => {
+
   const { menus } = primaryMenus;
-  const [value, setValue] = useState([0, 20000]);
+  const [value, setValue] = useState([0, 30000]);
 
   useEffect(() => {
-    setValue[0,2000]
-  },[value])
+    setValue[(0, 2000)];
+  }, [value]);
 
   const handleChange = (event, newValue) => {
-   
-
     setValue(newValue);
   };
 
   const FilterButton = () => {
-    handleFilter(value)
-  }
+    handleFilter(value);
+  };
   return (
     <div className={`${styles.sidebar}  ${open ? styles.open : " "} `}>
       <div className={styles.top}>
@@ -36,7 +41,12 @@ const FilterBar = ({  setOpen, open ,handleFilter,categoryProps ,handleCategorie
           item.name
         ))}</span> */}
         {categoryProps.map((item, i) => (
-          <FilterBarItem key={i} item={item} handleCategories={handleCategories} />
+          <FilterBarItem
+            key={i}
+            item={item}
+            handleCategories={handleCategories}
+            handleSubCategories={handleSubCategories}
+          />
         ))}
       </div>
       <div className={styles.hr}></div>
@@ -56,7 +66,7 @@ const FilterBar = ({  setOpen, open ,handleFilter,categoryProps ,handleCategorie
           onChange={handleChange}
           valueLabelDisplay="auto"
           min={0}
-          max={20000}
+          max={30000}
           className={styles.slider}
         />
         <span className={styles.prices}>Price: $0.00 – $2000.00</span>
@@ -68,8 +78,7 @@ const FilterBar = ({  setOpen, open ,handleFilter,categoryProps ,handleCategorie
             color: "white !important",
             background: "black !important",
             padding: "10px 15px !important",
-            margin:"20px 0px 40px !important"
-           
+            margin: "20px 0px 40px !important",
           }}
           onClick={FilterButton}
         >

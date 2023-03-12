@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import styles from "./../styles/CategoryCard.module.scss";
 const CategoryCard = ({ category, key }) => {
-  console.log(category ,'category')
+  //console.log(category ,'category')
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>

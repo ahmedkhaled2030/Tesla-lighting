@@ -27,7 +27,7 @@ const PromoSlider = () => {
       );
       const json = await res.data.data;
       setPromos(json);
-      console.log(json, "json");
+      //console.log(json, "json");
     };
     fetchData();
   }, []);

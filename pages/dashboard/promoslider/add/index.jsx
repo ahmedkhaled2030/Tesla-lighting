@@ -25,7 +25,7 @@ const PromoSliderAdd = () => {
   const { vertical, horizontal, open } = state;
 
   const handleClick = (newState) => {
-    console.log(newState, "newState");
+    //console.log(newState, "newState");
     setState({ open: true, ...newState });
   };
 
@@ -41,7 +41,7 @@ const PromoSliderAdd = () => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [url, setUrl] = useState("");
-  // console.log(title, "title");
+  // //console.log(title, "title");
 
   const addSection = (e) => {
     e.preventDefault();
@@ -61,7 +61,7 @@ const PromoSliderAdd = () => {
         }
       )
       .then((res) => {
-        console.log("clicked");
+        //console.log("clicked");
         handleClick({
           vertical: "top",
           horizontal: "left",
@@ -70,7 +70,7 @@ const PromoSliderAdd = () => {
         router.push(`/dashboard/promoslider`);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   };
 

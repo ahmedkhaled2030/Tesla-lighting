@@ -25,7 +25,7 @@ const storeTimeAdd = () => {
   const { vertical, horizontal, open } = state;
 
   const handleClick = (newState) => {
-    console.log(newState, "newState");
+    //console.log(newState, "newState");
     setState({ open: true, ...newState });
   };
 
@@ -43,9 +43,9 @@ const storeTimeAdd = () => {
   const [imagePath, setImagePath] = useState(null);
   const [imageScreens, setImageScreens] = useState("");
   const [uploading, setUploading] = useState(null);
-  //console.log(imagePath, "imagePath");
+  ////console.log(imagePath, "imagePath");
   const handleImage = (e) => {
-    //console.log(e.target.files);
+    ////console.log(e.target.files);
     setImage(e.target.files);
   };
   const uploadImages = (e) => {
@@ -67,13 +67,13 @@ const storeTimeAdd = () => {
         },
       })
       .then((res) => {
-        //console.log(res.data.data);
+        ////console.log(res.data.data);
 
         setImagePath(res.data.data[0]._id);
         setImageScreens(res.data.data[0].path);
       })
       .catch((error) => {
-        //console.log(error);
+        ////console.log(error);
       });
   };
 
@@ -81,8 +81,8 @@ const storeTimeAdd = () => {
   const [text, setText] = useState("");
   const [url, setUrl] = useState("");
 
-  console.log(text, "text");
-  console.log(url, "url");
+  //console.log(text, "text");
+  //console.log(url, "url");
   // start Partner
   const addSection = (e) => {
     e.preventDefault();
@@ -103,7 +103,7 @@ const storeTimeAdd = () => {
         }
       )
       .then((res) => {
-        console.log("clicked");
+        //console.log("clicked");
         handleClick({
           vertical: "top",
           horizontal: "left",
@@ -112,7 +112,7 @@ const storeTimeAdd = () => {
         router.push(`/dashboard/storetime`);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   };
 
@@ -242,7 +242,7 @@ const storeTimeAdd = () => {
               sx={{ my: 1, width: 150 }}
               variant="contained"
               color="success"
-              disabled={!imagePath }
+              disabled={!imagePath}
             >
               Add Section
             </Button>
@@ -254,4 +254,3 @@ const storeTimeAdd = () => {
 };
 
 export default storeTimeAdd;
- 

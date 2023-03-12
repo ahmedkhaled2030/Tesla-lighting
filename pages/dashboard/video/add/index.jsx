@@ -25,7 +25,7 @@ const videoAdd = () => {
   const { vertical, horizontal, open } = state;
 
   const handleClick = (newState) => {
-    console.log(newState, "newState");
+    //console.log(newState, "newState");
     setState({ open: true, ...newState });
   };
 
@@ -43,9 +43,9 @@ const videoAdd = () => {
   const [imagePath, setImagePath] = useState(null);
   const [imageScreens, setImageScreens] = useState("");
   const [uploading, setUploading] = useState(null);
-  //console.log(imagePath, "imagePath");
+  ////console.log(imagePath, "imagePath");
   const handleImage = (e) => {
-    //console.log(e.target.files);
+    ////console.log(e.target.files);
     setImage(e.target.files);
   };
   const uploadImages = (e) => {
@@ -67,13 +67,13 @@ const videoAdd = () => {
         },
       })
       .then((res) => {
-        //console.log(res.data.data);
+        ////console.log(res.data.data);
 
         setImagePath(res.data.data[0]._id);
         setImageScreens(res.data.data[0].path);
       })
       .catch((error) => {
-        //console.log(error);
+        ////console.log(error);
       });
   };
 
@@ -81,7 +81,7 @@ const videoAdd = () => {
 
   const [text, setText] = useState("");
 
-  // console.log(title, "title");
+  // //console.log(title, "title");
 
   const addSection = (e) => {
     e.preventDefault();
@@ -102,7 +102,7 @@ const videoAdd = () => {
         }
       )
       .then((res) => {
-        console.log("clicked");
+        //console.log("clicked");
         handleClick({
           vertical: "top",
           horizontal: "left",
@@ -111,7 +111,7 @@ const videoAdd = () => {
         router.push(`/dashboard/video`);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   };
 

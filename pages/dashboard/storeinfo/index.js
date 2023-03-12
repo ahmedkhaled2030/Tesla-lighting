@@ -17,25 +17,25 @@ const StoreInfo = () => {
     setToken(Cookies.get("token"));
   }, [token]);
 
-  const [records, setRecords] =useState ("");
+  const [records, setRecords] = useState("");
   const recordsHandler = (record) => {
-    console.log(record)
+    //console.log(record)
     setRecords(record);
   };
   const handleEdit = async (id) => {
-    console.log(id)
+    //console.log(id)
     try {
       router.push(`/dashboard/storeinfo/edit/${id}`);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
   const handleView = async (id) => {
-    //console.log(id)
+    ////console.log(id)
     try {
       router.push(`/dashboard/storeinfo/view/${id}`);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
 
@@ -69,7 +69,7 @@ const StoreInfo = () => {
       renderCell: (params) => {
         return (
           <div className={styles.cellAction}>
-         <Button
+            <Button
               variant="contained"
               color="secondary"
               onClick={() => handleEdit(params.row._id)}
@@ -82,13 +82,13 @@ const StoreInfo = () => {
     },
   ];
 
-  //console.log(productsList, "productsList");
+  ////console.log(productsList, "productsList");
   return (
     <div className={styles.products}>
       <Sidebar />
 
       <div className={styles.productsContainer}>
-        {records < 2   && (
+        {records < 2 && (
           <Box sx={{ m: "2rem" }}>
             <Link href="/dashboard/storeinfo/add" passHref>
               <Button variant="contained" color="success">

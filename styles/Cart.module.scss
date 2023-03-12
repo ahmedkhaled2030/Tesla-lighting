@@ -56,18 +56,22 @@
   .center {
     flex: 4;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-start;
     gap: 40px;
 
     margin: 40px 0px;
     .imgContainer {
+      flex:1;
       display: flex;
       justify-content: flex-start;
     }
     .detailsContainer {
       display: flex;
+      flex: 2;
       flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
       .title {
         margin: 2px 0;
       }

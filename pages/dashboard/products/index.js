@@ -29,26 +29,26 @@ const Products = () => {
       );
 
       const data = await res;
-      //console.log(data, "data");
+      ////console.log(data, "data");
       router.reload(window.location.pathname);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
   const handleEdit = async (id) => {
-    //console.log(id)
+    ////console.log(id)
     try {
       router.push(`/dashboard/products/edit/${id}`);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
   const handleView = async (id) => {
-    //console.log(id)
+    ////console.log(id)
     try {
       router.push(`/dashboard/products/view/${id}`);
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
   const columns = [
@@ -60,12 +60,12 @@ const Products = () => {
       width: 350,
     },
 
-    {
-      field: "number",
-      headerName: "Number",
-      type: "string",
-      width: 150,
-    },
+    // {
+    //   field: "number",
+    //   headerName: "Number",
+    //   type: "string",
+    //   width: 150,
+    // },
 
     {
       field: "price",

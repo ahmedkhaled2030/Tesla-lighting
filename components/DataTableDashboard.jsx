@@ -15,7 +15,7 @@ const DataTableDashboard = ({
   recordsHandler,
 }) => {
   const router = useRouter();
-  console.log(type, api);
+  //console.log(type, api);
   const [token, setToken] = useState(Cookies.get("token"));
 
   const [pageState, setPageState] = useState({
@@ -43,7 +43,7 @@ const DataTableDashboard = ({
         );
         const json = await res.data.data;
 
-        console.log(type, "json");
+        //console.log(type, "json");
         if (type == "product" || type == "order") {
           setPageState((old) => ({
             ...old,
@@ -65,7 +65,7 @@ const DataTableDashboard = ({
   }
 
   if (page == "section") {
-    console.log(type, "section");
+    //console.log(type, "section");
     useEffect(() => {
       const fetchData = async () => {
         await setToken(Cookies.get("token"));
@@ -82,9 +82,9 @@ const DataTableDashboard = ({
         );
         const json = await res.data.data;
 
-        console.log(json, "json");
+        //console.log(json, "json");
 
-        console.log(Array.isArray(json));
+        //console.log(Array.isArray(json));
         if (Array.isArray(json)) {
           recordsHandler(json.length);
           setPageState((old) => ({
@@ -108,7 +108,7 @@ const DataTableDashboard = ({
   }
 
   if (page == "category") {
-    console.log(type, "category");
+    //console.log(type, "category");
     useEffect(() => {
       const fetchData = async () => {
         await setToken(Cookies.get("token"));
@@ -125,9 +125,9 @@ const DataTableDashboard = ({
         );
         const json = await res.data.data;
 
-        console.log(json, "json");
+        //console.log(json, "json");
 
-        console.log(Array.isArray(json));
+        //console.log(Array.isArray(json));
         if (Array.isArray(json)) {
           setPageState((old) => ({
             ...old,
@@ -150,31 +150,27 @@ const DataTableDashboard = ({
 
   return (
     <div className={styles.datatable}>
-
-      {
-        pageState.data && (
-          <DataGrid
-        autoHeight
-        getRowId={(row) => row._id + Date.now()}
-        rows={pageState.data}
-        rowCount={pageState.total}
-        loading={pageState.isLoading}
-        rowsPerPageOptions={[10, 20, 30, 40, 50]}
-        pagination
-        page={pageState.page - 1}
-        pageSize={pageState.pageSize}
-        paginationMode="server"
-        onPageChange={(newPage) => {
-          setPageState((old) => ({ ...old, page: newPage + 1 }));
-        }}
-        onPageSizeChange={(newPageSize) =>
-          setPageState((old) => ({ ...old, pageSize: newPageSize }))
-        }
-        columns={columns.concat(actionColumn)}
-      />
-        )
-      }
-  
+      {pageState.data && (
+        <DataGrid
+          autoHeight
+          getRowId={(row) => row._id + Date.now()}
+          rows={pageState.data}
+          rowCount={pageState.total}
+          loading={pageState.isLoading}
+          rowsPerPageOptions={[10, 20, 30, 40, 50]}
+          pagination
+          page={pageState.page - 1}
+          pageSize={pageState.pageSize}
+          paginationMode="server"
+          onPageChange={(newPage) => {
+            setPageState((old) => ({ ...old, page: newPage + 1 }));
+          }}
+          onPageSizeChange={(newPageSize) =>
+            setPageState((old) => ({ ...old, pageSize: newPageSize }))
+          }
+          columns={columns.concat(actionColumn)}
+        />
+      )}
     </div>
   );
 };

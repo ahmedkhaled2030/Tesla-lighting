@@ -26,7 +26,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import NavbarDashboard from "@/components/NavbarDashboard";
 import Cookies from "js-cookie";
 const EditUser = ({ editUserProps }) => {
-  console.log(editUserProps, "editUserProps");
+  //console.log(editUserProps, "editUserProps");
   const editorRef = useRef(null);
   const [token, setToken] = useState("");
   useEffect(() => {
@@ -36,14 +36,14 @@ const EditUser = ({ editUserProps }) => {
 
   const [role, setRole] = useState(editUserProps.role);
 
-  //console.log(colors, "colors");
+  ////console.log(colors, "colors");
   const handleRole = (e) => {
-    console.log(e.target.value, "e.target.value");
+    //console.log(e.target.value, "e.target.value");
     setRole(e.target.value);
   };
 
   const [addDataInputs, setAddDataInputs] = useState(null);
-  //console.log(addDataInputs, "addDataInputs");
+  ////console.log(addDataInputs, "addDataInputs");
   const addData = (e) => {
     e.preventDefault();
     setAddDataInputs({ ...addDataInputs, [e.target.name]: e.target.value });
@@ -70,7 +70,7 @@ const EditUser = ({ editUserProps }) => {
         router.push(`/dashboard/users`);
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
       });
   };
 
@@ -94,7 +94,7 @@ const EditUser = ({ editUserProps }) => {
     },
   ];
 
-  console.log(productInputs, "productInputs");
+  //console.log(productInputs, "productInputs");
 
   return (
     <div className={styles.products}>

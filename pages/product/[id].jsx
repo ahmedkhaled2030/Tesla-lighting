@@ -54,14 +54,14 @@ const Product = ({
   setCartOpen,
   ReviewProps,
   SimilarResProps,
-  RecentlyResProps
+  RecentlyResProps,
 }) => {
-  console.log(process.env.NEXT_PUBLIC_OLDPATH, "AAA");
-  console.log(productDetails, "productDetails");
+  //console.log(process.env.NEXT_PUBLIC_OLDPATH, "AAA");
+  //console.log(productDetails, "productDetails");
   const [token, setToken] = useState(Cookies.get("token"));
 
-  // //console.log(productDetails ,"productDetails")
-  // //console.log(isFavourite,'isFavourite')
+  // ////console.log(productDetails ,"productDetails")
+  // ////console.log(isFavourite,'isFavourite')
   //dummyData
 
   function TabPanel(props) {
@@ -83,9 +83,9 @@ const Product = ({
       </div>
     );
   }
-
+  //console.log(productDetails.price ,'productDetails?.price')
   // const [price, setPrice] = useState(productDetails?.size[0]?.price);
- const [price, setPrice] = useState(productDetails?.price);
+  const [price, setPrice] = useState(productDetails?.price);
   const [itemSize, setSize] = useState(0);
   const [selectedSizeId, setSelectedSizeId] = useState("");
   const [color, setColor] = useState("");
@@ -108,7 +108,7 @@ const Product = ({
   };
 
   const handleSize = (sizeIndex) => {
-    console.log(sizeIndex, "sizeIndex");
+    //console.log(sizeIndex, "sizeIndex");
     const difference = prices[sizeIndex]?.value - prices[itemSize]?.value;
     setSize(sizeIndex);
 
@@ -119,22 +119,19 @@ const Product = ({
     setSelectedSizeId(id);
   };
   const handleCart = () => {
-    //console.log("cart");
+    ////console.log("cart");
     setCartOpen(true);
-   
-      dispatch(
-        addProduct({
-          ...productDetails,
-          price,
-      
-    
-          quantity,
+    //console.log(price , 'price')
+    dispatch(
+      addProduct({
+        ...productDetails,
 
-        })
-      );
-    
-    
-    
+        quantity,
+      })
+    );
+
+    setPrice("");
+
     // dispatch(
     //   addProduct({
     //     ...productDetails,
@@ -148,7 +145,7 @@ const Product = ({
   };
 
   const handleFavourite = async () => {
-    //console.log("object");
+    ////console.log("object");
 
     try {
       const res = await axios.post(
@@ -162,7 +159,7 @@ const Product = ({
       );
 
       const data = await res.data.message;
-      //console.log(data);
+      ////console.log(data);
       if (data == "Product added to favorites successfully") {
         setIsFavourited(true);
       }
@@ -170,7 +167,7 @@ const Product = ({
         setIsFavourited(false);
       }
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
     }
   };
 
@@ -322,8 +319,7 @@ const Product = ({
             <strong>{productDetails?.number?.toString()}</strong>
           </span>
           <div className={styles.prices}>
-            {/* $ {!price && productDetails?.price} */}
-            $ {productDetails?.price}
+            {/* $ {!price && productDetails?.price} */}$ {productDetails?.price}
             {/* <span className={styles.price}>$3,265.00</span>
             <span className={styles.price}>$2,972.00</span>
             <span className={styles.price}>Save $293.00</span> */}
@@ -541,7 +537,11 @@ const Product = ({
 
       <div className={styles.hr}></div>
 
-      <ProductsList title="You may also like" products={SimilarResProps} link={productDetails?.category?._id} />
+      <ProductsList
+        title="You may also like"
+        products={SimilarResProps}
+        link={productDetails?.category?._id}
+      />
 
       <div className={styles.hr}></div>
       {/* <ProductsList title="You may also like" products={SimilarResProps} link={productDetails?.category?._id} /> */}
@@ -556,7 +556,7 @@ export const getServerSideProps = async (ctx) => {
   const productRes = await axios.get(
     `${process.env.PRIVATE_URL}/product/${ctx.params.id}`
   );
-  console.log(productRes.data.data.product.category._id);
+  //console.log(productRes.data.data.product.category._id);
   const ReviewRes = await axios.get(
     `${process.env.PRIVATE_URL}/product/${ctx.params.id}/reviews`
   );
@@ -574,7 +574,7 @@ export const getServerSideProps = async (ctx) => {
       category: productRes.data.data.product.category._id,
     }
   );
-  console.log('RecentlyRes',RecentlyRes.data.data,"RecentlyRes")
+  //console.log('RecentlyRes',RecentlyRes.data.data,"RecentlyRes")
 
   return {
     props: {
