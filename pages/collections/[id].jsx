@@ -18,23 +18,13 @@ import { Box } from "@mui/system";
 import { Pagination } from "@material-ui/lab";
 import usePagination from "@/components/Pagination";
 const Collections = (props) => {
-  //console.log(props.categoryIdProps, "categoryIdProps");
+//props.products.products
   const { asPath } = useRouter();
   const router = useRouter();
   //console.log(asPath[0]);
-  let [page, setPage] = useState(1);
-  let [data, setData] = useState([]);
-  const PER_PAGE = 50;
-  const count = Math.ceil(props.products.count / PER_PAGE);
-  //console.log(props.products.products.length,'props.products.products.length')
-  const _DATA = usePagination(props.products.products, PER_PAGE);
-  //console.log(_DATA.currentData() ,"_DATA")
-  const handleChange = (e, p) => {
-    //console.log(p ," p")
-    setPage(p);
-    _DATA.jump(p);
-  };
-
+  let [page, setPage] = useState(1);      
+  let [data, setData] = useState(props.products.products);
+  
   const [open, setOpen] = useState(false);
   const [minPrice, setMinPrice] = useState(props.initialMinPrice);
   const [maxPrice, setMaxPrice] = useState(props.initialMaxPrice);
@@ -48,7 +38,24 @@ const Collections = (props) => {
   );
 
 
+  
+  const count = Math.ceil(props.products.count / 50);
+
+
+  const _DATA = usePagination(data, 50);
+
+  const handleChange = (e, p) => { 
+
+    setPage(p);
+    setData(props.products.products)
+    // _DATA.jump(p);
+  };
+
+
+
+
   useEffect(() => {
+    console.log(page,"page")
     const url = {
       pathname: asPath,
       query: {
@@ -71,18 +78,18 @@ const Collections = (props) => {
       router.push(
         `${
           `/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}`
-        }&sortBy=${sortBy}&sortOrder=${sortOrder}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=${PER_PAGE}&page=${page}`
+        }&sortBy=${sortBy}&sortOrder=${sortOrder}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=50&page=${page}`
       );
     }
   }, [page,  sortBy, sortOrder, minPrice, maxPrice]);
 
-  useEffect(() => {
+  // useEffect(() => {
  
-    if (selectedCategory !== "") {
-      router.push(`/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}`);
-    }
-
-  }, [selectedCategory,selectedSubCategory]);
+  //   if (selectedCategory !== "") {
+  //     router.push(`/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}&limit=${PER_PAGE}&page=${page}`);
+  //   } 
+ 
+  // }, [selectedCategory,selectedSubCategory]);
 
   const handleSort = (e) => {
     if (e.target.value == "Price, low to high") {
@@ -131,7 +138,7 @@ const Collections = (props) => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Collections</title>
+        <title>{props.categoryIdProps.name}</title>
         <meta name="description" content="Tesla Lighting" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -191,10 +198,10 @@ const Collections = (props) => {
             </select>
           </div>
         </div>
-        <ProductsList products={_DATA.currentData()} type="collections" />
+        <ProductsList products={data} type="collections" />
 
         <Box
-          sx={{
+          sx={{ 
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
@@ -216,12 +223,13 @@ const Collections = (props) => {
 };
 
 export const getServerSideProps = async (ctx) => {
-  //console.log(ctx.query, "q");
-  //console.log(ctx.params, "p");
+  console.log(ctx.query.page, "ctx.query.page");
+  console.log(ctx.query.limit, "ctx.query.limit");
 
   const token = ctx.req?.cookies.token || "";
+
   const CollectionRes = await axios.post(
-    `${process.env.PRIVATE_URL}/product/search?page=${ctx.query.page}&limit=${ctx.query.limit}`,
+    `${process.env.PRIVATE_URL}/product/search?page=${ctx.query.page}&limit=50`,
     {
       minPrice: ctx.query?.minPrice,
       maxPrice: ctx.query?.maxPrice,
@@ -229,8 +237,15 @@ export const getServerSideProps = async (ctx) => {
       sortOrder: ctx.query?.sortOrder,
       category: ctx.params.id,
       subCategory: ctx.query?.selectedSubCategory,
+    },
+    {
+      headers: {
+        Authorization: token,
+      },
     }
   );
+
+
   const categoryRes = await axios.get(
     `${process.env.PRIVATE_URL}/category/list`
   );
@@ -251,8 +266,10 @@ export const getServerSideProps = async (ctx) => {
       initialMinPrice: "",
       initialMaxPrice: "",
       categoryProps: categoryRes.data.data,
-      initialCategory: "",
+      initialCategory: ctx.params.id,
       initialSubCategory: "",
+      initialPage:ctx.query.page || null,
+   
       categoryIdProps: categoryId.data.data,
     },
   };

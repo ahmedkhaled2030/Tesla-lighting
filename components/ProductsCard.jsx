@@ -46,13 +46,13 @@ const ProductsCard = ({ id, img, title, price, type, isFavorited }) => {
 
           <h1 className={`thirdText ${styles.title}`}>{title}</h1>
 
-          <div className={styles.iconWrapper}>
+          {/* <div className={styles.iconWrapper}>
             {isFavorited ? (
               <Favorite onClick={handleFavourite} />
             ) : (
               <FavoriteBorderOutlined onClick={handleFavourite} />
             )}
-          </div>
+          </div> */}
 
           <span className="secondaryText">${price}</span>
         </div>

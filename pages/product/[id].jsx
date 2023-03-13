@@ -1,6 +1,6 @@
 import styles from "../../styles/Product.module.scss";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Search,
@@ -57,7 +57,7 @@ const Product = ({
   RecentlyResProps,
 }) => {
   //console.log(process.env.NEXT_PUBLIC_OLDPATH, "AAA");
-  //console.log(productDetails, "productDetails");
+  console.log(productDetails, "productDetails");
   const [token, setToken] = useState(Cookies.get("token"));
 
   // ////console.log(productDetails ,"productDetails")
@@ -176,6 +176,23 @@ const Product = ({
   };
 
   var buttonText = show ? "Cancel review" : "Write a review";
+  const [favList, setFavList] = useState([]);
+  const [recent, setRecent] = useState([]);
+  console.log(recent, "recent");
+  useEffect(() => {
+    if (JSON.parse(sessionStorage.getItem("Favourite")) == null) {
+      const arr1 = [];
+      setFavList(arr1);
+      sessionStorage.setItem("Favourite", JSON.stringify(arr1));
+    } else {
+      const arr1 = JSON.parse(sessionStorage.getItem("Favourite"));
+      arr1.push(productDetails);
+      setFavList(arr1);
+      setRecent(arr1.slice(-5))
+      sessionStorage.setItem("Favourite", JSON.stringify(arr1));
+     
+    }
+  }, [productDetails]);
 
   return (
     <div className={`yPaddings innerWidth ${styles.container}`}>
@@ -518,17 +535,17 @@ const Product = ({
                       ""
                     )}
                   </div>
-                  <div className={styles.personName}>{review.name}</div>
-                  {review.Verified ? (
+                  <div
+                    className={styles.personName}
+                  >{`${review.user.firstName} ${review.user.lastName}`}</div>
+                  {/* {review.Verified ? (
                     <div className={styles.verified}>Verified</div>
                   ) : (
                     ""
-                  )}
+                  )} */}
                 </div>
-                <span className={styles.reviewTitle}>{review.reviewTitle}</span>
-                <span className={styles.reviewComment}>
-                  {review.reviewComment}
-                </span>
+                <span className={styles.reviewTitle}>{review.title}</span>
+                <span className={styles.reviewComment}>{review.text}</span>
               </div>
             ))}
           </div>
@@ -539,15 +556,16 @@ const Product = ({
 
       <ProductsList
         title="You may also like"
-        products={SimilarResProps}
+        products={SimilarResProps.products}
         link={productDetails?.category?._id}
       />
 
       <div className={styles.hr}></div>
-      {/* <ProductsList title="You may also like" products={SimilarResProps} link={productDetails?.category?._id} /> */}
-      <ProductsList title="Recently Viewed" products={RecentlyResProps} />
+      {recent.length >= 1 && (
+        <ProductsList title="Recently Viewed" products={recent} />
+      )}
     </div>
-  );
+  ); 
 };
 
 export const getServerSideProps = async (ctx) => {
@@ -572,7 +590,7 @@ export const getServerSideProps = async (ctx) => {
     `${process.env.PRIVATE_URL}/product/search?page=1&limit=5`,
     {
       // category: productRes.data.data.product.category._id,
-      category: "6408ef89be47ab1b5a1db458"
+      category: "6408ef89be47ab1b5a1db458",
     }
   );
   //console.log('RecentlyRes',RecentlyRes.data.data,"RecentlyRes")

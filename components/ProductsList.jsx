@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./../styles/ProductsList.module.scss";
 import ProductsCard from "./ProductsCard";
 // Import Swiper React components
@@ -12,8 +12,64 @@ import "swiper/css/scrollbar";
 // import required modules
 import { Scrollbar } from "swiper";
 import Link from "next/link";
+import { Box } from "@mui/material";
+import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
+import Cookies from "js-cookie";
+import axios from "axios";
 const ProductsList = ({ title, products, type, link }) => {
-  //console.log(products, "products");
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+  }, [token]);
+  // console.log(token);
+
+  const [listProducts, setListProducts] = useState(products);
+
+  const [isFavourited, setIsFavourited] = useState(false);
+  const [id, setId] = useState("");
+
+  const handleUpdate = async () => {
+    setIsFavourited(prevState => !prevState)
+
+  };
+  // console.log(listProducts ,'listProducts')
+
+  useEffect(() => {
+    // console.log(isFavourited, "isFavourited");
+    // console.log("checked");
+    if (id !== "") {
+      const index = products.findIndex((preState) => preState._id == id);
+      products[index].isFavorited = isFavourited;
+
+    }    
+  }, [id ,isFavourited , listProducts]);
+
+  const handleFavourite = async (id) => {
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_GAID}/product/favorite/${id}`,
+        {},
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      const data = await res.data.message;
+      // console.log(data);
+      if (data == "Product added to favorites successfully") {
+        setIsFavourited(true);
+        setId(id);
+      }
+      if (data == "Favorite removed successfully") {
+        setIsFavourited(false);
+        setId(id);
+      }
+    } catch (err) {
+      ////console.log(err);
+    }
+  };
 
   return (
     <div className={`innerWidth ${styles.container}`}>
@@ -26,22 +82,38 @@ const ProductsList = ({ title, products, type, link }) => {
 
       {type == "collections" ? (
         <div className={styles.wrapper}>
-          {products?.map((product) => (
-            <Link href={`/product/${product?._id}`} passHref className="link">
-              <ProductsCard
-                img={
-                  product?.images.length >= 1
-                    ? `${process.env.NEXT_PUBLIC_OLDPATH}/${product?.images[0].path}`
-                    : `${process.env.NEXT_PUBLIC_OLDPATH}/${product?.cover}`
-                }
-                title={product?.title}
-                price={product?.price}
-                type={type}
-                key={product?._id}
-                id={product?._id}
-                isFavorited={product?.isFavorited}
-              />
-            </Link>
+          {listProducts.map((product) => (
+            <Box>
+       
+              <div className={styles.iconWrapper}>
+                {product.isFavorited ? (
+                  <Favorite onClick={() => { handleFavourite(product?._id); handleUpdate }} />
+              
+                ) : (
+                  <FavoriteBorderOutlined
+               onClick={() => { handleFavourite(product?._id) ;handleUpdate  }}
+                  />
+                )}
+              </div>
+              
+              <Link href={`/product/${product?._id}`} passHref className="link">
+                
+                <ProductsCard
+                  img={
+                    product?.images.length >= 1
+                      ? `${process.env.NEXT_PUBLIC_OLDPATH}/${product?.images[0].path}`
+                      : `${process.env.NEXT_PUBLIC_OLDPATH}/${product?.cover}`
+                  }
+                  title={product?.title}
+                  price={product?.price}
+                  type={type}
+                  key={product?._id}
+                  id={product?._id}
+                  isFavorited={product?.isFavorited}
+                />
+              </Link>
+              
+            </Box>
           ))}
         </div>
       ) : (
@@ -72,7 +144,7 @@ const ProductsList = ({ title, products, type, link }) => {
             modules={[Scrollbar]}
             className={styles.swiper}
           >
-            {products?.products?.map((product, i) => (
+            {products?.map((product, i) => (
               <SwiperSlide className={styles.swiperSlide}>
                 <ProductsCard
                   img={
