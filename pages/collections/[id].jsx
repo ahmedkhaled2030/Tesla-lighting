@@ -83,13 +83,13 @@ const Collections = (props) => {
     }
   }, [page,  sortBy, sortOrder, minPrice, maxPrice]);
 
-  // useEffect(() => {
+  useEffect(() => {
  
-  //   if (selectedCategory !== "") {
-  //     router.push(`/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}&limit=${PER_PAGE}&page=${page}`);
-  //   } 
+    if (selectedCategory !== "") {
+      router.push(`/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}&limit=50&page=${page}`);
+    } 
  
-  // }, [selectedCategory,selectedSubCategory]);
+  }, [selectedCategory,selectedSubCategory]);
 
   const handleSort = (e) => {
     if (e.target.value == "Price, low to high") {
