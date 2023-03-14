@@ -19,7 +19,7 @@ import { addProduct } from "../../redux/cartSlice";
 
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import { Alert, Box, Snackbar } from "@mui/material";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -33,11 +33,11 @@ import { FreeMode, Pagination, Navigation } from "swiper";
 // import Magnifier from "react-magnifier";
 import SideBar from "@/components/FilterBar";
 import Cookies from "js-cookie";
-import { Box } from "@mui/system";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import { ColorInversionProvider, TabPanel } from "@mui/joy";
+import Link from "next/link";
 
 const FilterColor = styled.div`
   background-color: ${(props) => props.color};
@@ -58,12 +58,38 @@ const Product = ({
 }) => {
   //console.log(process.env.NEXT_PUBLIC_OLDPATH, "AAA");
   console.log(productDetails, "productDetails");
+  const [isFavorited, setIsFavorited] = useState(false);
+  const [text, setText] = useState("");
+  console.log(text, "text");
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+  }, [token]);
+  console.log(isFavorited, "isFavorited");
+  useEffect(() => {
+    setIsFavorited(productDetails.isFavorited);
+  }, []);
+
+  const [state, setState] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "left",
+  });
+  const { vertical, horizontal, open } = state;
+  const handleClick = (newState) => {
+    console.log("checked")          
+    //console.log(newState, "newState");
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
   const [token, setToken] = useState(Cookies.get("token"));
 
   // ////console.log(productDetails ,"productDetails")
   // ////console.log(isFavourite,'isFavourite')
   //dummyData
-
 
   //console.log(productDetails.price ,'productDetails?.price')
   // const [price, setPrice] = useState(productDetails?.size[0]?.price);
@@ -127,29 +153,50 @@ const Product = ({
   };
 
   const handleFavourite = async () => {
-    ////console.log("object");
+    console.log(token, "token");
+    console.log(token, "token");
 
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_GAID}/product/favorite/${productDetails._id}`,
-        {},
-        {
-          headers: {
-            Authorization: token,
-          },
+    if (token == undefined) {
+      handleClick({
+        vertical: "top",
+        horizontal: "left",
+      });
+    } else {
+      // console.log(id,'id')
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_GAID}/product/favorite/${productDetails._id}`,
+          {},
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+
+        const data = await res.data.message;
+        console.log(data);
+        if (data == "Product added to favorites successfully") {
+          setIsFavorited(true);
+              
+          setText(data);
+          handleClick({
+            vertical: "top",
+            horizontal: "left",
+          });
         }
-      );
-
-      const data = await res.data.message;
-      ////console.log(data);
-      if (data == "Product added to favorites successfully") {
-        setIsFavourited(true);
+        if (data == "Favorite removed successfully") {
+          setIsFavorited(false);
+        
+          setText(data);
+          handleClick({
+            vertical: "top",
+            horizontal: "left",
+          });
+        }
+      } catch (err) {
+        ////console.log(err);
       }
-      if (data == "Favorite removed successfully") {
-        setIsFavourited(false);
-      }
-    } catch (err) {
-      ////console.log(err);
     }
   };
 
@@ -170,9 +217,8 @@ const Product = ({
       const arr1 = JSON.parse(sessionStorage.getItem("Favourite"));
       arr1.push(productDetails);
       setFavList(arr1);
-      setRecent(arr1.slice(-5))
+      setRecent(arr1.slice(-5));
       sessionStorage.setItem("Favourite", JSON.stringify(arr1));
-     
     }
   }, [productDetails]);
 
@@ -196,6 +242,45 @@ const Product = ({
         />
       </Head>
 
+      {token !== undefined ? (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical, horizontal }}
+          key={vertical + horizontal}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }} 
+          >
+            {text}
+          </Alert>
+        </Snackbar>
+      ) : (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical, horizontal }}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            PLEASE
+            <Link
+              href={`/login`}
+              passHref
+              className={styles.link}
+              styles={{ color: "inherit", textDecoration: "inherit" }}
+            >
+             
+                      LOGIN
+            </Link>  
+            TO ADD THIS ITEM TO YOUR WISHLIST
+          </Alert>
+        </Snackbar>
+      )}
       <>
         <Swiper
           slidesPerView={3}
@@ -257,6 +342,7 @@ const Product = ({
           )}
         </Swiper>
       </>
+
       <div className={styles.top}>
         <div className={styles.left}>
           <div className={styles.subImagesContainer}>
@@ -364,7 +450,7 @@ const Product = ({
             </div>
           </Box>
 
-          {productDetails.isFavourited ? (
+          {isFavorited ? (
             <button className={styles.buttonWish} onClick={handleFavourite}>
               <Favorite />
               Added to Wishlist
@@ -547,14 +633,19 @@ const Product = ({
         <ProductsList title="Recently Viewed" products={recent} />
       )}
     </div>
-  ); 
+  );
 };
 
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
   const productRes = await axios.get(
-    `${process.env.PRIVATE_URL}/product/${ctx.params.id}`
+    `${process.env.PRIVATE_URL}/product/${ctx.params.id}`,
+    {
+      headers: {
+        Authorization: token,
+      },
+    }
   );
   //console.log(productRes.data.data.product.category._id);
   const ReviewRes = await axios.get(
