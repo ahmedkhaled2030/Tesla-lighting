@@ -9,13 +9,18 @@ import {
   Close,
 } from "@mui/icons-material";
 import Cart from "./Cart";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import primaryMenus from "../utils/navbar.json";
 import CategoriesNavbar from "./CategoriesNavbar";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Cookies from "js-cookie";
 const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+  }, [token]);
   const router = useRouter();
 
   const { menus } = primaryMenus;
@@ -26,14 +31,14 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.auth.firstName);
   let url;
-  if (user) {
+  if (token) {
     url = "/account";
   } else {
     url = "/login";
   }
 
   const openFavourite = () => {
-    if (user) {
+    if (token) {
       setCloseWishList(false);
     } else {
       router.push("/login");
@@ -61,9 +66,9 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
             </div>
           </Link>
 
-          {!user && (
+          {!token && (
             <>
-              {" "}
+             
               <div className={styles.hr}></div>
               <Link href={`/login`} passHref>
                 <div
@@ -76,9 +81,9 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
             </>
           )}
 
-          {!user && (
+          {!token && (
             <>
-              {" "}
+              
               <div className={styles.hr}></div>
               <Link href={`/signup`} passHref>
                 <div
@@ -219,11 +224,12 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
 
             <span>{quantity}</span>
           </div>
-
+        
           <div className={styles.iconWrapper} onClick={openFavourite}>
             <FavoriteBorderOutlined className={styles.icon} />
             <span></span>
           </div>
+          
         </div>
       </div>
     </div>

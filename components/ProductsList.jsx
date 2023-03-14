@@ -12,7 +12,7 @@ import "swiper/css/scrollbar";
 // import required modules
 import { Scrollbar } from "swiper";
 import Link from "next/link";
-import { Box } from "@mui/material";
+import { Alert, Box, Snackbar } from "@mui/material";
 import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -21,16 +21,28 @@ const ProductsList = ({ title, products, type, link }) => {
   useEffect(() => {
     setToken(Cookies.get("token"));
   }, [token]);
-  // console.log(token);
 
+  const [state, setState] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "left",
+  });
+  const { vertical, horizontal, open } = state;
+  const handleClick = (newState) => {
+    //console.log(newState, "newState");
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
   const [listProducts, setListProducts] = useState(products);
 
   const [isFavourited, setIsFavourited] = useState(false);
   const [id, setId] = useState("");
 
   const handleUpdate = async () => {
-    setIsFavourited(prevState => !prevState)
-
+    setIsFavourited((prevState) => !prevState);
   };
   // console.log(listProducts ,'listProducts')
 
@@ -40,11 +52,18 @@ const ProductsList = ({ title, products, type, link }) => {
     if (id !== "") {
       const index = products.findIndex((preState) => preState._id == id);
       products[index].isFavorited = isFavourited;
-
-    }    
-  }, [id ,isFavourited , listProducts]);
+    }
+  }, [id, isFavourited, listProducts]);
 
   const handleFavourite = async (id) => {
+    console.log(token ,'token')
+    if (token == undefined) {
+    handleClick({
+      vertical: "top",
+      horizontal: "left",
+    });
+    } else {
+          // console.log(id,'id')
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_GAID}/product/favorite/${id}`,
@@ -55,7 +74,7 @@ const ProductsList = ({ title, products, type, link }) => {
           },
         }
       );
-
+      
       const data = await res.data.message;
       // console.log(data);
       if (data == "Product added to favorites successfully") {
@@ -69,35 +88,59 @@ const ProductsList = ({ title, products, type, link }) => {
     } catch (err) {
       ////console.log(err);
     }
+    }
+
+
   };
 
   return (
     <div className={`innerWidth ${styles.container}`}>
       <h1 className={` primaryText ${styles.title}`}>{title}</h1>
-      {type !== "collections" && (
-        <Link href={`/collections/${link}`} passHref>
+      {type !== "collections" &&
+        {
+          /* <Link href={`/collections/${link}`} passHref>
           <h1 className="borderText">VIEW ALL</h1>
-        </Link>
-      )}
+        </Link> */
+        }}
 
       {type == "collections" ? (
         <div className={styles.wrapper}>
           {products.map((product) => (
             <Box>
-       
+              <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical, horizontal }}
+                key={vertical + horizontal}
+              >
+                <Alert
+                  onClose={handleClose}
+                  severity="error"
+                  sx={{ width: "100%" }}
+                >
+                  PLEASE<Link href={`/login`} passHref className={styles.link} styles={{color: 'inherit', textDecoration: 'inherit'}} > LOGIN </Link>TO ADD THIS ITEM TO YOUR WISHLIST
+                </Alert>      
+              </Snackbar>
               <div className={styles.iconWrapper}>
                 {product.isFavorited ? (
-                  <Favorite onClick={() => { handleFavourite(product?._id); handleUpdate }} />
-              
+                  <Favorite 
+                    onClick={() => {
+                      handleFavourite(product?._id);
+                      handleUpdate;
+                    }}
+                  />
                 ) : (
                   <FavoriteBorderOutlined
-               onClick={() => { handleFavourite(product?._id) ;handleUpdate  }}
+                    onClick={() => {
+                      handleFavourite(product?._id);
+                      handleUpdate;
+                    }}
                   />
                 )}
               </div>
-              
+
               <Link href={`/product/${product?._id}`} passHref className="link">
-                
                 <ProductsCard
                   img={
                     product?.images.length >= 1
@@ -112,7 +155,6 @@ const ProductsList = ({ title, products, type, link }) => {
                   isFavorited={product?.isFavorited}
                 />
               </Link>
-              
             </Box>
           ))}
         </div>

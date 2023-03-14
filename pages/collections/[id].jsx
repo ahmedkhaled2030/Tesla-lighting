@@ -18,7 +18,7 @@ import { Box } from "@mui/system";
 import { Pagination } from "@material-ui/lab";
 import usePagination from "@/components/Pagination";
 const Collections = (props) => {
-console.log(props.products.products,'props.products.products')
+// console.log(props.products.products,'props.products.products')
   const { asPath } = useRouter();
   const router = useRouter();
   //console.log(asPath[0]);
@@ -55,7 +55,7 @@ console.log(props.products.products,'props.products.products')
 
 
   useEffect(() => {
-    console.log(page,"page")
+    // console.log(page,"page")
     const url = {
       pathname: asPath,
       query: {
@@ -124,14 +124,14 @@ console.log(props.products.products,'props.products.products')
     setMaxPrice(values[1]);
   };
   const handleCategories = (cat) => {
-    console.log(cat ,"cat")
+    // console.log(cat ,"cat")
     setSelectedCategory(cat._id);
     setSelectedSubCategory("");
   };
   const handleSubCategories = (cat, sub) => {
     setSelectedCategory("")
-    console.log(cat, 'cat')
-    console.log(sub,'sub')
+    // console.log(cat, 'cat')
+    // console.log(sub,'sub')
     setSelectedCategory(cat._id);
 
     setSelectedSubCategory(sub._id);
@@ -225,8 +225,8 @@ console.log(props.products.products,'props.products.products')
 };
 
 export const getServerSideProps = async (ctx) => {
-  console.log(ctx.query.page, "ctx.query.page");
-  console.log(ctx.query.limit, "ctx.query.limit");
+  // console.log(ctx.query.page, "ctx.query.page");
+  // console.log(ctx.query.limit, "ctx.query.limit");
 
   const token = ctx.req?.cookies.token || "";
 

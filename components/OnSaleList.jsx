@@ -48,7 +48,7 @@ const OnSaleList = () => {
   return (
     <div className={` innerWidth ${styles.container}`}>
       <h1 className={` primaryText ${styles.title}`}>On sale items</h1>
-      <h1 className="borderText">VIEW ALL</h1>
+      {/* <h1 className="borderText">VIEW ALL</h1> */}
  
         <Swiper
           scrollbar={{
