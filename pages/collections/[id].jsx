@@ -39,10 +39,10 @@ console.log(props.products.products,'props.products.products')
 
 
   
-  const count = Math.ceil(props.products.count / 50);
+  const count = Math.ceil(props.products.count / 20);
 
 
-  const _DATA = usePagination(data, 50);
+  const _DATA = usePagination(data, 20);
 
   const handleChange = (e, p) => { 
 
@@ -78,7 +78,7 @@ console.log(props.products.products,'props.products.products')
       router.push(
         `${
           `/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}`
-        }&sortBy=${sortBy}&sortOrder=${sortOrder}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=50&page=${page}`
+        }&sortBy=${sortBy}&sortOrder=${sortOrder}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=20&page=${page}`
       );
     }
   }, [page,  sortBy, sortOrder, minPrice, maxPrice]);
@@ -87,7 +87,7 @@ console.log(props.products.products,'props.products.products')
 
  
     if (selectedCategory !== "") {
-      router.push(`/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}&limit=50&page=${1}`);
+      router.push(`/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}&limit=20&page=${1}`);
     } 
  
   
@@ -231,7 +231,7 @@ export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
   const CollectionRes = await axios.post(
-    `${process.env.PRIVATE_URL}/product/search?page=${ctx.query.page}&limit=50`,
+    `${process.env.PRIVATE_URL}/product/search?page=${ctx.query.page}&limit=20`,
     {
       minPrice: ctx.query?.minPrice,
       maxPrice: ctx.query?.maxPrice,
