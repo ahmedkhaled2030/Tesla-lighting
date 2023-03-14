@@ -60,6 +60,8 @@ const Product = ({
   console.log(productDetails, "productDetails");
   const [isFavorited, setIsFavorited] = useState(false);
   const [text, setText] = useState("");
+  const [rejectText, setRejectText] = useState("")
+  
   console.log(text, "text");
   useEffect(() => {
     setToken(Cookies.get("token"));
@@ -157,6 +159,7 @@ const Product = ({
     console.log(token, "token");
 
     if (token == undefined) {
+      setRejectText("ADD THIS ITEM TO YOUR WISHLIST")
       handleClick({
         vertical: "top",
         horizontal: "left",
@@ -201,7 +204,16 @@ const Product = ({
   };
 
   const toggleShow = () => {
-    setShow(!show);
+    if (token == undefined) {
+      setRejectText("ADD WRITE A REVIEW")    
+      handleClick({ 
+        vertical: "top",
+        horizontal: "left",
+      });
+     } else {
+      setShow(!show);
+    }
+ 
   };
 
   var buttonText = show ? "Cancel review" : "Write a review";
@@ -267,17 +279,17 @@ const Product = ({
           key={vertical + horizontal}
         >
           <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-            PLEASE
-            <Link
+            PLEASE  
+             <Link
               href={`/login`}
               passHref
               className={styles.link}
-              styles={{ color: "inherit", textDecoration: "inherit" }}
+              styles={{ color: "#000 !important", textDecoration: "inherit !important" }}
             >
              
                       LOGIN
-            </Link>  
-            TO ADD THIS ITEM TO YOUR WISHLIST
+            </Link>   
+            TO {rejectText}
           </Alert>
         </Snackbar>
       )}
