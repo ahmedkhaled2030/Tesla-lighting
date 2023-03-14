@@ -17,6 +17,7 @@ import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import Cookies from "js-cookie";
 import axios from "axios";
 const ProductsList = ({ title, products, type, link }) => {
+  const [text ,setText] =useState("")
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));
@@ -80,10 +81,20 @@ const ProductsList = ({ title, products, type, link }) => {
       if (data == "Product added to favorites successfully") {
         setIsFavourited(true);
         setId(id);
+        setText("Product added to favorites successfully")
+        handleClick({
+          vertical: "top",
+          horizontal: "left",
+        });
       }
       if (data == "Favorite removed successfully") {
         setIsFavourited(false);
         setId(id);
+        setText("Favorite removed successfully")
+        handleClick({
+          vertical: "top",
+          horizontal: "left",
+        });
       }
     } catch (err) {
       ////console.log(err);
@@ -107,7 +118,23 @@ const ProductsList = ({ title, products, type, link }) => {
         <div className={styles.wrapper}>
           {products.map((product) => (
             <Box>
-              <Snackbar
+              { 
+                token !== undefined ? ( <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical, horizontal }}
+                key={vertical + horizontal}
+              >
+                <Alert
+                  onClose={handleClose}
+                  severity="success" 
+                  sx={{ width: "100%" }} 
+                >
+                 {text} 
+                </Alert>      
+                </Snackbar>) :
+                  ( <Snackbar
                 open={open}
                 autoHideDuration={6000}
                 onClose={handleClose}
@@ -121,7 +148,9 @@ const ProductsList = ({ title, products, type, link }) => {
                 >
                   PLEASE<Link href={`/login`} passHref className={styles.link} styles={{color: 'inherit', textDecoration: 'inherit'}} > LOGIN </Link>TO ADD THIS ITEM TO YOUR WISHLIST
                 </Alert>      
-              </Snackbar>
+              </Snackbar>)
+              }
+           
               <div className={styles.iconWrapper}>
                 {product.isFavorited ? (
                   <Favorite 
@@ -188,6 +217,7 @@ const ProductsList = ({ title, products, type, link }) => {
           >
             {products?.map((product, i) => (
               <SwiperSlide className={styles.swiperSlide}>
+                
                 <ProductsCard
                   img={
                     product?.images.length >= 1
