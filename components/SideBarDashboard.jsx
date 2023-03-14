@@ -118,18 +118,18 @@ const Sidebar = () => {
             </li>
           </Link>
           <p className={styles.title}>Pages</p>
-          <Link href="/dashboard/products" style={{ textDecoration: "none" }} passHref>
+          {/* <Link href="/dashboard/products" style={{ textDecoration: "none" }} passHref>
             <li>
               <Layers className={styles.icon} />
               <span>About Us</span>
             </li>
-          </Link>
-          <Link href="/dashboard/products" style={{ textDecoration: "none" }} passHref>
+          </Link> */}
+          {/* <Link href="/dashboard/products" style={{ textDecoration: "none" }} passHref>
             <li>
               <Layers className={styles.icon} />
               <span>Shipping</span>
             </li>
-          </Link>
+          </Link> */}
           <Link href="/dashboard/terms" style={{ textDecoration: "none" }} passHref>
             <li>
               <Layers className={styles.icon} />
