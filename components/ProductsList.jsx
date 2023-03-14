@@ -82,7 +82,7 @@ const ProductsList = ({ title, products, type, link }) => {
 
       {type == "collections" ? (
         <div className={styles.wrapper}>
-          {listProducts.map((product) => (
+          {products.map((product) => (
             <Box>
        
               <div className={styles.iconWrapper}>

@@ -25,9 +25,9 @@ const Account = () => {
           </Head>
 
       <div className={`primaryText ${styles.title}`}>MY ACCOUNT</div>
-      <Link href={`/dashboard/products`} passHref>
+      {/* <Link href={`/dashboard/products`} passHref>
       <div className={`borderText  ${styles.logout}`}>Dashboard</div>
-      </Link>
+      </Link> */}
 
           
           <div className={styles.wrapper}>

@@ -18,7 +18,7 @@ import { Box } from "@mui/system";
 import { Pagination } from "@material-ui/lab";
 import usePagination from "@/components/Pagination";
 const Collections = (props) => {
-//props.products.products
+console.log(props.products.products,'props.products.products')
   const { asPath } = useRouter();
   const router = useRouter();
   //console.log(asPath[0]);
@@ -84,11 +84,13 @@ const Collections = (props) => {
   }, [page,  sortBy, sortOrder, minPrice, maxPrice]);
 
   useEffect(() => {
+
  
     if (selectedCategory !== "") {
-      router.push(`/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}&limit=50&page=${page}`);
+      router.push(`/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}&limit=50&page=${1}`);
     } 
  
+  
   }, [selectedCategory,selectedSubCategory]);
 
   const handleSort = (e) => {
@@ -198,7 +200,7 @@ const Collections = (props) => {
             </select>
           </div>
         </div>
-        <ProductsList products={data} type="collections" />
+        <ProductsList products={props.products.products} type="collections" />
 
         <Box
           sx={{ 
