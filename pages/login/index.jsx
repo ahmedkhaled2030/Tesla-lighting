@@ -33,8 +33,10 @@ const Login = () => {
       setCookie("token", authData.refreshToken, { path: "/" });
       ////console.log(authData, "authData");
       dispatch(authLogin({ ...authData.user }));
+ 
       router.push("/");
-    } catch (err) {
+
+    } catch (err) { 
       setError(true);
     }
   };

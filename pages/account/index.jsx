@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 const Account = () => {
   const [token, setToken] = useState(Cookies.get("token"));
   useEffect(() => {
+
     setToken(Cookies.get("token"));
   }, [token]);  
   console.log(token, 'token')

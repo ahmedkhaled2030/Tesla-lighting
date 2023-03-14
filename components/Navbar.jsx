@@ -17,25 +17,26 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Cookies from "js-cookie";
 const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(Cookies.get("token"));
+  console.log(token ,"token")
+  const [url, setUrl] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));
+    if (token) { 
+      setUrl("/account");
+    } else {
+      setUrl("/login");
+    }
   }, [token]);
   const router = useRouter();
 
   const { menus } = primaryMenus;
   const [menuOpened, setMenuOpened] = useState(false);
-  const menuRef = useRef();
+  const menuRef = useRef(); 
   // ////console.log(menus , "menus");
   const [status, setStatus] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.auth.firstName);
-  let url;
-  if (token) {
-    url = "/account"; 
-  } else {
-    url = "/login";
-  }
 
   const openFavourite = () => {
     if (token) {
@@ -68,7 +69,6 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
 
           {!token && (
             <>
-             
               <div className={styles.hr}></div>
               <Link href={`/login`} passHref>
                 <div
@@ -83,7 +83,6 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
 
           {!token && (
             <>
-              
               <div className={styles.hr}></div>
               <Link href={`/signup`} passHref>
                 <div
@@ -212,24 +211,32 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
             </Link>
           </ul>
         </div>
+
         <div className={styles.item}>
-          <Link href={url} passHref>
-            <div className={styles.iconWrapper}>
-              <PersonOutlineOutlined className={styles.icon} />
-            </div>
-          </Link>
+          {user ? ( 
+            <Link href={"/account"} passHref>  
+              <div className={styles.iconWrapper}>
+                <PersonOutlineOutlined className={styles.icon} />
+              </div>
+            </Link>
+          ) : (
+            <Link href={"/login"} passHref>
+              <div className={styles.iconWrapper}>
+                <PersonOutlineOutlined className={styles.icon} />
+              </div>
+            </Link>
+          )}
 
           <div className={styles.iconWrapper} onClick={() => setCartOpen(true)}>
             <WorkOutlineOutlined className={styles.icon} />
 
             <span>{quantity}</span>
           </div>
-        
+
           <div className={styles.iconWrapper} onClick={openFavourite}>
             <FavoriteBorderOutlined className={styles.icon} />
             <span></span>
           </div>
-          
         </div>
       </div>
     </div>

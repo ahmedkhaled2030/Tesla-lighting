@@ -11,7 +11,7 @@ import Times from "@/components/Times";
 import CustomerReview from "@/components/CustomerReview";
 import ProductsList from "@/components/ProductsList";
 import StoreInfo from "@/components/StoreInfo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cart from "@/components/Cart";
 import PromoSlider from "@/components/PromoSlider";
 import CompanySlider from "@/components/CompanySlider";
