@@ -6,84 +6,30 @@ import WishListList from "./WishListList";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartSlice";
 import axios from "axios";
-
+import Cookies from "js-cookie";
 const Wishlist = ({ setCloseWishList }) => {
+  const [token, setToken] = useState(Cookies.get("token"))  
+
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+  }, [token]);
   const [favProducts, setFavProducts] = useState([]);
-  const products = [
-    {
-      id: 1,
-      img: "/img/arrival1.png",
-      title: "Aged Brass Frame with Etched Glass Shade Linear Pendant",
-      price: "3,767.00",
-    },
-    {
-      id: 2,
-      img: "/img/arrival2.jpg",
-      title:
-        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
-      price: "3,767.00",
-    },
-    {
-      id: 3,
-      img: "/img/arrival3.png",
-      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
-      price: "3,767.00",
-    },
-    {
-      id: 2,
-      img: "/img/arrival2.jpg",
-      title:
-        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
-      price: "3,767.00",
-    },
-    {
-      id: 3,
-      img: "/img/arrival3.png",
-      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
-      price: "3,767.00",
-    },
-    {
-      id: 2,
-      img: "/img/arrival2.jpg",
-      title:
-        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
-      price: "3,767.00",
-    },
-    {
-      id: 3,
-      img: "/img/arrival3.png",
-      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
-      price: "3,767.00",
-    },
-    {
-      id: 2,
-      img: "/img/arrival2.jpg",
-      title:
-        "LED Steel Frame Wrapped with Clear Crystal Double Layer Chandelier",
-      price: "3,767.00",
-    },
-    {
-      id: 3,
-      img: "/img/arrival3.png",
-      title: "Aged Brass and Black Rod with Adjustable Arch Arm Chandelier",
-      price: "3,767.00",
-    },
-  ];
+  
 
   useEffect(async () => {
-    const token = localStorage.getItem("token");
+
 
     const profileFavs = await axios.get(
-      `http://18.214.112.247:4000/user/favorites`,
+      `${process.env.NEXT_PUBLIC_GAID}/user/favorites`,
       {
         headers: {
           Authorization: token,
-        },
+        } 
       }
     );
-    ////console.log(profileFavs.data.data)
-    setFavProducts(profileFavs?.data?.data);
-  }, []);
+
+    setFavProducts(profileFavs?.data.data); 
+  }, [token,favProducts]); 
 
   return (
     <div className={styles.container}>

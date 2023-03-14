@@ -64,25 +64,7 @@ const Product = ({
   // ////console.log(isFavourite,'isFavourite')
   //dummyData
 
-  function TabPanel(props) {
-    const { children, value, index, ...other } = props;
 
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-  }
   //console.log(productDetails.price ,'productDetails?.price')
   // const [price, setPrice] = useState(productDetails?.size[0]?.price);
   const [price, setPrice] = useState(productDetails?.price);
@@ -561,7 +543,7 @@ const Product = ({
       />
 
       <div className={styles.hr}></div>
-      {recent.length >= 1 && (
+      {recent.length > 1 && (
         <ProductsList title="Recently Viewed" products={recent} />
       )}
     </div>

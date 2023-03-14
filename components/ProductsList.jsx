@@ -17,7 +17,8 @@ import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import Cookies from "js-cookie";
 import axios from "axios";
 const ProductsList = ({ title, products, type, link }) => {
-  const [text ,setText] =useState("")
+  console.log(products, "products");
+  const [text, setText] = useState("");
   const [token, setToken] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));
@@ -57,103 +58,111 @@ const ProductsList = ({ title, products, type, link }) => {
   }, [id, isFavourited, listProducts]);
 
   const handleFavourite = async (id) => {
-    console.log(token ,'token')
+    console.log(token, "token");
     if (token == undefined) {
-    handleClick({
-      vertical: "top",
-      horizontal: "left",
-    });
+      handleClick({
+        vertical: "top",
+        horizontal: "left",
+      });
     } else {
-          // console.log(id,'id')
-    try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_GAID}/product/favorite/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: token,
-          },
+      // console.log(id,'id')
+      try {
+        const res = await axios.post(
+          `${process.env.NEXT_PUBLIC_GAID}/product/favorite/${id}`,
+          {},
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+
+        const data = await res.data.message;
+        // console.log(data);
+        if (data == "Product added to favorites successfully") {
+          setIsFavourited(true);
+          setId(id);
+          setText("Product added to favorites successfully");
+          handleClick({
+            vertical: "top",
+            horizontal: "left",
+          });
         }
-      );
-      
-      const data = await res.data.message;
-      // console.log(data);
-      if (data == "Product added to favorites successfully") {
-        setIsFavourited(true);
-        setId(id);
-        setText("Product added to favorites successfully")
-        handleClick({
-          vertical: "top",
-          horizontal: "left",
-        });
+        if (data == "Favorite removed successfully") {
+          setIsFavourited(false);
+          setId(id);
+          setText("Favorite removed successfully");
+          handleClick({
+            vertical: "top",
+            horizontal: "left",
+          });
+        }
+      } catch (err) {
+        ////console.log(err);
       }
-      if (data == "Favorite removed successfully") {
-        setIsFavourited(false);
-        setId(id);
-        setText("Favorite removed successfully")
-        handleClick({
-          vertical: "top",
-          horizontal: "left",
-        });
-      }
-    } catch (err) {
-      ////console.log(err);
     }
-    }
-
-
   };
 
   return (
     <div className={`innerWidth ${styles.container}`}>
       <h1 className={` primaryText ${styles.title}`}>{title}</h1>
-      {type !== "collections" &&
-        {
-          /* <Link href={`/collections/${link}`} passHref>
+      {/* {type !== "collections" && (
+        <Link href={`/collections/${link}`} passHref>
           <h1 className="borderText">VIEW ALL</h1>
-        </Link> */
-        }}
+        </Link>
+      )} */}
 
       {type == "collections" ? (
         <div className={styles.wrapper}>
           {products.map((product) => (
             <Box>
-              { 
-                token !== undefined ? ( <Snackbar
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-                anchorOrigin={{ vertical, horizontal }}
-                key={vertical + horizontal}
-              >
-                <Alert
+              {token !== undefined ? (
+                <Snackbar
+                  open={open}
+                  autoHideDuration={6000}
                   onClose={handleClose}
-                  severity="success" 
-                  sx={{ width: "100%" }} 
+                  anchorOrigin={{ vertical, horizontal }}
+                  key={vertical + horizontal}
                 >
-                 {text} 
-                </Alert>      
-                </Snackbar>) :
-                  ( <Snackbar
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-                anchorOrigin={{ vertical, horizontal }}
-                key={vertical + horizontal}
-              >
-                <Alert
+                  <Alert
+                    onClose={handleClose}
+                    severity="success"
+                    sx={{ width: "100%" }}
+                  >
+                    {text}
+                  </Alert>
+                </Snackbar>
+              ) : (
+                <Snackbar
+                  open={open}
+                  autoHideDuration={6000}
                   onClose={handleClose}
-                  severity="error"
-                  sx={{ width: "100%" }}
+                  anchorOrigin={{ vertical, horizontal }}
+                  key={vertical + horizontal}
                 >
-                  PLEASE<Link href={`/login`} passHref className={styles.link} styles={{color: 'inherit', textDecoration: 'inherit'}} > LOGIN </Link>TO ADD THIS ITEM TO YOUR WISHLIST
-                </Alert>      
-              </Snackbar>)
-              }
-           
+                  <Alert
+                    onClose={handleClose}
+                    severity="error"
+                    sx={{ width: "100%" }}
+                  >
+                    PLEASE
+                    <Link
+                      href={`/login`}
+                      passHref
+                      className={styles.link}
+                      styles={{ color: "inherit", textDecoration: "inherit" }}
+                    >
+                      {" "}
+                      LOGIN{" "}
+                    </Link>
+                    TO ADD THIS ITEM TO YOUR WISHLIST
+                  </Alert>
+                </Snackbar>
+              )}
+
               <div className={styles.iconWrapper}>
                 {product.isFavorited ? (
-                  <Favorite 
+                  <Favorite
                     onClick={() => {
                       handleFavourite(product?._id);
                       handleUpdate;
@@ -217,13 +226,8 @@ const ProductsList = ({ title, products, type, link }) => {
           >
             {products?.map((product, i) => (
               <SwiperSlide className={styles.swiperSlide}>
-                
                 <ProductsCard
-                  img={
-                    product?.images.length >= 1
-                      ? `${process.env.NEXT_PUBLIC_OLDPATH}/${product?.images[0]?.path} `
-                      : `${process.env.NEXT_PUBLIC_OLDPATH}/${product?.cover} `
-                  }
+                  img={`${process.env.NEXT_PUBLIC_OLDPATH}/${product?.cover} `}
                   title={product?.title}
                   price={product?.price}
                   key={i}
