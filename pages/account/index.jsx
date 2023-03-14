@@ -1,9 +1,18 @@
 import styles from "../../styles/Account.module.scss";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Cookies from "js-cookie";  
+import { useSelector } from "react-redux";
 const Account = () => {
+  const [token, setToken] = useState(Cookies.get("token"));
+  useEffect(() => {
+    setToken(Cookies.get("token"));
+  }, [token]);  
+  console.log(token, 'token')
+  const user = useSelector((state) => state.auth);
+  console.log(user , 'user') 
   return (
     <div className={`paddings innerWidth ${styles.container}`}>
     <Head>
@@ -25,9 +34,12 @@ const Account = () => {
           </Head>
 
       <div className={`primaryText ${styles.title}`}>MY ACCOUNT</div>
-      {/* <Link href={`/dashboard/products`} passHref>
-      <div className={`borderText  ${styles.logout}`}>Dashboard</div>
-      </Link> */}
+      {
+        user.role =="admin" ? (<Link href={`/dashboard/products`} passHref>
+      <div className={`borderText  ${styles.logout}`} style={{fontWeight:"bold"}}>Dashboard</div>
+      </Link> ) : " "
+      }       
+       
 
           
           <div className={styles.wrapper}>

@@ -7,20 +7,23 @@ const authSlice = createSlice({
     email: null,
     firstName: null,
     lastName: null,
+    role:null
   },
   reducers: {
     authLogin: (state, action) => {
-      // ////console.log(action.payload);
+  console.log(action.payload); 
       state._id = action.payload._id;
       state.email = action.payload.email;
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
+      state.role = action.payload.role;
     },
     signOut: (state) => {
       state._id = null;
       state.email = null;
       state.firstName = null;
-      state.lastName = null;
+      state.lastName = null;      
+      state.role = null;
     },
   },
 });

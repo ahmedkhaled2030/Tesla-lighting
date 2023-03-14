@@ -56,8 +56,8 @@ const Product = ({
   SimilarResProps,
   RecentlyResProps,
 }) => {
-  //console.log(process.env.NEXT_PUBLIC_OLDPATH, "AAA");
-  console.log(productDetails, "productDetails");
+  console.log(ReviewProps, "ReviewProps");
+ 
   const [isFavorited, setIsFavorited] = useState(false);
   const [text, setText] = useState("");
   const [rejectText, setRejectText] = useState("")
@@ -215,6 +215,8 @@ const Product = ({
     }
  
   };
+
+
 
   var buttonText = show ? "Cancel review" : "Write a review";
   const [favList, setFavList] = useState([]);
@@ -579,18 +581,10 @@ const Product = ({
         {show && (
           <div className={styles.review}>
             <div className={styles.reviewComponent}>
-              <CustomerReview />
+              <CustomerReview id={productDetails?._id} />
             </div>
 
-            <div className={styles.reviewButtons}>
-              <button className={styles.switchButton}>Submit Review</button>
-              <button
-                onClick={() => setShow(false)}
-                className={styles.switchButton}
-              >
-                Cancel review
-              </button>
-            </div>
+
           </div>
         )}
         {ReviewProps && (

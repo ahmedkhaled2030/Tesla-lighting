@@ -19,7 +19,7 @@ const Sidebar = () => {
     <div className={styles.sidebar}>
       <div className={styles.top}>
         <Link href="/dashboard" style={{ textDecoration: "none" }} passHref>
-          <span className={styles.logo}>Tesla Lighting</span> 
+          <span className={styles.logo}>Tesla Dashboard</span> 
         </Link>
       </div>
       <hr />

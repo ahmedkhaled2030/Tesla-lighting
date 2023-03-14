@@ -32,7 +32,7 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
   const user = useSelector((state) => state.auth.firstName);
   let url;
   if (token) {
-    url = "/account";
+    url = "/account"; 
   } else {
     url = "/login";
   }
