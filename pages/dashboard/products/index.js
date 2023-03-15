@@ -117,7 +117,7 @@ const Products = () => {
   ];
 
   return (
-    <div className={styles.products}>
+    <div className={styles.products}  styles={{borderTop:'2px solid gray'}}>
       <Sidebar />
 
       <div className={styles.productsContainer}>

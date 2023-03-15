@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 
 const Sidebar = () => {
   return (
-    <div className={styles.sidebar}>
+    <div className={styles.sidebar}  styles={{borderTop:'2px solid gray'}}>
       <div className={styles.top}>
         <Link href="/dashboard" style={{ textDecoration: "none" }} passHref>
           <span className={styles.logo}>Tesla Dashboard</span>

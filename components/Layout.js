@@ -14,6 +14,7 @@ const Layout = ({
   FilterOpen,
   setFilterOpen,
   setHideNavbar,
+  req
 
 }) => {
   const router = useRouter();
@@ -21,26 +22,26 @@ const Layout = ({
   const { asPath, pathname } = useRouter();
 
   const certainRoute = pathname.split("/")[1];
-  return (
+  return (    
     <>
       {/* {certainRoute == "/dashboard" && ( */}
         <Navbar
           cartOpen={cartOpen}
-          setCartOpen={setCartOpen}
+          setCartOpen={setCartOpen} 
           setCloseWishList={setCloseWishList}
           searchOpen={searchOpen}
           setSearchOpen={setSearchOpen}
         />
       {/* )} */}
-      {/* {certainRoute == "/dashboard" && ( */}
+      {!pathname.includes('/dashboard') && (
       <PromoSlider  />
-      {/* )} */} 
+      )} 
 
       {children}
-      {/* {certainRoute == "/dashboard" && ( */}
+      {!pathname.includes('/dashboard') && (
         <Footer />
-      {/* )} */}
-      
+      )}
+        
     </>
   );
 };

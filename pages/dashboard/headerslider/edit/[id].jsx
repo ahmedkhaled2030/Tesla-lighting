@@ -120,7 +120,7 @@ const HeaderSliderEdit = ({ EditResProps }) => {
   // end Partner
 
   return (
-    <div className={styles.home}>
+    <div className={styles.home} styles={{ borderTop: "2px solid gray" }}>
       <Sidebar />
 
       <Snackbar

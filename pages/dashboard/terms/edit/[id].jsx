@@ -94,9 +94,8 @@ const Terms = ({ EditRes }) => {
       .post(
         `http://18.214.112.247:4000/dashboard/page/terms-conditions`,
         {
-          title:"Terms & Conditions",
+          title: "Terms & Conditions",
           text: editorRef.current.getContent(),
-          
         },
         {
           headers: {
@@ -105,9 +104,6 @@ const Terms = ({ EditRes }) => {
         }
       )
       .then((res) => {
-      
-    
-
         router.push(`/dashboard/terms`);
       })
       .catch((error) => {
@@ -118,7 +114,7 @@ const Terms = ({ EditRes }) => {
   // end Partner
 
   return (
-    <div className={styles.home}>
+    <div className={styles.home} styles={{ borderTop: "2px solid gray" }}>
       <Sidebar />
 
       <Snackbar
@@ -144,7 +140,6 @@ const Terms = ({ EditRes }) => {
             flexDirection: "column",
           }}
         >
-     
           <Box>
             <Editor
               onInit={(evt, editor) => (editorRef.current = editor)}
@@ -168,7 +163,6 @@ const Terms = ({ EditRes }) => {
                   "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
               }}
             />
-
           </Box>
 
           <Box sx={{ textAlign: "center" }}>

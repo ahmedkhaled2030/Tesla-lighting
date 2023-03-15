@@ -43,7 +43,7 @@ const DataTableDashboard = ({
         );
         const json = await res.data.data;
 
-        //console.log(type, "json");
+        console.log(json, "json");   
         if (type == "product" || type == "order") {
           setPageState((old) => ({
             ...old,
@@ -54,8 +54,8 @@ const DataTableDashboard = ({
         } else {
           setPageState((old) => ({
             ...old,
-            isLoading: false,
-            data: json,
+            isLoading: false, 
+            data: json[api], 
             total: json.count,
           }));
         }
@@ -199,7 +199,7 @@ const DataTableDashboard = ({
         );
         const json = await res.data.data;
 
-        console.log(json, "json");
+        console.log(json, "json"); 
 
         //console.log(Array.isArray(json));
 
@@ -207,8 +207,8 @@ const DataTableDashboard = ({
         setPageState((old) => ({
           ...old,
           isLoading: false,
-          data: json,
-        }));
+          data: json.reviews,
+        })); 
       };
       fetchData();
     }, [pageState.page, pageState.pageSize, token]);

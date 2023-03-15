@@ -1,15 +1,13 @@
 @import "./contants.scss";
 @import "./globals.scss";
 
-
 .home {
-    display: flex;
-    font-family: "Poppins", sans-serif;
-    .homeContainer {
-      flex: 6;
+  display: flex;
+  font-family: "Poppins", sans-serif;
+  border-top: 2px solid $line;  
+  .homeContainer {
+    flex: 6;
   
-
-
-    }
-  }
+  } 
+}
   
