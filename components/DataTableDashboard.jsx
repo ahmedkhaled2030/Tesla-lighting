@@ -169,20 +169,50 @@ const DataTableDashboard = ({
         console.log(json, "json");
 
         //console.log(Array.isArray(json));
-       
-          recordsHandler([json].length);
-          setPageState((old) => ({
-            ...old,
-            isLoading: false,
-            data: [json],
-       
-          }));
-        
+
+        recordsHandler([json].length);
+        setPageState((old) => ({
+          ...old,
+          isLoading: false,
+          data: [json],
+        }));
       };
       fetchData();
     }, [pageState.page, pageState.pageSize, token]);
   }
-  
+
+  if (page == "review") {
+    //console.log(type, "section");
+    useEffect(() => {
+      const fetchData = async () => {
+        await setToken(Cookies.get("token"));
+        await setPageState((old) => ({ ...old, isLoading: true }));
+
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_GAID}/dashboard/review?page=${pageState.page}&limit=${pageState.pageSize}`,
+
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        const json = await res.data.data;
+
+        console.log(json, "json");
+
+        //console.log(Array.isArray(json));
+
+        // recordsHandler([json].length);
+        setPageState((old) => ({
+          ...old,
+          isLoading: false,
+          data: json,
+        }));
+      };
+      fetchData();
+    }, [pageState.page, pageState.pageSize, token]);
+  }
 
   return (
     <div className={styles.datatable}>

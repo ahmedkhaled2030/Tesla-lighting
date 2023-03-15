@@ -76,7 +76,7 @@ const Login = () => {
   return (
     <div className={` flexCenter paddings ${styles.container}`}>
       <Head>
-        <title>product</title>
+        <title>Login</title> 
         <meta name="description" content="Tesla Lighting" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

@@ -10,6 +10,7 @@ import {
   LocalOffer,
   Home,
   Layers,
+  RateReview,
 } from "@mui/icons-material";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -19,7 +20,7 @@ const Sidebar = () => {
     <div className={styles.sidebar}>
       <div className={styles.top}>
         <Link href="/dashboard" style={{ textDecoration: "none" }} passHref>
-          <span className={styles.logo}>Tesla Dashboard</span> 
+          <span className={styles.logo}>Tesla Dashboard</span>
         </Link>
       </div>
       <hr />
@@ -33,41 +34,63 @@ const Sidebar = () => {
             </li>
             </Link> */}
           <p className={styles.title}>LISTS</p>
-          <Link href="/dashboard/users" style={{ textDecoration: "none" }} passHref>
+          <Link
+            href="/dashboard/users"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
             <li>
               <PersonOutline className={styles.icon} />
               <span>Users</span>
             </li>
           </Link>
-          <Link href="/dashboard/products" style={{ textDecoration: "none" }} passHref>
+          <Link
+            href="/dashboard/products"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
             <li>
               <Store className={styles.icon} />
               <span>Products</span>
             </li>
           </Link>
-          <Link href="/dashboard/orders" style={{ textDecoration: "none" }} passHref>
-          <li>
-            <CreditCard className={styles.icon} />
-            <span>Orders</span>
-          </li>
+          <Link
+            href="/dashboard/orders"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
+            <li>
+              <CreditCard className={styles.icon} />
+              <span>Orders</span>
+            </li>
           </Link>
-         
-
 
           <p className={styles.title}>Category</p>
-          <Link href="/dashboard/category" style={{ textDecoration: "none" }} passHref>
+          <Link
+            href="/dashboard/category"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
             <li>
               <Category className={styles.icon} />
               <span>Category</span>
             </li>
           </Link>
-          <Link href="/dashboard/subcategory" style={{ textDecoration: "none" }} passHref>
+          <Link
+            href="/dashboard/subcategory"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
             <li>
               <Category className={styles.icon} />
               <span>SubCategory</span>
             </li>
           </Link>
-          <Link href="/dashboard/model" style={{ textDecoration: "none" }} passHref>
+          <Link
+            href="/dashboard/model"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
             <li>
               <Category className={styles.icon} />
               <span>Model</span>
@@ -80,38 +103,74 @@ const Sidebar = () => {
               <span>Promo Codes</span>
             </li>
           </Link> */}
+          <p className={styles.title}>Reviews</p>
+          <Link
+            href="/dashboard/reviews"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
+            <li>
+              <RateReview className={styles.icon} />
+
+              <span>Reviews</span>
+            </li>
+          </Link>
           <p className={styles.title}>HomePage</p>
-          <Link href="/dashboard/promoslider" style={{ textDecoration: "none" }} passHref>
+          <Link
+            href="/dashboard/promoslider"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
             <li>
               <Home className={styles.icon} />
               <span>PromoSlider</span>
             </li>
           </Link>
-          <Link href="/dashboard/headerslider" style={{ textDecoration: "none" }} passHref>
+          <Link
+            href="/dashboard/headerslider"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
             <li>
               <Home className={styles.icon} />
               <span>HeaderSlider</span>
             </li>
           </Link>
-          <Link href="/dashboard/partners" style={{ textDecoration: "none" }} passHref>
+          <Link
+            href="/dashboard/partners"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
             <li>
               <Home className={styles.icon} />
               <span>Partners</span>
             </li>
-          </Link>   
-          <Link href="/dashboard/video" style={{ textDecoration: "none" }} passHref>
-            <li> 
+          </Link>
+          <Link
+            href="/dashboard/video"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
+            <li>
               <Home className={styles.icon} />
               <span>Video</span>
             </li>
           </Link>
-          <Link href="/dashboard/storeinfo" style={{ textDecoration: "none" }} passHref>
+          <Link
+            href="/dashboard/storeinfo"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
             <li>
               <Home className={styles.icon} />
               <span>Store Info</span>
             </li>
           </Link>
-          <Link href="/dashboard/storetime" style={{ textDecoration: "none" }} passHref>
+          <Link
+            href="/dashboard/storetime"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
             <li>
               <Home className={styles.icon} />
               <span>Store Times</span>
@@ -130,12 +189,16 @@ const Sidebar = () => {
               <span>Shipping</span>
             </li>
           </Link> */}
-          <Link href="/dashboard/terms" style={{ textDecoration: "none" }} passHref>
+          <Link
+            href="/dashboard/terms"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
             <li>
               <Layers className={styles.icon} />
               <span>Terms</span>
             </li>
-            </Link>
+          </Link>
         </ul>
       </div>
     </div>
