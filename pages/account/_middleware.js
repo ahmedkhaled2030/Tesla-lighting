@@ -6,11 +6,11 @@ export default function middleware(req) {
 
   console.log(verify, "verify");
   let url = req.url;
-  if (!verify && url.includes("/dashboard")) {
+
+  if (!verify && url.includes("/account")) {
     console.log("!verify");
     return NextResponse.redirect(`http://18.214.112.247:3000/`);
   }
-
   //   if (verify && url.includes("/dashboard")) {
   //     console.log("verify");
   //     return NextResponse.redirect("http://localhost:3000/about");
