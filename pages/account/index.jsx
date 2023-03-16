@@ -36,7 +36,7 @@ const Account = () => {
 
       <div className={`primaryText ${styles.title}`}>MY ACCOUNT</div>
       {
-        user.role =="admin" ? (<Link href={`/dashboard/products`} passHref>
+        (user.role =="admin" && token ) ? (<Link href={`/dashboard/products`} passHref>
       <div className={`borderText  ${styles.logout}`} style={{fontWeight:"bold"}}>Dashboard</div>
       </Link> ) : " "
       }       
