@@ -213,12 +213,12 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
         </div>
 
         <div className={styles.item}>
-          {user ? ( 
+          {token  ? ( 
             <Link href={"/account"} passHref>  
               <div className={styles.iconWrapper}>
                 <PersonOutlineOutlined className={styles.icon} />
               </div>
-            </Link>
+            </Link> 
           ) : (
             <Link href={"/login"} passHref>
               <div className={styles.iconWrapper}>
