@@ -9,8 +9,12 @@ export default function middleware(req) {
   let url = req.url; 
   if (!verify && url.includes("/dashboard")) {
     console.log("!verify");
-    return NextResponse.redirect("http://localhost:3000/");
-  }
+    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_GAID}:3000/`);
+    }
+    if (!verify && url.includes("/account")) {
+        console.log("!verify");
+        return NextResponse.redirect(`${process.env.NEXT_PUBLIC_GAID}:3000/`);
+      }
 //   if (verify && url.includes("/dashboard")) {
 //     console.log("verify");
 //     return NextResponse.redirect("http://localhost:3000/about");
