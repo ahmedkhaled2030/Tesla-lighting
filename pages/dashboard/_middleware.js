@@ -9,11 +9,11 @@ export default function middleware(req) {
   let url = req.url; 
   if (!verify && url.includes("/dashboard")) {
     console.log("!verify");
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_GAID}:3000/`);
+    return NextResponse.redirect(`http://18.214.112.247:3000/`);
     }
     if (!verify && url.includes("/account")) {
         console.log("!verify");
-        return NextResponse.redirect(`${process.env.NEXT_PUBLIC_GAID}:3000/`);
+        return NextResponse.redirect(`http://18.214.112.247:3000/`);
       }
 //   if (verify && url.includes("/dashboard")) {
 //     console.log("verify");
