@@ -2,8 +2,9 @@ import Image from "next/image";
 import { useState } from "react";
 import Head from "next/head";
 import styles from "../../styles/Contact.module.scss";
+import axios from "axios";
 
-const Contact = () => {
+const Contact = ({ pageProps }) => {
   return (
     <div className={` flexCenter paddings ${styles.container}`}>
       <Head>
@@ -24,7 +25,7 @@ const Contact = () => {
         />
       </Head>
       <h1 className={`primaryText ${styles.title}`}>contact us</h1>
-      <p className={styles.address}>
+      {/* <p className={styles.address}>
         Address : 7991 Alderbridge Way, Richmond, BC V6X 2A4
       </p>
       <p className={styles.paragraph}>
@@ -48,7 +49,11 @@ const Contact = () => {
         <br />
         Friday &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 10a.m.–7p.m.
         <br />
-      </p>
+      </p> */}
+      <p
+        className={styles.paragraph}
+        dangerouslySetInnerHTML={{ __html: pageProps.text }}
+      ></p>
 
       <form className={styles.form}>
         <div className={styles.top}>
@@ -71,6 +76,19 @@ const Contact = () => {
       </form>
     </div>
   );
+};
+
+export const getServerSideProps = async (ctx) => {
+  const token = ctx.req?.cookies.token || "";
+  const pageRes = await axios.get(
+    `${process.env.PRIVATE_URL}/dashboard/page/contact-us`
+  );
+
+  return {
+    props: {
+      pageProps: pageRes.data.data,
+    },
+  };
 };
 
 export default Contact;

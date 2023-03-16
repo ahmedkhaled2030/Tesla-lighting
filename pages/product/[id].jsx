@@ -581,7 +581,7 @@ const Product = ({
         {show && (
           <div className={styles.review}>
             <div className={styles.reviewComponent}>
-              <CustomerReview id={productDetails?._id} />
+              <CustomerReview id={productDetails?._id} toggleShow={toggleShow} />
             </div>
 
 

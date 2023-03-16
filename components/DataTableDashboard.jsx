@@ -207,7 +207,8 @@ const DataTableDashboard = ({
         setPageState((old) => ({
           ...old,
           isLoading: false,
-          data: json.reviews,
+          data: json.reviews,  
+          total: json.count,
         })); 
       };
       fetchData();

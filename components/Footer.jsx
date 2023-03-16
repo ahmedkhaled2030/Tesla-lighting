@@ -1,6 +1,6 @@
 import styles from "../styles/Footer.module.scss";
 import { MailOutline, Send } from "@mui/icons-material";
-
+import Link from "next/link";
 const Footer = () => {
   return (
     <div className={styles.footer}>
@@ -8,9 +8,13 @@ const Footer = () => {
       <div className={styles.top}>
         <div className={styles.item}>
           {/* <h1>Links</h1> */}
-          <span>Search</span>
-          <span>Terms of service</span>
-          <span>Shipping & Return Policy</span>
+          <Link href="/terms" style={{ textDecoration: "none" }} passHref>
+            <span>Terms of service</span>
+          </Link>
+          <Link href="/policy" style={{ textDecoration: "none" }} passHref>
+            <span>Shipping & Return Policy</span>
+          </Link>
+
           <span>Our Policy</span>
         </div>
 

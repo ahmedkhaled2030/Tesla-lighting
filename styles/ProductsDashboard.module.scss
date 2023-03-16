@@ -4,6 +4,7 @@
 .products {
     display: flex;
     width: 100%;
+    border-top: 1px solid rgb(230, 227, 227);
     .productsContainer {
       flex: 6;
     }
