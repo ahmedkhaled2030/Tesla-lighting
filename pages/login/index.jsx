@@ -29,8 +29,10 @@ const Login = () => {
         values
       );
       const authData = await res.data.data;
+      console.log(authData ,'authData')        
 
       setCookie("token", authData.refreshToken, { path: "/" });
+      setCookie("role", authData.user.role, { path: "/" });  
       ////console.log(authData, "authData");
       dispatch(authLogin({ ...authData.user }));
  
