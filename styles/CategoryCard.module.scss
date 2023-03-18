@@ -12,16 +12,21 @@
     width: 180px;
     text-align: center !important;
   }
-.wrapper{
-  text-align: center !important;
-}
-  .title{
-
+  .wrapper {
+    text-align: center !important;
+    .image {  
+     
+      transition: transform 0.5s;  
+    }
+    .image:hover {
+      transform: scale(1.1);
+    }
+  }
+  .title {
     text-align: center !important;
     @media (max-width: $sm) {
       font-size: 10px;
       text-align: center !important;
     }
   }
-
 }

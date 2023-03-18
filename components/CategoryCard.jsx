@@ -8,13 +8,14 @@ const CategoryCard = ({ category, key }) => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <Link href={`/collections/${category._id}`} passHref>
-          <div>
+          <div className={styles.imageContainer}>
             <Image
               src={`${process.env.NEXT_PUBLIC_GAID}/${category.image.path}`}
               alt=""
               width="275"
               height="275"
               objectFit="contain"
+              className={styles.image}
             />
             <h1 className={`secondaryText ${styles.title}`}>{category.name}</h1>
           </div>
