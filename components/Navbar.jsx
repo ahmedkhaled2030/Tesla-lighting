@@ -18,7 +18,7 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
   const [token, setToken] = useState(Cookies.get("token"));
-  console.log(token ,"token")
+  // console.log(token ,"token")
   const [url, setUrl] = useState("");
   useEffect(() => {
     setToken(Cookies.get("token"));

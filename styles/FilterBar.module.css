@@ -11,7 +11,8 @@
 
   top: 0;
   left: -200%;
-
+  overflow: auto;
+  flex-shrink: 0;
   z-index: 999;
   position: fixed;
   transition: transform 0.3s ease-out;
@@ -52,6 +53,9 @@
   display: block;
   transition: background-color 0.15s;
 }
+.sidebarItem:hover{
+  background-color: rgba(255, 255, 255, .1);
+}
 
 .sidebarTitle {
   display: flex;
@@ -61,7 +65,8 @@
 }
 
 .sidebarItem.open > .sidebarTitle .toggleBtn {
-  transform: rotate(180deg);
+  /* transform: rotate(180deg); */
+  color: red;
 }
 .sidebarContent {
   padding-top: 0.25em;

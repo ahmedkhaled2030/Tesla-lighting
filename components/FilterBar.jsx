@@ -12,7 +12,8 @@ const FilterBar = ({
   handleFilter,
   categoryProps,
   handleCategories,
-  handleSubCategories
+  handleSubCategories,
+  handleModels
 }) => {
 
   const { menus } = primaryMenus;
@@ -40,14 +41,15 @@ const FilterBar = ({
         {/* <span>{categoryProps.map((item, i) => (
           item.name
         ))}</span> */}
-        {categoryProps.map((item, i) => (
+        {/* {categoryProps.map((item, i) => ( */}
           <FilterBarItem
-            key={i}
-            item={item}
+            // key={i}
+            item={categoryProps}
             handleCategories={handleCategories}
             handleSubCategories={handleSubCategories}
+            handleModels={handleModels}
           />
-        ))}
+        {/* ))} */}
       </div>
       <div className={styles.hr}></div>
       <h1 className={`primaryText ${styles.title}`}>Price</h1>

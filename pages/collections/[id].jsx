@@ -36,6 +36,9 @@ const Collections = (props) => {
   const [selectedSubCategory, setSelectedSubCategory] = useState(
     props.initialSubCategory
   );
+  const [selectedModel, setSelectedModel] = useState(
+    props.initialModel
+  );
 
 
   
@@ -73,12 +76,13 @@ const Collections = (props) => {
       sortOrder !== "" ||
       minPrice !== "" ||
       maxPrice !== "" ||
-      selectedSubCategory !== ""
+      selectedSubCategory !== "" ||
+      selectedModel !== ""
     ) {
       router.push(
         `${
           `/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}`
-        }&sortBy=${sortBy}&sortOrder=${sortOrder}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=20&page=${page}`
+        }&selectedModel=${selectedModel}&sortBy=${sortBy}&sortOrder=${sortOrder}&minPrice=${minPrice}&maxPrice=${maxPrice}&limit=20&page=${page}`
       );
     }
   }, [page,  sortBy, sortOrder, minPrice, maxPrice]);
@@ -87,11 +91,11 @@ const Collections = (props) => {
 
  
     if (selectedCategory !== "") {
-      router.push(`/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}&limit=20&page=${1}`);
+      router.push(`/collections/${selectedCategory}?selectedSubCategory=${selectedSubCategory}&selectedModel=${selectedModel}&limit=20&page=${1}`);
     } 
  
   
-  }, [selectedCategory,selectedSubCategory]);
+  }, [selectedCategory,selectedSubCategory ,selectedModel]);
 
   const handleSort = (e) => {
     if (e.target.value == "Price, low to high") {
@@ -127,15 +131,27 @@ const Collections = (props) => {
     // console.log(cat ,"cat")
     setSelectedCategory(cat._id);
     setSelectedSubCategory("");
+    setSelectedModel("")
   };
   const handleSubCategories = (cat, sub) => {
     setSelectedCategory("")
+    setSelectedModel("")
     // console.log(cat, 'cat')
     // console.log(sub,'sub')
     setSelectedCategory(cat._id);
 
     setSelectedSubCategory(sub._id);
   };
+
+  const handleModels = (cat , model) => {
+    setSelectedCategory("")
+    setSelectedSubCategory("")
+    console.log(cat, 'cat')
+    console.log(model,'model')
+    setSelectedCategory(cat._id);
+
+    setSelectedModel(model._id);
+  }
 
   return (
     <div className={styles.container}>
@@ -164,6 +180,7 @@ const Collections = (props) => {
           categoryProps={props.categoryProps}
           handleCategories={handleCategories}
           handleSubCategories={handleSubCategories}
+          handleModels={handleModels}
         />
       </Box>
       <div
@@ -225,7 +242,7 @@ const Collections = (props) => {
 };
 
 export const getServerSideProps = async (ctx) => {
-  // console.log(ctx.query.page, "ctx.query.page");
+  console.log(ctx.query.selectedModel, "ctx.query.selectedModel");
   // console.log(ctx.query.limit, "ctx.query.limit");
 
   const token = ctx.req?.cookies.token || "";
@@ -239,6 +256,7 @@ export const getServerSideProps = async (ctx) => {
       sortOrder: ctx.query?.sortOrder,
       category: ctx.params.id,
       subCategory: ctx.query?.selectedSubCategory,
+      model: ctx.query?.selectedModel,
     },
     {
       headers: {
@@ -270,6 +288,7 @@ export const getServerSideProps = async (ctx) => {
       categoryProps: categoryRes.data.data,
       initialCategory: ctx.params.id,
       initialSubCategory: "",
+      initialModel:"",
       initialPage:ctx.query.page || null,
    
       categoryIdProps: categoryId.data.data,

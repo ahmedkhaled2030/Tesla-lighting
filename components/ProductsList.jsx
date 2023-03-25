@@ -17,7 +17,7 @@ import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 import Cookies from "js-cookie";
 import axios from "axios";
 const ProductsList = ({ title, products, type, link }) => {
-  console.log(products, "products");
+  // console.log(products, "products");
   const [text, setText] = useState("");
   const [token, setToken] = useState("");
   useEffect(() => {

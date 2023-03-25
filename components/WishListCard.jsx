@@ -31,7 +31,7 @@ const WishListCard = ({ product }) => {
       <h1 className={`thirdText ${styles.title}`}>{product?.title}</h1>
 
       <div className={styles.iconWrapper}>
-        <FavoriteBorderOutlined />
+        <Close />
       </div>
 
       {/* <div className={styles.closeIcon}>

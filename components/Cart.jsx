@@ -31,7 +31,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
     const checkoutProduct = cart.products.map((product) => {
       return {
         id: product._id,
-        color: product.color,
+        // color: product.color,
         size: product.selectedSizeId,
         count: product.quantity,
       };
