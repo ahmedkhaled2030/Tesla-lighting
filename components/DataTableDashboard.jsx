@@ -55,7 +55,7 @@ const DataTableDashboard = ({
           setPageState((old) => ({
             ...old,
             isLoading: false, 
-            data: json[api], 
+            data: json, 
             total: json.count,
           }));
         }

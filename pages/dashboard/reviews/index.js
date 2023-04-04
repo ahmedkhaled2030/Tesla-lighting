@@ -76,7 +76,7 @@ const Reviews = () => {
     {
       field: "title",
       headerName: "ReviewTitle",
-      width: 350,
+      width: 150,
     },
     {
       field: "text",
