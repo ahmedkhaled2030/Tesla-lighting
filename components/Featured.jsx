@@ -113,9 +113,12 @@ const Featured = ({ HeaderSliderProps }) => {
    
             <ArrowForwardIos className={styles.icon} />
             <ul className={styles.menuBar}>
+              <Link href={`http://18.214.112.247:3000/collections/6408ef89be47ab1b5a1db456?selectedSubCategory=6408ef89be47ab1b5a1db45c&selectedModel=&limit=20&page=1`} passHref>
               <li>
                 <a>Mirrors & Mirror Accessories</a>
               </li>
+            </Link>
+             
             </ul>
           </div>
         </div>
