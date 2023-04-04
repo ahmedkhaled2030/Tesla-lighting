@@ -1,4 +1,4 @@
-import styles from "./../styles/FilterBar.module.css";
+import styles from "./../styles/FilterBarDesktop.module.css";
 import FilterBarItem from "./FilterBarItem";
 import primaryMenus from "../utils/navbar.json";
 import { Close } from "@mui/icons-material";
@@ -6,9 +6,9 @@ import Slider from "@mui/material/Slider";
 import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-const FilterBar = ({
-  setOpen,
-  open,
+const FilterBarDesktop = ({
+    setOpenDesktop,
+  openDesktop,
   handleFilter,
   categoryProps,
   handleCategories,
@@ -31,10 +31,10 @@ const FilterBar = ({
     handleFilter(value);
   };
   return (
-    <div className={`${styles.sidebar}  ${open ? styles.open : " "} `}>
+    <div className={styles.sidebar}>
       <div className={styles.top}>
         <h1 className={`primaryText ${styles.title}`}>Filter</h1>
-        <Close onClick={() => setOpen(false)} className={styles.close} />
+        {/* <Close onClick={() => setOpenDesktop(false)} className={styles.close} /> */}
       </div>
       <div className={styles.hr}></div>
       <div className={styles.wrapper}>
@@ -91,4 +91,4 @@ const FilterBar = ({
   );
 };
 
-export default FilterBar;
+export default FilterBarDesktop;

@@ -7,6 +7,7 @@ import {
   FavoriteBorderOutlined,
   Menu,
   Close,
+ 
 } from "@mui/icons-material";
 import Cart from "./Cart";
 import { useEffect, useRef, useState } from "react";
@@ -177,8 +178,14 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
       </div>
       <div className={styles.wrapper}>
         <div className={styles.item} onClick={() => setSearchOpen(true)}>
-          <Search className={styles.icon} />
+        <Search className={styles.icon} />
         </div>
+        {/* <div className={styles.item} >
+          <div className={styles.dropdown}>
+            <Menu className={styles.icon} />
+            <h2  className={`secondaryText `}>Shop By Category</h2>
+        </div>
+        </div> */}
         <div className={styles.item}>
           <ul className={styles.listWrapper}>
             <Link href={`/`} passHref>
@@ -213,6 +220,8 @@ const Navbar = ({ setCloseWishList, setCartOpen, setSearchOpen }) => {
         </div>
 
         <div className={styles.item}>
+          
+        
           {token  ? ( 
             <Link href={"/account"} passHref>  
               <div className={styles.iconWrapper}>

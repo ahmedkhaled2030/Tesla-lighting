@@ -25,6 +25,9 @@ const Layout = ({
   return (    
     <>
       {/* {certainRoute == "/dashboard" && ( */}
+      {!pathname.includes('/dashboard') && (
+      <PromoSlider  />
+      )} 
         <Navbar
           cartOpen={cartOpen}
           setCartOpen={setCartOpen} 
@@ -33,9 +36,7 @@ const Layout = ({
           setSearchOpen={setSearchOpen}
         />
       {/* )} */}
-      {!pathname.includes('/dashboard') && (
-      <PromoSlider  />
-      )} 
+      
 
       {children}
       {!pathname.includes('/dashboard') && (

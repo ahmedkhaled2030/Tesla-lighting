@@ -17,6 +17,7 @@ import FilterBar from "@/components/FilterBar";
 import { Box } from "@mui/system";
 import { Pagination } from "@material-ui/lab";
 import usePagination from "@/components/Pagination";
+import FilterBarDesktop from "@/components/FilterBarDesktop";
 const Collections = (props) => {
 // console.log(props.products.products,'props.products.products')
   const { asPath } = useRouter();
@@ -26,6 +27,7 @@ const Collections = (props) => {
   let [data, setData] = useState(props.products.products);
   
   const [open, setOpen] = useState(false);
+  const [openDesktop, setOpenDesktop] = useState(true);
   const [minPrice, setMinPrice] = useState(props.initialMinPrice);
   const [maxPrice, setMaxPrice] = useState(props.initialMaxPrice);
   const [sortBy, setSortBy] = useState(props.initialSortBy);
@@ -154,7 +156,7 @@ const Collections = (props) => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={styles.babaContainer}>
       <Head>
         <title>{props.categoryIdProps.name}</title>
         <meta name="description" content="Tesla Lighting" />
@@ -183,6 +185,20 @@ const Collections = (props) => {
           handleModels={handleModels}
         />
       </Box>
+
+      <div className={styles.left}>
+      <FilterBarDesktop
+          setOpenDesktop={setOpenDesktop}
+          openDesktop={openDesktop}
+          handleFilter={handleFilter}
+          categoryProps={props.categoryProps}
+          handleCategories={handleCategories}
+          handleSubCategories={handleSubCategories}
+          handleModels={handleModels}
+        />
+      </div>
+
+      <div className={styles.container}>
       <div
         className={styles.imgContainer}
         style={{
@@ -197,7 +213,7 @@ const Collections = (props) => {
         <div className={styles.filterContainer}>
           <button className={styles.filter} onClick={() => setOpen(true)}>
             <FilterAltOutlined />
-            <span className={styles.filterText}>Filter</span>
+            <span className={styles.filterText}>Categories</span>
           </button>
           <div className={` secondaryText ${styles.number}`}>
             {props?.products?.count} products
@@ -237,13 +253,25 @@ const Collections = (props) => {
           />
         </Box>
       </div>
+      </div>
+      
+
+
+
     </div>
   );
 };
 
 export const getServerSideProps = async (ctx) => {
-  console.log(ctx.query.selectedModel, "ctx.query.selectedModel");
-  // console.log(ctx.query.limit, "ctx.query.limit");
+  console.log(ctx.query.selectedSubCategory, "ctx.query.selectedSubCategory");
+
+  console.log(ctx.query.selectedModel == "")
+  console.log(ctx.params, "ctx.params");
+  if (ctx.query.selectedSubCategory) {
+    var subCategory = ctx.query.selectedSubCategory
+  } else {
+    var subCategory = ""
+  }
 
   const token = ctx.req?.cookies.token || "";
 
@@ -256,7 +284,7 @@ export const getServerSideProps = async (ctx) => {
       sortOrder: ctx.query?.sortOrder,
       category: ctx.params.id,
       subCategory: ctx.query?.selectedSubCategory,
-      model: ctx.query?.selectedModel,
+      model: ctx.query?.selectedModel, 
     },
     {
       headers: {
@@ -287,7 +315,7 @@ export const getServerSideProps = async (ctx) => {
       initialMaxPrice: "",
       categoryProps: categoryRes.data.data,
       initialCategory: ctx.params.id,
-      initialSubCategory: "",
+      initialSubCategory: subCategory,
       initialModel:"",
       initialPage:ctx.query.page || null,
    

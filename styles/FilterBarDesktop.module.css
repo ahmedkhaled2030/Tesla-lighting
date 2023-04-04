@@ -1,0 +1,79 @@
+.sidebar {
+  width: 350px;
+  background: white;
+  color: #000;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  position: sticky;
+  top: 0;
+}
+
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  max-height: 5%;
+
+}
+
+.close {
+  margin-right: 20px;
+}
+.hr {
+  width: 100%;
+  margin: 10px auto;
+  height: 1px;
+  color: #ebebeb;
+  background-color: #ebebeb;
+}
+
+.sidebarItem {
+  padding: 0.75em 1em;
+  display: block;
+  transition: background-color 0.15s;
+}
+.sidebarItem:hover{
+  background-color: rgba(255, 255, 255, .1);
+}
+
+.sidebarTitle {
+  display: flex;
+  font-size: 20px;
+  justify-content: space-between;
+
+}
+
+.sidebarItem.open > .sidebarTitle .toggleBtn {
+  /* transform: rotate(180deg); */
+  color: red;
+}
+.sidebarContent {
+  padding-top: 0.25em;
+  height: 0;
+  overflow: hidden;
+}
+.sidebarItem.open > .sidebarContent {
+  height: auto;
+}
+
+.sidebarTitle span {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bottom {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.title{
+  margin-bottom: 20px;
+}
+.slider {
+  color: black !important;
+}

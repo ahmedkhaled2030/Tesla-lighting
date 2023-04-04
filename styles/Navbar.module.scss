@@ -44,6 +44,18 @@
       .icon {
         cursor: pointer !important;
       }
+      .dropdown{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+        background-color: black;
+        width: 200px;
+        padding: 0px 20px;
+        h2{
+          color: white;
+        }
+      }
     }
     > :nth-child(2) {
       flex: 4;
