@@ -44,7 +44,7 @@ const DataTableDashboard = ({
         const json = await res.data.data;
 
         console.log(json, "json");   
-        if (type == "product" || type == "order") {
+        if (type == "product" || type == "order" || type == "user") {
           setPageState((old) => ({
             ...old,
             isLoading: false,
