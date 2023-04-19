@@ -12,6 +12,7 @@ const orderSlice = createSlice({
   reducers: {
     makingOrder: (state, action) => {
       //console.log(action.payload);
+      state.orderId = action.payload.orderId;
       state.clientSecret = action.payload.clientSecret;
       state.tax = action.payload.tax;
       state.shippingCost = action.payload.shippingCost;

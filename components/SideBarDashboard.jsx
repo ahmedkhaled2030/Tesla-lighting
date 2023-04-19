@@ -11,6 +11,7 @@ import {
   Home,
   Layers,
   RateReview,
+  Redeem,
 } from "@mui/icons-material";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -176,6 +177,17 @@ const Sidebar = () => {
               <span>Store Times</span>
             </li>
           </Link>
+          <p className={styles.title}>Coupons</p>
+          <Link
+            href="/dashboard/coupons"
+            style={{ textDecoration: "none" }}
+            passHref
+          >
+            <li>
+              <Redeem className={styles.icon} /> 
+              <span>Coupons</span>
+            </li> 
+          </Link>
           <p className={styles.title}>Pages</p>
          <Link href="/dashboard/about" style={{ textDecoration: "none" }} passHref>
             <li>
@@ -205,6 +217,7 @@ const Sidebar = () => {
               <span>Terms of service</span>
             </li> 
           </Link>
+        
         </ul>
       </div>
     </div>

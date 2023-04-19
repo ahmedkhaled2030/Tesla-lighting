@@ -8,15 +8,76 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Button from "@mui/material/Button";
 import { useState } from "react";
-
 import { useSelector } from "react-redux";
-
 import { useDispatch } from "react-redux";
 import Image from "next/image";
 import { Box } from "@mui/system";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useRouter } from "next/router";
+import { Check } from "@mui/icons-material";
+import { Alert, Snackbar } from "@mui/material";
+const CssTextFieldOrdinary = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "black",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "black",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "black",
+    },
+    "&:hover fieldset": {
+      borderColor: "black",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "black",
+    },
+  },
+});
+const CssTextFieldSuccess = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "green",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "green",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "green",
+    },
+    "&:hover fieldset": {
+      borderColor: "green",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "green",
+    },
+  },
+});
+const CssTextFieldError = styled(TextField)({
+  "& label.Mui-focused": {
+    color: "red",
+  },
+  "& .MuiInput-underline:after": {
+    borderBottomColor: "red",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      borderColor: "red",
+    },
+    "&:hover fieldset": {
+      borderColor: "red",
+    },
+    "&.Mui-focused fieldset": {
+      borderColor: "red",
+    },
+  },
+});
 
 const Container = styled.div`
   display: flex;
+  font-family: "Poppins", sans-serif;
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
@@ -29,6 +90,7 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   padding: 40px;
+  font-family: "Poppins", sans-serif;
   @media (max-width: 768px) {
     padding: 20px;
     width: 80%;
@@ -57,6 +119,7 @@ const Product = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  font-family: "Poppins", sans-serif;
 `;
 
 const ProductInfo = styled.div`
@@ -64,6 +127,7 @@ const ProductInfo = styled.div`
 
   align-items: center;
   align-items: flex-start;
+  font-family: "Poppins", sans-serif;
 `;
 const ImageWrapper = styled.div`
   position: relative;
@@ -88,12 +152,14 @@ const Title = styled.span`
   flex-direction: column;
   margin-left: 30px;
   width: 60%;
+  font-family: "Poppins", sans-serif;
 `;
 const Specs = styled.span``;
 const Amount = styled.span`
   font-size: 20px;
   font-weight: 700;
   width: 100px;
+  font-family: "Poppins", sans-serif;
 `;
 const Qunatity = styled.span`
   display: flex;
@@ -127,6 +193,7 @@ const Subtotal = styled.div`
   justify-content: space-between;
   margin-bottom: 20px;
   font-size: 20px;
+  font-family: "Poppins", sans-serif;
 `;
 const Shipping = styled.div`
   display: flex;
@@ -134,6 +201,16 @@ const Shipping = styled.div`
   justify-content: space-between;
   margin-bottom: 20px;
   font-size: 20px;
+  font-family: "Poppins", sans-serif;
+`;
+const Discount = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+  color: green;
 `;
 const Total = styled.div`
   padding: 20px;
@@ -142,29 +219,144 @@ const Total = styled.div`
   justify-content: space-between;
   margin-top: 20px;
   font-size: 30px;
+  font-family: "Poppins", sans-serif;
+`;
+const ButtonCoupon = styled.button`
+  padding: 10px 0px;
+  font-weight: 500;
+  font-size: 14px;
+  background-color: #111111;
+  letter-spacing: 5px;
+  color: white;
+  width: 20%;
+  border: none;
+  text-transform: uppercase;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+  border-radius: 5px;
+  @media (max-width: 640px) {
+    width: 30%;
+  }
 `;
 
+const CouponAdded = styled.span`
+  font-size: 20px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-left: 10px;
+  width: 60%;
+  color: green;
+`;
 const Checkout = () => {
+  const [token, setToken] = useState(Cookies.get("token"));
   const cart = useSelector((state) => state.cart);
   const subtotal = cart.products.map((x) => x.price * x.quantity);
   const order = useSelector((state) => state.order);
-  //console.log(order);
-
+  console.log(order.orderId);
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipCode, setZipCode] = useState("");
+  const [phone, setPhone] = useState("");
+  const [addressId, setAddressId] = useState("");
+  const [couponCode, setCouponCode] = useState("");
+  const [couponCodeStatus, setCouponCodeStatus] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [discountTax, setDiscountTax] = useState(0);
+  const [discountTotal, setDiscountTotal] = useState(0);
 
-  const handleClick = (e) => {
+
+
+  console.log("addressId", addressId);
+  const handleClick = async (e) => {
     e.preventDefault();
+
+    try {
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_GAID}/user/address`,
+        {
+          address: address,
+          city: city,
+          state: state,
+          postCode: zipCode,
+          country: "CANADA",
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      console.log(res.data.data._id, "res");
+      setAddressId(res.data.data._id);
+      console.log(addressId, "addressId");
+    } catch (err) {
+      console.log(err);
+    }
+
+    console.log(addressId);
+    try {
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_GAID}/order/${order.orderId}`,
+        {
+          address: addressId,
+          phone: phone,
+          coupon: couponCode
+        },   
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      console.log(res.data, "resUpdateOrder");
+
+      router.push("/payment");
+    } catch (err) {
+      console.log(err);
+    }
 
     // const order = { user, ...inputs, cart, products: [...cart.products] };
     // //console.log(order, "order");
     // addOrder(order, dispatch);
   };
 
+  const handleCoupon = async (e) => {
+    console.log("coupon");
+    e.preventDefault();
+
+    try {
+      const res = await axios.put(
+        `${process.env.NEXT_PUBLIC_GAID}/order/${order.orderId}/coupon`,
+        {
+          coupon: couponCode,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      console.log(res.data.data, "coupon");
+      setCouponCodeStatus(res.data.message);
+      setDiscount(res.data.data.discount);
+      setDiscountTax(res.data.data.tax)
+      setDiscountTotal(res.data.data.price)
+      // console.log(addressId, 'addressId')
+    } catch (err) {
+      console.log(err.message);
+      setCouponCodeStatus(err);
+    }
+  };
+  const handleCouponCode = (e) => {
+    e.preventDefault();
+    console.log(e.target.value);
+    setCouponCode(e.target.value);
+  };
   return (
     <div>
       <Container>
@@ -206,13 +398,13 @@ const Checkout = () => {
             style={{ marginBottom: "10px" }}
             onChange={(e) => setZipCode(e.target.value)}
           />
-                    <TextField
+          <TextField
             id="outlined-basic"
             label="Phone"
-            name="postCode"
+            name="phone"
             variant="outlined"
             style={{ marginBottom: "10px" }}
-            onChange={(e) => setZipCode(e.target.value)}
+            onChange={(e) => setPhone(e.target.value)}
           />
         </Left>
         <Right>
@@ -236,18 +428,84 @@ const Checkout = () => {
             </Subtotal>
             <Shipping>
               <span>Estimated Shipping</span>
-              <span>{order.shippingCost} 40 $</span>
+              <span>{order.shippingCost} $</span>
             </Shipping>
             <Shipping>
+              
               <span>Tax</span>
-              <span>{order.tax} 774.332 $</span>
+              {couponCodeStatus == "Coupon added!" ? (     <span>{discountTax} $</span>): (     <span>{order.tax} $</span>)}
+         
             </Shipping>
+            {couponCodeStatus == "Coupon added!" && (
+              <Discount>
+                <span>Discount</span>
+                <span>- {discount} $</span>
+              </Discount>
+            )}
           </AmountInfo>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
+              my: 2,
+            }}
+          >
+            {couponCodeStatus == "Coupon added!" && (
+              <CssTextFieldSuccess
+                id="outlined-basic"
+                label="Coupon added!"
+                variant="outlined"
+                value={couponCode}
+                sx={{ marginRight: "20px", borderColor: "#000  !important" }}
+              />
+            )}
+
+            {couponCodeStatus == "" && (
+              <CssTextFieldOrdinary
+                id="outlined-basic"
+                label="Enter a coupon code"
+                variant="outlined"
+                defaultValue={couponCode}
+                sx={{ marginRight: "20px", borderColor: "#000  !important" }}
+                onChange={handleCouponCode}
+              />
+            )}
+            {couponCodeStatus !== "Coupon added!" &&
+              couponCodeStatus !== "" && (
+                <CssTextFieldError
+                  id="outlined-basic"
+                  label="Coupon Failed!"
+                  variant="outlined"
+                  defaultValue={couponCode}
+                  sx={{ marginRight: "20px", borderColor: "#000  !important" }}
+                  onChange={handleCouponCode}
+                />
+              )}
+
+            {couponCodeStatus == "Coupon added!" ? (
+              <>
+                {" "}
+                <Check sx={{ color: "green" }} />
+                <CouponAdded>Coupon applied!</CouponAdded>
+              </>
+            ) : (
+              <ButtonCoupon onClick={handleCoupon}>Apply</ButtonCoupon>
+            )}
+          </Box>
 
           <Hr />
           <Total>
             <span>Total</span>
-            <span>{order.price} 6770.73 $</span>
+            {couponCodeStatus == "Coupon added!" ? (
+              <span>
+                {discountTotal} $
+              </span>
+            ):(  <span>{order.price} $</span>)}  
+
+          
           </Total>
           <Box
             sx={{
@@ -266,7 +524,7 @@ const Checkout = () => {
                 margin: "auto",
                 textAlign: "center",
               }}
-              // onClick={handleClick}
+              onClick={handleClick}
               disabled={!address || !city || !state || !zipCode}
             >
               Place Order

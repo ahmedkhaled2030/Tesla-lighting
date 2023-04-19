@@ -9,12 +9,40 @@ import { useRouter } from "next/router";
 import { addCart, removeCart, removeBulk } from "../redux/cartSlice";
 import { makingOrder } from "../redux/orderSlice";
 import Cookies from "js-cookie";
+import { Alert, Snackbar } from "@mui/material";
+import Link from "next/link";
 const Cart = ({ cartOpen, setCartOpen }) => {
   const [token, setToken] = useState(Cookies.get("token"));
+  console.log(token ,'token')
   const dispatch = useDispatch();
   const router = useRouter();
   const cart = useSelector((state) => state.cart);
-  //console.log(cart, "cart");
+
+
+  //snackbar
+  const [rejectText, setRejectText] = useState("")
+  const [state, setState] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "left",
+  });
+  const { vertical, horizontal, open } = state;
+  const handleClick = (newState) => {
+    console.log("checked")          
+    //console.log(newState, "newState");
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+ //snackbar
+
+
+
+
+
+
   const handleQuantity = (_id, price, quantity, type, size) => {
     ////console.log(_id, price, quantity, type, size)
     if (type === "dec") {
@@ -27,24 +55,25 @@ const Cart = ({ cartOpen, setCartOpen }) => {
   };
 
   const makeOrder = async () => {
-    // //console.log(cart.products, "cart");
+//     console.log('aaaaaaaaaa')
+//  console.log(cart.products, "cart");
     const checkoutProduct = cart.products.map((product) => {
       return {
         id: product._id,
         // color: product.color,
-        size: product.selectedSizeId,
+        // size: product.selectedSizeId,
         count: product.quantity,
       };
     });
-    // //console.log(checkoutProduct ,'checkoutProduct')
+  console.log(checkoutProduct ,'checkoutProduct')
     const orderSchema = {
-      address: "63ee4042a881d677137625d6",
+      // address: "63ee4042a881d677137625d6",
       products: checkoutProduct,
     };
-    //console.log(orderSchema, "orderSchema");
+    console.log(orderSchema, "orderSchema");
     try {
       const res = await axios.post(
-        "http://18.214.112.247:4000/order",
+        `${process.env.NEXT_PUBLIC_GAID}/order`,
         orderSchema,
         {
           headers: {
@@ -52,25 +81,61 @@ const Cart = ({ cartOpen, setCartOpen }) => {
           },
         }
       );
-      //console.log(res.data.data, "res");
+      console.log(res.data.data, "res");   
 
       dispatch(
         makingOrder({
-          clientSecret: res.data.data.clientSecret,
+          orderId: res.data.data.orderId,
+          count : res.data.data.count , 
+          clientSecret: res.data.data.clientSecret,   
           tax: res.data.data.tax,
           shippingCost: res.data.data.shippingCost,
           price: res.data.data.price,
-          discount: res.data.data.discount,
+          discount: res.data.data.discount, 
         })
       );
-      router.push("/checkout");
+      if (token == undefined) {
+        setRejectText("Complete the order")
+        handleClick({
+          vertical: "top",
+          horizontal: "left",
+        });
+      } else {
+        router.push("/checkout");
+      }
+      
     } catch (err) {
-      //console.log(err);
+      console.log(err);
     }
   };
-
+  const loginButton = () => {
+    router.push("/login"); 
+}
   return (
     <div className={`${styles.container}  ${cartOpen ? styles.open : " "} `}>
+      {token == undefined && (
+        <Snackbar
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical, horizontal }}
+          key={vertical + horizontal}
+        >
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            PLEASE  
+             <Link
+              href={`/login`}
+              passHref
+              className={styles.link}
+              styles={{ color: "#000 !important", textDecoration: "inherit !important" }}
+            >
+             
+                      LOGIN
+            </Link>   
+            TO {rejectText}
+          </Alert>
+        </Snackbar>
+      )}
       <div className={styles.top}>
         <h1 className={`primaryText ${styles.title}`}>Cart</h1>
         <Close onClick={() => setCartOpen(false)} className={styles.close} />
@@ -146,13 +211,19 @@ const Cart = ({ cartOpen, setCartOpen }) => {
             </div>
             <span className={styles.text}>
               Shipping, taxes, and discount codes calculated at checkout.
-            </span>
-            <button
-              // onClick={makeOrder}
+              </span>
+              {token == undefined ? (<button
+              onClick={loginButton}
+              className={styles.switchButton}
+            >
+              Login to proceed
+            </button>): (<button
+              onClick={makeOrder}
               className={styles.switchButton}
             >
               Check out
-            </button>
+            </button>)}
+            
           </div>
         </div>
       )}
