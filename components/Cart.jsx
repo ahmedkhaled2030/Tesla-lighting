@@ -13,14 +13,17 @@ import { Alert, Snackbar } from "@mui/material";
 import Link from "next/link";
 const Cart = ({ cartOpen, setCartOpen }) => {
   const [token, setToken] = useState(Cookies.get("token"));
-  console.log(token ,'token')
+  console.log(token, "token");
   const dispatch = useDispatch();
   const router = useRouter();
   const cart = useSelector((state) => state.cart);
-
+  console.log(
+    cart.products.map((x) => x.stock),
+    "cart"
+  );
 
   //snackbar
-  const [rejectText, setRejectText] = useState("")
+  const [rejectText, setRejectText] = useState("");
   const [state, setState] = useState({
     open: false,
     vertical: "top",
@@ -28,7 +31,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
   });
   const { vertical, horizontal, open } = state;
   const handleClick = (newState) => {
-    console.log("checked")          
+    console.log("checked");
     //console.log(newState, "newState");
     setState({ open: true, ...newState });
   };
@@ -36,12 +39,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
   const handleClose = () => {
     setState({ ...state, open: false });
   };
- //snackbar
-
-
-
-
-
+  //snackbar
 
   const handleQuantity = (_id, price, quantity, type, size) => {
     ////console.log(_id, price, quantity, type, size)
@@ -55,8 +53,8 @@ const Cart = ({ cartOpen, setCartOpen }) => {
   };
 
   const makeOrder = async () => {
-//     console.log('aaaaaaaaaa')
-//  console.log(cart.products, "cart");
+    //     console.log('aaaaaaaaaa')
+    //  console.log(cart.products, "cart");
     const checkoutProduct = cart.products.map((product) => {
       return {
         id: product._id,
@@ -65,7 +63,7 @@ const Cart = ({ cartOpen, setCartOpen }) => {
         count: product.quantity,
       };
     });
-  console.log(checkoutProduct ,'checkoutProduct')
+    console.log(checkoutProduct, "checkoutProduct");
     const orderSchema = {
       // address: "63ee4042a881d677137625d6",
       products: checkoutProduct,
@@ -81,21 +79,21 @@ const Cart = ({ cartOpen, setCartOpen }) => {
           },
         }
       );
-      console.log(res.data.data, "res");   
+      console.log(res.data.data, "res");
 
       dispatch(
         makingOrder({
           orderId: res.data.data.orderId,
-          count : res.data.data.count , 
-          clientSecret: res.data.data.clientSecret,   
+          count: res.data.data.count,
+          clientSecret: res.data.data.clientSecret,
           tax: res.data.data.tax,
           shippingCost: res.data.data.shippingCost,
           price: res.data.data.price,
-          discount: res.data.data.discount, 
+          discount: res.data.data.discount,
         })
       );
       if (token == undefined) {
-        setRejectText("Complete the order")
+        setRejectText("Complete the order");
         handleClick({
           vertical: "top",
           horizontal: "left",
@@ -103,14 +101,13 @@ const Cart = ({ cartOpen, setCartOpen }) => {
       } else {
         router.push("/checkout");
       }
-      
     } catch (err) {
       console.log(err);
     }
   };
   const loginButton = () => {
-    router.push("/login"); 
-}
+    router.push("/login");
+  };
   return (
     <div className={`${styles.container}  ${cartOpen ? styles.open : " "} `}>
       {token == undefined && (
@@ -122,16 +119,18 @@ const Cart = ({ cartOpen, setCartOpen }) => {
           key={vertical + horizontal}
         >
           <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-            PLEASE  
-             <Link
+            PLEASE
+            <Link
               href={`/login`}
               passHref
               className={styles.link}
-              styles={{ color: "#000 !important", textDecoration: "inherit !important" }}
+              styles={{
+                color: "#000 !important",
+                textDecoration: "inherit !important",
+              }}
             >
-             
-                      LOGIN
-            </Link>   
+              LOGIN
+            </Link>
             TO {rejectText}
           </Alert>
         </Snackbar>
@@ -147,59 +146,69 @@ const Cart = ({ cartOpen, setCartOpen }) => {
         <div>
           {cart.products?.map((product, i) => (
             <div className={styles.center} key={i}>
-              <div className={styles.imgContainer}>
-                <Image
-                  src={product.img}
-                  alt=""
-                  height="150px"
-                  width="150px"
-                  objectFit="contain"
-                />
-              </div>
-              <div className={styles.detailsContainer}>
-                <span className={styles.title}>{product.title}</span>
-                {/* <span className={styles.title}>
+              {product?.stock > 0 ? (
+                <>
+                  <div className={styles.imgContainer}>
+                    <Image
+                      src={product.img}
+                      alt=""
+                      height="150px"
+                      width="150px"
+                      objectFit="contain"
+                    />
+                  </div>
+                  <div className={styles.detailsContainer}>
+                    <span className={styles.title}>{product.title}</span>
+                    {/* <span className={styles.title}>
                   <strong>size :</strong> {product.size}"
                 </span> */}
-                <div className={styles.price}>
-                  <div className={styles.number}>
-                    <button
-                      className={styles.control}
-                      onClick={() =>
-                        handleQuantity(
-                          product._id,
-                          product.price,
-                          product.quantity,
-                          "dec",
+                    <div className={styles.price}>
+                      <div className={styles.number}>
+                        <button
+                          className={styles.control}
+                          onClick={() =>
+                            handleQuantity(
+                              product._id,
+                              product.price,
+                              product.quantity,
+                              "dec",
 
-                          product.size
-                        )
-                      }
-                    >
-                      -
-                    </button>
-                    <span>{product.quantity}</span>
-                    <button
-                      className={styles.control}
-                      onClick={() =>
-                        handleQuantity(
-                          product._id,
-                          product.price,
-                          product.quantity,
-                          "inc",
-
-                          product.size
-                        )
-                      }
-                    >
-                      +
-                    </button>
+                              product.size
+                            )
+                          }
+                        >
+                          -
+                        </button>
+                        <span>{product.quantity}</span>
+                        <button
+                          className={styles.control}
+                          onClick={() =>
+                            handleQuantity(
+                              product._id,
+                              product.price,
+                              product.quantity,
+                              "inc",
+                              product.size
+                            )
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                      <span style={{ marginLeft: "10px" }}>
+                        ${(product.price * product.quantity).toFixed(2)}
+                      </span>
+                    </div>
+                    <div style={{ color: "red", marginTop: "10px" }}>
+                      {product.stock < 5
+                        ? `only ${product.stock} in stock`
+                        : ""}
+                    </div>
                   </div>
-                  <span style={{ marginLeft: "10px" }}>
-                    ${(product.price * product.quantity).toFixed(2)}
-                  </span>
-                </div>
-              </div>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           ))}
 
@@ -211,19 +220,16 @@ const Cart = ({ cartOpen, setCartOpen }) => {
             </div>
             <span className={styles.text}>
               Shipping, taxes, and discount codes calculated at checkout.
-              </span>
-              {token == undefined ? (<button
-              onClick={loginButton}
-              className={styles.switchButton}
-            >
-              Login to proceed
-            </button>): (<button
-              onClick={makeOrder}
-              className={styles.switchButton}
-            >
-              Check out
-            </button>)}
-            
+            </span>
+            {token == undefined ? (
+              <button onClick={loginButton} className={styles.switchButton}>
+                Login to proceed
+              </button>
+            ) : (
+              <button onClick={makeOrder} className={styles.switchButton}>
+                Check out
+              </button>
+            )}
           </div>
         </div>
       )}

@@ -55,7 +55,7 @@ const AddProduct = ({ categoryList }) => {
     }
 
     axios
-      .post("http://18.214.112.247:4000/product/upload", formData, {
+      .post(`${process.env.NEXT_PUBLIC_GAID}/product/upload`, formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -157,7 +157,7 @@ const AddProduct = ({ categoryList }) => {
 
     axios
       .post(
-        "http://18.214.112.247:4000/product",
+        `${process.env.NEXT_PUBLIC_GAID}/product`,
         {
           category: category._id,
           subCategory: selectedSubcategory._id,
@@ -180,9 +180,7 @@ const AddProduct = ({ categoryList }) => {
       .then((res) => {
         router.push(`/dashboard/products`);
       })
-      .catch((error) => {
-    
-      })
+      .catch((error) => {});
   };
 
   const productInputs = [
@@ -574,7 +572,7 @@ const AddProduct = ({ categoryList }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const res = await axios.get(
-    `http://18.214.112.247:4000/category/list`,
+    `${process.env.NEXT_PUBLIC_GAID}/category/list`,
 
     {
       headers: {

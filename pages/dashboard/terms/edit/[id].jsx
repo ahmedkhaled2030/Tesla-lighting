@@ -60,7 +60,7 @@ const Terms = ({ EditRes }) => {
     }
 
     axios
-      .post("http://18.214.112.247:4000/product/upload", formData, {
+      .post(`${process.env.NEXT_PUBLIC_GAID}/product/upload`, formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -92,7 +92,7 @@ const Terms = ({ EditRes }) => {
     // console.log(editorRef.current.getContent());
     axios
       .post(
-        `http://18.214.112.247:4000/dashboard/page/terms-conditions`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/page/terms-conditions`,
         {
           title: "Terms & Conditions",
           text: editorRef.current.getContent(),
@@ -185,7 +185,7 @@ export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
   const EditRes = await axios.get(
-    `http://18.214.112.247:4000/dashboard/page/terms-conditions`,
+    `${process.env.NEXT_PUBLIC_GAID}/dashboard/page/terms-conditions`,
 
     {
       headers: {

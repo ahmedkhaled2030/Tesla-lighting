@@ -53,7 +53,7 @@ const AddProduct = ({ categoryList }) => {
 
     axios
       .post(
-        "http://18.214.112.247:4000/user/register",
+        `${process.env.NEXT_PUBLIC_GAID}/user/register`,
         {
           role: role,
 
@@ -183,7 +183,7 @@ const AddProduct = ({ categoryList }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const res = await axios.get(
-    `http://18.214.112.247:4000/category/list`,
+    `${process.env.NEXT_PUBLIC_GAID}/category/list`,
 
     {
       headers: {

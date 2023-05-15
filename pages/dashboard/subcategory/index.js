@@ -40,7 +40,7 @@ const SubCategory = ({ categoryList }) => {
   const addSubCategory = async () => {
     try {
       const res = await axios.post(
-        `http://18.214.112.247:4000/dashboard/category`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/category`,
         {
           name: subcategory,
           parent: category._id,
@@ -153,8 +153,8 @@ const SubCategory = ({ categoryList }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const res = await axios.get(
-    // `http://18.214.112.247:4000/product/${params.id}`
-    `http://18.214.112.247:4000/category/list`,
+    // `${process.env.NEXT_PUBLIC_GAID}/product/${params.id}`
+    `${process.env.NEXT_PUBLIC_GAID}/category/list`,
 
     {
       headers: {

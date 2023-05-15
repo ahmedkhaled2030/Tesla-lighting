@@ -25,20 +25,23 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://18.214.112.247:4000/user/login",
+        `${process.env.NEXT_PUBLIC_GAID}/user/login`,
         values
       );
       const authData = await res.data.data;
-      console.log(authData ,'authData')        
+      console.log(authData, "authData");
 
       setCookie("token", authData.refreshToken, { path: "/" });
-      setCookie("role", authData.user.role, { path: "/" });  
+
+      setCookie("role", authData.user.role, { path: "/" });
+     
       ////console.log(authData, "authData");
       dispatch(authLogin({ ...authData.user }));
- 
-      router.push("/");
 
-    } catch (err) { 
+      router.push("/");
+      // router.reload()
+      // window.location.href = "/"
+    } catch (err) {
       setError(true);
     }
   };
@@ -65,7 +68,7 @@ const Login = () => {
       // pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
       required: true,
     },
-  ]; 
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,7 +81,7 @@ const Login = () => {
   return (
     <div className={` flexCenter paddings ${styles.container}`}>
       <Head>
-        <title>Login</title> 
+        <title>Login</title>
         <meta name="description" content="Tesla Lighting" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

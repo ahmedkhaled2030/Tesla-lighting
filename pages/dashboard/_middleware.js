@@ -1,16 +1,29 @@
 import { NextResponse } from "next/server";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 export default function middleware(req) {
-  let verify = req.cookies["token"];
-  let role = req.cookies["role"];
-  console.log('role' ,role == 'user') 
-  // console.log(verify, "verify"); 
+  console.log('11111111111')
+  // const auth = useSelector((state) => state.auth);
+  let token = req.cookies["token"];
+  if (token) {
+    const role = JSON.parse(atob(token.split('.')[1])).role
+ 
+
   let url = req.url;
-  if (role == 'user' && url.includes("/dashboard")) {
+  if ( role !== 'admin') {        
    
-    return NextResponse.redirect(`http://18.214.112.247:3000/`);
+    return NextResponse.redirect(`/404`);
   }
+  } else {
+    return NextResponse.redirect(`/404`);
+  }
+
+
+
+     
+  
+  
 
  
 }

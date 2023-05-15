@@ -17,7 +17,7 @@ const PromoSlider = () => {
       await setToken(Cookies.get("token"));
 
       const res = await axios.get(
-        `http://18.214.112.247:4000/dashboard/section/promos`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/section/promos`,
 
         {
           headers: {

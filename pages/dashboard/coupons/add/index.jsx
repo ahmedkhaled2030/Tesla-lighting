@@ -56,7 +56,7 @@ const AddCoupon = () => {
 
     axios
       .post(
-        "http://18.214.112.247:4000/dashboard/coupon",
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/coupon`,
         {
           code: code,
           discount: discount,

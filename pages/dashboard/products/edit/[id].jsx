@@ -72,7 +72,7 @@ const EditProduct = ({ categoryList, editProps }) => {
     }
 
     axios
-      .post("http://18.214.112.247:4000/product/upload", formData, {
+      .post(`${process.env.NEXT_PUBLIC_GAID}/product/upload`, formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -180,7 +180,7 @@ const EditProduct = ({ categoryList, editProps }) => {
 
     axios
       .put(
-        `http://18.214.112.247:4000/dashboard/product/${editProps.product._id}`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/product/${editProps.product._id}`,
         {
           new: isNew,
           colors: selectedColors,
@@ -611,7 +611,7 @@ export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   //console.log(ctx.params.id);
   const categoryRes = await axios.get(
-    `http://18.214.112.247:4000/category/list`,
+    `${process.env.NEXT_PUBLIC_GAID}/category/list`,
 
     {
       headers: {
@@ -620,7 +620,7 @@ export const getServerSideProps = async (ctx) => {
     }
   );
   const editRes = await axios.get(
-    `http://18.214.112.247:4000/product/${ctx.params.id}`,
+    `${process.env.NEXT_PUBLIC_GAID}/product/${ctx.params.id}`,
 
     {
       headers: {

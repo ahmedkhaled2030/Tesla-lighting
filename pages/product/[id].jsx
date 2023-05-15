@@ -56,7 +56,7 @@ const Product = ({
   SimilarResProps,
   RecentlyResProps,
 }) => {
-  console.log(ReviewProps, "ReviewProps");
+  console.log(productDetails, "productDetails");
  
   const [isFavorited, setIsFavorited] = useState(false);
   const [text, setText] = useState("");

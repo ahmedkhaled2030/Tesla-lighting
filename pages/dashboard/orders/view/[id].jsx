@@ -33,6 +33,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 const GetOrder = ({ orderProps }) => {
+  console.log(orderProps ,'orderProps')
   function createData(name, value) {
     return { name, value };
   }
@@ -46,6 +47,7 @@ const GetOrder = ({ orderProps }) => {
     createData("ShippingCost ", orderProps?.shippingCost + " " + "$"),
     createData("User ID", orderProps?.address?.user),
     createData("User Address", orderProps?.address?.address),
+    createData("User Phone", orderProps?.phone),
     createData("City", orderProps?.address?.city),
     createData("state", orderProps?.address?.state),
     createData("Email", orderProps?.user?.email),
@@ -168,7 +170,7 @@ const GetOrder = ({ orderProps }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const categoryRes = await axios.get(
-    `http://18.214.112.247:4000/category/list`,
+    `${process.env.NEXT_PUBLIC_GAID}/category/list`,
 
     {
       headers: {
@@ -178,7 +180,7 @@ export const getServerSideProps = async (ctx) => {
   );
 
   const getOrderRes = await axios.get(
-    `http://18.214.112.247:4000/dashboard/order/${ctx.params.id}`,
+    `${process.env.NEXT_PUBLIC_GAID}/dashboard/order/${ctx.params.id}`,
 
     {
       headers: {

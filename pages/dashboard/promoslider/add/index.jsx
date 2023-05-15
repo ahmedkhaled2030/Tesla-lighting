@@ -48,7 +48,7 @@ const PromoSliderAdd = () => {
 
     axios
       .post(
-        "http://18.214.112.247:4000/dashboard/section",
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/section`,
         {
           name: "promos",
 

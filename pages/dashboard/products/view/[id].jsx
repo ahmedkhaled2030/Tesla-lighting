@@ -156,7 +156,7 @@ const GetProduct = ({ categoryList, EditRes }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const categoryRes = await axios.get(
-    `http://18.214.112.247:4000/category/list`,
+    `${process.env.NEXT_PUBLIC_GAID}/category/list`,
 
     {
       headers: {
@@ -166,7 +166,7 @@ export const getServerSideProps = async (ctx) => {
   );
 
   const EditRes = await axios.get(
-    `http://18.214.112.247:4000/product/${ctx.params.id}`,
+    `${process.env.NEXT_PUBLIC_GAID}/product/${ctx.params.id}`,
 
     {
       headers: {

@@ -38,7 +38,7 @@ const SearchBar = ({ searchOpen, setSearchOpen, searchValue }) => {
     if (searchText !== "") {
       try {
         const res = await axios.post(
-          `http://18.214.112.247:4000/product/search`,
+          `${process.env.NEXT_PUBLIC_GAID}/product/search`,
           {
             text: debouncedValue,
           }

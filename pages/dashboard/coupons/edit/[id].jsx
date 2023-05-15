@@ -43,7 +43,7 @@ const EditCoupon = ({ editCouponProps }) => {
 
     axios
       .put(
-        `http://18.214.112.247:4000/dashboard/coupon/${editCouponProps._id}`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/coupon/${editCouponProps._id}`,
         {
           code: code,
           discount: discount,
@@ -127,7 +127,7 @@ const EditCoupon = ({ editCouponProps }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const editCoupon = await axios.get(
-    `http://18.214.112.247:4000/dashboard/coupon/${ctx.params.id}`,
+    `${process.env.NEXT_PUBLIC_GAID}/dashboard/coupon/${ctx.params.id}`,
 
     {
       headers: {

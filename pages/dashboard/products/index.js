@@ -19,7 +19,7 @@ const Products = () => {
   const handleDelete = async (id) => {
     try {
       const res = await axios.delete(
-        `http://18.214.112.247:4000/dashboard/product/${id}`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/product/${id}`,
 
         {
           headers: {

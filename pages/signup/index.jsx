@@ -25,7 +25,7 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://18.214.112.247:4000/user/register", {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_GAID}/user/register`, {
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,

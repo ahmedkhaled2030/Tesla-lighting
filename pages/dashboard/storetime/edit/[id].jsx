@@ -60,7 +60,7 @@ const storeTimeEdit = ({ EditRes }) => {
     }
 
     axios
-      .post("http://18.214.112.247:4000/product/upload", formData, {
+      .post(`${process.env.NEXT_PUBLIC_GAID}/product/upload`, formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -92,7 +92,7 @@ const storeTimeEdit = ({ EditRes }) => {
     //console.log(editorRef.current.getContent(), url, imagePath);
     axios
       .put(
-        ` http://18.214.112.247:4000/dashboard/section/${id}`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/section/${id}`,
         {
           name: "retail-store",
           text: editorRef.current.getContent(),
@@ -249,7 +249,7 @@ export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
   const EditRes = await axios.get(
-    `http://18.214.112.247:4000/dashboard/section/retail-store`,
+    `${process.env.NEXT_PUBLIC_GAID}/dashboard/section/retail-store`,
 
     {
       headers: {

@@ -59,7 +59,7 @@ const HeaderSliderEdit = ({ EditResProps }) => {
     }
 
     axios
-      .post("http://18.214.112.247:4000/product/upload", formData, {
+      .post(`${process.env.NEXT_PUBLIC_GAID}/product/upload`, formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -90,7 +90,7 @@ const HeaderSliderEdit = ({ EditResProps }) => {
 
     axios
       .put(
-        `http://18.214.112.247:4000/dashboard/section/${EditResProps[0]._id}`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/section/${EditResProps[0]._id}`,
         {
           name: "header",
           title: title,
@@ -242,7 +242,7 @@ export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
   const EditRes = await axios.get(
-    `http://18.214.112.247:4000/dashboard/section/header`,
+    `${process.env.NEXT_PUBLIC_GAID}/dashboard/section/header`,
 
     {
       headers: {

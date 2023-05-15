@@ -12,10 +12,11 @@ export default function middleware(req) {
 
   if (!verify && url.includes("/account")) {
     console.log("!verify");
-    return NextResponse.redirect(`http://18.214.112.247:3000/`);
+    return NextResponse.redirect(`/404`);
   }
-  //   if (verify && url.includes("/dashboard")) {
-  //     console.log("verify");
-  //     return NextResponse.redirect("http://localhost:3000/about");
-  //   }
+ 
 }
+
+
+
+//${process.env.NEXT_PUBLIC_GAID}

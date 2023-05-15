@@ -54,7 +54,7 @@ const EditUser = ({ editUserProps }) => {
 
     axios
       .put(
-        `http://18.214.112.247:4000/dashboard/user/${editUserProps._id}`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/user/${editUserProps._id}`,
         {
           role: role,
 
@@ -170,7 +170,7 @@ const EditUser = ({ editUserProps }) => {
 export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
   const editUser = await axios.get(
-    `http://18.214.112.247:4000/dashboard/user/${ctx.params.id}`,
+    `${process.env.NEXT_PUBLIC_GAID}/dashboard/user/${ctx.params.id}`,
 
     {
       headers: {

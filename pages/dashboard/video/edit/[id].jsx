@@ -59,7 +59,7 @@ const VideoEdit = ({ EditResProps }) => {
     }
 
     axios
-      .post("http://18.214.112.247:4000/product/upload", formData, {
+      .post(`${process.env.NEXT_PUBLIC_GAID}/product/upload`, formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -89,7 +89,7 @@ const VideoEdit = ({ EditResProps }) => {
 
     axios
       .put(
-        `http://18.214.112.247:4000/dashboard/section/${EditResProps._id}`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/section/${EditResProps._id}`,
         {
           name: "video",
 
@@ -224,7 +224,7 @@ export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
   const EditRes = await axios.get(
-    `http://18.214.112.247:4000/dashboard/section/video`,
+    `${process.env.NEXT_PUBLIC_GAID}/dashboard/section/video`,
 
     {
       headers: {

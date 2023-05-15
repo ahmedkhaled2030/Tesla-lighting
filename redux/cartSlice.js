@@ -9,7 +9,7 @@ const cartSlice = createSlice({
   },
   reducers: {
     addProduct: (state, action) => {
-      //console.log(action.payload )
+      console.log(action.payload )
       // const size = action.payload.size[action.payload.itemSize].value;
       // ////console.log(size)
       const product = {
@@ -22,6 +22,7 @@ const cartSlice = createSlice({
         title: action.payload.title,
         // image: action.payload.images[0],
         img: `${process.env.NEXT_PUBLIC_OLDPATH}/${action.payload.cover}`,
+        stock :action.payload.stock  
       };
 
       // const index = state.products.findIndex(

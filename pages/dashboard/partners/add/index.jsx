@@ -58,7 +58,7 @@ const PartnersAdd = () => {
     }
 
     axios
-      .post("http://18.214.112.247:4000/product/upload", formData, {
+      .post(`${process.env.NEXT_PUBLIC_GAID}/product/upload`, formData, {
         onUploadProgress: (data) => {
           setUploading(Math.round((data.loaded / data.total) * 100));
         },
@@ -88,7 +88,7 @@ const PartnersAdd = () => {
 
     axios
       .post(
-        "http://18.214.112.247:4000/dashboard/partner",
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/partner`,
         {
           name: name,
 

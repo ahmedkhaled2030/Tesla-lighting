@@ -27,7 +27,7 @@ const Category = () => {
   const addCategory = async () => {
     try {
       const res = await axios.post(
-        `http://18.214.112.247:4000/dashboard/category`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/category`,
         {
           name: category,
         },

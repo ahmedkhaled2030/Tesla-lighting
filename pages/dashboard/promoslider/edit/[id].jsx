@@ -48,7 +48,7 @@ const PromoSliderEdit = ({ EditResProps }) => {
 
     axios
       .put(
-        `http://18.214.112.247:4000/dashboard/section/${EditResProps[0]?._id}`,
+        `${process.env.NEXT_PUBLIC_GAID}/dashboard/section/${EditResProps[0]?._id}`,
         {
           name: "promos",
           text: text,
@@ -149,7 +149,7 @@ export const getServerSideProps = async (ctx) => {
   const token = ctx.req?.cookies.token || "";
 
   const EditRes = await axios.get(
-    `http://18.214.112.247:4000/dashboard/section/promos`,
+    `${process.env.NEXT_PUBLIC_GAID}/dashboard/section/promos`,
 
     {
       headers: {
